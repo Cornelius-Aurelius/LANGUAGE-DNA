@@ -169,7 +169,7 @@
     if(!record.startedAt){record.startedAt=Date.now();recordSignal('daily_start',{day:key})}
     all[key]=record;saveDaily(all);return{all:all,key:key,record:record}
   }
-  function dailyDone(){return ensureDailyRecord().record.done}
+  function dailyDone(){const r=dailyData()[dateKey()];return r&&Array.isArray(r.done)?r.done:[]}
   function incompleteDailyDays(){const all=dailyData(),today=dateKey();return Object.keys(all).filter(function(k){const r=all[k];return k!==today&&r&&r.startedAt&&!r.completedAt&&(r.done||[]).length<5}).length}
   function completedLast7(){const all=dailyData();let n=0;for(let i=0;i<7;i++){const r=all[dateKey(-i)];if(r&&r.completedAt)n++}return n}
 
@@ -227,7 +227,7 @@
     if(step==='review'){
       const r=plan.review;
       if(r){
-        const choices=(r.choices||[]).slice(0,profile.choiceCount);
+        const choices=choiceValues(r.answer,profile.choiceCount,(r.choices||[]).filter(function(v){return normalize(v)!==normalize(r.answer)}),seedNumber(dateKey()+r.id));
         return '<span class="eyebrow">STEP 1 · REMEMBER</span><h2>'+escapeHtml(r.prompt)+'</h2><p>Choose the Spanish you remember. If it is difficult, that simply tells LanguageDNA to bring it back sooner.</p><div class="daily-choice-grid">'+choices.map(function(v){return'<button type="button" data-daily-review-choice="'+escapeHtml(v)+'">'+escapeHtml(v)+'</button>'}).join('')+'</div>'
       }
       const choices=dailyChoices(item,profile.choiceCount);
