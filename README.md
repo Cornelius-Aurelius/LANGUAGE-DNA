@@ -23,3 +23,7 @@ This static HTML/CSS/JavaScript app is deployed with GitHub Pages.
 ## Full Pattern Dictionaries
 
 Selected high-leverage word-link patterns now open dedicated A–Z dictionary pages with search, pagination, English/Spanish table rows, and a Spanish listen button on every word. Current full dictionaries include `-tion → -ción`, `-ity → -idad`, `-ous → -oso/-osa`, `-ly → -mente`, `ph → f`, `-ic → -ico/-ica`, `-ive → -ivo/-iva`, `-ist → -ista`, and `-ance/-ence → -ancia/-encia`.
+
+### Dictionary expansion
+
+LanguageDNA now includes 15 dedicated full Pattern Dictionaries containing 850 curated English ↔ Spanish word pairs. New pattern families include `-ism → -ismo`, `-able/-ible`, `-ant/-ent → -ante/-ente`, `-ize → -izar`, `-fy → -ficar`, and `-al → -al`.

@@ -10,6 +10,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "abreviación"
       ],
       [
+        "abstraction",
+        "abstracción"
+      ],
+      [
         "acceleration",
         "aceleración"
       ],
@@ -58,12 +62,20 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "agitación"
       ],
       [
+        "allocation",
+        "asignación"
+      ],
+      [
         "alteration",
         "alteración"
       ],
       [
         "ambition",
         "ambición"
+      ],
+      [
+        "amplification",
+        "amplificación"
       ],
       [
         "animation",
@@ -114,12 +126,20 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "automatización"
       ],
       [
+        "calculation",
+        "calculación"
+      ],
+      [
         "cancellation",
         "cancelación"
       ],
       [
         "celebration",
         "celebración"
+      ],
+      [
+        "certification",
+        "certificación"
       ],
       [
         "circulation",
@@ -152,6 +172,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "communication",
         "comunicación"
+      ],
+      [
+        "compensation",
+        "compensación"
       ],
       [
         "competition",
@@ -214,6 +238,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "construcción"
       ],
       [
+        "consultation",
+        "consulta"
+      ],
+      [
         "contamination",
         "contaminación"
       ],
@@ -262,6 +290,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "definición"
       ],
       [
+        "degradation",
+        "degradación"
+      ],
+      [
         "delegation",
         "delegación"
       ],
@@ -290,8 +322,16 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "diferenciación"
       ],
       [
+        "digitalization",
+        "digitalización"
+      ],
+      [
         "direction",
         "dirección"
+      ],
+      [
+        "disconnection",
+        "desconexión"
       ],
       [
         "discrimination",
@@ -334,12 +374,20 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "emoción"
       ],
       [
+        "enumeration",
+        "enumeración"
+      ],
+      [
         "evacuation",
         "evacuación"
       ],
       [
         "evaluation",
         "evaluación"
+      ],
+      [
+        "evaporation",
+        "evaporación"
       ],
       [
         "evolution",
@@ -382,6 +430,14 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "federación"
       ],
       [
+        "fertilization",
+        "fertilización"
+      ],
+      [
+        "filtration",
+        "filtración"
+      ],
+      [
         "formation",
         "formación"
       ],
@@ -400,6 +456,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "function",
         "función"
+      ],
+      [
+        "generalization",
+        "generalización"
       ],
       [
         "generation",
@@ -438,12 +498,20 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "inmigración"
       ],
       [
+        "implantation",
+        "implantación"
+      ],
+      [
         "implementation",
         "implementación"
       ],
       [
         "inclination",
         "inclinación"
+      ],
+      [
+        "incorporation",
+        "incorporación"
       ],
       [
         "indication",
@@ -486,6 +554,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "interpretación"
       ],
       [
+        "intervention",
+        "intervención"
+      ],
+      [
         "introduction",
         "introducción"
       ],
@@ -508,6 +580,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "legislation",
         "legislación"
+      ],
+      [
+        "legitimation",
+        "legitimación"
       ],
       [
         "liberation",
@@ -534,6 +610,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "migración"
       ],
       [
+        "modernization",
+        "modernización"
+      ],
+      [
         "modification",
         "modificación"
       ],
@@ -552,6 +632,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "negotiation",
         "negociación"
+      ],
+      [
+        "neutralization",
+        "neutralización"
       ],
       [
         "nomination",
@@ -586,6 +670,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "orientación"
       ],
       [
+        "oxidation",
+        "oxidación"
+      ],
+      [
         "participation",
         "participación"
       ],
@@ -596,6 +684,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "plantation",
         "plantación"
+      ],
+      [
+        "polarization",
+        "polarización"
       ],
       [
         "population",
@@ -682,6 +774,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "reconciliación"
       ],
       [
+        "reconstruction",
+        "reconstrucción"
+      ],
+      [
         "recreation",
         "recreación"
       ],
@@ -690,12 +786,20 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "reducción"
       ],
       [
+        "regulation",
+        "regulación"
+      ],
+      [
         "relation",
         "relación"
       ],
       [
         "relaxation",
         "relajación"
+      ],
+      [
+        "renovation",
+        "renovación"
       ],
       [
         "repetition",
@@ -774,8 +878,16 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "sustitución"
       ],
       [
+        "synchronization",
+        "sincronización"
+      ],
+      [
         "termination",
         "terminación"
+      ],
+      [
+        "transcription",
+        "transcripción"
       ],
       [
         "transformation",
@@ -854,6 +966,14 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "afinidad"
       ],
       [
+        "agility",
+        "agilidad"
+      ],
+      [
+        "anonymity",
+        "anonimidad"
+      ],
+      [
         "authority",
         "autoridad"
       ],
@@ -888,6 +1008,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "diversity",
         "diversidad"
+      ],
+      [
+        "elasticity",
+        "elasticidad"
       ],
       [
         "electricity",
@@ -926,8 +1050,16 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "funcionalidad"
       ],
       [
+        "generality",
+        "generalidad"
+      ],
+      [
         "generosity",
         "generosidad"
+      ],
+      [
+        "hospitality",
+        "hospitalidad"
       ],
       [
         "hostility",
@@ -946,6 +1078,18 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "inmunidad"
       ],
       [
+        "individuality",
+        "individualidad"
+      ],
+      [
+        "inferiority",
+        "inferioridad"
+      ],
+      [
+        "instability",
+        "inestabilidad"
+      ],
+      [
         "intensity",
         "intensidad"
       ],
@@ -962,12 +1106,20 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "movilidad"
       ],
       [
+        "modality",
+        "modalidad"
+      ],
+      [
         "nationality",
         "nacionalidad"
       ],
       [
         "necessity",
         "necesidad"
+      ],
+      [
+        "neutrality",
+        "neutralidad"
       ],
       [
         "normality",
@@ -988,6 +1140,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "personality",
         "personalidad"
+      ],
+      [
+        "plurality",
+        "pluralidad"
       ],
       [
         "possibility",
@@ -1022,6 +1178,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "realidad"
       ],
       [
+        "regularity",
+        "regularidad"
+      ],
+      [
         "responsibility",
         "responsabilidad"
       ],
@@ -1034,16 +1194,36 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "sensibilidad"
       ],
       [
+        "sexuality",
+        "sexualidad"
+      ],
+      [
         "simplicity",
         "simplicidad"
+      ],
+      [
+        "singularity",
+        "singularidad"
       ],
       [
         "solidarity",
         "solidaridad"
       ],
       [
+        "specificity",
+        "especificidad"
+      ],
+      [
+        "spontaneity",
+        "espontaneidad"
+      ],
+      [
         "stability",
         "estabilidad"
+      ],
+      [
+        "subjectivity",
+        "subjetividad"
       ],
       [
         "superiority",
@@ -1056,6 +1236,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "totality",
         "totalidad"
+      ],
+      [
+        "universality",
+        "universalidad"
       ],
       [
         "university",
@@ -1658,6 +1842,14 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "artístico"
       ],
       [
+        "athletic",
+        "atlético"
+      ],
+      [
+        "authentic",
+        "auténtico"
+      ],
+      [
         "automatic",
         "automático"
       ],
@@ -1666,8 +1858,16 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "básico"
       ],
       [
+        "catholic",
+        "católico"
+      ],
+      [
         "classic",
         "clásico"
+      ],
+      [
+        "clinical",
+        "clínico"
       ],
       [
         "comic",
@@ -1678,8 +1878,20 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "cósmico"
       ],
       [
+        "critical",
+        "crítico"
+      ],
+      [
         "democratic",
         "democrático"
+      ],
+      [
+        "diagnostic",
+        "diagnóstico"
+      ],
+      [
+        "didactic",
+        "didáctico"
       ],
       [
         "dramatic",
@@ -1688,6 +1900,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "dynamic",
         "dinámico"
+      ],
+      [
+        "ecological",
+        "ecológico"
       ],
       [
         "economic",
@@ -1704,6 +1920,18 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "energetic",
         "energético"
+      ],
+      [
+        "epic",
+        "épico"
+      ],
+      [
+        "ethical",
+        "ético"
+      ],
+      [
+        "exotic",
+        "exótico"
       ],
       [
         "fantastic",
@@ -1726,12 +1954,24 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "geométrico"
       ],
       [
+        "graphic",
+        "gráfico"
+      ],
+      [
+        "heroic",
+        "heroico"
+      ],
+      [
         "historic",
         "histórico"
       ],
       [
         "ironic",
         "irónico"
+      ],
+      [
+        "linguistic",
+        "lingüístico"
       ],
       [
         "magic",
@@ -1742,6 +1982,10 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "magnético"
       ],
       [
+        "mathematical",
+        "matemático"
+      ],
+      [
         "mechanic",
         "mecánico"
       ],
@@ -1750,8 +1994,16 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "metálico"
       ],
       [
+        "musical",
+        "musical"
+      ],
+      [
         "numeric",
         "numérico"
+      ],
+      [
+        "optic",
+        "óptico"
       ],
       [
         "organic",
@@ -1778,12 +2030,24 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "político"
       ],
       [
+        "practical",
+        "práctico"
+      ],
+      [
+        "psychological",
+        "psicológico"
+      ],
+      [
         "public",
         "público"
       ],
       [
         "rhythmic",
         "rítmico"
+      ],
+      [
+        "robotic",
+        "robótico"
       ],
       [
         "romantic",
@@ -1808,6 +2072,14 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "systematic",
         "sistemático"
+      ],
+      [
+        "technical",
+        "técnico"
+      ],
+      [
+        "theoretical",
+        "teórico"
       ],
       [
         "toxic",
@@ -2312,6 +2584,938 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "violence",
         "violencia"
+      ]
+    ]
+  },
+  "ism-ismo": {
+    "id": "ism-ismo",
+    "title": "-ism → -ismo",
+    "explanation": "Many English nouns ending in -ism have a closely related Spanish form ending in -ismo.",
+    "listenLanguage": "es-ES",
+    "words": [
+      [
+        "activism",
+        "activismo"
+      ],
+      [
+        "alcoholism",
+        "alcoholismo"
+      ],
+      [
+        "anarchism",
+        "anarquismo"
+      ],
+      [
+        "atheism",
+        "ateísmo"
+      ],
+      [
+        "bilingualism",
+        "bilingüismo"
+      ],
+      [
+        "capitalism",
+        "capitalismo"
+      ],
+      [
+        "Catholicism",
+        "catolicismo"
+      ],
+      [
+        "colonialism",
+        "colonialismo"
+      ],
+      [
+        "communism",
+        "comunismo"
+      ],
+      [
+        "consumerism",
+        "consumismo"
+      ],
+      [
+        "cubism",
+        "cubismo"
+      ],
+      [
+        "dogmatism",
+        "dogmatismo"
+      ],
+      [
+        "egoism",
+        "egoísmo"
+      ],
+      [
+        "existentialism",
+        "existencialismo"
+      ],
+      [
+        "fascism",
+        "fascismo"
+      ],
+      [
+        "federalism",
+        "federalismo"
+      ],
+      [
+        "feminism",
+        "feminismo"
+      ],
+      [
+        "feudalism",
+        "feudalismo"
+      ],
+      [
+        "formalism",
+        "formalismo"
+      ],
+      [
+        "globalism",
+        "globalismo"
+      ],
+      [
+        "humanism",
+        "humanismo"
+      ],
+      [
+        "idealism",
+        "idealismo"
+      ],
+      [
+        "imperialism",
+        "imperialismo"
+      ],
+      [
+        "individualism",
+        "individualismo"
+      ],
+      [
+        "liberalism",
+        "liberalismo"
+      ],
+      [
+        "Marxism",
+        "marxismo"
+      ],
+      [
+        "materialism",
+        "materialismo"
+      ],
+      [
+        "mechanism",
+        "mecanismo"
+      ],
+      [
+        "minimalism",
+        "minimalismo"
+      ],
+      [
+        "modernism",
+        "modernismo"
+      ],
+      [
+        "nationalism",
+        "nacionalismo"
+      ],
+      [
+        "naturalism",
+        "naturalismo"
+      ],
+      [
+        "optimism",
+        "optimismo"
+      ],
+      [
+        "organism",
+        "organismo"
+      ],
+      [
+        "pacifism",
+        "pacifismo"
+      ],
+      [
+        "pessimism",
+        "pesimismo"
+      ],
+      [
+        "pluralism",
+        "pluralismo"
+      ],
+      [
+        "pragmatism",
+        "pragmatismo"
+      ],
+      [
+        "realism",
+        "realismo"
+      ],
+      [
+        "romanticism",
+        "romanticismo"
+      ],
+      [
+        "socialism",
+        "socialismo"
+      ],
+      [
+        "surrealism",
+        "surrealismo"
+      ],
+      [
+        "symbolism",
+        "simbolismo"
+      ],
+      [
+        "terrorism",
+        "terrorismo"
+      ],
+      [
+        "tourism",
+        "turismo"
+      ],
+      [
+        "traditionalism",
+        "tradicionalismo"
+      ],
+      [
+        "vegetarianism",
+        "vegetarianismo"
+      ]
+    ]
+  },
+  "able-ible": {
+    "id": "able-ible",
+    "title": "-able / -ible → -able / -ible",
+    "explanation": "Many English adjectives ending in -able or -ible have a similar Spanish cognate ending, though spelling can shift.",
+    "listenLanguage": "es-ES",
+    "words": [
+      [
+        "acceptable",
+        "aceptable"
+      ],
+      [
+        "accessible",
+        "accesible"
+      ],
+      [
+        "adaptable",
+        "adaptable"
+      ],
+      [
+        "admirable",
+        "admirable"
+      ],
+      [
+        "applicable",
+        "aplicable"
+      ],
+      [
+        "compatible",
+        "compatible"
+      ],
+      [
+        "considerable",
+        "considerable"
+      ],
+      [
+        "controllable",
+        "controlable"
+      ],
+      [
+        "debatable",
+        "debatible"
+      ],
+      [
+        "desirable",
+        "deseable"
+      ],
+      [
+        "detectable",
+        "detectable"
+      ],
+      [
+        "flexible",
+        "flexible"
+      ],
+      [
+        "formidable",
+        "formidable"
+      ],
+      [
+        "identifiable",
+        "identificable"
+      ],
+      [
+        "imaginable",
+        "imaginable"
+      ],
+      [
+        "incompatible",
+        "incompatible"
+      ],
+      [
+        "incredible",
+        "increíble"
+      ],
+      [
+        "inevitable",
+        "inevitable"
+      ],
+      [
+        "invisible",
+        "invisible"
+      ],
+      [
+        "legible",
+        "legible"
+      ],
+      [
+        "memorable",
+        "memorable"
+      ],
+      [
+        "possible",
+        "posible"
+      ],
+      [
+        "probable",
+        "probable"
+      ],
+      [
+        "questionable",
+        "cuestionable"
+      ],
+      [
+        "reasonable",
+        "razonable"
+      ],
+      [
+        "reversible",
+        "reversible"
+      ],
+      [
+        "sensible",
+        "sensible"
+      ],
+      [
+        "terrible",
+        "terrible"
+      ],
+      [
+        "variable",
+        "variable"
+      ],
+      [
+        "visible",
+        "visible"
+      ],
+      [
+        "vulnerable",
+        "vulnerable"
+      ]
+    ]
+  },
+  "ant-ent": {
+    "id": "ant-ent",
+    "title": "-ant / -ent → -ante / -ente",
+    "explanation": "Many English words ending in -ant or -ent have a related Spanish form ending in -ante or -ente.",
+    "listenLanguage": "es-ES",
+    "words": [
+      [
+        "abundant",
+        "abundante"
+      ],
+      [
+        "adolescent",
+        "adolescente"
+      ],
+      [
+        "apparent",
+        "aparente"
+      ],
+      [
+        "arrogant",
+        "arrogante"
+      ],
+      [
+        "brilliant",
+        "brillante"
+      ],
+      [
+        "competent",
+        "competente"
+      ],
+      [
+        "consistent",
+        "consistente"
+      ],
+      [
+        "constant",
+        "constante"
+      ],
+      [
+        "different",
+        "diferente"
+      ],
+      [
+        "distant",
+        "distante"
+      ],
+      [
+        "dominant",
+        "dominante"
+      ],
+      [
+        "elegant",
+        "elegante"
+      ],
+      [
+        "excellent",
+        "excelente"
+      ],
+      [
+        "frequent",
+        "frecuente"
+      ],
+      [
+        "ignorant",
+        "ignorante"
+      ],
+      [
+        "important",
+        "importante"
+      ],
+      [
+        "intelligent",
+        "inteligente"
+      ],
+      [
+        "persistent",
+        "persistente"
+      ],
+      [
+        "president",
+        "presidente"
+      ],
+      [
+        "relevant",
+        "relevante"
+      ],
+      [
+        "resident",
+        "residente"
+      ],
+      [
+        "resistant",
+        "resistente"
+      ],
+      [
+        "sufficient",
+        "suficiente"
+      ],
+      [
+        "transparent",
+        "transparente"
+      ],
+      [
+        "urgent",
+        "urgente"
+      ],
+      [
+        "vigilant",
+        "vigilante"
+      ]
+    ]
+  },
+  "ize-izar": {
+    "id": "ize-izar",
+    "title": "-ize → -izar",
+    "explanation": "Many English verbs ending in -ize have a related Spanish infinitive ending in -izar.",
+    "listenLanguage": "es-ES",
+    "words": [
+      [
+        "actualize",
+        "actualizar"
+      ],
+      [
+        "authorize",
+        "autorizar"
+      ],
+      [
+        "centralize",
+        "centralizar"
+      ],
+      [
+        "colonize",
+        "colonizar"
+      ],
+      [
+        "criminalize",
+        "criminalizar"
+      ],
+      [
+        "democratize",
+        "democratizar"
+      ],
+      [
+        "digitalize",
+        "digitalizar"
+      ],
+      [
+        "dramatize",
+        "dramatizar"
+      ],
+      [
+        "formalize",
+        "formalizar"
+      ],
+      [
+        "globalize",
+        "globalizar"
+      ],
+      [
+        "idealize",
+        "idealizar"
+      ],
+      [
+        "industrialize",
+        "industrializar"
+      ],
+      [
+        "legalize",
+        "legalizar"
+      ],
+      [
+        "localize",
+        "localizar"
+      ],
+      [
+        "materialize",
+        "materializar"
+      ],
+      [
+        "maximize",
+        "maximizar"
+      ],
+      [
+        "minimize",
+        "minimizar"
+      ],
+      [
+        "mobilize",
+        "movilizar"
+      ],
+      [
+        "modernize",
+        "modernizar"
+      ],
+      [
+        "normalize",
+        "normalizar"
+      ],
+      [
+        "optimize",
+        "optimizar"
+      ],
+      [
+        "organize",
+        "organizar"
+      ],
+      [
+        "personalize",
+        "personalizar"
+      ],
+      [
+        "polarize",
+        "polarizar"
+      ],
+      [
+        "popularize",
+        "popularizar"
+      ],
+      [
+        "privatize",
+        "privatizar"
+      ],
+      [
+        "regularize",
+        "regularizar"
+      ],
+      [
+        "specialize",
+        "especializar"
+      ],
+      [
+        "standardize",
+        "estandarizar"
+      ],
+      [
+        "symbolize",
+        "simbolizar"
+      ],
+      [
+        "synchronize",
+        "sincronizar"
+      ],
+      [
+        "systematize",
+        "sistematizar"
+      ],
+      [
+        "utilize",
+        "utilizar"
+      ],
+      [
+        "visualize",
+        "visualizar"
+      ],
+      [
+        "vocalize",
+        "vocalizar"
+      ]
+    ]
+  },
+  "fy-ficar": {
+    "id": "fy-ficar",
+    "title": "-fy → -ficar",
+    "explanation": "Many English verbs ending in -fy have a related Spanish verb ending in -ficar.",
+    "listenLanguage": "es-ES",
+    "words": [
+      [
+        "acidify",
+        "acidificar"
+      ],
+      [
+        "amplify",
+        "amplificar"
+      ],
+      [
+        "certify",
+        "certificar"
+      ],
+      [
+        "clarify",
+        "clarificar"
+      ],
+      [
+        "classify",
+        "clasificar"
+      ],
+      [
+        "codify",
+        "codificar"
+      ],
+      [
+        "diversify",
+        "diversificar"
+      ],
+      [
+        "electrify",
+        "electrificar"
+      ],
+      [
+        "exemplify",
+        "ejemplificar"
+      ],
+      [
+        "falsify",
+        "falsificar"
+      ],
+      [
+        "fortify",
+        "fortificar"
+      ],
+      [
+        "glorify",
+        "glorificar"
+      ],
+      [
+        "identify",
+        "identificar"
+      ],
+      [
+        "intensify",
+        "intensificar"
+      ],
+      [
+        "justify",
+        "justificar"
+      ],
+      [
+        "magnify",
+        "magnificar"
+      ],
+      [
+        "modify",
+        "modificar"
+      ],
+      [
+        "notify",
+        "notificar"
+      ],
+      [
+        "purify",
+        "purificar"
+      ],
+      [
+        "qualify",
+        "cualificar"
+      ],
+      [
+        "quantify",
+        "cuantificar"
+      ],
+      [
+        "ratify",
+        "ratificar"
+      ],
+      [
+        "rectify",
+        "rectificar"
+      ],
+      [
+        "simplify",
+        "simplificar"
+      ],
+      [
+        "solidify",
+        "solidificar"
+      ],
+      [
+        "specify",
+        "especificar"
+      ],
+      [
+        "stratify",
+        "estratificar"
+      ],
+      [
+        "unify",
+        "unificar"
+      ],
+      [
+        "verify",
+        "verificar"
+      ]
+    ]
+  },
+  "al-al": {
+    "id": "al-al",
+    "title": "-al → -al",
+    "explanation": "Many English words ending in -al keep the -al ending in Spanish, often with a small spelling change in the stem.",
+    "listenLanguage": "es-ES",
+    "words": [
+      [
+        "abdominal",
+        "abdominal"
+      ],
+      [
+        "accidental",
+        "accidental"
+      ],
+      [
+        "animal",
+        "animal"
+      ],
+      [
+        "annual",
+        "anual"
+      ],
+      [
+        "artificial",
+        "artificial"
+      ],
+      [
+        "capital",
+        "capital"
+      ],
+      [
+        "central",
+        "central"
+      ],
+      [
+        "cerebral",
+        "cerebral"
+      ],
+      [
+        "commercial",
+        "comercial"
+      ],
+      [
+        "cultural",
+        "cultural"
+      ],
+      [
+        "digital",
+        "digital"
+      ],
+      [
+        "electoral",
+        "electoral"
+      ],
+      [
+        "emotional",
+        "emocional"
+      ],
+      [
+        "essential",
+        "esencial"
+      ],
+      [
+        "federal",
+        "federal"
+      ],
+      [
+        "final",
+        "final"
+      ],
+      [
+        "formal",
+        "formal"
+      ],
+      [
+        "fundamental",
+        "fundamental"
+      ],
+      [
+        "general",
+        "general"
+      ],
+      [
+        "global",
+        "global"
+      ],
+      [
+        "horizontal",
+        "horizontal"
+      ],
+      [
+        "ideal",
+        "ideal"
+      ],
+      [
+        "industrial",
+        "industrial"
+      ],
+      [
+        "legal",
+        "legal"
+      ],
+      [
+        "liberal",
+        "liberal"
+      ],
+      [
+        "local",
+        "local"
+      ],
+      [
+        "manual",
+        "manual"
+      ],
+      [
+        "material",
+        "material"
+      ],
+      [
+        "mental",
+        "mental"
+      ],
+      [
+        "moral",
+        "moral"
+      ],
+      [
+        "municipal",
+        "municipal"
+      ],
+      [
+        "musical",
+        "musical"
+      ],
+      [
+        "national",
+        "nacional"
+      ],
+      [
+        "natural",
+        "natural"
+      ],
+      [
+        "normal",
+        "normal"
+      ],
+      [
+        "official",
+        "oficial"
+      ],
+      [
+        "oral",
+        "oral"
+      ],
+      [
+        "original",
+        "original"
+      ],
+      [
+        "personal",
+        "personal"
+      ],
+      [
+        "principal",
+        "principal"
+      ],
+      [
+        "professional",
+        "profesional"
+      ],
+      [
+        "regional",
+        "regional"
+      ],
+      [
+        "rural",
+        "rural"
+      ],
+      [
+        "social",
+        "social"
+      ],
+      [
+        "special",
+        "especial"
+      ],
+      [
+        "spiritual",
+        "espiritual"
+      ],
+      [
+        "structural",
+        "estructural"
+      ],
+      [
+        "traditional",
+        "tradicional"
+      ],
+      [
+        "tropical",
+        "tropical"
+      ],
+      [
+        "universal",
+        "universal"
+      ],
+      [
+        "vertical",
+        "vertical"
+      ],
+      [
+        "virtual",
+        "virtual"
+      ],
+      [
+        "visual",
+        "visual"
       ]
     ]
   }
