@@ -1,0 +1,310 @@
+(() => {
+  'use strict';
+
+  const patterns = [
+    {id:'tion-cion', rank:1, type:'visual', importance:'essential', power:98, tags:['cognates','sentence'], lenses:['WHAT'], title:'-tion → -ción', rule:'Many English nouns ending in -tion map to Spanish -ción.', note:'A powerful recognition pattern, but treat it as a strong tendency rather than a universal rule.', examples:[['information','información'],['nation','nación'],['celebration','celebración']], practice:{prompt:'information', answers:['información'], hearing:['information','información'], wrong:'informatión'}, scoreLabel:'Hundreds of recognizable words'},
+    {id:'ity-idad', rank:2, type:'visual', importance:'essential', power:96, tags:['cognates'], lenses:['WHAT'], title:'-ity → -idad', rule:'Many English -ity nouns correspond to Spanish -idad.', examples:[['activity','actividad'],['university','universidad'],['possibility','posibilidad']], practice:{prompt:'activity', answers:['actividad'], hearing:['activity','actividad'], wrong:'activitá'}, scoreLabel:'High-value cognate family'},
+    {id:'ous-oso', rank:3, type:'visual', importance:'high', power:90, tags:['cognates'], lenses:['WHAT','WHO'], title:'-ous → -oso / -osa', rule:'Many English adjectives ending -ous map to Spanish -oso/-osa.', examples:[['famous','famoso'],['curious','curioso'],['nervous','nervioso']], practice:{prompt:'famous (masculine)', answers:['famoso'], hearing:['famous','famoso'], wrong:'famouso'}, scoreLabel:'Fast adjective recognition'},
+    {id:'ly-mente', rank:4, type:'visual', importance:'high', power:89, tags:['cognates'], lenses:['WHAT'], title:'-ly → -mente', rule:'Many adverbs are formed with -mente, often from the feminine adjective form.', examples:[['rapidly','rápidamente'],['normally','normalmente'],['exactly','exactamente']], practice:{prompt:'normally', answers:['normalmente'], hearing:['normally','normalmente'], wrong:'normalmenteo'}, scoreLabel:'Productive adverb pattern'},
+    {id:'h-silent', rank:5, type:'sound', importance:'essential', power:97, tags:['pronunciation'], lenses:['WHAT','WHO'], title:'H is silent', rule:'In standard Spanish, the letter h is not pronounced.', examples:[['hola','OH-la'],['hotel','oh-TEL'],['ahora','a-O-ra']], practice:{prompt:'Which word begins with a silent letter?', answers:['hola'], hearing:['hello','hola'], wrong:'jola'}, scoreLabel:'Immediate pronunciation win'},
+    {id:'vowels', rank:6, type:'sound', importance:'essential', power:99, tags:['pronunciation'], lenses:['WHAT','WHO','WHERE','WHY','WHEN'], title:'5 stable vowels', rule:'Spanish vowels are relatively stable: a, e, i, o, u keep consistent core sounds.', examples:[['casa','a ≈ ah'],['mesa','e ≈ eh'],['vino','i ≈ ee']], practice:{prompt:'Which Spanish vowel usually sounds closest to “ee”?', answers:['i'], hearing:['vino','wine'], wrong:'e'}, scoreLabel:'Foundation for every spoken word'},
+    {id:'stress-default', rank:7, type:'sound', importance:'essential', power:95, tags:['pronunciation'], lenses:['WHAT','WHO','WHERE','WHY','WHEN'], title:'Default stress rule', rule:'Words ending in a vowel, n or s usually stress the next-to-last syllable; most others stress the last.', examples:[['casa','CA-sa'],['hablan','HA-blan'],['hotel','ho-TEL']], practice:{prompt:'Where is the stress in “hotel”?', answers:['last','final'], hearing:['hotel','hotel'], wrong:'first'}, scoreLabel:'Predict pronunciation before hearing'},
+    {id:'accent-overrides', rank:8, type:'sound', importance:'essential', power:94, tags:['pronunciation'], lenses:['WHAT','WHO','WHERE','WHY','WHEN'], title:'Accent mark = stress signal', rule:'A written accent normally marks the stressed syllable when it departs from the default stress pattern.', examples:[['teléfono','LÉ'],['canción','CIÓN'],['rápido','RÁ']], practice:{prompt:'Which syllable is stressed in “canción”?', answers:['ción','cion'], hearing:['canción','song'], wrong:'can'}, scoreLabel:'Read stress visually'},
+    {id:'subject-drop', rank:9, type:'writing', importance:'essential', power:99, tags:['verbs','sentence'], lenses:['WHO'], title:'Spanish often drops the subject', rule:'Verb endings often show who is acting, so yo/tú/él etc. can be omitted when context is clear.', examples:[['I speak','(Yo) hablo'],['We eat','(Nosotros) comemos'],['They live','(Ellos) viven']], practice:{prompt:'I speak', answers:['hablo','yo hablo'], hearing:['hablo','I speak'], wrong:'yo habla'}, scoreLabel:'Core sentence compression'},
+    {id:'no-before-verb', rank:10, type:'writing', importance:'essential', power:97, tags:['sentence','verbs'], lenses:['WHAT'], title:'no + verb', rule:'To make a basic negative sentence, place no directly before the conjugated verb.', examples:[['I understand','entiendo'],['I do not understand','no entiendo'],['We do not know','no sabemos']], practice:{prompt:'I do not understand', answers:['no entiendo'], hearing:['no entiendo','I do not understand'], wrong:'entiendo no'}, scoreLabel:'Instant negatives'},
+    {id:'question-words', rank:11, type:'writing', importance:'essential', power:99, tags:['questions','sentence'], lenses:['WHO','WHAT','WHERE','WHY','WHEN'], title:'5 question anchors', rule:'Quién, qué, dónde, por qué and cuándo map directly onto WHO, WHAT, WHERE, WHY and WHEN.', examples:[['Who?','¿Quién?'],['Where?','¿Dónde?'],['When?','¿Cuándo?']], practice:{prompt:'Where?', answers:['dónde','¿dónde?','donde'], hearing:['¿dónde?','where?'], wrong:'¿quién?'}, scoreLabel:'Unlocks information-seeking'},
+    {id:'hay', rank:12, type:'writing', importance:'essential', power:96, tags:['sentence'], lenses:['WHAT','WHERE'], title:'hay = there is / there are', rule:'Use hay for existence: “there is” and “there are” use the same word.', examples:[['There is a problem','Hay un problema'],['There are two cafés','Hay dos cafés'],['Is there water?','¿Hay agua?']], practice:{prompt:'There is a problem', answers:['hay un problema'], hearing:['hay un problema','there is a problem'], wrong:'está un problema'}, scoreLabel:'High-frequency location/existence frame'},
+    {id:'estar-location', rank:13, type:'writing', importance:'essential', power:95, tags:['sentence','verbs'], lenses:['WHERE'], title:'estar for location', rule:'Use estar to say where a person or thing is located.', examples:[['I am here','Estoy aquí'],['Madrid is in Spain','Madrid está en España'],['Where are you?','¿Dónde estás?']], practice:{prompt:'I am here', answers:['estoy aquí','estoy aqui'], hearing:['estoy aquí','I am here'], wrong:'soy aquí'}, scoreLabel:'Core WHERE pattern'},
+    {id:'ir-a', rank:14, type:'writing', importance:'essential', power:97, tags:['verbs','sentence'], lenses:['WHAT','WHERE','WHEN'], title:'ir a + infinitive', rule:'Use ir + a + infinitive for “going to do” and ir + a + place for movement toward a place.', examples:[['I am going to eat','Voy a comer'],['We are going to study','Vamos a estudiar'],['I go to Madrid','Voy a Madrid']], practice:{prompt:'I am going to eat', answers:['voy a comer'], hearing:['voy a comer','I am going to eat'], wrong:'voy comer'}, scoreLabel:'Future + movement in one frame'},
+    {id:'tener-que', rank:15, type:'writing', importance:'essential', power:96, tags:['verbs','sentence'], lenses:['WHAT','WHY'], title:'tener que + infinitive', rule:'Use tener que + infinitive to express “have to / must do”.', examples:[['I have to work','Tengo que trabajar'],['We have to go','Tenemos que ir'],['Do you have to study?','¿Tienes que estudiar?']], practice:{prompt:'I have to work', answers:['tengo que trabajar'], hearing:['tengo que trabajar','I have to work'], wrong:'tengo trabajar'}, scoreLabel:'Everyday obligation frame'},
+    {id:'porque', rank:16, type:'writing', importance:'essential', power:97, tags:['questions','sentence'], lenses:['WHY'], title:'por qué ↔ porque', rule:'Por qué asks “why?”; porque gives “because”.', examples:[['Why?','¿Por qué?'],['Because I am tired','Porque estoy cansado'],['Why are you here?','¿Por qué estás aquí?']], practice:{prompt:'Because I am tired', answers:['porque estoy cansado','porque estoy cansada'], hearing:['porque estoy cansado','because I am tired'], wrong:'por qué estoy cansado'}, scoreLabel:'Core reason pattern'},
+    {id:'para-purpose', rank:17, type:'writing', importance:'essential', power:94, tags:['sentence'], lenses:['WHY','WHAT'], title:'para + infinitive = in order to', rule:'Use para + infinitive to express purpose: “in order to do”.', examples:[['to learn','para aprender'],['I study to improve','Estudio para mejorar'],['for eating','para comer']], practice:{prompt:'I study to improve', answers:['estudio para mejorar'], hearing:['estudio para mejorar','I study to improve'], wrong:'estudio por mejorar'}, scoreLabel:'Simple purpose builder'},
+    {id:'adjective-after', rank:18, type:'writing', importance:'essential', power:92, tags:['sentence'], lenses:['WHAT','WHO'], title:'noun + adjective', rule:'Many descriptive adjectives commonly come after the noun in Spanish.', examples:[['a red car','un coche rojo'],['a big house','una casa grande'],['an interesting book','un libro interesante']], practice:{prompt:'a red car', answers:['un coche rojo','un carro rojo'], hearing:['un coche rojo','a red car'], wrong:'un rojo coche'}, scoreLabel:'High-frequency word-order pattern'},
+    {id:'agreement', rank:19, type:'writing', importance:'essential', power:93, tags:['sentence'], lenses:['WHAT','WHO'], title:'gender & number agreement', rule:'Many adjectives change to agree with the noun in gender and number.', examples:[['red car','coche rojo'],['red house','casa roja'],['red houses','casas rojas']], practice:{prompt:'red houses', answers:['casas rojas'], hearing:['casas rojas','red houses'], wrong:'casas rojo'}, scoreLabel:'Grammar that repeats everywhere'},
+    {id:'regular-ar', rank:20, type:'writing', importance:'essential', power:98, tags:['verbs'], lenses:['WHO','WHAT','WHEN'], title:'Present -AR verb endings', rule:'For regular -ar verbs: -o, -as, -a, -amos, -áis, -an.', examples:[['I speak','hablo'],['you speak','hablas'],['we speak','hablamos']], practice:{prompt:'we speak', answers:['hablamos'], hearing:['hablamos','we speak'], wrong:'hablan'}, scoreLabel:'Huge verb family'},
+    {id:'regular-er', rank:21, type:'writing', importance:'high', power:92, tags:['verbs'], lenses:['WHO','WHAT','WHEN'], title:'Present -ER verb endings', rule:'For regular -er verbs: -o, -es, -e, -emos, -éis, -en.', examples:[['I eat','como'],['you eat','comes'],['we eat','comemos']], practice:{prompt:'we eat', answers:['comemos'], hearing:['comemos','we eat'], wrong:'comimos'}, scoreLabel:'Core present-tense family'},
+    {id:'regular-ir', rank:22, type:'writing', importance:'high', power:91, tags:['verbs'], lenses:['WHO','WHAT','WHEN'], title:'Present -IR verb endings', rule:'For regular -ir verbs: -o, -es, -e, -imos, -ís, -en.', examples:[['I live','vivo'],['you live','vives'],['we live','vivimos']], practice:{prompt:'we live', answers:['vivimos'], hearing:['vivimos','we live'], wrong:'vivemos'}, scoreLabel:'Core present-tense family'},
+    {id:'gustar', rank:23, type:'writing', importance:'high', power:95, tags:['verbs','sentence'], lenses:['WHO','WHAT'], title:'me gusta / me gustan', rule:'Spanish frames liking as “it is pleasing to me”: me gusta + singular/verb, me gustan + plural.', examples:[['I like coffee','Me gusta el café'],['I like books','Me gustan los libros'],['I like to travel','Me gusta viajar']], practice:{prompt:'I like books', answers:['me gustan los libros'], hearing:['me gustan los libros','I like books'], wrong:'me gusta los libros'}, scoreLabel:'Very common but structurally different'},
+    {id:'al-del', rank:24, type:'visual', importance:'high', power:88, tags:['sentence'], lenses:['WHERE','WHAT'], title:'a + el = al · de + el = del', rule:'The combinations a + el and de + el contract to al and del.', examples:[['to the market','al mercado'],['from the hotel','del hotel'],['I go to the park','Voy al parque']], practice:{prompt:'to the market', answers:['al mercado'], hearing:['al mercado','to the market'], wrong:'a el mercado'}, scoreLabel:'Frequent contraction pattern'},
+    {id:'personal-a', rank:25, type:'writing', importance:'high', power:87, tags:['sentence'], lenses:['WHO'], title:'personal a', rule:'A specific person as a direct object is commonly introduced with a.', examples:[['I see María','Veo a María'],['I know Juan','Conozco a Juan'],['I call my friend','Llamo a mi amigo']], practice:{prompt:'I see María', answers:['veo a maría','veo a maria'], hearing:['veo a María','I see María'], wrong:'veo María'}, scoreLabel:'Core WHO structure'},
+    {id:'g-j-sounds', rank:26, type:'sound', importance:'high', power:92, tags:['pronunciation'], lenses:['WHAT'], title:'g / j sound pattern', rule:'J is a strong breathy sound; g before e/i is similar, while g before a/o/u is hard as in “go”.', examples:[['jamón','strong j'],['gente','strong g'],['gato','hard g']], practice:{prompt:'Which word has the hard g sound?', answers:['gato'], hearing:['gato','cat'], wrong:'gente'}, scoreLabel:'Predict common consonant sounds'},
+    {id:'c-z', rank:27, type:'sound', importance:'high', power:88, tags:['pronunciation'], lenses:['WHAT'], title:'c / z regional pattern', rule:'Before e/i, c is usually /s/ in Latin America and much of the Spanish-speaking world, and /θ/ in much of Spain; z follows the same regional contrast.', examples:[['cine','SEE-neh / THEE-neh'],['cero','SEH-ro / THEH-ro'],['zapato','sa-PA-to / tha-PA-to']], practice:{prompt:'In much of Latin America, “c” before e/i sounds like…', answers:['s','s sound'], hearing:['cine','cinema'], wrong:'k'}, scoreLabel:'Listening across regions'},
+    {id:'qu', rank:28, type:'sound', importance:'high', power:90, tags:['pronunciation'], lenses:['WHAT'], title:'qu + e/i = k', rule:'In que/qui, qu represents a k sound and the u is normally silent.', examples:[['que','keh'],['quiero','KYE-ro'],['aquí','a-KEE']], practice:{prompt:'How does “qu” sound in “que”?', answers:['k','k sound'], hearing:['quiero','I want'], wrong:'kw'}, scoreLabel:'Frequent sound-spelling shortcut'},
+    {id:'ll-y', rank:29, type:'sound', importance:'useful', power:84, tags:['pronunciation'], lenses:['WHAT'], title:'ll / y often converge', rule:'In many dialects, ll and y are pronounced alike or very similarly, though the exact sound varies by region.', examples:[['yo','y/j-like by region'],['llamo','y/j-like by region'],['calle','regionally variable']], practice:{prompt:'Which two spellings often share a sound in many dialects?', answers:['ll and y','y and ll','ll/y'], hearing:['yo','I'], wrong:'rr and h'}, scoreLabel:'Dialect-aware listening'},
+    {id:'enye', rank:30, type:'sound', importance:'high', power:89, tags:['pronunciation'], lenses:['WHAT'], title:'ñ = “ny” sound', rule:'Ñ represents a palatal nasal similar to the “ny” in canyon.', examples:[['niño','NEE-nyo'],['mañana','ma-NYA-na'],['español','es-pa-NYOL']], practice:{prompt:'Which spelling gives the “ny” sound?', answers:['ñ','ñ'], hearing:['mañana','tomorrow'], wrong:'n'}, scoreLabel:'Instant reading/pronunciation link'},
+    {id:'r-rr', rank:31, type:'sound', importance:'high', power:89, tags:['pronunciation'], lenses:['WHAT'], title:'r vs rr', rule:'Single r between vowels is usually a tap; rr is a stronger trill. Word-initial r is also strong.', examples:[['pero','tap r'],['perro','strong rr'],['rojo','strong initial r']], practice:{prompt:'Which word has the stronger r?', answers:['perro'], hearing:['perro','dog'], wrong:'pero'}, scoreLabel:'Meaning can depend on the sound'},
+    {id:'b-v', rank:32, type:'sound', importance:'useful', power:82, tags:['pronunciation'], lenses:['WHAT'], title:'b and v largely share a sound system', rule:'In standard Spanish, b and v do not form an English-like sound contrast; pronunciation varies by position.', examples:[['vino','b/v family'],['beber','b/v family'],['vivir','b/v family']], practice:{prompt:'Do b and v contrast like English “boat” vs “vote” in standard Spanish?', answers:['no'], hearing:['vivir','to live'], wrong:'yes'}, scoreLabel:'Removes an English-speaking trap'},
+    {id:'plural', rank:33, type:'visual', importance:'high', power:91, tags:['sentence'], lenses:['WHAT','WHO'], title:'plural: -s / -es', rule:'Nouns ending in an unstressed vowel usually add -s; many ending in a consonant add -es.', examples:[['casa','casas'],['hotel','hoteles'],['doctor','doctores']], practice:{prompt:'hotel → plural', answers:['hoteles'], hearing:['hoteles','hotels'], wrong:'hotels'}, scoreLabel:'Simple reusable noun pattern'},
+    {id:'gender-o-a', rank:34, type:'visual', importance:'high', power:86, tags:['sentence'], lenses:['WHAT','WHO'], title:'-o / -a gender tendency', rule:'Many nouns/adjectives ending -o are masculine and many ending -a are feminine — useful as a tendency, not a guarantee.', examples:[['libro rojo','masculine pattern'],['casa roja','feminine pattern'],['amigo / amiga','paired forms']], practice:{prompt:'Complete: casa roj__', answers:['a'], hearing:['casa roja','red house'], wrong:'o'}, scoreLabel:'Fast agreement clue'},
+    {id:'inverted-punct', rank:35, type:'visual', importance:'useful', power:80, tags:['questions'], lenses:['WHO','WHAT','WHERE','WHY','WHEN'], title:'¿ ? and ¡ ! frame the sentence', rule:'Spanish uses opening and closing question/exclamation marks.', examples:[['Where?','¿Dónde?'],['What a surprise!','¡Qué sorpresa!'],['Why not?','¿Por qué no?']], practice:{prompt:'Write Spanish punctuation around: Dónde estás', answers:['¿dónde estás?','¿donde estas?'], hearing:['¿dónde estás?','where are you?'], wrong:'Dónde estás?'}, scoreLabel:'Visual cue for sentence type'},
+    {id:'question-order', rank:36, type:'writing', importance:'high', power:90, tags:['questions','sentence'], lenses:['WHO','WHAT','WHERE','WHY','WHEN'], title:'Questions often need no “do”', rule:'Spanish does not use English do/does support. A statement can become a question through intonation/punctuation or question words.', examples:[['Do you speak Spanish?','¿Hablas español?'],['Do you eat meat?','¿Comes carne?'],['Where do you live?','¿Dónde vives?']], practice:{prompt:'Do you speak Spanish?', answers:['¿hablas español?','hablas español','hablas espanol'], hearing:['¿hablas español?','do you speak Spanish?'], wrong:'¿haces hablar español?'}, scoreLabel:'Removes English helper verbs'},
+    {id:'tengo-anos', rank:37, type:'writing', importance:'high', power:89, tags:['sentence'], lenses:['WHO','WHEN'], title:'tener + años for age', rule:'Spanish expresses age with tener (“to have”), not ser/estar.', examples:[['I am 20 years old','Tengo 20 años'],['How old are you?','¿Cuántos años tienes?'],['She is 30','Tiene 30 años']], practice:{prompt:'I am 20 years old', answers:['tengo 20 años','tengo veinte años','tengo 20 anos'], hearing:['tengo veinte años','I am twenty years old'], wrong:'soy 20 años'}, scoreLabel:'Common English → Spanish structural switch'},
+    {id:'hace-weather', rank:38, type:'writing', importance:'useful', power:82, tags:['sentence'], lenses:['WHAT','WHEN'], title:'hace + weather', rule:'Many weather expressions use hacer: hace calor, hace frío, hace viento.', examples:[['It is hot','Hace calor'],['It is cold','Hace frío'],['It is windy','Hace viento']], practice:{prompt:'It is cold', answers:['hace frío','hace frio'], hearing:['hace frío','it is cold'], wrong:'está frío'}, scoreLabel:'Reusable weather frame'},
+    {id:'estar-gerund', rank:39, type:'writing', importance:'high', power:87, tags:['verbs','sentence'], lenses:['WHAT','WHEN'], title:'estar + -ando / -iendo', rule:'Use estar + gerund for an action in progress: “am/is/are doing”.', examples:[['I am speaking','Estoy hablando'],['We are eating','Estamos comiendo'],['She is living','Está viviendo']], practice:{prompt:'I am speaking', answers:['estoy hablando'], hearing:['estoy hablando','I am speaking'], wrong:'soy hablando'}, scoreLabel:'Present-in-progress pattern'},
+    {id:'reflexive', rank:40, type:'writing', importance:'high', power:86, tags:['verbs','sentence'], lenses:['WHO','WHAT'], title:'me / te / se + reflexive verb', rule:'Reflexive actions use pronouns such as me, te, se, nos before the conjugated verb.', examples:[['I get up','Me levanto'],['You call yourself…','Te llamas…'],['She gets dressed','Se viste']], practice:{prompt:'I get up', answers:['me levanto'], hearing:['me levanto','I get up'], wrong:'levanto me'}, scoreLabel:'Huge everyday verb family'},
+    {id:'more-than', rank:41, type:'writing', importance:'high', power:85, tags:['sentence'], lenses:['WHAT','WHO'], title:'más … que', rule:'Use más + adjective/adverb/noun + que for “more … than”.', examples:[['more important than','más importante que'],['bigger than','más grande que'],['I have more than you','Tengo más que tú']], practice:{prompt:'more important than', answers:['más importante que','mas importante que'], hearing:['más importante que','more important than'], wrong:'más importante de'}, scoreLabel:'Simple comparison engine'},
+    {id:'muy-mucho', rank:42, type:'writing', importance:'high', power:88, tags:['sentence'], lenses:['WHAT'], title:'muy vs mucho', rule:'Muy usually modifies adjectives/adverbs; mucho changes with nouns or can modify verbs.', examples:[['very good','muy bueno'],['a lot of water','mucha agua'],['I work a lot','Trabajo mucho']], practice:{prompt:'very good', answers:['muy bueno','muy buena'], hearing:['muy bueno','very good'], wrong:'mucho bueno'}, scoreLabel:'Frequent quantity distinction'},
+    {id:'direct-object', rank:43, type:'writing', importance:'useful', power:82, tags:['sentence'], lenses:['WHO','WHAT'], title:'lo / la / los / las before the verb', rule:'Direct-object pronouns usually go before a conjugated verb.', examples:[['I see it (m.)','Lo veo'],['I know her','La conozco'],['I buy them (f.)','Las compro']], practice:{prompt:'I see it (masculine)', answers:['lo veo'], hearing:['lo veo','I see it'], wrong:'veo lo'}, scoreLabel:'Common pronoun placement'},
+    {id:'desde-hace', rank:44, type:'writing', importance:'useful', power:81, tags:['sentence'], lenses:['WHEN'], title:'desde hace + duration', rule:'Use desde hace + duration for an action/state that started in the past and continues now.', examples:[['for two years','desde hace dos años'],['I have lived here for a year','Vivo aquí desde hace un año'],['for a long time','desde hace mucho tiempo']], practice:{prompt:'for two years', answers:['desde hace dos años','desde hace dos anos'], hearing:['desde hace dos años','for two years'], wrong:'por dos años'}, scoreLabel:'High-value time frame'},
+    {id:'ya-todavia', rank:45, type:'writing', importance:'useful', power:83, tags:['sentence'], lenses:['WHEN'], title:'ya / todavía', rule:'Ya often means already/now; todavía often means still/yet. Together they handle many time-state contrasts.', examples:[['I already know','Ya sé'],['I still live here','Todavía vivo aquí'],['Not yet','Todavía no']], practice:{prompt:'Not yet', answers:['todavía no','todavia no','aún no','aun no'], hearing:['todavía no','not yet'], wrong:'ya no'}, scoreLabel:'Everyday timing words'},
+    {id:'acabar-de', rank:46, type:'writing', importance:'useful', power:84, tags:['verbs','sentence'], lenses:['WHAT','WHEN'], title:'acabar de + infinitive', rule:'Use acabar de + infinitive for “to have just done something”.', examples:[['I just arrived','Acabo de llegar'],['We just ate','Acabamos de comer'],['She just left','Acaba de salir']], practice:{prompt:'I just arrived', answers:['acabo de llegar'], hearing:['acabo de llegar','I just arrived'], wrong:'acabo llegar'}, scoreLabel:'Compact recent-past frame'},
+    {id:'se-impersonal', rank:47, type:'writing', importance:'useful', power:79, tags:['sentence'], lenses:['WHO','WHAT'], title:'se for general / impersonal statements', rule:'Se can express general or impersonal meanings similar to “people/one/you” or passive-like English.', examples:[['Spanish is spoken here','Se habla español aquí'],['How do you say…?','¿Cómo se dice…?'],['Cars are sold','Se venden coches']], practice:{prompt:'How do you say…?', answers:['¿cómo se dice?','como se dice','¿como se dice?'], hearing:['¿cómo se dice?','how do you say?'], wrong:'¿cómo tú dices?'}, scoreLabel:'Native-like general statements'},
+    {id:'ph-f', rank:48, type:'visual', importance:'useful', power:76, tags:['cognates','pronunciation'], lenses:['WHAT'], title:'ph → f in many learned cognates', rule:'English ph often appears as f in Spanish cognates of Greek/Latin origin.', examples:[['photo','foto'],['philosophy','filosofía'],['telephone','teléfono']], practice:{prompt:'photo', answers:['foto'], hearing:['foto','photo'], wrong:'photo'}, scoreLabel:'Quick spelling recognition'},
+    {id:'ic-ico', rank:49, type:'visual', importance:'useful', power:78, tags:['cognates'], lenses:['WHAT'], title:'-ic → -ico / -ica', rule:'Many English adjectives/nouns ending -ic correspond to Spanish -ico/-ica.', examples:[['basic','básico'],['public','público'],['automatic','automático']], practice:{prompt:'basic (masculine)', answers:['básico','basico'], hearing:['básico','basic'], wrong:'basic'}, scoreLabel:'Large cognate family'},
+    {id:'ist-ista', rank:50, type:'visual', importance:'useful', power:77, tags:['cognates'], lenses:['WHO'], title:'-ist → -ista', rule:'Many professions and identity nouns ending -ist map directly to -ista.', examples:[['artist','artista'],['tourist','turista'],['pianist','pianista']], practice:{prompt:'artist', answers:['artista'], hearing:['artista','artist'], wrong:'artisto'}, scoreLabel:'WHO vocabulary shortcut'},
+    {id:'ance-encia', rank:51, type:'visual', importance:'useful', power:74, tags:['cognates'], lenses:['WHAT'], title:'-ance / -ence → -ancia / -encia', rule:'Many abstract English nouns map predictably to Spanish -ancia/-encia.', examples:[['importance','importancia'],['difference','diferencia'],['experience','experiencia']], practice:{prompt:'difference', answers:['diferencia'], hearing:['diferencia','difference'], wrong:'differencia'}, scoreLabel:'Recognition booster'},
+    {id:'ive-ivo', rank:52, type:'visual', importance:'useful', power:75, tags:['cognates'], lenses:['WHAT'], title:'-ive → -ivo / -iva', rule:'Many English -ive adjectives/nouns correspond to Spanish -ivo/-iva.', examples:[['active','activo'],['creative','creativo'],['positive','positivo']], practice:{prompt:'active (masculine)', answers:['activo'], hearing:['activo','active'], wrong:'activeo'}, scoreLabel:'Productive cognate family'},
+    {id:'months-lowercase', rank:53, type:'visual', importance:'useful', power:69, tags:['sentence'], lenses:['WHEN'], title:'months & weekdays stay lowercase', rule:'Spanish normally writes months and weekdays with lowercase initial letters.', examples:[['Monday','lunes'],['October','octubre'],['January','enero']], practice:{prompt:'October', answers:['octubre'], hearing:['octubre','October'], wrong:'Octubre'}, scoreLabel:'Clean writing habit'},
+    {id:'a-en-de', rank:54, type:'writing', importance:'high', power:91, tags:['sentence'], lenses:['WHERE'], title:'a · en · de = to/at/from-of', rule:'A core location trio: a often marks destination, en location, de origin/possession.', examples:[['to Madrid','a Madrid'],['in Madrid','en Madrid'],['from Madrid','de Madrid']], practice:{prompt:'in Madrid', answers:['en madrid'], hearing:['en Madrid','in Madrid'], wrong:'a Madrid'}, scoreLabel:'Core WHERE toolkit'},
+    {id:'aqui-alli', rank:55, type:'writing', importance:'high', power:84, tags:['sentence'], lenses:['WHERE'], title:'aquí / ahí / allí', rule:'Spanish commonly distinguishes here, there-near-you, and there-farther-away.', examples:[['here','aquí'],['there (near you)','ahí'],['there (farther)','allí']], practice:{prompt:'here', answers:['aquí','aqui'], hearing:['aquí','here'], wrong:'allí'}, scoreLabel:'Fast location vocabulary'},
+    {id:'si-if', rank:56, type:'writing', importance:'high', power:87, tags:['sentence'], lenses:['WHY','WHEN'], title:'si + condition', rule:'Si means “if” and introduces conditions. Do not confuse it with sí (“yes”).', examples:[['If I can…','Si puedo…'],['If you want…','Si quieres…'],['Yes','Sí']], practice:{prompt:'If you want…', answers:['si quieres'], hearing:['si quieres','if you want'], wrong:'sí quieres'}, scoreLabel:'Core conditional connector'},
+    {id:'cuando-present', rank:57, type:'writing', importance:'useful', power:78, tags:['sentence'], lenses:['WHEN'], title:'cuando + time clause', rule:'Cuando (“when”) links actions and time; present tense is common for habitual actions.', examples:[['when I work','cuando trabajo'],['when we eat','cuando comemos'],['when you arrive','cuando llegas']], practice:{prompt:'when I work', answers:['cuando trabajo'], hearing:['cuando trabajo','when I work'], wrong:'qué trabajo'}, scoreLabel:'Time-linking sentence frame'},
+    {id:'que-connector', rank:58, type:'writing', importance:'high', power:90, tags:['sentence'], lenses:['WHAT','WHO','WHY'], title:'que = that / which / who connector', rule:'Que is one of Spanish’s most common linking words, connecting clauses and ideas.', examples:[['I think that…','Creo que…'],['the book that…','el libro que…'],['I know that…','Sé que…']], practice:{prompt:'I think that…', answers:['creo que'], hearing:['creo que','I think that'], wrong:'creo de'}, scoreLabel:'One connector, countless sentences'},
+    {id:'articles', rank:59, type:'writing', importance:'high', power:92, tags:['sentence'], lenses:['WHO','WHAT'], title:'el/la · los/las · un/una', rule:'Articles mark gender and number and appear very frequently before nouns.', examples:[['the book','el libro'],['the house','la casa'],['a friend (f.)','una amiga']], practice:{prompt:'the house', answers:['la casa'], hearing:['la casa','the house'], wrong:'el casa'}, scoreLabel:'Essential noun framing'},
+    {id:'ser-identity', rank:60, type:'writing', importance:'essential', power:98, tags:['verbs','sentence'], lenses:['WHO','WHAT'], title:'ser for identity / classification', rule:'Ser is central for identity, origin, profession and classification; estar handles many states/locations.', examples:[['I am a student','Soy estudiante'],['She is Spanish','Ella es española'],['It is important','Es importante']], practice:{prompt:'I am a student', answers:['soy estudiante'], hearing:['soy estudiante','I am a student'], wrong:'estoy estudiante'}, scoreLabel:'Core identity pattern'}
+  ];
+
+  const els = {
+    search: document.getElementById('searchInput'), type: document.getElementById('typeFilter'), level: document.getElementById('levelFilter'),
+    grid: document.getElementById('patternGrid'), summary: document.getElementById('resultsSummary'), empty: document.getElementById('emptyState'),
+    dialog: document.getElementById('patternDialog'), dialogContent: document.getElementById('dialogContent'), toast: document.getElementById('toast'),
+    practiceSelect: document.getElementById('practicePatternSelect'), practiceStage: document.getElementById('practiceStage')
+  };
+
+  const state = {
+    lens: null,
+    quick: 'all',
+    currentView: 'library',
+    currentMode: 'writing',
+    currentPracticeId: patterns[0].id,
+    mastered: new Set(JSON.parse(localStorage.getItem('ldna-mastered') || '[]')),
+    theme: localStorage.getItem('ldna-theme') || 'light'
+  };
+
+  if (state.theme === 'dark') document.body.classList.add('dark');
+
+  function normalize(str) {
+    return (str || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[¿?¡!.,]/g,'').replace(/\s+/g,' ');
+  }
+
+  function typeLabel(type) {
+    return type === 'visual' ? '👁 VISUAL' : type === 'sound' ? '🔊 SOUND' : '✍ WRITING';
+  }
+  function importanceLabel(importance) {
+    return importance === 'essential' ? '🔥 ESSENTIAL' : importance === 'high' ? '⚡ HIGH' : '⭐ USEFUL';
+  }
+  function getPattern(id) { return patterns.find(p => p.id === id) || patterns[0]; }
+  function persist() { localStorage.setItem('ldna-mastered', JSON.stringify([...state.mastered])); }
+  function toast(message) {
+    els.toast.textContent = message; els.toast.classList.add('show');
+    clearTimeout(toast.timer); toast.timer = setTimeout(() => els.toast.classList.remove('show'), 1800);
+  }
+
+  function speak(text, rate=0.82) {
+    if (!('speechSynthesis' in window)) { toast('Speech playback is not supported in this browser.'); return; }
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'es-ES'; u.rate = rate;
+    const voices = window.speechSynthesis.getVoices();
+    const voice = voices.find(v => /^es(-|_)/i.test(v.lang)); if (voice) u.voice = voice;
+    window.speechSynthesis.speak(u);
+  }
+
+  function filteredPatterns() {
+    const q = normalize(els.search.value);
+    const type = els.type.value, level = els.level.value;
+    return patterns.filter(p => {
+      const hay = normalize([p.title,p.rule,p.note||'',...p.tags,...p.lenses,...p.examples.flat()].join(' '));
+      return (!q || hay.includes(q)) && (type==='all'||p.type===type) && (level==='all'||p.importance===level) && (!state.lens||p.lenses.includes(state.lens)) && (state.quick==='all'||p.tags.includes(state.quick));
+    });
+  }
+
+  function renderLibrary() {
+    const items = filteredPatterns();
+    els.summary.textContent = `${items.length} pattern${items.length===1?'':'s'} shown · ${patterns.length} in this starter library`;
+    els.empty.hidden = items.length > 0;
+    els.grid.innerHTML = items.map(p => `
+      <article class="pattern-card">
+        <div class="pattern-card-top">
+          <span class="mini-badge ${p.type}">${typeLabel(p.type)}</span>
+          <span class="pattern-rank">#${p.rank}</span>
+        </div>
+        <h3>${p.title}</h3>
+        <p class="rule">${p.rule}</p>
+        <div class="lens-tags">${p.lenses.map(x=>`<span class="lens-tag">${x}</span>`).join('')}<span class="lens-tag">⚡ ${p.power}</span></div>
+        <div class="pattern-card-actions">
+          <button type="button" class="card-btn" data-open="${p.id}">See pattern</button>
+          <button type="button" class="card-btn primary" data-practice="${p.id}">Practise</button>
+          <button type="button" class="master-toggle ${state.mastered.has(p.id)?'mastered':''}" data-master="${p.id}" aria-label="${state.mastered.has(p.id)?'Unmark':'Mark'} ${p.title} as mastered">✓</button>
+        </div>
+      </article>`).join('');
+    updateStats();
+  }
+
+  function renderPareto() {
+    const top = patterns.filter(p => p.rank <= 20).sort((a,b)=>a.rank-b.rank);
+    document.getElementById('paretoList').innerHTML = top.map(p => `
+      <article class="pareto-item">
+        <div class="pareto-number">${p.rank}</div>
+        <div><h3>${p.title}</h3><p>${p.scoreLabel}</p></div>
+        <span class="pareto-score">${importanceLabel(p.importance)} · ⚡ ${p.power}</span>
+        <button type="button" class="master-toggle ${state.mastered.has(p.id)?'mastered':''}" data-master="${p.id}" aria-label="Toggle mastery">✓</button>
+      </article>`).join('');
+  }
+
+  function openPattern(id) {
+    const p = getPattern(id);
+    els.dialogContent.innerHTML = `
+      <div class="pattern-card-top"><span class="mini-badge ${p.type}">${typeLabel(p.type)}</span><span class="power">${importanceLabel(p.importance)} · ⚡ ${p.power}</span></div>
+      <h2 id="dialogTitle" class="dialog-rule">${p.title}</h2>
+      <p class="dialog-desc">${p.rule}</p>
+      ${p.note?`<p class="dialog-desc"><strong>Remember:</strong> ${p.note}</p>`:''}
+      <div class="lens-tags">${p.lenses.map(x=>`<span class="lens-tag">${x}</span>`).join('')}</div>
+      <div class="example-table">
+        ${p.examples.map(([en,es])=>`<div class="example-row"><span>${en}</span><span class="arrow">→</span><strong>${es}</strong><button type="button" class="small-audio" data-speak="${es.replace(/"/g,'&quot;')}" aria-label="Hear ${es}">🔊</button></div>`).join('')}
+      </div>
+      <div class="practice-action-row">
+        <button type="button" data-dialog-practice="writing" data-id="${p.id}">✍️ Writing</button>
+        <button type="button" data-dialog-practice="speaking" data-id="${p.id}">🎙️ Speaking</button>
+        <button type="button" data-dialog-practice="hearing" data-id="${p.id}">👂 Hearing</button>
+        <button type="button" data-dialog-practice="choice" data-id="${p.id}">↔️ This/That</button>
+        <button type="button" data-dialog-practice="ticking" data-id="${p.id}">✓ Ticking</button>
+      </div>
+      <button type="button" class="master-big ${state.mastered.has(p.id)?'mastered':''}" data-master="${p.id}">${state.mastered.has(p.id)?'✓ Mastered — tap to undo':'Mark this pattern mastered'}</button>`;
+    els.dialog.showModal();
+  }
+
+  function goToView(name) {
+    state.currentView = name;
+    document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.dataset.viewPanel===name));
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view===name));
+    if (name==='pareto') renderPareto();
+    if (name==='dna') renderDNA();
+    if (name==='practice') renderPractice();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function startPractice(id, mode='writing') {
+    state.currentPracticeId = id; state.currentMode = mode; els.practiceSelect.value = id;
+    document.querySelectorAll('.mode-card').forEach(b => b.classList.toggle('active', b.dataset.mode===mode));
+    if (els.dialog.open) els.dialog.close();
+    goToView('practice'); renderPractice();
+  }
+
+  function renderPractice() {
+    const p = getPattern(state.currentPracticeId);
+    els.practiceSelect.value = p.id;
+    const ex = p.examples[0];
+    const nextButton = `<button type="button" class="secondary-btn" data-new-question="1">Another example</button>`;
+    let html = `<div class="practice-title-row"><div><span class="mini-badge ${p.type}">${typeLabel(p.type)}</span><h2>${p.title}</h2><p class="dialog-desc">${p.rule}</p></div><span class="power">⚡ ${p.power}</span></div>`;
+
+    if (state.currentMode === 'writing') {
+      html += `<div class="prompt-box"><span class="prompt-label">WRITE IN SPANISH</span><strong>${p.practice.prompt}</strong></div>
+      <form class="answer-form" id="writingForm"><input id="writingAnswer" autocomplete="off" placeholder="Type your Spanish answer…" aria-label="Your Spanish answer"><button class="primary-btn" type="submit">Check</button></form><div class="feedback" id="practiceFeedback">Use the pattern, not guesswork.</div>`;
+    } else if (state.currentMode === 'speaking') {
+      html += `<div class="prompt-box"><span class="prompt-label">SAY THIS IN SPANISH</span><strong>${p.practice.prompt}</strong></div>
+      <div class="speech-actions"><button type="button" class="mic-btn" id="micButton">🎙 Start speaking</button><button type="button" class="secondary-btn" data-reveal="${p.practice.answers[0]}">Reveal answer</button><button type="button" class="secondary-btn" data-speak="${p.practice.answers[0]}">🔊 Hear answer</button></div><div class="feedback" id="practiceFeedback">Tap the microphone and speak your answer. If speech recognition is unavailable, use self-check.</div>`;
+    } else if (state.currentMode === 'hearing') {
+      html += `<button type="button" class="big-listen" data-speak="${p.practice.answers[0]}">🔊 Tap to hear Spanish</button><div class="prompt-box"><span class="prompt-label">WHAT DOES IT MEAN?</span><strong>Choose the closest meaning</strong></div>
+      <div class="choice-grid"><button type="button" class="choice-btn" data-choice-answer="true">${ex[0]}</button><button type="button" class="choice-btn" data-choice-answer="false">${p.practice.wrong}</button></div><div class="feedback" id="practiceFeedback">Listen more than once if you need to.</div>`;
+    } else if (state.currentMode === 'choice') {
+      html += `<div class="prompt-box"><span class="prompt-label">THIS OR THAT</span><strong>${p.practice.prompt}</strong></div><div class="choice-grid"><button type="button" class="choice-btn" data-choice-answer="true">${p.practice.answers[0]}</button><button type="button" class="choice-btn" data-choice-answer="false">${p.practice.wrong}</button></div><div class="feedback" id="practiceFeedback">Choose the form that follows the pattern.</div>`;
+    } else {
+      const good1 = p.examples[0][1], good2 = p.examples[1] ? p.examples[1][1] : p.practice.answers[0];
+      html += `<div class="prompt-box"><span class="prompt-label">TICK EVERY EXAMPLE THAT FITS</span><strong>${p.title}</strong></div>
+      <div class="tick-list"><label class="tick-item"><input type="checkbox" data-tick="good"><span>${good1}</span></label><label class="tick-item"><input type="checkbox" data-tick="bad"><span>${p.practice.wrong}</span></label><label class="tick-item"><input type="checkbox" data-tick="good"><span>${good2}</span></label></div><button type="button" class="primary-btn" id="checkTicks">Check ticks</button><div class="feedback" id="practiceFeedback">Fast recognition builds automaticity.</div>`;
+    }
+    els.practiceStage.innerHTML = html;
+    bindPracticeInteractions(p);
+  }
+
+  function bindPracticeInteractions(p) {
+    const form = document.getElementById('writingForm');
+    if (form) form.addEventListener('submit', e => {
+      e.preventDefault(); const ans = normalize(document.getElementById('writingAnswer').value);
+      const ok = p.practice.answers.some(a => normalize(a)===ans); setFeedback(ok, ok ? '✓ Correct. You used the pattern.' : `Not yet. A good answer is: ${p.practice.answers[0]}`); if(ok) celebrate(p);
+    });
+    const mic = document.getElementById('micButton'); if (mic) mic.addEventListener('click', () => startRecognition(p));
+    const ticks = document.getElementById('checkTicks'); if (ticks) ticks.addEventListener('click', () => {
+      const boxes = [...els.practiceStage.querySelectorAll('[data-tick]')]; const ok = boxes.every(b => (b.dataset.tick==='good')===b.checked);
+      setFeedback(ok, ok ? '✓ Exactly. You spotted the pattern.' : 'Check again: tick examples that follow the target pattern, and leave the distractor unticked.'); if(ok) celebrate(p);
+    });
+  }
+
+  function setFeedback(ok, text) {
+    const f = document.getElementById('practiceFeedback'); if (!f) return; f.textContent=text; f.className=`feedback ${ok?'correct':'incorrect'}`;
+  }
+  function celebrate(p) { if (!state.mastered.has(p.id)) toast('Nice — pattern recognised. Keep practising to master it.'); }
+
+  function startRecognition(p) {
+    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Recognition) { setFeedback(false,'Speech recognition is not available in this browser. Use “Reveal answer”, say it aloud, then compare with “Hear answer”.'); return; }
+    const rec = new Recognition(); rec.lang='es-ES'; rec.interimResults=false; rec.maxAlternatives=3;
+    const mic = document.getElementById('micButton'); mic.textContent='Listening…'; mic.disabled=true;
+    rec.onresult = e => {
+      const heard = [...e.results[0]].map(r=>r.transcript); const ok = heard.some(h=>p.practice.answers.some(a=>normalize(a)===normalize(h)));
+      setFeedback(ok, ok ? `✓ Heard: “${heard[0]}”` : `I heard “${heard[0]}”. Try again or compare with: ${p.practice.answers[0]}`); if(ok) celebrate(p);
+    };
+    rec.onerror = () => setFeedback(false,'I could not capture that. Try again, or use the self-check buttons.');
+    rec.onend = () => { mic.textContent='🎙 Start speaking'; mic.disabled=false; };
+    rec.start();
+  }
+
+  function toggleMaster(id) {
+    if (state.mastered.has(id)) { state.mastered.delete(id); toast('Pattern moved back to learning.'); }
+    else { state.mastered.add(id); toast('✓ Pattern marked mastered.'); }
+    persist(); renderLibrary(); renderPareto(); updateStats(); if (els.dialog.open) openPattern(id); if(state.currentView==='dna') renderDNA();
+  }
+
+  function updateStats() {
+    document.getElementById('headerMastered').textContent = state.mastered.size;
+    const top = patterns.filter(p=>p.rank<=20); const done=top.filter(p=>state.mastered.has(p.id)).length;
+    document.getElementById('paretoProgressText').textContent = `${done} / 20 mastered`; document.getElementById('paretoProgressBar').style.width=`${done/20*100}%`;
+  }
+
+  function renderDNA() {
+    const total = patterns.length, done = state.mastered.size, pct = Math.round(done/total*100);
+    document.getElementById('dnaPercent').textContent=`${pct}%`; document.getElementById('dnaRing').style.background=`conic-gradient(var(--green) ${pct*3.6}deg, var(--surface-2) 0deg)`;
+    ['visual','sound','writing'].forEach(type => { document.getElementById(`${type}Stat`).textContent = patterns.filter(p=>p.type===type && state.mastered.has(p.id)).length; });
+    document.getElementById('essentialStat').textContent = patterns.filter(p=>p.importance==='essential'&&state.mastered.has(p.id)).length;
+    const lenses=['WHO','WHAT','WHERE','WHY','WHEN'];
+    document.getElementById('coverageGrid').innerHTML=lenses.map(l=>{const all=patterns.filter(p=>p.lenses.includes(l));const m=all.filter(p=>state.mastered.has(p.id)).length;const q=all.length?Math.round(m/all.length*100):0;return `<article class="coverage-card"><strong>${l}</strong><div class="coverage-bar"><span style="width:${q}%"></span></div><small>${m}/${all.length} patterns · ${q}%</small></article>`}).join('');
+    const next = patterns.sort((a,b)=>a.rank-b.rank).find(p=>!state.mastered.has(p.id)) || patterns[0];
+    document.getElementById('nextBestTitle').textContent=state.mastered.size===patterns.length?'Starter library mastered 🎉':next.title;
+    document.getElementById('nextBestText').textContent=state.mastered.size===patterns.length?'You have completed every pattern in this starter set.':'Highest-priority unmastered pattern in your current map.';
+    document.getElementById('nextBestButton').dataset.pattern=next.id;
+  }
+
+  function populatePracticeSelect() {
+    els.practiceSelect.innerHTML = patterns.sort((a,b)=>a.rank-b.rank).map(p=>`<option value="${p.id}">#${p.rank} · ${p.title}</option>`).join('');
+    els.practiceSelect.value=state.currentPracticeId;
+  }
+
+  document.addEventListener('click', e => {
+    const nav=e.target.closest('[data-view]'); if(nav) { goToView(nav.dataset.view); return; }
+    const open=e.target.closest('[data-open]'); if(open) { openPattern(open.dataset.open); return; }
+    const practice=e.target.closest('[data-practice]'); if(practice) { startPractice(practice.dataset.practice); return; }
+    const master=e.target.closest('[data-master]'); if(master) { toggleMaster(master.dataset.master); return; }
+    const speech=e.target.closest('[data-speak]'); if(speech) { speak(speech.dataset.speak); return; }
+    const dp=e.target.closest('[data-dialog-practice]'); if(dp) { startPractice(dp.dataset.id,dp.dataset.dialogPractice); return; }
+    const mode=e.target.closest('[data-mode]'); if(mode) { state.currentMode=mode.dataset.mode; document.querySelectorAll('.mode-card').forEach(b=>b.classList.toggle('active',b===mode)); renderPractice(); return; }
+    const choice=e.target.closest('[data-choice-answer]'); if(choice) { const ok=choice.dataset.choiceAnswer==='true'; els.practiceStage.querySelectorAll('.choice-btn').forEach(b=>b.disabled=true); choice.classList.add(ok?'correct':'incorrect'); setFeedback(ok,ok?'✓ Correct — pattern recognised.':'Not this one. Compare the pattern and try the correct alternative next time.'); if(ok) celebrate(getPattern(state.currentPracticeId)); return; }
+    const reveal=e.target.closest('[data-reveal]'); if(reveal) { setFeedback(true,`Answer: ${reveal.dataset.reveal}`); return; }
+  });
+
+  document.getElementById('dialogClose').addEventListener('click',()=>els.dialog.close());
+  els.dialog.addEventListener('click',e=>{ if(e.target===els.dialog) els.dialog.close(); });
+  [els.search,els.type,els.level].forEach(el => el.addEventListener(el===els.search?'input':'change', renderLibrary));
+  document.getElementById('quickFilters').addEventListener('click',e=>{const b=e.target.closest('[data-quick]');if(!b)return;state.quick=b.dataset.quick;document.querySelectorAll('[data-quick]').forEach(x=>x.classList.toggle('active',x===b));renderLibrary();});
+  document.getElementById('lensRow').addEventListener('click',e=>{const b=e.target.closest('[data-lens]');if(!b)return;state.lens=state.lens===b.dataset.lens?null:b.dataset.lens;document.querySelectorAll('[data-lens]').forEach(x=>x.classList.toggle('active',x.dataset.lens===state.lens));renderLibrary();document.querySelector('.library-section').scrollIntoView({behavior:'smooth',block:'start'});});
+  document.getElementById('clearLens').addEventListener('click',()=>{state.lens=null;document.querySelectorAll('[data-lens]').forEach(x=>x.classList.remove('active'));renderLibrary();});
+  document.getElementById('resetFilters').addEventListener('click',()=>{els.search.value='';els.type.value='all';els.level.value='all';state.quick='all';state.lens=null;document.querySelectorAll('[data-quick]').forEach(x=>x.classList.toggle('active',x.dataset.quick==='all'));document.querySelectorAll('[data-lens]').forEach(x=>x.classList.remove('active'));renderLibrary();});
+  document.getElementById('startTopPattern').addEventListener('click',()=>openPattern(patterns[0].id));
+  els.practiceSelect.addEventListener('change',()=>{state.currentPracticeId=els.practiceSelect.value;renderPractice();});
+  document.getElementById('nextBestButton').addEventListener('click',e=>startPractice(e.currentTarget.dataset.pattern||patterns[0].id));
+  document.getElementById('themeButton').addEventListener('click',()=>{document.body.classList.toggle('dark');state.theme=document.body.classList.contains('dark')?'dark':'light';localStorage.setItem('ldna-theme',state.theme);});
+
+  populatePracticeSelect(); renderLibrary(); renderPareto(); renderPractice(); renderDNA(); updateStats();
+
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+})();
