@@ -179,3 +179,45 @@ body.dark .lexical-warning{background:#4c4024;border-color:#796a3b}body.dark .le
 
 .meaning-traps{margin:0 0 42px;border:1px solid var(--border);background:var(--surface);border-radius:18px;padding:14px}.meaning-traps summary{cursor:pointer;font-weight:850;color:var(--text)}.meaning-trap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}.meaning-trap-grid article{padding:11px;border-radius:13px;background:var(--surface-2)}.meaning-trap-grid small,.meaning-trap-grid strong{display:block}.meaning-trap-grid small{color:var(--muted);font-size:9px}.meaning-trap-grid strong{font-size:15px;margin:4px 0}.meaning-trap-grid p{margin:0;color:var(--muted);font-size:11px;line-height:1.45}
 @media(max-width:680px){.meaning-trap-grid{grid-template-columns:1fr}}
+
+
+/* Tutor + Daily 5 + Vocabulary 100/500/1000 v7 */
+.vocab-tier-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 8px}
+.vocab-tier-tabs button{min-height:65px;border:1px solid var(--border);background:var(--surface);border-radius:15px;padding:9px 11px;text-align:left;cursor:pointer;color:var(--text)}
+.vocab-tier-tabs button strong,.vocab-tier-tabs button small{display:block}.vocab-tier-tabs button strong{font-size:20px}.vocab-tier-tabs button small{margin-top:2px;color:var(--muted);font-size:10px}
+.vocab-tier-tabs button.active{background:var(--green-soft);border-color:#a8c9b7}.vocab-tier-note{margin:0 0 13px;color:var(--muted);font-size:10px;line-height:1.5}
+
+.daily-five-card{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px;border-radius:22px;background:var(--green-dark);color:#fff}
+.daily-five-card .eyebrow{color:#b9e1d2}.daily-five-card h2{margin:3px 0 7px;font-size:28px}.daily-five-card p{margin:0;color:#d2e1db;line-height:1.5;max-width:720px}.daily-five-card .primary-btn{background:#fff;color:var(--green-dark);border-color:#fff;flex:0 0 auto}
+
+.tutor-tabs{display:flex;gap:7px;flex-wrap:wrap;margin:6px 0 18px;padding:5px;border:1px solid var(--border);background:var(--surface);border-radius:16px;width:max-content;max-width:100%}
+.tutor-tabs button{border:0;background:transparent;color:var(--muted);border-radius:11px;min-height:42px;padding:0 15px;font-weight:850;cursor:pointer}.tutor-tabs button.active{background:var(--green-dark);color:#fff}
+
+.daily-hero{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px;border:1px solid var(--border);background:var(--surface);border-radius:21px;margin-bottom:12px}
+.daily-hero h2{font-size:30px;margin:3px 0 6px}.daily-hero p{margin:0;color:var(--muted);line-height:1.5}
+.daily-progress-ring{flex:0 0 auto;width:95px;height:95px;border-radius:50%;display:grid;place-items:center;text-align:center;background:var(--green-soft);border:8px solid var(--surface-2)}
+.daily-progress-ring strong,.daily-progress-ring small{display:block}.daily-progress-ring strong{font-size:24px}.daily-progress-ring small{font-size:9px;color:var(--muted)}
+.daily-step-list{display:grid;gap:8px;margin-bottom:38px}.daily-step{display:grid;grid-template-columns:48px 1fr;gap:12px;border:1px solid var(--border);background:var(--surface);border-radius:17px;padding:14px}.daily-step.done{border-color:#9bc5aa;background:var(--green-soft)}
+.daily-check{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--surface-2);font-weight:950}.daily-step.done .daily-check{background:var(--green);color:#fff}
+.daily-step h3{margin:1px 0 5px;font-size:18px}.daily-step p{margin:0;color:var(--muted);line-height:1.5}.daily-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.daily-actions .secondary-btn{min-height:39px;font-size:11px}.daily-actions .text-btn{min-height:39px}
+
+.conversation-layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:12px;margin-bottom:42px}.conversation-side,.conversation-main{border:1px solid var(--border);background:var(--surface);border-radius:20px;padding:17px;min-width:0}
+.conversation-side h2{font-size:25px;margin:4px 0 6px}.conversation-side>p{color:var(--muted);line-height:1.45}.conversation-boundary{margin:14px 0 9px;padding:12px;background:var(--surface-2);border-radius:13px}.conversation-boundary strong,.conversation-boundary small{display:block}.conversation-boundary strong{font-size:24px}.conversation-boundary small{color:var(--muted);font-size:9px}
+.readiness-bar{height:8px;border-radius:999px;background:var(--surface-2);overflow:hidden;margin:9px 0 5px}.readiness-bar span{display:block;height:100%;background:var(--green);border-radius:inherit}
+.conversation-side>small{display:block;color:var(--muted);line-height:1.45;margin-bottom:12px}.conversation-side .secondary-btn{width:100%;font-size:11px}
+.conversation-note{padding:10px 11px;border-radius:12px;background:var(--surface-2);color:var(--muted);font-size:10px;line-height:1.45;margin-bottom:12px}
+.chat-stream{display:grid;gap:8px;max-height:520px;overflow:auto;padding-right:3px}.chat-bubble{max-width:85%;padding:11px 13px;border-radius:15px;background:var(--surface-2)}.chat-bubble.learner{margin-left:auto;background:var(--green-soft)}.chat-bubble.coach{background:#eef0f6}.dark .chat-bubble.coach{background:#282c38}
+.chat-bubble strong{display:block;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}.chat-bubble p{margin:4px 0 0;font-size:15px}.chat-bubble small{display:block;color:var(--muted);margin-top:5px;font-size:10px}
+.conversation-form{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:13px}.conversation-form input{width:100%;min-height:48px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);border-radius:13px;padding:0 13px;font-size:16px}.conversation-form .primary-btn{min-height:48px}
+.conversation-support{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.conversation-support button{border:1px solid var(--border);background:var(--surface-2);color:var(--muted);border-radius:999px;min-height:34px;padding:0 10px;font-size:9px;font-weight:800;cursor:pointer}
+.conversation-feedback{margin-top:8px;color:var(--muted);font-size:11px;line-height:1.5}.conversation-feedback strong{color:var(--text)}.conversation-complete{margin-top:14px;padding:15px;border-radius:15px;background:var(--green-soft)}.conversation-complete strong{font-size:18px}.conversation-complete p{color:var(--green-dark)}
+
+.scenario-heading h2{font-size:30px;margin:3px 0 5px}.scenario-heading p{color:var(--muted);line-height:1.5;max-width:760px}.scenario-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:14px 0 42px}
+.scenario-card{display:grid;grid-template-columns:48px 1fr;gap:10px;border:1px solid var(--border);background:var(--surface);border-radius:18px;padding:14px}.scenario-icon{display:grid;place-items:center;width:43px;height:43px;border-radius:13px;background:var(--surface-2);font-size:22px}.scenario-level{font-size:8px;color:var(--muted);font-weight:900;letter-spacing:.07em}.scenario-card h3{margin:3px 0 4px;font-size:18px}.scenario-card p{margin:0 0 9px;color:var(--muted);font-size:11px;line-height:1.4}.scenario-card small{display:block;color:var(--muted);font-size:9px;margin:5px 0 9px}.scenario-card .primary-btn{width:100%;min-height:39px;font-size:10px}
+
+@media(max-width:980px){
+  .conversation-layout{grid-template-columns:1fr}.scenario-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:680px){
+  .vocab-tier-tabs{grid-template-columns:1fr}.daily-five-card,.daily-hero{align-items:flex-start;flex-direction:column}.daily-five-card .primary-btn{width:100%}.tutor-tabs{width:100%}.tutor-tabs button{flex:1;padding:0 7px}.daily-progress-ring{width:82px;height:82px}.conversation-form{grid-template-columns:1fr}.conversation-form .primary-btn{width:100%}.chat-bubble{max-width:96%}.scenario-grid{grid-template-columns:1fr}
+}
