@@ -100,6 +100,54 @@
     {id:'question-order',title:'Do you…?',idea:'Questions',en:['Do you','{verb + idea}','?'],es:['¿','{conjugated verb + idea}','?'],variants:[['Do you speak Spanish?','¿Hablas español?'],['Do you eat meat?','¿Comes carne?'],['Where do you live?','¿Dónde vives?']]}
   ];
 
+  const COURSE_LEVELS=[
+    {id:'A1',title:'A1 Foundations',subtitle:'Understand the building blocks of everyday Spanish.',units:[
+      {id:'a1-links',title:'First language links',desc:'Use familiar English to unlock Spanish spelling and sound.',patterns:['tion-cion','ity-idad','vowels','h-silent','stress-default','accent-overrides']},
+      {id:'a1-sentences',title:'Build your first sentences',desc:'Identity, existence, location, articles and simple negatives.',patterns:['subject-drop','no-before-verb','articles','ser-identity','hay','estar-location']},
+      {id:'a1-questions',title:'Ask and locate',desc:'Questions, directions and the small words that place things.',patterns:['question-words','question-order','a-en-de','aqui-alli','al-del','inverted-punct']},
+      {id:'a1-verbs',title:'Core present-tense verbs',desc:'Regular verbs plus going to, obligation and liking.',patterns:['regular-ar','regular-er','regular-ir','ir-a','tener-que','gustar']},
+      {id:'a1-description',title:'Describe people and things',desc:'Agreement, plurals, gender clues, age and people as objects.',patterns:['adjective-after','agreement','plural','gender-o-a','personal-a','tengo-anos']},
+      {id:'a1-sounds',title:'Sound confidence',desc:'Read common consonants and regional sound patterns with confidence.',patterns:['g-j-sounds','c-z','qu','enye','r-rr','b-v','ll-y']}
+    ]},
+    {id:'A2',title:'A2 Everyday Spanish',subtitle:'Connect ideas, time, reasons and richer everyday vocabulary.',units:[
+      {id:'a2-time',title:'Actions and time',desc:'Talk about what is happening, what just happened and how long.',patterns:['estar-gerund','reflexive','ya-todavia','acabar-de','desde-hace','cuando-present','months-lowercase']},
+      {id:'a2-connect',title:'Reasons and connections',desc:'Build conditions, reasons, purpose, comparisons and linked clauses.',patterns:['porque','para-purpose','si-if','que-connector','more-than','muy-mucho']},
+      {id:'a2-natural',title:'More natural sentence tools',desc:'Pronouns, impersonal statements and everyday weather.',patterns:['direct-object','se-impersonal','hace-weather']},
+      {id:'a2-cognates',title:'High-yield word families',desc:'Grow recognition through productive adjective and noun families.',patterns:['ous-oso','ly-mente','ph-f','ic-ico','ist-ista','ance-encia','ive-ivo','ism-ismo','able-ible','ant-ent','al-al']},
+      {id:'a2-verbs',title:'Build verbs from English',desc:'Recognise productive Latinate verb transformations.',patterns:['ize-izar','fy-ficar','ate-ar']},
+      {id:'a2-nouns',title:'Build larger noun families',desc:'Recognise abstract nouns, roles, places and structures.',patterns:['sion-sion','ment-mento','ment-miento','ary-ario','ory-orio','ture-tura','tude-tud']}
+    ]},
+    {id:'B1',title:'B1 Bridge',subtitle:'A bridge into broader independent reading and discussion vocabulary.',units:[
+      {id:'b1-knowledge',title:'Knowledge and science families',desc:'Read academic, scientific and systems vocabulary through shared roots.',patterns:['logy-logia','graphy-grafia','cracy-cracia','nomy-nomia','metry-metria','scope-scopio']},
+      {id:'b1-precision',title:'Precision cognates',desc:'Refine adjective recognition and spelling transformations.',patterns:['ct-cto','id-ido']},
+      {id:'b1-integration',title:'Integrated communication',desc:'Revisit core sentence engines at higher skill depth and combine them fluently.',patterns:['question-order','que-connector','si-if','direct-object','se-impersonal','estar-gerund','reflexive','ir-a']}
+    ]}
+  ];
+
+  const LEXICAL_WARNINGS={
+    'actual':'False-friend alert: Spanish actual usually means “current/present”, not English “actual”.',
+    'asistir':'False-friend alert: asistir usually means “to attend”, not “to assist”.',
+    'embarazada':'False-friend alert: embarazada means “pregnant”, not “embarrassed”.',
+    'exito':'False-friend alert: éxito means “success”, not “exit”.',
+    'libreria':'False-friend alert: librería normally means “bookshop/bookstore”, not “library”.',
+    'carpeta':'False-friend alert: carpeta commonly means “folder”, not “carpet”.',
+    'sensible':'False-friend alert: Spanish sensible often means “sensitive”, not English “sensible”.',
+    'realizar':'Usage note: realizar commonly means “to carry out/perform”; it is not always the same as English “realize”.'
+  };
+  const SAFE_REGULAR_VERB_PATTERNS=new Set(['regular-ar','regular-er','regular-ir','ize-izar','fy-ficar','ate-ar']);
+  const SOUND_CATEGORIES=[
+    {id:'stress',label:'word stress',test:function(w){return/[áéíóú]/i.test(w)}},
+    {id:'rr',label:'r / rr',test:function(w){return /r/i.test(w)}},
+    {id:'j',label:'j / soft g',test:function(w){return /j|g[ei]/i.test(w)}},
+    {id:'ll-y',label:'ll / y',test:function(w){return /ll|y/i.test(w)}},
+    {id:'n-tilde',label:'ñ',test:function(w){return /ñ/i.test(w)}},
+    {id:'qu',label:'qu',test:function(w){return /qu[ei]/i.test(w)}},
+    {id:'c-z',label:'c / z',test:function(w){return /z|c[ei]/i.test(w)}},
+    {id:'b-v',label:'b / v',test:function(w){return /[bv]/i.test(w)}},
+    {id:'h',label:'silent h',test:function(w){return /h/i.test(w)}},
+    {id:'vowels',label:'stable vowels',test:function(w){return /[aeiouáéíóú]/i.test(w)}}
+  ];
+
   const els={search:document.getElementById('searchInput'),type:document.getElementById('typeFilter'),level:document.getElementById('levelFilter'),grid:document.getElementById('patternGrid'),summary:document.getElementById('resultsSummary'),empty:document.getElementById('emptyState'),dialog:document.getElementById('patternDialog'),dialogContent:document.getElementById('dialogContent'),toast:document.getElementById('toast'),practiceSelect:document.getElementById('practicePatternSelect'),practiceStage:document.getElementById('practiceStage'),familyTabs:document.getElementById('familyTabs')};
 
   function safeParse(value,fallback){try{return JSON.parse(value)}catch(e){return fallback}}
@@ -108,6 +156,10 @@
     skills:safeParse(localStorage.getItem('ldna-skills-v3')||'{}',{}),
     reviews:safeParse(localStorage.getItem('ldna-reviews-v1')||'{}',{}),
     pronunciation:safeParse(localStorage.getItem('ldna-pronunciation-v1')||'{}',{}),
+    pronunciationWeaknesses:safeParse(localStorage.getItem('ldna-pronunciation-weaknesses-v1')||'{}',{}),
+    activity:safeParse(localStorage.getItem('ldna-activity-v1')||'[]',[]),
+    session:null,
+    courseLevel:localStorage.getItem('ldna-course-level')||'A1',
     sentenceFrame:SENTENCE_DNA[0].id,sentenceExample:0,
     theme:localStorage.getItem('ldna-theme')||'light'
   };
@@ -125,6 +177,36 @@
   function persistSkills(){localStorage.setItem('ldna-skills-v3',JSON.stringify(state.skills))}
   function persistReviews(){localStorage.setItem('ldna-reviews-v1',JSON.stringify(state.reviews))}
   function persistPronunciation(){localStorage.setItem('ldna-pronunciation-v1',JSON.stringify(state.pronunciation))}
+  function persistPronunciationWeaknesses(){localStorage.setItem('ldna-pronunciation-weaknesses-v1',JSON.stringify(state.pronunciationWeaknesses))}
+  function persistActivity(){localStorage.setItem('ldna-activity-v1',JSON.stringify(state.activity.slice(-500)))}
+  function logActivity(type,data){state.activity.push(Object.assign({at:Date.now(),type:type},data||{}));if(state.activity.length>500)state.activity=state.activity.slice(-500);persistActivity()}
+  function courseLevelById(id){return COURSE_LEVELS.find(function(level){return level.id===id})||COURSE_LEVELS[0]}
+  function courseUnitById(id){for(let i=0;i<COURSE_LEVELS.length;i++){const unit=COURSE_LEVELS[i].units.find(function(x){return x.id===id});if(unit)return{level:COURSE_LEVELS[i],unit:unit,index:i}}return null}
+  function courseLevelForPattern(id){for(let i=0;i<COURSE_LEVELS.length;i++)if(COURSE_LEVELS[i].units.some(function(u){return u.patterns.includes(id)}))return COURSE_LEVELS[i].id;return'B1'}
+  function patternUsefulness(p){const bonus=p.importance==='essential'?8:p.importance==='high'?4:0;return Math.min(100,Math.round(p.power*.88+bonus))}
+  function patternConfidence(p){if(p.note)return'Strong tendency';if(p.power>=94)return'High teaching confidence';if(p.power>=84)return'Useful pattern';return'Explore with examples'}
+  function patternIntelligence(p){return{level:courseLevelForPattern(p.id),usefulness:patternUsefulness(p),confidence:patternConfidence(p)}}
+  function normalizeWarningKey(value){return normalize(value).replace(/\s/g,'')}
+  function lexicalWarning(query,translated){const keys=[normalizeWarningKey(query),normalizeWarningKey(translated)];for(let i=0;i<keys.length;i++)if(LEXICAL_WARNINGS[keys[i]])return LEXICAL_WARNINGS[keys[i]];return''}
+  function unitProgress(unit){const total=unit.patterns.length*SKILLS.length,built=unit.patterns.reduce(function(n,id){return n+progressFor(id)},0);return total?Math.round(built/total*100):0}
+  function unitStrongCount(unit){return unit.patterns.filter(function(id){return isStrong(id)}).length}
+  function unitUnlocked(levelIndex,unitIndex){
+    if(levelIndex===0&&unitIndex===0)return true;
+    if(unitIndex>0)return unitProgress(COURSE_LEVELS[levelIndex].units[unitIndex-1])>=60;
+    const previous=COURSE_LEVELS[levelIndex-1];return previous.units.filter(function(u){return unitProgress(u)>=70}).length>=Math.ceil(previous.units.length*.67)
+  }
+  function courseStage(){
+    let highest='A1',completedUnits=0,totalUnits=0;
+    COURSE_LEVELS.forEach(function(level,li){level.units.forEach(function(unit){totalUnits++;if(unitProgress(unit)>=80){completedUnits++;highest=level.id}})});
+    const current=COURSE_LEVELS.find(function(level,li){return level.units.some(function(unit,ui){return unitUnlocked(li,ui)&&unitProgress(unit)<80})})||COURSE_LEVELS[COURSE_LEVELS.length-1];
+    return{highest:highest,current:current.id,completedUnits:completedUnits,totalUnits:totalUnits,percent:Math.round(completedUnits/totalUnits*100)}
+  }
+  function regularVerbFamily(spanish,pattern){
+    if(!pattern||!SAFE_REGULAR_VERB_PATTERNS.has(pattern.id))return null;
+    const word=String(spanish||'').toLowerCase().trim(),ending=word.slice(-2);if(!['ar','er','ir'].includes(ending))return null;
+    const stem=word.slice(0,-2),forms=ending==='ar'?['o','as','a','amos','an']:ending==='er'?['o','es','e','emos','en']:['o','es','e','imos','en'];
+    return[['yo',stem+forms[0]],['tú',stem+forms[1]],['él/ella',stem+forms[2]],['nosotros',stem+forms[3]],['ellos',stem+forms[4]]]
+  }
   function markSkill(id,skill,silent){if(!state.skills[id])state.skills[id]={};state.skills[id][skill]=true;persistSkills();if(!silent)toast('Nice — one more link strengthened.');renderAllProgress()}
   function toast(message){els.toast.textContent=message;els.toast.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(function(){els.toast.classList.remove('show')},1800)}
   function speakText(text,lang,rate){if(!('speechSynthesis'in window)){toast('Audio playback is not supported in this browser.');return}window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=lang||'es-ES';u.rate=rate||((u.lang.indexOf('es')===0)?.82:.9);const voices=window.speechSynthesis.getVoices();const target=u.lang.slice(0,2).toLowerCase();const voice=voices.find(function(v){return v.lang.toLowerCase().indexOf(target)===0});if(voice)u.voice=voice;window.speechSynthesis.speak(u)}
