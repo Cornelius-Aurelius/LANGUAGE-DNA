@@ -26,7 +26,7 @@ An automatically sourced English ↔ Spanish pair is included only when:
 6. the strongest Spanish candidate is chosen when several match;
 7. hand-curated LanguageDNA entries override automated candidates.
 
-This build contains **31 full word-pattern dictionaries** with **9,507 English ↔ Spanish rows**.
+The aligned OMW build produced **31 full word-pattern dictionaries** with **9,507 candidate English ↔ Spanish rows**. Data Quality v2 now serves **8,264 production rows** and quarantines **1,243 unsupported automated candidates** for review.
 
 ## Current full word-pattern families
 
@@ -62,6 +62,14 @@ This build contains **31 full word-pattern dictionaries** with **9,507 English �
 - `-ate → -ar`
 - `ph → f`
 
-## Next validation layers
+## Data Quality v2 validation layers
 
-Current Wiktionary/Wiktextract (Kaikki) and Spanish UniMorph are suitable additional sources for later sense, morphology and inflection validation. They are not silently mixed into this build: each new source will be tracked explicitly with its license and extraction rules.
+The OMW same-synset + spelling-pattern gate remains the semantic backbone. Production rows are now additionally checked against:
+
+- **Spanish Wiktionary-derived lexical data** (`doozan/spanish_data`) for Spanish lemma corroboration;
+- **Spanish UniMorph** (`unimorph/spa`, CC BY-SA 3.0) for lemma/morphology corroboration;
+- **FrequencyWords English 50k and Spanish 50k** as usefulness/frequency signals.
+
+An automated row is quarantined only when it is absent from all four corroboration signals (Spanish Wiktionary, Spanish UniMorph, English top-50k and Spanish top-50k). Hand-curated LanguageDNA rows are never auto-quarantined.
+
+Quarantine means “needs review”, not “proved wrong”. See `DATA_QUALITY.md`, `data-quality-report.json`, and `data-review-queue.json`.
