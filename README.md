@@ -1,32 +1,21 @@
-# LanguageDNA — English → Spanish Pattern App
+# LanguageDNA — English → Spanish Pattern Learning
 
-A browser-first prototype built around:
+LanguageDNA teaches Spanish through reusable links between English and Spanish rather than isolated vocabulary lists.
 
-- Pareto-ranked English → Spanish patterns
-- Visual, Sound, and Writing/Structure pattern families
+## Current experience
+
+- Beginner-first home screen
+- English ↔ Spanish live word translator with subtle pattern detection
+- Visual, sound, sentence, verb and question pattern families
 - WHO / WHAT / WHERE / WHY / WHEN meaning lenses
-- Searchable and filterable Pattern Library
-- Five practice modes: Writing, Speaking, Hearing, This or That, Ticking
-- Browser speech synthesis for Spanish audio
-- Browser speech recognition where supported
-- Local progress persistence with `localStorage`
-- Responsive mobile/desktop UI
-- Offline-capable service worker when served over HTTP/HTTPS
+- Connected next-pattern links
+- Five-skill mastery per pattern: See, Hear, Write, Speak, Use
+- Writing, speaking, hearing, choice and rapid-recognition practice
+- Skip and reveal-answer controls with no penalty
+- LanguageDNA map showing pattern growth by family and meaning
+- Responsive mobile and desktop layouts
+- Offline app shell for the pattern library and practice engine
 
-## Run locally
+The current starter library contains 60 hand-authored English → Spanish patterns and is designed to expand into a much larger lexical and grammatical graph.
 
-You can open `index.html` directly for most features. For the install/offline service worker, serve the folder over HTTP, for example:
-
-```bash
-python3 -m http.server 8080
-```
-
-Then open `http://localhost:8080`.
-
-## Deploy
-
-This is a static site and can be deployed to GitHub Pages, Netlify, Vercel, Cloudflare Pages, or imported into another web builder as HTML/CSS/JS.
-
-## Current content
-
-The starter library contains 60 hand-authored patterns. It is designed so the pattern dataset can later be moved into JSON/database storage and expanded substantially.
+This static HTML/CSS/JavaScript app is deployed with GitHub Pages.

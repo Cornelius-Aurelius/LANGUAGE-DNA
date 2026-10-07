@@ -64,420 +64,71 @@
     {id:'ser-identity', rank:60, type:'writing', importance:'essential', power:98, tags:['verbs','sentence'], lenses:['WHO','WHAT'], title:'ser for identity / classification', rule:'Ser is central for identity, origin, profession and classification; estar handles many states/locations.', examples:[['I am a student','Soy estudiante'],['She is Spanish','Ella es española'],['It is important','Es importante']], practice:{prompt:'I am a student', answers:['soy estudiante'], hearing:['soy estudiante','I am a student'], wrong:'estoy estudiante'}, scoreLabel:'Core identity pattern'}
   ];
 
-  const els = {
-    search: document.getElementById('searchInput'), type: document.getElementById('typeFilter'), level: document.getElementById('levelFilter'),
-    grid: document.getElementById('patternGrid'), summary: document.getElementById('resultsSummary'), empty: document.getElementById('emptyState'),
-    dialog: document.getElementById('patternDialog'), dialogContent: document.getElementById('dialogContent'), toast: document.getElementById('toast'),
-    practiceSelect: document.getElementById('practicePatternSelect'), practiceStage: document.getElementById('practiceStage')
-  };
 
-  const state = {
-    lens: null,
-    quick: 'all',
-    currentView: 'library',
-    currentMode: 'writing',
-    currentPracticeId: patterns[0].id,
-    mastered: new Set(JSON.parse(localStorage.getItem('ldna-mastered') || '[]')),
-    theme: localStorage.getItem('ldna-theme') || 'light'
-  };
+  const SKILLS=[{key:'see',icon:'👁',label:'See',mode:'tick'},{key:'hear',icon:'👂',label:'Hear',mode:'hear'},{key:'write',icon:'✍️',label:'Write',mode:'write'},{key:'speak',icon:'🎙️',label:'Speak',mode:'speak'},{key:'use',icon:'⚡',label:'Use',mode:'choice'}];
+  const FAMILY_META=[{key:'words',icon:'🔗',title:'Word Links',text:'English words that transform predictably into Spanish.'},{key:'sound',icon:'👂',title:'Sound Links',text:'Hear letters, stress and pronunciation patterns.'},{key:'sentences',icon:'🧱',title:'Sentence Links',text:'Reusable frames that build real Spanish quickly.'},{key:'verbs',icon:'⚙️',title:'Verb Links',text:'Patterns that show who is doing what and when.'},{key:'questions',icon:'❓',title:'Question Links',text:'Ask WHO, WHAT, WHERE, WHY and WHEN.'}];
+  const els={search:document.getElementById('searchInput'),type:document.getElementById('typeFilter'),level:document.getElementById('levelFilter'),grid:document.getElementById('patternGrid'),summary:document.getElementById('resultsSummary'),empty:document.getElementById('emptyState'),dialog:document.getElementById('patternDialog'),dialogContent:document.getElementById('dialogContent'),toast:document.getElementById('toast'),practiceSelect:document.getElementById('practicePatternSelect'),practiceStage:document.getElementById('practiceStage'),familyTabs:document.getElementById('familyTabs')};
 
-  if (state.theme === 'dark') document.body.classList.add('dark');
+  function safeParse(value,fallback){try{return JSON.parse(value)}catch(e){return fallback}}
+  const state={view:'home',lens:null,family:'all',quick:'all',mode:'write',currentId:patterns[0].id,skills:safeParse(localStorage.getItem('ldna-skills-v3')||'{}',{}),theme:localStorage.getItem('ldna-theme')||'light'};
+  const legacyMastered=new Set(safeParse(localStorage.getItem('ldna-mastered')||'[]',[]));
+  legacyMastered.forEach(function(id){if(!state.skills[id])state.skills[id]={see:true,hear:true,write:true,speak:true,use:true}});
+  if(state.theme==='dark')document.body.classList.add('dark');
 
-  function normalize(str) {
-    return (str || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[¿?¡!.,]/g,'').replace(/\s+/g,' ');
-  }
+  function normalize(value){return String(value||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¿?¡!.,;:]/g,'').replace(/\s+/g,' ')}
+  function escapeHtml(value){return String(value==null?'':value).replace(/[&<>"']/g,function(ch){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]})}
+  function getPattern(id){return patterns.find(function(p){return p.id===id})||patterns[0]}
+  function patternFamilies(p){const f=[];if(p.type==='visual'||p.tags.includes('cognates'))f.push('words');if(p.type==='sound'||p.tags.includes('pronunciation'))f.push('sound');if(p.tags.includes('sentence')||(p.type==='writing'&&!p.tags.includes('verbs')&&!p.tags.includes('questions')))f.push('sentences');if(p.tags.includes('verbs'))f.push('verbs');if(p.tags.includes('questions'))f.push('questions');if(!f.length)f.push('sentences');return Array.from(new Set(f))}
+  function typeLabel(type){return type==='visual'?'👁 VISUAL':type==='sound'?'🔊 SOUND':'✍ STRUCTURE'}
+  function progressFor(id){const row=state.skills[id]||{};return SKILLS.reduce(function(n,s){return n+(row[s.key]?1:0)},0)}
+  function isStrong(id){return progressFor(id)>=4}
+  function persistSkills(){localStorage.setItem('ldna-skills-v3',JSON.stringify(state.skills))}
+  function markSkill(id,skill,silent){if(!state.skills[id])state.skills[id]={};state.skills[id][skill]=true;persistSkills();if(!silent)toast('Nice — one more link strengthened.');renderAllProgress()}
+  function toast(message){els.toast.textContent=message;els.toast.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(function(){els.toast.classList.remove('show')},1800)}
+  function speakText(text,lang){if(!('speechSynthesis'in window)){toast('Audio playback is not supported in this browser.');return}window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=lang||'es-ES';u.rate=u.lang.indexOf('es')===0?.82:.9;const voices=window.speechSynthesis.getVoices();const target=u.lang.slice(0,2).toLowerCase();const voice=voices.find(function(v){return v.lang.toLowerCase().indexOf(target)===0});if(voice)u.voice=voice;window.speechSynthesis.speak(u)}
+  function skillDots(id){const row=state.skills[id]||{};return'<div class="skill-dots" aria-label="'+progressFor(id)+' of 5 skills built">'+SKILLS.map(function(s){return'<span class="skill-dot '+(row[s.key]?'on':'')+'" title="'+s.label+'">'+(row[s.key]?'✓':s.icon)+'</span>'}).join('')+'</div>'}
 
-  function typeLabel(type) {
-    return type === 'visual' ? '👁 VISUAL' : type === 'sound' ? '🔊 SOUND' : '✍ WRITING';
-  }
-  function importanceLabel(importance) {
-    return importance === 'essential' ? '🔥 ESSENTIAL' : importance === 'high' ? '⚡ HIGH' : '⭐ USEFUL';
-  }
-  function getPattern(id) { return patterns.find(p => p.id === id) || patterns[0]; }
-  function persist() { localStorage.setItem('ldna-mastered', JSON.stringify([...state.mastered])); }
-  function toast(message) {
-    els.toast.textContent = message; els.toast.classList.add('show');
-    clearTimeout(toast.timer); toast.timer = setTimeout(() => els.toast.classList.remove('show'), 1800);
-  }
+  function filteredPatterns(){const q=normalize(els.search?els.search.value:'');const type=els.type?els.type.value:'all';const level=els.level?els.level.value:'all';return patterns.filter(function(p){const searchable=normalize([p.title,p.rule,p.note||'',p.scoreLabel||'',p.tags.join(' '),p.lenses.join(' '),p.examples.flat().join(' ')].join(' '));return(!q||searchable.indexOf(q)>=0)&&(type==='all'||p.type===type)&&(level==='all'||p.importance===level)&&(!state.lens||p.lenses.includes(state.lens))&&(state.family==='all'||patternFamilies(p).includes(state.family))&&(state.quick==='all'||p.tags.includes(state.quick))})}
+  function renderPatternCard(p){const count=progressFor(p.id);return'<article class="pattern-card"><div class="pattern-card-top"><span class="mini-badge '+p.type+'">'+typeLabel(p.type)+'</span><span class="starter-number">#'+p.rank+'</span></div><h3>'+escapeHtml(p.title)+'</h3><p class="rule">'+escapeHtml(p.rule)+'</p><p class="unlock">'+escapeHtml(p.scoreLabel||'Reusable Spanish link')+'</p><div class="lens-tags">'+p.lenses.map(function(x){return'<span class="lens-tag">'+x+'</span>'}).join('')+'</div>'+skillDots(p.id)+'<div class="mini-progress"><span style="width:'+(count/5*100)+'%"></span></div><div class="pattern-card-actions"><button class="card-btn" type="button" data-open="'+p.id+'">See link</button><button class="card-btn primary" type="button" data-practice="'+p.id+'">Practise</button></div></article>'}
+  function renderLibrary(){const items=filteredPatterns();if(els.summary)els.summary.textContent=items.length+' pattern'+(items.length===1?'':'s')+' shown · '+patterns.length+' total';if(els.empty)els.empty.hidden=items.length>0;if(els.grid)els.grid.innerHTML=items.map(renderPatternCard).join('')}
+  function renderFamilies(){const familyGrid=document.getElementById('familyGrid');if(familyGrid)familyGrid.innerHTML=FAMILY_META.map(function(f){const count=patterns.filter(function(p){return patternFamilies(p).includes(f.key)}).length;return'<button type="button" class="family-card" data-family-jump="'+f.key+'"><span>'+f.icon+'</span><strong>'+f.title+'</strong><small>'+f.text+'</small><b>'+count+' patterns →</b></button>'}).join('');if(els.familyTabs){const tabs=[{key:'all',icon:'🧬',title:'All patterns'}].concat(FAMILY_META);els.familyTabs.innerHTML=tabs.map(function(f){return'<button type="button" class="family-tab '+(state.family===f.key?'active':'')+'" data-family="'+f.key+'">'+f.icon+' '+f.title+'</button>'}).join('')}}
+  function renderStarters(){const grid=document.getElementById('starterGrid');if(!grid)return;const starter=patterns.slice().sort(function(a,b){return a.rank-b.rank}).slice(0,6);grid.innerHTML=starter.map(function(p,index){const count=progressFor(p.id);return'<button type="button" class="starter-card" data-open="'+p.id+'"><div class="starter-card-top"><span class="mini-badge '+p.type+'">'+typeLabel(p.type)+'</span><span class="starter-number">STEP '+(index+1)+'</span></div><h3>'+escapeHtml(p.title)+'</h3><p>'+escapeHtml(p.scoreLabel||p.rule)+'</p><div class="mini-progress"><span style="width:'+(count/5*100)+'%"></span></div></button>'}).join('')}
+  function commonPrefixLength(a,b){const max=Math.min(a.length,b.length);let i=0;while(i<max&&a[i].toLowerCase()===b[i].toLowerCase())i++;return i}
+  function highlightWordPair(en,es){const cut=commonPrefixLength(en,es);if(cut<3||cut>=Math.min(en.length,es.length)-1)return{en:escapeHtml(en),es:escapeHtml(es)};return{en:escapeHtml(en.slice(0,cut))+'<mark>'+escapeHtml(en.slice(cut))+'</mark>',es:escapeHtml(es.slice(0,cut))+'<mark>'+escapeHtml(es.slice(cut))+'</mark>'}}
+  function relatedPatterns(p){return patterns.filter(function(x){return x.id!==p.id}).map(function(x){let score=0;if(x.type===p.type)score+=3;p.tags.forEach(function(t){if(x.tags.includes(t))score+=3});p.lenses.forEach(function(l){if(x.lenses.includes(l))score+=1});if(patternFamilies(p).some(function(f){return patternFamilies(x).includes(f)}))score+=2;score+=Math.max(0,3-Math.abs(x.rank-p.rank)/10);return{p:x,score:score}}).sort(function(a,b){return b.score-a.score||a.p.rank-b.p.rank}).slice(0,4).map(function(x){return x.p})}
 
-  function speak(text, rate=0.82) {
-    if (!('speechSynthesis' in window)) { toast('Speech playback is not supported in this browser.'); return; }
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'es-ES'; u.rate = rate;
-    const voices = window.speechSynthesis.getVoices();
-    const voice = voices.find(v => /^es(-|_)/i.test(v.lang)); if (voice) u.voice = voice;
-    window.speechSynthesis.speak(u);
-  }
+  function openPattern(id){const p=getPattern(id);const examples=p.examples.map(function(pair){const hi=highlightWordPair(String(pair[0]),String(pair[1]));return'<div class="transform-example"><div class="transform-word">'+hi.en+'</div><div class="arrow">→</div><div class="transform-word">'+hi.es+'</div><button type="button" class="small-audio" data-speak="'+escapeHtml(String(pair[1]))+'" aria-label="Hear '+escapeHtml(String(pair[1]))+'">🔊</button></div>'}).join('');const row=state.skills[p.id]||{};const skills=SKILLS.map(function(s){return'<button type="button" class="skill-button '+(row[s.key]?'done':'')+'" data-skill-practice="'+s.mode+'" data-id="'+p.id+'"><span>'+(row[s.key]?'✓':s.icon)+'</span><strong>'+s.label+'</strong></button>'}).join('');const related=relatedPatterns(p).map(function(x){return'<button type="button" class="related-card" data-open="'+x.id+'"><strong>'+escapeHtml(x.title)+'</strong><small>'+escapeHtml(x.scoreLabel||'Connected pattern')+'</small></button>'}).join('');els.dialogContent.innerHTML='<div class="dialog-hero"><span class="mini-badge '+p.type+'">'+typeLabel(p.type)+'</span><h2 id="dialogTitle">'+escapeHtml(p.title)+'</h2><p>'+escapeHtml(p.rule)+'</p><div class="lens-tags">'+p.lenses.map(function(x){return'<span class="lens-tag">'+x+'</span>'}).join('')+'</div></div><div class="pattern-transform"><div class="pattern-transform-label">SEE THE LINK</div>'+examples+'</div><div class="unlock-panel"><h3>🔓 This pattern unlocks more Spanish</h3><p>'+escapeHtml(p.scoreLabel||'Use the same connection when you meet similar words or sentences.')+'</p></div><h3>Build it in five skills</h3><div class="skill-strip">'+skills+'</div><div class="related-section"><h3>🔗 Connected next</h3><div class="related-grid">'+related+'</div></div>';els.dialog.showModal()}
+  function goView(name){state.view=name;document.querySelectorAll('.view').forEach(function(v){v.classList.toggle('active',v.dataset.viewPanel===name)});document.querySelectorAll('.nav-item').forEach(function(b){b.classList.toggle('active',b.dataset.view===name)});if(name==='library'){renderFamilies();renderLibrary()}if(name==='practice')renderPractice();if(name==='dna')renderDNA();window.scrollTo({top:0,behavior:'smooth'})}
+  function populatePracticeSelect(){els.practiceSelect.innerHTML=patterns.slice().sort(function(a,b){return a.rank-b.rank}).map(function(p){return'<option value="'+p.id+'">#'+p.rank+' · '+escapeHtml(p.title)+'</option>'}).join('');els.practiceSelect.value=state.currentId}
+  function startPractice(id,mode){state.currentId=id;state.mode=mode||state.mode||'write';els.practiceSelect.value=id;document.querySelectorAll('.mode-card').forEach(function(b){b.classList.toggle('active',b.dataset.mode===state.mode)});if(els.dialog.open)els.dialog.close();goView('practice')}
+  function practiceSkillForMode(mode){return mode==='write'?'write':mode==='speak'?'speak':mode==='hear'?'hear':mode==='choice'?'use':'see'}
+  function feedback(ok,text){const f=document.getElementById('practiceFeedback');if(!f)return;f.textContent=text;f.className='feedback '+(ok?'correct':'incorrect')}
+  function successForCurrent(){markSkill(state.currentId,practiceSkillForMode(state.mode),true);toast('✓ Link strengthened.')}
 
-  function filteredPatterns() {
-    const q = normalize(els.search.value);
-    const type = els.type.value, level = els.level.value;
-    return patterns.filter(p => {
-      const hay = normalize([p.title,p.rule,p.note||'',...p.tags,...p.lenses,...p.examples.flat()].join(' '));
-      return (!q || hay.includes(q)) && (type==='all'||p.type===type) && (level==='all'||p.importance===level) && (!state.lens||p.lenses.includes(state.lens)) && (state.quick==='all'||p.tags.includes(state.quick));
-    });
-  }
+  function renderPractice(){const p=getPattern(state.currentId);els.practiceSelect.value=p.id;const ex=p.examples[0]||['',p.practice.answers[0]];let body='<div class="practice-head"><div><span class="mini-badge '+p.type+'">'+typeLabel(p.type)+'</span><h2>'+escapeHtml(p.title)+'</h2><p>'+escapeHtml(p.rule)+'</p></div><span class="practice-score">'+progressFor(p.id)+' / 5 skills</span></div>';if(state.mode==='write'){body+='<div class="prompt-box"><span class="prompt-label">WRITE IN SPANISH</span><strong>'+escapeHtml(p.practice.prompt)+'</strong></div><form class="answer-form" id="writingForm"><input id="writingAnswer" autocomplete="off" placeholder="Type your Spanish answer…" aria-label="Your Spanish answer"><button class="primary-btn" type="submit">Check</button></form><div class="practice-actions"><button class="secondary-btn" type="button" data-reveal="'+escapeHtml(p.practice.answers[0])+'">Show answer</button><button class="secondary-btn" type="button" data-speak="'+escapeHtml(p.practice.answers[0])+'">🔊 Hear it</button></div>'}else if(state.mode==='speak'){body+='<div class="prompt-box"><span class="prompt-label">SAY THIS IN SPANISH</span><strong>'+escapeHtml(p.practice.prompt)+'</strong></div><div class="practice-actions"><button class="mic-btn" type="button" id="micButton">🎙 Start speaking</button><button class="secondary-btn" type="button" data-reveal="'+escapeHtml(p.practice.answers[0])+'">Show answer</button><button class="secondary-btn" type="button" data-speak="'+escapeHtml(p.practice.answers[0])+'">🔊 Hear answer</button><button class="secondary-btn" type="button" id="selfCheckSpeak">I said it ✓</button></div>'}else if(state.mode==='hear'){body+='<button class="big-listen" type="button" data-speak="'+escapeHtml(p.practice.answers[0])+'">🔊 Tap to hear Spanish</button><div class="prompt-box"><span class="prompt-label">WHAT DOES IT MEAN?</span><strong>Choose the closest English meaning.</strong></div><div class="choice-grid"><button class="choice-btn" type="button" data-choice="true">'+escapeHtml(ex[0])+'</button><button class="choice-btn" type="button" data-choice="false">'+escapeHtml(p.practice.wrong)+'</button></div>'}else if(state.mode==='choice'){body+='<div class="prompt-box"><span class="prompt-label">THIS OR THAT</span><strong>'+escapeHtml(p.practice.prompt)+'</strong></div><div class="choice-grid"><button class="choice-btn" type="button" data-choice="true">'+escapeHtml(p.practice.answers[0])+'</button><button class="choice-btn" type="button" data-choice="false">'+escapeHtml(p.practice.wrong)+'</button></div>'}else{const good2=p.examples[1]?p.examples[1][1]:p.practice.answers[0];body+='<div class="prompt-box"><span class="prompt-label">TICK EVERY EXAMPLE THAT FITS</span><strong>'+escapeHtml(p.title)+'</strong></div><div class="tick-list"><label class="tick-item"><input type="checkbox" data-tick="good"><span>'+escapeHtml(ex[1])+'</span></label><label class="tick-item"><input type="checkbox" data-tick="bad"><span>'+escapeHtml(p.practice.wrong)+'</span></label><label class="tick-item"><input type="checkbox" data-tick="good"><span>'+escapeHtml(good2)+'</span></label></div><button class="primary-btn" type="button" id="checkTicks">Check ticks</button>'}body+='<div class="feedback" id="practiceFeedback">Take your time. You can reveal the answer or skip.</div><div class="practice-footer"><small>Skipping does not count as wrong.</small><button class="skip-btn" type="button" id="skipPractice">Skip for now →</button></div>';els.practiceStage.innerHTML=body;bindPractice(p)}
+  function bindPractice(p){const form=document.getElementById('writingForm');if(form)form.addEventListener('submit',function(e){e.preventDefault();const ans=normalize(document.getElementById('writingAnswer').value);const ok=p.practice.answers.some(function(a){return normalize(a)===ans});feedback(ok,ok?'✓ Correct. You used the link.':'Almost. Try again, or tap “Show answer”.');if(ok)successForCurrent()});const mic=document.getElementById('micButton');if(mic)mic.addEventListener('click',function(){startRecognition(p)});const selfSpeak=document.getElementById('selfCheckSpeak');if(selfSpeak)selfSpeak.addEventListener('click',function(){feedback(true,'✓ Counted. Compare your sound with the model audio.');successForCurrent()});const ticks=document.getElementById('checkTicks');if(ticks)ticks.addEventListener('click',function(){const boxes=Array.from(els.practiceStage.querySelectorAll('[data-tick]'));const ok=boxes.every(function(b){return(b.dataset.tick==='good')===b.checked});feedback(ok,ok?'✓ Exactly. You spotted the pattern.':'Not quite. Tick only the examples that fit the target link.');if(ok)successForCurrent()});const skip=document.getElementById('skipPractice');if(skip)skip.addEventListener('click',skipPractice)}
+  function skipPractice(){const ordered=patterns.slice().sort(function(a,b){return a.rank-b.rank});const index=ordered.findIndex(function(p){return p.id===state.currentId});let next=null;for(let n=1;n<=ordered.length;n++){const candidate=ordered[(index+n+ordered.length)%ordered.length];if(progressFor(candidate.id)<4){next=candidate;break}}next=next||ordered[(index+1+ordered.length)%ordered.length];state.currentId=next.id;els.practiceSelect.value=next.id;toast('Skipped — here is another link.');renderPractice()}
+  function startRecognition(p){const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;if(!Recognition){feedback(false,'Speech recognition is unavailable here. Say it aloud, compare with “Hear answer”, then use “I said it”.');return}const rec=new Recognition();rec.lang='es-ES';rec.interimResults=false;rec.maxAlternatives=3;const mic=document.getElementById('micButton');mic.disabled=true;mic.textContent='Listening…';rec.onresult=function(e){const heard=Array.from(e.results[0]).map(function(r){return r.transcript});const ok=heard.some(function(h){return p.practice.answers.some(function(a){return normalize(a)===normalize(h)})});feedback(ok,ok?'✓ Heard: “'+heard[0]+'”':'I heard “'+heard[0]+'”. Try again or compare with the model.');if(ok)successForCurrent()};rec.onerror=function(){feedback(false,'I could not capture that clearly. Try again, or use self-check.')};rec.onend=function(){mic.disabled=false;mic.textContent='🎙 Start speaking'};rec.start()}
 
-  function renderLibrary() {
-    const items = filteredPatterns();
-    els.summary.textContent = `${items.length} pattern${items.length===1?'':'s'} shown · ${patterns.length} in this starter library`;
-    els.empty.hidden = items.length > 0;
-    els.grid.innerHTML = items.map(p => `
-      <article class="pattern-card">
-        <div class="pattern-card-top">
-          <span class="mini-badge ${p.type}">${typeLabel(p.type)}</span>
-          <span class="pattern-rank">#${p.rank}</span>
-        </div>
-        <h3>${p.title}</h3>
-        <p class="rule">${p.rule}</p>
-        <div class="lens-tags">${p.lenses.map(x=>`<span class="lens-tag">${x}</span>`).join('')}<span class="lens-tag">⚡ ${p.power}</span></div>
-        <div class="pattern-card-actions">
-          <button type="button" class="card-btn" data-open="${p.id}">See pattern</button>
-          <button type="button" class="card-btn primary" data-practice="${p.id}">Practise</button>
-          <button type="button" class="master-toggle ${state.mastered.has(p.id)?'mastered':''}" data-master="${p.id}" aria-label="${state.mastered.has(p.id)?'Unmark':'Mark'} ${p.title} as mastered">✓</button>
-        </div>
-      </article>`).join('');
-    updateStats();
-  }
+  function renderDNA(){const totalSkills=patterns.length*SKILLS.length;let built=0;patterns.forEach(function(p){built+=progressFor(p.id)});const pct=Math.round(built/totalSkills*100);document.getElementById('dnaPercent').textContent=pct+'%';document.getElementById('dnaRing').style.background='conic-gradient(var(--green) '+(pct*3.6)+'deg, var(--surface-2) 0deg)';document.getElementById('skillSummary').innerHTML=SKILLS.map(function(s){const count=patterns.filter(function(p){return!!(state.skills[p.id]||{})[s.key]}).length;return'<article class="skill-stat"><span>'+s.icon+'</span><strong>'+count+'</strong><small>'+s.label+' links</small></article>'}).join('');document.getElementById('dnaMap').innerHTML=FAMILY_META.map(function(f){const list=patterns.filter(function(p){return patternFamilies(p).includes(f.key)}).sort(function(a,b){return progressFor(b.id)-progressFor(a.id)||a.rank-b.rank}).slice(0,6);return'<section class="dna-family"><h3>'+f.icon+' '+f.title+'</h3><div class="dna-nodes">'+list.map(function(p){return'<button type="button" class="dna-node" data-open="'+p.id+'"><strong>'+escapeHtml(p.title)+'</strong><small>'+progressFor(p.id)+'/5 skills</small></button>'}).join('')+'</div></section>'}).join('');const lenses=['WHO','WHAT','WHERE','WHY','WHEN'];document.getElementById('coverageGrid').innerHTML=lenses.map(function(l){const all=patterns.filter(function(p){return p.lenses.includes(l)});const points=all.reduce(function(n,p){return n+progressFor(p.id)},0);const max=all.length*5;const q=max?Math.round(points/max*100):0;return'<article class="coverage-card"><strong>'+l+'</strong><div class="coverage-bar"><span style="width:'+q+'%"></span></div><small>'+q+'% skill coverage</small></article>'}).join('');const next=patterns.slice().sort(function(a,b){return a.rank-b.rank}).find(function(p){return progressFor(p.id)<4})||patterns[0];document.getElementById('nextBestTitle').textContent=next.title;document.getElementById('nextBestText').textContent=progressFor(next.id)===0?'A high-value connection you have not started yet.':'You already know part of this link. Strengthen the missing skills next.';document.getElementById('nextBestButton').dataset.pattern=next.id}
+  function renderAllProgress(){document.getElementById('headerMastered').textContent=patterns.filter(function(p){return isStrong(p.id)}).length;renderStarters();if(state.view==='library')renderLibrary();if(state.view==='dna')renderDNA();if(state.view==='practice')renderPractice()}
 
-  function renderPareto() {
-    const top = patterns.filter(p => p.rank <= 20).sort((a,b)=>a.rank-b.rank);
-    document.getElementById('paretoList').innerHTML = top.map(p => `
-      <article class="pareto-item">
-        <div class="pareto-number">${p.rank}</div>
-        <div><h3>${p.title}</h3><p>${p.scoreLabel}</p></div>
-        <span class="pareto-score">${importanceLabel(p.importance)} · ⚡ ${p.power}</span>
-        <button type="button" class="master-toggle ${state.mastered.has(p.id)?'mastered':''}" data-master="${p.id}" aria-label="Toggle mastery">✓</button>
-      </article>`).join('');
-  }
+  function internalTranslation(query,source,target){const q=normalize(query);for(let i=0;i<patterns.length;i++){const p=patterns[i];for(let j=0;j<p.examples.length;j++){const en=String(p.examples[j][0]);const es=String(p.examples[j][1]);if(source==='en'&&normalize(en)===q)return{text:es,pattern:p};if(source==='es'&&normalize(es)===q)return{text:en,pattern:p}}}return null}
+  function guessDirection(text){const raw=String(text||'').trim().toLowerCase();if(/[ñáéíóúü¿¡]/i.test(raw))return['es','en'];const spanish=new Set(['el','la','los','las','un','una','de','del','que','qué','y','en','a','al','por','para','con','sin','es','soy','eres','esta','está','estoy','tengo','hola','gracias','casa','comer','hablar','vivir','donde','dónde','cuando','cuándo','porque','quien','quién']);const words=normalize(raw).split(' ');return words.some(function(w){return spanish.has(w)})?['es','en']:['en','es']}
+  function inferPattern(sourceText,translatedText,sourceLang){const s=normalize(sourceText),t=normalize(translatedText),en=sourceLang==='en'?s:t,es=sourceLang==='en'?t:s;for(let i=0;i<patterns.length;i++){const p=patterns[i];for(let j=0;j<p.examples.length;j++){const e=normalize(p.examples[j][0]),sp=normalize(p.examples[j][1]);if((e===en&&sp===es)||e===en||sp===es)return p}}const question={who:'question-words',what:'question-words',where:'question-words',why:'question-words',when:'question-words'};if(question[en])return getPattern(question[en]);const rules=[[function(){return/tion$/.test(en)&&/cion$/.test(es)},'tion-cion'],[function(){return/ity$/.test(en)&&/idad$/.test(es)},'ity-idad'],[function(){return/ous$/.test(en)&&/os[oa]$/.test(es)},'ous-oso'],[function(){return/ly$/.test(en)&&/mente$/.test(es)},'ly-mente'],[function(){return en.indexOf('ph')>=0&&es.indexOf('f')>=0},'ph-f'],[function(){return/ic$/.test(en)&&/ic[oa]$/.test(es)},'ic-ico'],[function(){return/ist$/.test(en)&&/ista$/.test(es)},'ist-ista'],[function(){return/(ance|ence)$/.test(en)&&/(ancia|encia)$/.test(es)},'ance-encia'],[function(){return/ive$/.test(en)&&/iv[oa]$/.test(es)},'ive-ivo']];for(let k=0;k<rules.length;k++)if(rules[k][0]())return getPattern(rules[k][1]);return null}
+  function initTranslator(){const form=document.getElementById('translationForm'),input=document.getElementById('translationInput'),direction=document.getElementById('translationDirection'),swap=document.getElementById('translationSwap'),button=document.getElementById('translationButton'),result=document.getElementById('translationResult');let lastPair=['en','es'];async function translate(){const query=input.value.trim();if(!query){result.innerHTML='<div class="translation-empty"><span>⌕</span><p>Type a word first.</p></div>';input.focus();return}const pair=direction.value==='en-es'?['en','es']:direction.value==='es-en'?['es','en']:guessDirection(query);lastPair=pair;const source=pair[0],target=pair[1],sourceName=source==='en'?'English':'Spanish',targetName=target==='es'?'Spanish':'English',local=internalTranslation(query,source,target);button.disabled=true;button.textContent='Translating…';result.innerHTML='<div class="translation-loading"><span></span><p>Looking up <strong>'+escapeHtml(query)+'</strong>…</p></div>';try{let translated=local?local.text:'',alternatives=[];if(!translated){const controller=new AbortController();const timer=setTimeout(function(){controller.abort()},9000);const url='https://api.mymemory.translated.net/get?q='+encodeURIComponent(query)+'&langpair='+encodeURIComponent(source+'|'+target);const response=await fetch(url,{signal:controller.signal});clearTimeout(timer);if(!response.ok)throw new Error('Lookup failed');const data=await response.json();translated=String(data&&data.responseData&&data.responseData.translatedText||'').trim();alternatives=Array.from(new Set((data.matches||[]).map(function(m){return String(m.translation||'').trim()}).filter(Boolean))).filter(function(x){return normalize(x)!==normalize(translated)}).slice(0,3)}if(!translated)throw new Error('No translation');const pattern=local&&local.pattern?local.pattern:inferPattern(query,translated,source);const sourceCode=source==='es'?'es-ES':'en-GB',targetCode=target==='es'?'es-ES':'en-GB';const hint=pattern?'<button type="button" class="translation-pattern-hint" data-open="'+pattern.id+'"><span>🧬</span><span><small>LanguageDNA link found</small><strong>'+escapeHtml(pattern.title)+'</strong></span><span>→</span></button>':'';const alt=alternatives.length?'<div class="translation-alternatives"><small>Other possible matches</small><div>'+alternatives.map(function(a){return'<span>'+escapeHtml(a)+'</span>'}).join('')+'</div></div>':'';result.innerHTML='<div class="translation-meta">'+sourceName+' → '+targetName+'</div><div class="translation-pair"><div class="translation-side"><small>'+sourceName+'</small><strong>'+escapeHtml(query)+'</strong><button class="audio-dot" type="button" data-speak-lang="'+sourceCode+'" data-speak="'+escapeHtml(query)+'">🔊</button></div><div class="translation-arrow">→</div><div class="translation-side target"><small>'+targetName+'</small><strong>'+escapeHtml(translated)+'</strong><button class="audio-dot" type="button" data-speak-lang="'+targetCode+'" data-speak="'+escapeHtml(translated)+'">🔊</button></div></div>'+hint+alt}catch(err){result.innerHTML='<div class="translation-error"><strong>Live translation is unavailable right now.</strong><p>You can still browse and practise every pattern offline.</p></div>'}finally{button.disabled=false;button.textContent='Translate'}}form.addEventListener('submit',function(e){e.preventDefault();translate()});swap.addEventListener('click',function(){const pair=direction.value==='auto'?lastPair:direction.value==='en-es'?['en','es']:['es','en'];direction.value=pair[0]==='en'?'es-en':'en-es';if(input.value.trim())translate()})}
 
-  function openPattern(id) {
-    const p = getPattern(id);
-    els.dialogContent.innerHTML = `
-      <div class="pattern-card-top"><span class="mini-badge ${p.type}">${typeLabel(p.type)}</span><span class="power">${importanceLabel(p.importance)} · ⚡ ${p.power}</span></div>
-      <h2 id="dialogTitle" class="dialog-rule">${p.title}</h2>
-      <p class="dialog-desc">${p.rule}</p>
-      ${p.note?`<p class="dialog-desc"><strong>Remember:</strong> ${p.note}</p>`:''}
-      <div class="lens-tags">${p.lenses.map(x=>`<span class="lens-tag">${x}</span>`).join('')}</div>
-      <div class="example-table">
-        ${p.examples.map(([en,es])=>`<div class="example-row"><span>${en}</span><span class="arrow">→</span><strong>${es}</strong><button type="button" class="small-audio" data-speak="${es.replace(/"/g,'&quot;')}" aria-label="Hear ${es}">🔊</button></div>`).join('')}
-      </div>
-      <div class="practice-action-row">
-        <button type="button" data-dialog-practice="writing" data-id="${p.id}">✍️ Writing</button>
-        <button type="button" data-dialog-practice="speaking" data-id="${p.id}">🎙️ Speaking</button>
-        <button type="button" data-dialog-practice="hearing" data-id="${p.id}">👂 Hearing</button>
-        <button type="button" data-dialog-practice="choice" data-id="${p.id}">↔️ This/That</button>
-        <button type="button" data-dialog-practice="ticking" data-id="${p.id}">✓ Ticking</button>
-      </div>
-      <button type="button" class="master-big ${state.mastered.has(p.id)?'mastered':''}" data-master="${p.id}">${state.mastered.has(p.id)?'✓ Mastered — tap to undo':'Mark this pattern mastered'}</button>`;
-    els.dialog.showModal();
-  }
+  document.addEventListener('click',function(e){const view=e.target.closest('[data-view]');if(view){goView(view.dataset.view);return}const open=e.target.closest('[data-open]');if(open){openPattern(open.dataset.open);return}const practice=e.target.closest('[data-practice]');if(practice){startPractice(practice.dataset.practice,'write');return}const familyJump=e.target.closest('[data-family-jump]');if(familyJump){state.family=familyJump.dataset.familyJump;state.lens=null;goView('library');renderFamilies();renderLibrary();return}const family=e.target.closest('[data-family]');if(family){state.family=family.dataset.family;renderFamilies();renderLibrary();return}const lens=e.target.closest('[data-lens]');if(lens){state.lens=state.lens===lens.dataset.lens?null:lens.dataset.lens;document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.toggle('active',x.dataset.lens===state.lens)});renderLibrary();return}const homeLens=e.target.closest('[data-home-lens]');if(homeLens){state.lens=homeLens.dataset.homeLens;state.family='all';goView('library');document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.toggle('active',x.dataset.lens===state.lens)});renderLibrary();return}const mode=e.target.closest('[data-mode]');if(mode){state.mode=mode.dataset.mode;document.querySelectorAll('.mode-card').forEach(function(x){x.classList.toggle('active',x===mode)});renderPractice();return}const reveal=e.target.closest('[data-reveal]');if(reveal){feedback(true,'Answer: '+reveal.dataset.reveal);return}const choice=e.target.closest('[data-choice]');if(choice){const ok=choice.dataset.choice==='true';els.practiceStage.querySelectorAll('.choice-btn').forEach(function(b){b.disabled=true});choice.classList.add(ok?'correct':'incorrect');feedback(ok,ok?'✓ Correct. You recognised the link.':'Not this one. Compare the pattern and try the other option.');if(ok)successForCurrent();return}const speech=e.target.closest('[data-speak]');if(speech){speakText(speech.dataset.speak,speech.dataset.speakLang||'es-ES');return}const skillPractice=e.target.closest('[data-skill-practice]');if(skillPractice){startPractice(skillPractice.dataset.id,skillPractice.dataset.skillPractice);return}});
+  els.dialog.querySelector('.dialog-close').addEventListener('click',function(){els.dialog.close()});els.dialog.addEventListener('click',function(e){if(e.target===els.dialog)els.dialog.close()});
+  [els.search,els.type,els.level].forEach(function(el){el.addEventListener(el===els.search?'input':'change',renderLibrary)});
+  document.getElementById('quickFilters').addEventListener('click',function(e){const b=e.target.closest('[data-quick]');if(!b)return;state.quick=b.dataset.quick;document.querySelectorAll('[data-quick]').forEach(function(x){x.classList.toggle('active',x===b)});renderLibrary()});
+  document.getElementById('clearLens').addEventListener('click',function(){state.lens=null;document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.remove('active')});renderLibrary()});
+  document.getElementById('resetFilters').addEventListener('click',function(){els.search.value='';els.type.value='all';els.level.value='all';state.quick='all';state.lens=null;state.family='all';document.querySelectorAll('[data-quick]').forEach(function(x){x.classList.toggle('active',x.dataset.quick==='all')});document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.remove('active')});renderFamilies();renderLibrary()});
+  document.getElementById('startBeginner').addEventListener('click',function(){openPattern(patterns.slice().sort(function(a,b){return a.rank-b.rank})[0].id)});
+  els.practiceSelect.addEventListener('change',function(){state.currentId=els.practiceSelect.value;renderPractice()});
+  document.getElementById('nextBestButton').addEventListener('click',function(e){startPractice(e.currentTarget.dataset.pattern||patterns[0].id,'write')});
+  document.getElementById('themeButton').addEventListener('click',function(){document.body.classList.toggle('dark');state.theme=document.body.classList.contains('dark')?'dark':'light';localStorage.setItem('ldna-theme',state.theme)});
+  initTranslator();populatePracticeSelect();renderFamilies();renderStarters();renderLibrary();renderPractice();renderDNA();renderAllProgress();
+  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=3').catch(function(){});
 
-  function goToView(name) {
-    state.currentView = name;
-    document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.dataset.viewPanel===name));
-    document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view===name));
-    if (name==='pareto') renderPareto();
-    if (name==='dna') renderDNA();
-    if (name==='practice') renderPractice();
-    window.scrollTo({top:0, behavior:'smooth'});
-  }
-
-  function startPractice(id, mode='writing') {
-    state.currentPracticeId = id; state.currentMode = mode; els.practiceSelect.value = id;
-    document.querySelectorAll('.mode-card').forEach(b => b.classList.toggle('active', b.dataset.mode===mode));
-    if (els.dialog.open) els.dialog.close();
-    goToView('practice'); renderPractice();
-  }
-
-  function renderPractice() {
-    const p = getPattern(state.currentPracticeId);
-    els.practiceSelect.value = p.id;
-    const ex = p.examples[0];
-    const nextButton = `<button type="button" class="secondary-btn" data-new-question="1">Another example</button>`;
-    let html = `<div class="practice-title-row"><div><span class="mini-badge ${p.type}">${typeLabel(p.type)}</span><h2>${p.title}</h2><p class="dialog-desc">${p.rule}</p></div><span class="power">⚡ ${p.power}</span></div>`;
-
-    if (state.currentMode === 'writing') {
-      html += `<div class="prompt-box"><span class="prompt-label">WRITE IN SPANISH</span><strong>${p.practice.prompt}</strong></div>
-      <form class="answer-form" id="writingForm"><input id="writingAnswer" autocomplete="off" placeholder="Type your Spanish answer…" aria-label="Your Spanish answer"><button class="primary-btn" type="submit">Check</button></form><div class="feedback" id="practiceFeedback">Use the pattern, not guesswork.</div>`;
-    } else if (state.currentMode === 'speaking') {
-      html += `<div class="prompt-box"><span class="prompt-label">SAY THIS IN SPANISH</span><strong>${p.practice.prompt}</strong></div>
-      <div class="speech-actions"><button type="button" class="mic-btn" id="micButton">🎙 Start speaking</button><button type="button" class="secondary-btn" data-reveal="${p.practice.answers[0]}">Reveal answer</button><button type="button" class="secondary-btn" data-speak="${p.practice.answers[0]}">🔊 Hear answer</button></div><div class="feedback" id="practiceFeedback">Tap the microphone and speak your answer. If speech recognition is unavailable, use self-check.</div>`;
-    } else if (state.currentMode === 'hearing') {
-      html += `<button type="button" class="big-listen" data-speak="${p.practice.answers[0]}">🔊 Tap to hear Spanish</button><div class="prompt-box"><span class="prompt-label">WHAT DOES IT MEAN?</span><strong>Choose the closest meaning</strong></div>
-      <div class="choice-grid"><button type="button" class="choice-btn" data-choice-answer="true">${ex[0]}</button><button type="button" class="choice-btn" data-choice-answer="false">${p.practice.wrong}</button></div><div class="feedback" id="practiceFeedback">Listen more than once if you need to.</div>`;
-    } else if (state.currentMode === 'choice') {
-      html += `<div class="prompt-box"><span class="prompt-label">THIS OR THAT</span><strong>${p.practice.prompt}</strong></div><div class="choice-grid"><button type="button" class="choice-btn" data-choice-answer="true">${p.practice.answers[0]}</button><button type="button" class="choice-btn" data-choice-answer="false">${p.practice.wrong}</button></div><div class="feedback" id="practiceFeedback">Choose the form that follows the pattern.</div>`;
-    } else {
-      const good1 = p.examples[0][1], good2 = p.examples[1] ? p.examples[1][1] : p.practice.answers[0];
-      html += `<div class="prompt-box"><span class="prompt-label">TICK EVERY EXAMPLE THAT FITS</span><strong>${p.title}</strong></div>
-      <div class="tick-list"><label class="tick-item"><input type="checkbox" data-tick="good"><span>${good1}</span></label><label class="tick-item"><input type="checkbox" data-tick="bad"><span>${p.practice.wrong}</span></label><label class="tick-item"><input type="checkbox" data-tick="good"><span>${good2}</span></label></div><button type="button" class="primary-btn" id="checkTicks">Check ticks</button><div class="feedback" id="practiceFeedback">Fast recognition builds automaticity.</div>`;
-    }
-    html += `<div class="practice-skip-row"><span>Not feeling this one?</span><button type="button" class="skip-btn" id="skipPractice">Skip for now →</button></div>`;
-    els.practiceStage.innerHTML = html;
-    bindPracticeInteractions(p);
-  }
-
-  function bindPracticeInteractions(p) {
-    const skip = document.getElementById('skipPractice');
-    if (skip) skip.addEventListener('click', skipCurrentPractice);
-    const form = document.getElementById('writingForm');
-    if (form) form.addEventListener('submit', e => {
-      e.preventDefault(); const ans = normalize(document.getElementById('writingAnswer').value);
-      const ok = p.practice.answers.some(a => normalize(a)===ans); setFeedback(ok, ok ? '✓ Correct. You used the pattern.' : `Not yet. A good answer is: ${p.practice.answers[0]}`); if(ok) celebrate(p);
-    });
-    const mic = document.getElementById('micButton'); if (mic) mic.addEventListener('click', () => startRecognition(p));
-    const ticks = document.getElementById('checkTicks'); if (ticks) ticks.addEventListener('click', () => {
-      const boxes = [...els.practiceStage.querySelectorAll('[data-tick]')]; const ok = boxes.every(b => (b.dataset.tick==='good')===b.checked);
-      setFeedback(ok, ok ? '✓ Exactly. You spotted the pattern.' : 'Check again: tick examples that follow the target pattern, and leave the distractor unticked.'); if(ok) celebrate(p);
-    });
-  }
-
-  function skipCurrentPractice() {
-    const ordered = [...patterns].sort((a,b) => a.rank - b.rank);
-    const currentIndex = ordered.findIndex(p => p.id === state.currentPracticeId);
-    let next = null;
-    for (let step = 1; step <= ordered.length; step++) {
-      const candidate = ordered[(currentIndex + step + ordered.length) % ordered.length];
-      if (!state.mastered.has(candidate.id)) { next = candidate; break; }
-    }
-    next = next || ordered[(currentIndex + 1 + ordered.length) % ordered.length];
-    state.currentPracticeId = next.id;
-    els.practiceSelect.value = next.id;
-    toast('Skipped — here’s another pattern.');
-    renderPractice();
-  }
-
-  function setFeedback(ok, text) {
-    const f = document.getElementById('practiceFeedback'); if (!f) return; f.textContent=text; f.className=`feedback ${ok?'correct':'incorrect'}`;
-  }
-  function celebrate(p) { if (!state.mastered.has(p.id)) toast('Nice — pattern recognised. Keep practising to master it.'); }
-
-  function startRecognition(p) {
-    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!Recognition) { setFeedback(false,'Speech recognition is not available in this browser. Use “Reveal answer”, say it aloud, then compare with “Hear answer”.'); return; }
-    const rec = new Recognition(); rec.lang='es-ES'; rec.interimResults=false; rec.maxAlternatives=3;
-    const mic = document.getElementById('micButton'); mic.textContent='Listening…'; mic.disabled=true;
-    rec.onresult = e => {
-      const heard = [...e.results[0]].map(r=>r.transcript); const ok = heard.some(h=>p.practice.answers.some(a=>normalize(a)===normalize(h)));
-      setFeedback(ok, ok ? `✓ Heard: “${heard[0]}”` : `I heard “${heard[0]}”. Try again or compare with: ${p.practice.answers[0]}`); if(ok) celebrate(p);
-    };
-    rec.onerror = () => setFeedback(false,'I could not capture that. Try again, or use the self-check buttons.');
-    rec.onend = () => { mic.textContent='🎙 Start speaking'; mic.disabled=false; };
-    rec.start();
-  }
-
-  function toggleMaster(id) {
-    if (state.mastered.has(id)) { state.mastered.delete(id); toast('Pattern moved back to learning.'); }
-    else { state.mastered.add(id); toast('✓ Pattern marked mastered.'); }
-    persist(); renderLibrary(); renderPareto(); updateStats(); if (els.dialog.open) openPattern(id); if(state.currentView==='dna') renderDNA();
-  }
-
-  function updateStats() {
-    document.getElementById('headerMastered').textContent = state.mastered.size;
-    const top = patterns.filter(p=>p.rank<=20); const done=top.filter(p=>state.mastered.has(p.id)).length;
-    document.getElementById('paretoProgressText').textContent = `${done} / 20 mastered`; document.getElementById('paretoProgressBar').style.width=`${done/20*100}%`;
-  }
-
-  function renderDNA() {
-    const total = patterns.length, done = state.mastered.size, pct = Math.round(done/total*100);
-    document.getElementById('dnaPercent').textContent=`${pct}%`; document.getElementById('dnaRing').style.background=`conic-gradient(var(--green) ${pct*3.6}deg, var(--surface-2) 0deg)`;
-    ['visual','sound','writing'].forEach(type => { document.getElementById(`${type}Stat`).textContent = patterns.filter(p=>p.type===type && state.mastered.has(p.id)).length; });
-    document.getElementById('essentialStat').textContent = patterns.filter(p=>p.importance==='essential'&&state.mastered.has(p.id)).length;
-    const lenses=['WHO','WHAT','WHERE','WHY','WHEN'];
-    document.getElementById('coverageGrid').innerHTML=lenses.map(l=>{const all=patterns.filter(p=>p.lenses.includes(l));const m=all.filter(p=>state.mastered.has(p.id)).length;const q=all.length?Math.round(m/all.length*100):0;return `<article class="coverage-card"><strong>${l}</strong><div class="coverage-bar"><span style="width:${q}%"></span></div><small>${m}/${all.length} patterns · ${q}%</small></article>`}).join('');
-    const next = patterns.sort((a,b)=>a.rank-b.rank).find(p=>!state.mastered.has(p.id)) || patterns[0];
-    document.getElementById('nextBestTitle').textContent=state.mastered.size===patterns.length?'Starter library mastered 🎉':next.title;
-    document.getElementById('nextBestText').textContent=state.mastered.size===patterns.length?'You have completed every pattern in this starter set.':'Highest-priority unmastered pattern in your current map.';
-    document.getElementById('nextBestButton').dataset.pattern=next.id;
-  }
-
-  function populatePracticeSelect() {
-    els.practiceSelect.innerHTML = patterns.sort((a,b)=>a.rank-b.rank).map(p=>`<option value="${p.id}">#${p.rank} · ${p.title}</option>`).join('');
-    els.practiceSelect.value=state.currentPracticeId;
-  }
-
-  function speakLang(text, lang) {
-    if (!('speechSynthesis' in window)) { toast('Speech playback is not supported in this browser.'); return; }
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = lang;
-    u.rate = lang.startsWith('es') ? 0.82 : 0.9;
-    const voices = window.speechSynthesis.getVoices();
-    const voice = voices.find(v => v.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
-    if (voice) u.voice = voice;
-    window.speechSynthesis.speak(u);
-  }
-
-  function escapeHtml(value) {
-    return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-  }
-
-  function guessTranslationDirection(text) {
-    const raw = (text || '').trim().toLowerCase();
-    if (/[ñáéíóúü¿¡]/i.test(raw)) return ['es','en'];
-    const commonSpanish = new Set(['el','la','los','las','un','una','unos','unas','de','del','que','qué','y','en','a','al','por','para','con','sin','es','soy','eres','está','estoy','tengo','tienes','quiero','quieres','hola','gracias','casa','comer','hablar','vivir','donde','dónde','cuando','cuándo','porque','porqué','quien','quién']);
-    const words = normalize(raw).split(' ');
-    return words.some(w => commonSpanish.has(w)) ? ['es','en'] : ['en','es'];
-  }
-
-  function inferPatternConnection(sourceText, translatedText, sourceLang) {
-    const s = normalize(sourceText);
-    const t = normalize(translatedText);
-    const en = sourceLang === 'en' ? s : t;
-    const es = sourceLang === 'en' ? t : s;
-
-    const direct = patterns.find(p => p.examples.some(([english, spanish]) => {
-      const e = normalize(english), sp = normalize(spanish);
-      return (e === en && sp === es) || (e === en) || (sp === es);
-    }));
-    if (direct) return direct;
-
-    const questionMap = {who:'question-words', what:'question-words', where:'question-words', why:'question-words', when:'question-words'};
-    if (questionMap[en]) return getPattern(questionMap[en]);
-
-    const rules = [
-      [() => /tion$/.test(en) && /cion$/.test(es), 'tion-cion'],
-      [() => /ity$/.test(en) && /idad$/.test(es), 'ity-idad'],
-      [() => /ous$/.test(en) && /os[oa]$/.test(es), 'ous-oso'],
-      [() => /ly$/.test(en) && /mente$/.test(es), 'ly-mente'],
-      [() => en.includes('ph') && es.includes('f'), 'ph-f'],
-      [() => /ic$/.test(en) && /ic[oa]$/.test(es), 'ic-ico'],
-      [() => /ist$/.test(en) && /ista$/.test(es), 'ist-ista'],
-      [() => /(ance|ence)$/.test(en) && /(ancia|encia)$/.test(es), 'ance-encia'],
-      [() => /ive$/.test(en) && /iv[oa]$/.test(es), 'ive-ivo']
-    ];
-    const found = rules.find(([test]) => test());
-    return found ? getPattern(found[1]) : null;
-  }
-
-  function initTranslator() {
-    const form = document.getElementById('translationForm');
-    const input = document.getElementById('translationInput');
-    const direction = document.getElementById('translationDirection');
-    const swap = document.getElementById('translationSwap');
-    const button = document.getElementById('translationButton');
-    const result = document.getElementById('translationResult');
-    if (!form || !input || !direction || !swap || !button || !result) return;
-
-    let lastPair = ['en','es'];
-
-    async function translate() {
-      const query = input.value.trim();
-      if (!query) {
-        input.focus();
-        result.innerHTML = '<div class="translation-empty"><span>⌕</span><p>Type a word first.</p></div>';
-        return;
-      }
-
-      let pair;
-      if (direction.value === 'en-es') pair = ['en','es'];
-      else if (direction.value === 'es-en') pair = ['es','en'];
-      else pair = guessTranslationDirection(query);
-      lastPair = pair;
-
-      const [source, target] = pair;
-      const sourceName = source === 'en' ? 'English' : 'Spanish';
-      const targetName = target === 'es' ? 'Spanish' : 'English';
-      button.disabled = true;
-      button.textContent = 'Translating…';
-      result.classList.add('loading');
-      result.innerHTML = `<div class="translation-loading"><span></span><p>Looking up <strong>${escapeHtml(query)}</strong>…</p></div>`;
-
-      try {
-        const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), 9000);
-        const url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(query) + '&langpair=' + encodeURIComponent(source + '|' + target);
-        const response = await fetch(url, {signal: controller.signal});
-        clearTimeout(timer);
-        if (!response.ok) throw new Error('Lookup failed');
-        const data = await response.json();
-        const translated = String(data?.responseData?.translatedText || '').trim();
-        if (!translated) throw new Error('No translation returned');
-
-        const pattern = inferPatternConnection(query, translated, source);
-        const alternatives = [...new Set((data.matches || []).map(m => String(m.translation || '').trim()).filter(Boolean))]
-          .filter(x => normalize(x) !== normalize(translated))
-          .slice(0,3);
-
-        const sourceLangCode = source === 'es' ? 'es-ES' : 'en-GB';
-        const targetLangCode = target === 'es' ? 'es-ES' : 'en-GB';
-        const patternHtml = pattern ? `
-          <button type="button" class="translation-pattern-hint" data-open="${pattern.id}">
-            <span>🧬</span>
-            <span><small>Pattern connection</small><strong>${escapeHtml(pattern.title)}</strong></span>
-            <span aria-hidden="true">→</span>
-          </button>` : '';
-        const altHtml = alternatives.length ? `
-          <div class="translation-alternatives"><small>Other possible matches</small><div>${alternatives.map(a => `<span>${escapeHtml(a)}</span>`).join('')}</div></div>` : '';
-
-        result.innerHTML = `
-          <div class="translation-meta">${sourceName} → ${targetName}</div>
-          <div class="translation-pair">
-            <div class="translation-side">
-              <small>${sourceName}</small>
-              <strong>${escapeHtml(query)}</strong>
-              <button type="button" class="audio-dot" data-translator-speak="${escapeHtml(query)}" data-lang="${sourceLangCode}" aria-label="Hear ${escapeHtml(query)}">🔊</button>
-            </div>
-            <div class="translation-arrow">→</div>
-            <div class="translation-side target">
-              <small>${targetName}</small>
-              <strong>${escapeHtml(translated)}</strong>
-              <button type="button" class="audio-dot" data-translator-speak="${escapeHtml(translated)}" data-lang="${targetLangCode}" aria-label="Hear ${escapeHtml(translated)}">🔊</button>
-            </div>
-          </div>
-          ${patternHtml}
-          ${altHtml}`;
-      } catch (err) {
-        const message = err?.name === 'AbortError' ? 'The lookup took too long.' : 'The live dictionary could not be reached.';
-        result.innerHTML = `<div class="translation-error"><strong>${message}</strong><p>Check your connection and try again.</p></div>`;
-      } finally {
-        result.classList.remove('loading');
-        button.disabled = false;
-        button.textContent = 'Translate';
-      }
-    }
-
-    form.addEventListener('submit', e => { e.preventDefault(); translate(); });
-    swap.addEventListener('click', () => {
-      const pair = direction.value === 'auto' ? lastPair : (direction.value === 'en-es' ? ['en','es'] : ['es','en']);
-      direction.value = pair[0] === 'en' ? 'es-en' : 'en-es';
-      if (input.value.trim()) translate();
-      else input.focus();
-    });
-    result.addEventListener('click', e => {
-      const audio = e.target.closest('[data-translator-speak]');
-      if (audio) speakLang(audio.dataset.translatorSpeak, audio.dataset.lang || 'es-ES');
-    });
-  }
-
-  document.addEventListener('click', e => {
-    const nav=e.target.closest('[data-view]'); if(nav) { goToView(nav.dataset.view); return; }
-    const open=e.target.closest('[data-open]'); if(open) { openPattern(open.dataset.open); return; }
-    const practice=e.target.closest('[data-practice]'); if(practice) { startPractice(practice.dataset.practice); return; }
-    const master=e.target.closest('[data-master]'); if(master) { toggleMaster(master.dataset.master); return; }
-    const speech=e.target.closest('[data-speak]'); if(speech) { speak(speech.dataset.speak); return; }
-    const dp=e.target.closest('[data-dialog-practice]'); if(dp) { startPractice(dp.dataset.id,dp.dataset.dialogPractice); return; }
-    const mode=e.target.closest('[data-mode]'); if(mode) { state.currentMode=mode.dataset.mode; document.querySelectorAll('.mode-card').forEach(b=>b.classList.toggle('active',b===mode)); renderPractice(); return; }
-    const choice=e.target.closest('[data-choice-answer]'); if(choice) { const ok=choice.dataset.choiceAnswer==='true'; els.practiceStage.querySelectorAll('.choice-btn').forEach(b=>b.disabled=true); choice.classList.add(ok?'correct':'incorrect'); setFeedback(ok,ok?'✓ Correct — pattern recognised.':'Not this one. Compare the pattern and try the correct alternative next time.'); if(ok) celebrate(getPattern(state.currentPracticeId)); return; }
-    const reveal=e.target.closest('[data-reveal]'); if(reveal) { setFeedback(true,`Answer: ${reveal.dataset.reveal}`); return; }
-  });
-
-  document.getElementById('dialogClose').addEventListener('click',()=>els.dialog.close());
-  els.dialog.addEventListener('click',e=>{ if(e.target===els.dialog) els.dialog.close(); });
-  [els.search,els.type,els.level].forEach(el => el.addEventListener(el===els.search?'input':'change', renderLibrary));
-  document.getElementById('quickFilters').addEventListener('click',e=>{const b=e.target.closest('[data-quick]');if(!b)return;state.quick=b.dataset.quick;document.querySelectorAll('[data-quick]').forEach(x=>x.classList.toggle('active',x===b));renderLibrary();});
-  document.getElementById('lensRow').addEventListener('click',e=>{const b=e.target.closest('[data-lens]');if(!b)return;state.lens=state.lens===b.dataset.lens?null:b.dataset.lens;document.querySelectorAll('[data-lens]').forEach(x=>x.classList.toggle('active',x.dataset.lens===state.lens));renderLibrary();document.querySelector('.library-section').scrollIntoView({behavior:'smooth',block:'start'});});
-  document.getElementById('clearLens').addEventListener('click',()=>{state.lens=null;document.querySelectorAll('[data-lens]').forEach(x=>x.classList.remove('active'));renderLibrary();});
-  document.getElementById('resetFilters').addEventListener('click',()=>{els.search.value='';els.type.value='all';els.level.value='all';state.quick='all';state.lens=null;document.querySelectorAll('[data-quick]').forEach(x=>x.classList.toggle('active',x.dataset.quick==='all'));document.querySelectorAll('[data-lens]').forEach(x=>x.classList.remove('active'));renderLibrary();});
-  document.getElementById('startTopPattern').addEventListener('click',()=>openPattern(patterns[0].id));
-  els.practiceSelect.addEventListener('change',()=>{state.currentPracticeId=els.practiceSelect.value;renderPractice();});
-  document.getElementById('nextBestButton').addEventListener('click',e=>startPractice(e.currentTarget.dataset.pattern||patterns[0].id));
-  document.getElementById('themeButton').addEventListener('click',()=>{document.body.classList.toggle('dark');state.theme=document.body.classList.contains('dark')?'dark':'light';localStorage.setItem('ldna-theme',state.theme);});
-
-  initTranslator();
-  populatePracticeSelect(); renderLibrary(); renderPareto(); renderPractice(); renderDNA(); updateStats();
-
-  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
 })();
