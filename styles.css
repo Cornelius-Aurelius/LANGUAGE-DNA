@@ -221,3 +221,42 @@ body.dark .lexical-warning{background:#4c4024;border-color:#796a3b}body.dark .le
 @media(max-width:680px){
   .vocab-tier-tabs{grid-template-columns:1fr}.daily-five-card,.daily-hero{align-items:flex-start;flex-direction:column}.daily-five-card .primary-btn{width:100%}.tutor-tabs{width:100%}.tutor-tabs button{flex:1;padding:0 7px}.daily-progress-ring{width:82px;height:82px}.conversation-form{grid-template-columns:1fr}.conversation-form .primary-btn{width:100%}.chat-bubble{max-width:96%}.scenario-grid{grid-template-columns:1fr}
 }
+
+
+/* Mobile focus + Daily 5 priority v8 */
+.mobile-more-trigger,.mobile-more-menu{display:none}
+@media(max-width:680px){
+  .primary-nav .nav-item.mobile-hide{display:none}
+  .primary-nav .mobile-more-trigger{display:flex}
+  .primary-nav{gap:3px;justify-content:stretch}
+  .primary-nav .nav-item{flex:1;font-size:10px;min-height:60px}
+  .primary-nav .nav-item span{font-size:16px;line-height:1}
+  .mobile-more-menu{position:fixed;left:12px;right:12px;bottom:77px;z-index:65;padding:8px;border:1px solid var(--border);border-radius:18px;background:var(--surface);box-shadow:0 18px 48px rgba(0,0,0,.18)}
+  .mobile-more-menu:not([hidden]){display:grid;gap:6px}
+  .mobile-more-menu button{display:grid;grid-template-columns:38px 1fr;grid-template-rows:auto auto;column-gap:9px;align-items:center;width:100%;min-height:58px;padding:8px 10px;border:0;border-radius:13px;background:var(--surface-2);color:var(--text);text-align:left}
+  .mobile-more-menu button>span{grid-row:1/3;display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:var(--surface);font-size:18px}
+  .mobile-more-menu strong{font-size:13px}.mobile-more-menu small{font-size:9px;color:var(--muted)}
+  .daily-five-home{margin-top:0}
+  .daily-five-card{padding:17px;border-radius:18px}
+  .daily-five-card h2{font-size:24px}
+  .daily-five-card .primary-btn{min-height:50px}
+  .beginner-steps{display:none}
+  .welcome-grid{padding-bottom:15px}
+  .home-section{margin-top:24px}
+}
+
+
+/* Tutor correction + mobile game polish v8 */
+.tutor-correction{margin-top:8px;padding:12px;border:1px solid #d9bf7a;border-radius:13px;background:#fbf5e7;color:var(--text)}
+.tutor-correction>strong{display:block;font-size:13px}.tutor-correction p{margin:5px 0;color:#6d5b2f;line-height:1.45}.tutor-correction .secondary-btn{margin-top:8px;min-height:39px;font-size:10px}
+body.dark .tutor-correction{background:#463d27;border-color:#75663c}body.dark .tutor-correction p{color:#dfcf9f}
+.game-answer-grid button{transition:transform .12s ease,border-color .12s ease,background .12s ease}
+.game-answer-grid button.selected{transform:scale(.992)}
+@media(max-width:680px){
+  .game-session-head h2{font-size:25px}
+  .game-question-card h3{font-size:31px}
+  .game-answer-grid button{min-height:68px}
+  .game-question-nav{margin-bottom:20px}
+  .game-hidden-note{line-height:1.45}
+  .conversation-note{font-size:9px}
+}

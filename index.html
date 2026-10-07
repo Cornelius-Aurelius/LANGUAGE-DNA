@@ -7,7 +7,7 @@
   <meta name="description" content="LanguageDNA — learn Spanish through links between English and Spanish words, sounds and sentence patterns." />
   <title>LanguageDNA — Learn Spanish Through Patterns</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css?v=7" />
+  <link rel="stylesheet" href="styles.css?v=8" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -26,13 +26,19 @@
 
     <nav class="primary-nav" aria-label="Primary navigation">
       <button class="nav-item active" type="button" data-view="home"><span>⌂</span><b>Home</b></button>
-      <button class="nav-item" type="button" data-view="course"><span>◫</span><b>Course</b></button>
-      <button class="nav-item" type="button" data-view="library"><span>⌕</span><b>Patterns</b></button>
+      <button class="nav-item mobile-hide" type="button" data-view="course"><span>◫</span><b>Course</b></button>
+      <button class="nav-item mobile-hide" type="button" data-view="library"><span>⌕</span><b>Patterns</b></button>
       <button class="nav-item" type="button" data-view="practice"><span>◎</span><b>Practice</b></button>
       <button class="nav-item" type="button" data-view="tutor"><span>💬</span><b>Tutor</b></button>
       <button class="nav-item" type="button" data-view="game"><span>◆</span><b>Game</b></button>
-      <button class="nav-item" type="button" data-view="dna"><span>🧬</span><b>My DNA</b></button>
+      <button class="nav-item mobile-hide" type="button" data-view="dna"><span>🧬</span><b>My DNA</b></button>
+      <button class="nav-item mobile-more-trigger" type="button" data-mobile-more aria-expanded="false"><span>•••</span><b>More</b></button>
     </nav>
+    <div class="mobile-more-menu" id="mobileMoreMenu" hidden>
+      <button type="button" data-view="course"><span>◫</span><strong>Guided course</strong><small>A1 → A2 → B1 path</small></button>
+      <button type="button" data-view="library"><span>⌕</span><strong>Patterns</strong><small>Browse every language link</small></button>
+      <button type="button" data-view="dna"><span>🧬</span><strong>My DNA</strong><small>Your progress and reviews</small></button>
+    </div>
 
     <main id="main">
       <section class="view active" data-view-panel="home">
@@ -42,8 +48,8 @@
             <h1>Start with English.<br><em>Spot the link.</em><br>Build Spanish.</h1>
             <p>You do not need to memorise hundreds of isolated rules. LanguageDNA shows you useful links between English and Spanish, then lets you see, hear, write and say them.</p>
             <div class="welcome-actions">
-              <button class="primary-btn" type="button" id="startBeginner">Start guided course</button>
-              <button class="secondary-btn" type="button" data-view="library">Browse all patterns</button>
+              <button class="primary-btn" type="button" id="startBeginner">Start today’s 5-minute lesson</button>
+              <button class="secondary-btn" type="button" data-view="course">Guided course</button>
             </div>
             <div class="beginner-steps" aria-label="How LanguageDNA works">
               <div><span>1</span><p><strong>Find</strong><small>Start with a word or idea you know.</small></p></div>
@@ -79,6 +85,13 @@
           </section>
         </section>
 
+        <section class="home-section daily-five-home">
+          <div class="daily-five-card" id="dailyFiveHome">
+            <div><span class="eyebrow">TODAY · ABOUT 5 MINUTES</span><h2>Your easiest next Spanish.</h2><p id="dailyFiveHomeText">LanguageDNA is building a tiny lesson from your reviews, Everyday vocabulary and speaking history.</p></div>
+            <button type="button" class="primary-btn" data-view="tutor" data-tutor-open="daily">Start today's 5-minute lesson</button>
+          </div>
+        </section>
+
         <section class="home-section">
           <div class="section-heading">
             <div><span class="eyebrow">YOUR FIRST LINKS</span><h2>Small patterns. Big payoff.</h2><p>These are good places to begin if you know little or no Spanish.</p></div>
@@ -94,13 +107,6 @@
           </div>
           <div class="everyday-preview-status"><strong id="everydayKnownPreview">0 / 100 familiar</strong><small>Curated for day-to-day usefulness, not a strict corpus-frequency ranking.</small></div>
           <div class="everyday-preview-grid" id="everydayPreview"></div>
-        </section>
-
-        <section class="home-section daily-five-home">
-          <div class="daily-five-card" id="dailyFiveHome">
-            <div><span class="eyebrow">TODAY · ABOUT 5 MINUTES</span><h2>Your easiest next Spanish.</h2><p id="dailyFiveHomeText">LanguageDNA is building a tiny lesson from your reviews, Everyday vocabulary and speaking history.</p></div>
-            <button type="button" class="primary-btn" data-view="tutor" data-tutor-open="daily">Start today's 5-minute lesson</button>
-          </div>
         </section>
 
         <section class="home-section sentence-dna-home" id="sentenceDnaHome">
@@ -303,6 +309,6 @@
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=11"></script>
+  <script src="app.js?v=12"></script>
 </body>
 </html>

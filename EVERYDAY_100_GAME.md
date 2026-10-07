@@ -33,6 +33,7 @@ Every difficulty level contains exactly 40 multiple-choice questions with four a
 
 During the test:
 
+- selecting an answer saves it and automatically advances to the next question (questions 1–39);
 - selected answers are shown only as selected;
 - no right/wrong marking is revealed;
 - the learner can move backward or jump to any numbered question;
