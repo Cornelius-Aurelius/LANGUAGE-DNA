@@ -112,3 +112,19 @@ The learner experience now prioritises the smallest useful next action.
 - **Frequency-ranked Vocabulary 500/1,000:** ranks 101–1,000 are now re-ranked using both English and Spanish FrequencyWords 2018 50k lists on top of the existing Data Quality v2 production lexicon. Known high-risk false-friend mappings are excluded from the expansion. Cards can show source ranks, CEFR-estimate confidence, pattern family, regular conjugation families where safe, and curated natural examples for high-priority entries.
 
 The first 100 remain hand-curated for everyday usefulness; corpus ranks are used only to improve the expansion order, not to replace beginner-first teaching judgment.
+
+
+## Beginner Success Loop v9
+
+The beginner path now behaves like one calm adaptive lesson rather than a menu of tasks.
+
+- **One-step Daily 5:** only the current action is shown. The sequence is memory → English/Spanish link → use it → say it → real-life choice, with automatic progression and a quiet completion recap.
+- **Silent adaptation:** LanguageDNA adjusts the number of choices and conversation length from familiar Everyday vocabulary, recent retrieval accuracy, Game Mode progression, review load and recurring pronunciation difficulty. The learner is not asked to pick a level before starting.
+- **English-first teaching:** Daily 5 introduces one useful item at a time, explicitly shows the English → Spanish connection, reuses it in a natural example and asks the learner to say it aloud.
+- **Beginner vocabulary gate:** Daily 5 stays inside the hand-curated Everyday 100 until that foundation is familiar. Expansion vocabulary must then pass stronger learner-priority, English/Spanish frequency and confidence gates; known high-risk false-friend mappings remain excluded.
+- **Progressive conversations:** real-life scenarios begin at three short turns and can grow to four or five only when learner evidence supports it. Short correction wording remains “That makes sense. A more natural way: …”.
+- **Practical My DNA outcomes:** the dashboard now adds Everyday words familiar, real-life situations ready and Daily 5 completions in the last seven days alongside pattern, review, sentence and pronunciation measures.
+- **Local learning signals:** Daily starts/completions, wrong attempts, conversation corrections/completions, Game Mode results and vocabulary-familiar actions are recorded locally in browser storage. They are used for personal adaptation and are not sent to a LanguageDNA analytics server.
+- **Spaced-review integration:** Daily 5 can perform a tiny review directly against the existing review scheduler instead of forcing the learner out into a separate lesson.
+
+The current production lexical data does not contain full sense-level Wiktextract/Kaikki labels, so v9 does not fabricate modern-sense or regional-usage metadata. Frequency evidence, existing Data Quality v2 validation and explicit false-friend safeguards are used where supported by the current repository data.
