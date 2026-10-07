@@ -32,5 +32,55 @@ els.pagination.addEventListener('click',e=>{const b=e.target.closest('[data-page
 els.rows.addEventListener('click',e=>{const b=e.target.closest('[data-listen]');if(b)speak(b.dataset.listen,b)});
 els.clear.addEventListener('click',()=>{query='';letter='ALL';page=1;els.search.value='';syncUrl(false);render()});
 window.addEventListener('popstate',()=>{const p=new URLSearchParams(location.search);letter=(p.get('letter')||'ALL').toUpperCase();page=Math.max(1,Number(p.get('page'))||1);query=(p.get('q')||'').trim();els.search.value=query;render()});
-renderAlphabet();render();
+function beginnerLesson(){
+  if(pattern.id!=='tion-cion')return;
+  document.querySelector('.eyebrow').textContent='STEP 1 · SPOT THE LINK';
+  els.count.textContent='Start with three useful words. Explore the full dictionary whenever you like.';
+  const lesson=document.createElement('section');
+  lesson.className='beginner-lesson';
+  lesson.setAttribute('aria-labelledby','lessonTitle');
+  lesson.innerHTML=`
+    <h2 id="lessonTitle">You already have a starting point.</h2>
+    <p>Many English words ending in <strong>-tion</strong> have a Spanish relative ending in <strong lang="es">-ción</strong>. Notice what stays familiar and what changes.</p>
+    <div class="lesson-examples">
+      <div><span>informa<strong>tion</strong> → <span lang="es">informa<strong>ción</strong></span></span><button type="button" class="listen-button" data-listen="información" aria-label="Hear información">🔊 Listen</button></div>
+      <div><span>educa<strong>tion</strong> → <span lang="es">educa<strong>ción</strong></span></span><button type="button" class="listen-button" data-listen="educación" aria-label="Hear educación">🔊 Listen</button></div>
+      <div><span>rela<strong>tion</strong> → <span lang="es">rela<strong>ción</strong></span></span><button type="button" class="listen-button" data-listen="relación" aria-label="Hear relación">🔊 Listen</button></div>
+    </div>
+    <p>The accent in <span lang="es">-ción</span> marks the stressed final syllable. This is a useful clue, not an automatic rule: some words also change elsewhere or have different meanings.</p>
+    <form id="lessonPractice">
+      <h3>Now try the link yourself</h3>
+      <label for="lessonAnswer">Using this pattern, how would you write “invitation” in Spanish?</label>
+      <p id="lessonHint">Start with <strong>invita</strong> and change the ending. You can copy ó if you need it.</p>
+      <div class="lesson-answer"><input id="lessonAnswer" lang="es" autocomplete="off" autocapitalize="none" spellcheck="false" aria-describedby="lessonHint lessonFeedback" required><button type="submit" class="page-button nav">Check answer</button></div>
+      <p id="lessonFeedback" role="status" aria-live="polite"></p>
+    </form>
+    <div id="lessonUse" hidden>
+      <h3>Use a word in a real sentence</h3>
+      <p><strong lang="es">Necesito información.</strong> — I need information.</p>
+      <button type="button" class="listen-button" data-listen="Necesito información.">🔊 Hear the sentence</button>
+      <p>You have applied one pattern. Come back later and see if you can recall it.</p>
+      <a class="back-link" href="index.html">Continue learning →</a>
+    </div>`;
+  document.querySelector('.pattern-heading').after(lesson);
+  const dictionary=document.createElement('details');
+  dictionary.className='lesson-dictionary';
+  const summary=document.createElement('summary');
+  summary.textContent='Explore the full dictionary · '+pattern.words.length+' word pairs';
+  dictionary.append(summary);
+  lesson.after(dictionary);
+  ['.dictionary-controls','.table-meta','.dictionary-table-wrap','.pagination'].forEach(selector=>dictionary.append(document.querySelector(selector)));
+  dictionary.open=['q','letter','page'].some(key=>params.has(key));
+  window.addEventListener('popstate',()=>{const p=new URLSearchParams(location.search);if(['q','letter','page'].some(key=>p.has(key)))dictionary.open=true});
+  lesson.addEventListener('click',event=>{const button=event.target.closest('[data-listen]');if(button)speak(button.dataset.listen,button)});
+  lesson.querySelector('form').addEventListener('submit',event=>{
+    event.preventDefault();
+    const answer=lesson.querySelector('#lessonAnswer').value.trim().toLowerCase().normalize('NFC');
+    const feedback=lesson.querySelector('#lessonFeedback');
+    const correct=normalize(answer)==='invitacion';
+    feedback.textContent=correct?(answer==='invitación'?'Correct — invitation → invitación. You spotted the link!':'You found the right word. Add the accent: invitación. The final syllable is stressed.'):'Try again: keep invita and replace -tion with -ción.';
+    lesson.querySelector('#lessonUse').hidden=!correct;
+  });
+}
+renderAlphabet();render();beginnerLesson();
 })();
