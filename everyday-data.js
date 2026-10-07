@@ -387,7 +387,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "The accent marks the question form qué.",
     "cefr": "A1",
     "usefulness": 96,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 27,
@@ -402,7 +402,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "The accent marks the question form dónde.",
     "cefr": "A1",
     "usefulness": 96,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 28,
@@ -417,7 +417,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 96,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 29,
@@ -432,7 +432,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Por qué asks why; porque usually answers with because.",
     "cefr": "A1",
     "usefulness": 95,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 30,
@@ -447,7 +447,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Quiénes is the plural form.",
     "cefr": "A1",
     "usefulness": 95,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 31,
@@ -462,7 +462,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 95,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 32,
@@ -477,7 +477,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 94,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 33,
@@ -492,7 +492,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Match gender: cuántos libros, cuántas personas.",
     "cefr": "A1",
     "usefulness": 94,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 34,
@@ -507,7 +507,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Use están for plural things.",
     "cefr": "A1",
     "usefulness": 94,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 35,
@@ -522,7 +522,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 93,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 36,
@@ -537,7 +537,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 93,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 37,
@@ -552,7 +552,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "A polite useful request; ¿Puedes ayudarme? is informal.",
     "cefr": "A1",
     "usefulness": 93,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 38,
@@ -567,7 +567,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "¿Hablas inglés? is informal singular.",
     "cefr": "A1",
     "usefulness": 92,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 39,
@@ -582,7 +582,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 92,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 40,
@@ -597,7 +597,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "A polite form; ¿Puedes repetirlo? is informal.",
     "cefr": "A1",
     "usefulness": 92,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 41,
@@ -612,7 +612,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Querer is irregular in the present tense.",
     "cefr": "A1",
     "usefulness": 91,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 42,
@@ -627,7 +627,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 91,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 43,
@@ -642,7 +642,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Tener is irregular and also appears in age expressions.",
     "cefr": "A1",
     "usefulness": 91,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 44,
@@ -657,7 +657,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Use ser for identity/classification and estar for many states/locations.",
     "cefr": "A1",
     "usefulness": 90,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 45,
@@ -672,7 +672,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Use gustan with plural things: me gustan los libros.",
     "cefr": "A1",
     "usefulness": 90,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 46,
@@ -687,7 +687,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 90,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 47,
@@ -702,7 +702,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Poder is irregular in the present tense.",
     "cefr": "A1",
     "usefulness": 89,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 48,
@@ -717,7 +717,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Put no directly before puedo.",
     "cefr": "A1",
     "usefulness": 89,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 49,
@@ -732,7 +732,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Ir is highly irregular.",
     "cefr": "A1",
     "usefulness": 89,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 50,
@@ -747,7 +747,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Venir is irregular.",
     "cefr": "A1",
     "usefulness": 88,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 51,
@@ -762,7 +762,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 88,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 52,
@@ -777,7 +777,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 88,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 53,
@@ -792,7 +792,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Dormir has a stem change in much of the present tense.",
     "cefr": "A1",
     "usefulness": 87,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 54,
@@ -807,7 +807,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 87,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 55,
@@ -822,7 +822,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 87,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 56,
@@ -837,7 +837,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Saber is for facts/how-to; conocer is for people, places and familiarity.",
     "cefr": "A1",
     "usefulness": 86,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 57,
@@ -852,7 +852,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Entender has a stem change in much of the present tense.",
     "cefr": "A1",
     "usefulness": 86,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 58,
@@ -867,7 +867,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 86,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 59,
@@ -882,7 +882,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 85,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 60,
@@ -897,7 +897,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 85,
-    "band": "Very common"
+    "band": "High-use"
   },
   {
     "rank": 61,
@@ -912,7 +912,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 84,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 62,
@@ -927,7 +927,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Mañana can mean tomorrow or morning; context tells you which.",
     "cefr": "A1",
     "usefulness": 84,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 63,
@@ -942,7 +942,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 84,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 64,
@@ -957,7 +957,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 84,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 65,
@@ -972,7 +972,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 84,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 66,
@@ -987,7 +987,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Mañana can also mean tomorrow.",
     "cefr": "A1",
     "usefulness": 83,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 67,
@@ -1002,7 +1002,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 83,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 68,
@@ -1017,7 +1017,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "The boundary between tarde and noche varies with context and local habits.",
     "cefr": "A1",
     "usefulness": 83,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 69,
@@ -1032,7 +1032,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 83,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 70,
@@ -1047,7 +1047,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "For clock time, Spanish often uses hora instead.",
     "cefr": "A1",
     "usefulness": 83,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 71,
@@ -1062,7 +1062,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 82,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 72,
@@ -1077,7 +1077,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 82,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 73,
@@ -1092,7 +1092,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 82,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 74,
@@ -1107,7 +1107,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Spanish often distinguishes there-near-you (ahí) from farther there (allí).",
     "cefr": "A1",
     "usefulness": 82,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 75,
@@ -1122,7 +1122,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 82,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 76,
@@ -1137,7 +1137,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 81,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 77,
@@ -1152,7 +1152,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Common in directions, especially in Spain.",
     "cefr": "A1",
     "usefulness": 81,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 78,
@@ -1167,7 +1167,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Use cerca de before a noun: cerca del hotel.",
     "cefr": "A1",
     "usefulness": 81,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 79,
@@ -1182,7 +1182,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 81,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 80,
@@ -1197,7 +1197,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Spanish often says en casa without an article for 'at home'.",
     "cefr": "A1",
     "usefulness": 81,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 81,
@@ -1212,7 +1212,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "A very transparent English-Spanish cognate.",
     "cefr": "A1",
     "usefulness": 80,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 82,
@@ -1227,7 +1227,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 80,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 83,
@@ -1242,7 +1242,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "A useful cognate with a small spelling change.",
     "cefr": "A1",
     "usefulness": 80,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 84,
@@ -1257,7 +1257,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 80,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 85,
@@ -1272,7 +1272,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Notice the familiar -tion → -ción relationship in station/estación.",
     "cefr": "A1",
     "usefulness": 80,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 86,
@@ -1287,7 +1287,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Agua is feminine, although singular often uses el: el agua fría.",
     "cefr": "A1",
     "usefulness": 79,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 87,
@@ -1302,7 +1302,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Comida can also mean the main midday meal in some regions.",
     "cefr": "A1",
     "usefulness": 79,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 88,
@@ -1317,7 +1317,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 79,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 89,
@@ -1332,7 +1332,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "The accent distinguishes té (tea) from te (you, object pronoun).",
     "cefr": "A1",
     "usefulness": 79,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 90,
@@ -1347,7 +1347,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 79,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 91,
@@ -1362,7 +1362,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 78,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 92,
@@ -1377,7 +1377,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Meal names and timing vary a lot by country.",
     "cefr": "A1",
     "usefulness": 78,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 93,
@@ -1392,7 +1392,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 78,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 94,
@@ -1407,7 +1407,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 78,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 95,
@@ -1422,7 +1422,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 78,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 96,
@@ -1437,7 +1437,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "A transparent cognate.",
     "cefr": "A1",
     "usefulness": 77,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 97,
@@ -1452,7 +1452,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Policía can refer to the police force or an officer depending on context.",
     "cefr": "A1",
     "usefulness": 77,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 98,
@@ -1467,7 +1467,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 77,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 99,
@@ -1482,7 +1482,7 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "",
     "cefr": "A1",
     "usefulness": 77,
-    "band": "Common"
+    "band": "Useful"
   },
   {
     "rank": 100,
@@ -1497,6 +1497,6 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "note": "Efectivo also has other meanings in other contexts; here it means cash.",
     "cefr": "A2",
     "usefulness": 77,
-    "band": "Common"
+    "band": "Useful"
   }
 ];
