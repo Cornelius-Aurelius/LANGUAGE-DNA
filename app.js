@@ -241,7 +241,28 @@
   function startPractice(id,mode){state.currentId=id;state.mode=mode||state.mode||'write';els.practiceSelect.value=id;document.querySelectorAll('.mode-card').forEach(function(b){b.classList.toggle('active',b.dataset.mode===state.mode)});if(els.dialog.open)els.dialog.close();goView('practice')}
   function practiceSkillForMode(mode){return mode==='write'?'write':mode==='speak'?'speak':mode==='hear'?'hear':mode==='choice'?'use':'see'}
   function feedback(ok,text){const f=document.getElementById('practiceFeedback');if(!f)return;f.textContent=text;f.className='feedback '+(ok?'correct':'incorrect')}
-  function successForCurrent(quality){scheduleReview(state.currentId,quality==null?4:quality);markSkill(state.currentId,practiceSkillForMode(state.mode),true);toast('✓ Link strengthened. Next review scheduled.')}
+  function nextPracticeQuestion(currentId){
+    const due=duePatterns().filter(function(p){return p.id!==currentId});
+    if(due.length)return due[0];
+    const ordered=patterns.slice().sort(function(a,b){
+      const aScore=(5-progressFor(a.id))*24+a.power-(reviewRecord(a.id)?8:0);
+      const bScore=(5-progressFor(b.id))*24+b.power-(reviewRecord(b.id)?8:0);
+      return bScore-aScore||a.rank-b.rank
+    });
+    return ordered.find(function(p){return p.id!==currentId})||getPattern(currentId)
+  }
+  function successForCurrent(quality){
+    const completedId=state.currentId,skill=practiceSkillForMode(state.mode);
+    scheduleReview(completedId,quality==null?4:quality);
+    if(!state.skills[completedId])state.skills[completedId]={};
+    state.skills[completedId][skill]=true;
+    persistSkills();
+    const next=nextPracticeQuestion(completedId);
+    state.currentId=next.id;
+    els.practiceSelect.value=next.id;
+    toast('✓ Correct — next question.');
+    renderAllProgress()
+  }
 
   function reviewStatusHtml(p){const r=reviewRecord(p.id);return'<div class="review-status"><span class="review-pill">'+(r?'Memory: '+formatDue(r.due):'Memory: not scheduled')+'</span>'+(r?'<span class="review-pill">Interval: '+(r.interval?r.interval+' day'+(r.interval===1?'':'s'):'15 min')+'</span>':'')+'</div>'}
   function renderPractice(){
