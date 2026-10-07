@@ -6,6 +6,8 @@ LanguageDNA teaches Spanish through reusable links between English and Spanish r
 
 - Beginner-first home screen
 - Guided A1 → A2 → B1 Bridge course path with progressive unit unlocking
+- English-first Everyday 100 essentials with examples, learner level, usefulness, morphology and usage notes
+- 40-question progression game with four choices, hidden marking during the test and a 37/40 pass threshold
 - English ↔ Spanish translator with offline-first exact lookup across all 8,264 production dictionary rows, then live translation fallback
 - Visual, sound, sentence, verb and question pattern families
 - WHO / WHAT / WHERE / WHY / WHEN meaning lenses
@@ -72,3 +74,14 @@ LanguageDNA now adds a guided course layer and a deeper adaptive learner model o
 - **Local-first activity model:** practice, speech and session history stay in browser storage and power the learner dashboard without requiring an account.
 
 See `INTELLIGENCE_V3.md` for the distinction between verified lexical data and LanguageDNA's learner-priority heuristics.
+
+
+## Everyday Learning + Game Mode v6
+
+The beginner experience now has a deliberately small **Everyday 100** layer built around English words and phrases learners already use: greetings, questions, needs, time, places, food/drink, safety and payment language. Items are shown 20 at a time, begin with English, and include a Spanish equivalent, short usage example, learner-level placement, usefulness heuristic, word family, morphology/forms where useful, usage notes and speech playback.
+
+The Everyday 100 ordering is a LanguageDNA teaching priority for day-to-day usefulness, **not an exact corpus-frequency ranking**.
+
+A dedicated **40-question Game Mode** now provides five increasing difficulty levels. Every question has four choices and no right/wrong answer is revealed while the test is in progress. After all 40 are answered, the learner receives a full colour-coded review. A pass requires **37/40 (92.5%)**; passing unlocks the next level, while a failed attempt keeps the learner at the same level and offers a missed-concepts review.
+
+See `EVERYDAY_100_GAME.md` for the full behaviour and difficulty ladder.
