@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#163d33" />
+  <meta name="description" content="LanguageDNA — English to Spanish through high-leverage visual, sound and writing patterns." />
+  <title>LanguageDNA — English → Spanish Pattern Library</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" data-nav="library" aria-label="LanguageDNA home">
+        <span class="brand-mark" aria-hidden="true">🧬</span>
+        <span><strong>LanguageDNA</strong><small>English → Spanish</small></span>
+      </a>
+      <div class="topbar-actions">
+        <div class="course-pill"><span>🇬🇧 English</span><b>→</b><span>🇪🇸 Spanish</span></div>
+        <div class="stat-pill" title="Patterns mastered"><span aria-hidden="true">✓</span><strong id="headerMastered">0</strong></div>
+        <button class="icon-btn" id="themeButton" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+      </div>
+    </header>
+
+    <nav class="primary-nav" aria-label="Primary navigation">
+      <button class="nav-item active" type="button" data-view="library"><span>⌕</span>Library</button>
+      <button class="nav-item" type="button" data-view="pareto"><span>⚡</span>Pareto 20</button>
+      <button class="nav-item" type="button" data-view="practice"><span>◎</span>Practice</button>
+      <button class="nav-item" type="button" data-view="dna"><span>🧬</span>My DNA</button>
+    </nav>
+
+    <main id="main">
+      <section class="view active" id="view-library" data-view-panel="library">
+        <div class="hero">
+          <div class="hero-copy">
+            <span class="eyebrow">PATTERNS FIRST · PARETO POWERED</span>
+            <h1>See the pattern.<br><em>Unlock the Spanish.</em></h1>
+            <p>Search, see, hear and practise the highest-leverage English → Spanish patterns. Learn the small set that gives you the biggest return.</p>
+            <div class="hero-actions">
+              <button class="primary-btn" type="button" id="startTopPattern">Start with #1 pattern</button>
+              <button class="secondary-btn" type="button" data-view="pareto">See the Pareto 20</button>
+            </div>
+          </div>
+          <div class="hero-visual" aria-label="Pattern transformation example">
+            <div class="transformation-card">
+              <div class="transform-head"><span class="mini-badge visual">VISUAL</span><span class="power">⚡ 98</span></div>
+              <div class="transform-rule"><span>-tion</span><b>→</b><span>-ción</span></div>
+              <div class="transform-examples">
+                <span>information → <strong>información</strong></span>
+                <span>nation → <strong>nación</strong></span>
+                <span>celebration → <strong>celebración</strong></span>
+              </div>
+              <button type="button" class="listen-btn" data-speak="información, nación, celebración">🔊 Hear it</button>
+            </div>
+          </div>
+        </div>
+
+        <section class="lens-section" aria-labelledby="lensTitle">
+          <div class="section-heading compact">
+            <div><span class="eyebrow">MEANING LENSES</span><h2 id="lensTitle">What are you trying to express?</h2></div>
+            <button class="text-btn" id="clearLens" type="button">Clear</button>
+          </div>
+          <div class="lens-row" id="lensRow">
+            <button class="lens-card who" type="button" data-lens="WHO"><span>👤</span><strong>WHO</strong><small>people · pronouns · possession</small></button>
+            <button class="lens-card what" type="button" data-lens="WHAT"><span>◆</span><strong>WHAT</strong><small>things · actions · descriptions</small></button>
+            <button class="lens-card where" type="button" data-lens="WHERE"><span>⌖</span><strong>WHERE</strong><small>place · movement · direction</small></button>
+            <button class="lens-card why" type="button" data-lens="WHY"><span>?</span><strong>WHY</strong><small>reason · cause · purpose</small></button>
+            <button class="lens-card when" type="button" data-lens="WHEN"><span>◷</span><strong>WHEN</strong><small>time · tense · sequence</small></button>
+          </div>
+        </section>
+
+        <section class="library-section" aria-labelledby="libraryTitle">
+          <div class="section-heading">
+            <div><span class="eyebrow">THE PATTERN LIBRARY</span><h2 id="libraryTitle">Find a pattern</h2><p id="resultsSummary">Loading patterns…</p></div>
+          </div>
+          <div class="search-bar">
+            <label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search: -ción, sound, questions, past tense…" autocomplete="off" /></label>
+            <select id="typeFilter" aria-label="Filter by pattern type">
+              <option value="all">All pattern types</option>
+              <option value="visual">👁 Visual</option>
+              <option value="sound">🔊 Sound</option>
+              <option value="writing">✍ Writing / structure</option>
+            </select>
+            <select id="levelFilter" aria-label="Filter by importance">
+              <option value="all">All importance</option>
+              <option value="essential">🔥 Essential</option>
+              <option value="high">⚡ High leverage</option>
+              <option value="useful">⭐ Useful</option>
+            </select>
+          </div>
+          <div class="quick-filter-row" id="quickFilters" aria-label="Quick filters">
+            <button type="button" class="chip active" data-quick="all">All</button>
+            <button type="button" class="chip" data-quick="cognates">Cognates</button>
+            <button type="button" class="chip" data-quick="pronunciation">Pronunciation</button>
+            <button type="button" class="chip" data-quick="verbs">Verb patterns</button>
+            <button type="button" class="chip" data-quick="questions">Questions</button>
+            <button type="button" class="chip" data-quick="sentence">Sentence frames</button>
+          </div>
+          <div class="pattern-grid" id="patternGrid" aria-live="polite"></div>
+          <div class="empty-state" id="emptyState" hidden>
+            <strong>No patterns found.</strong><p>Try another search or clear one of the filters.</p>
+            <button type="button" class="secondary-btn" id="resetFilters">Reset filters</button>
+          </div>
+        </section>
+      </section>
+
+      <section class="view" id="view-pareto" data-view-panel="pareto">
+        <div class="page-intro">
+          <span class="eyebrow">THE 80/20 ROUTE</span>
+          <h1>Your first 20 high-leverage patterns</h1>
+          <p>Not every rule deserves equal attention. This route prioritizes patterns that unlock frequent words, useful sentences and fast recognition.</p>
+          <div class="progress-panel">
+            <div><strong id="paretoProgressText">0 / 20 mastered</strong><small>Complete the core set, then expand.</small></div>
+            <div class="progress-track"><span id="paretoProgressBar" style="width:0%"></span></div>
+          </div>
+        </div>
+        <div class="pareto-list" id="paretoList"></div>
+      </section>
+
+      <section class="view" id="view-practice" data-view-panel="practice">
+        <div class="page-intro practice-intro">
+          <span class="eyebrow">PRACTISE YOUR WAY</span>
+          <h1>One pattern. Five ways to make it stick.</h1>
+          <p>Pick a pattern, then train it through writing, speaking, hearing, contrast or rapid recognition.</p>
+        </div>
+        <div class="practice-picker">
+          <label for="practicePatternSelect">Pattern</label>
+          <select id="practicePatternSelect"></select>
+        </div>
+        <div class="practice-mode-grid">
+          <button type="button" class="mode-card active" data-mode="writing"><span>✍️</span><strong>Writing</strong><small>Produce Spanish</small></button>
+          <button type="button" class="mode-card" data-mode="speaking"><span>🎙️</span><strong>Speaking</strong><small>Say it aloud</small></button>
+          <button type="button" class="mode-card" data-mode="hearing"><span>👂</span><strong>Hearing</strong><small>Understand the sound</small></button>
+          <button type="button" class="mode-card" data-mode="choice"><span>↔️</span><strong>This or That</strong><small>Choose the right form</small></button>
+          <button type="button" class="mode-card" data-mode="ticking"><span>✓</span><strong>Ticking</strong><small>Spot the pattern fast</small></button>
+        </div>
+        <section class="practice-stage" id="practiceStage" aria-live="polite"></section>
+      </section>
+
+      <section class="view" id="view-dna" data-view-panel="dna">
+        <div class="page-intro">
+          <span class="eyebrow">YOUR LANGUAGE DNA</span>
+          <h1>A map of the patterns you can actually use.</h1>
+          <p>Progress is tracked by pattern and by skill — not just by lesson completion.</p>
+        </div>
+        <div class="dna-summary">
+          <div class="dna-ring" id="dnaRing"><div><strong id="dnaPercent">0%</strong><span>mastered</span></div></div>
+          <div class="dna-stats">
+            <article><span>👁</span><strong id="visualStat">0</strong><small>Visual mastered</small></article>
+            <article><span>🔊</span><strong id="soundStat">0</strong><small>Sound mastered</small></article>
+            <article><span>✍️</span><strong id="writingStat">0</strong><small>Writing mastered</small></article>
+            <article><span>🔥</span><strong id="essentialStat">0</strong><small>Essential mastered</small></article>
+          </div>
+        </div>
+        <section class="dna-lenses">
+          <div class="section-heading"><div><span class="eyebrow">MEANING COVERAGE</span><h2>WHO · WHAT · WHERE · WHY · WHEN</h2></div></div>
+          <div class="coverage-grid" id="coverageGrid"></div>
+        </section>
+        <section class="next-best">
+          <div><span class="eyebrow">NEXT BEST MOVE</span><h2 id="nextBestTitle">Start your first pattern</h2><p id="nextBestText">Your next recommendation will appear here.</p></div>
+          <button type="button" class="primary-btn" id="nextBestButton">Practise next pattern</button>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="pattern-dialog" id="patternDialog" aria-labelledby="dialogTitle">
+    <div class="dialog-inner">
+      <button type="button" class="dialog-close" id="dialogClose" aria-label="Close">×</button>
+      <div id="dialogContent"></div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
