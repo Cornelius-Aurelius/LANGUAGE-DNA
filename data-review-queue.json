@@ -1,0 +1,7464 @@
+{
+  "generated_on": "2026-10-07",
+  "count": 1243,
+  "rows": [
+    {
+      "pattern": "tion-cion",
+      "english": "ablactation",
+      "spanish": "ablactación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "abreaction",
+      "spanish": "abreacción",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "ambulation",
+      "spanish": "ambulación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "ammonification",
+      "spanish": "amonificación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "arrogation",
+      "spanish": "arrogación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "assibilation",
+      "spanish": "asibilación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "captivation",
+      "spanish": "cautivación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "carbonation",
+      "spanish": "carbonación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "circularisation",
+      "spanish": "circularización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "circularization",
+      "spanish": "circularización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "circumvolution",
+      "spanish": "cicunvolución",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "cognation",
+      "spanish": "cognación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "consubstantiation",
+      "spanish": "consubstanciación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "crenation",
+      "spanish": "crenación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "defibrillation",
+      "spanish": "defibrilación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "denunciation",
+      "spanish": "denunciación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "desalination",
+      "spanish": "desalinación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "devitalisation",
+      "spanish": "desvitalización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "devitalization",
+      "spanish": "desvitalización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "embrocation",
+      "spanish": "embrocación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "enculturation",
+      "spanish": "endoculturación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "enervation",
+      "spanish": "enervación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "etiolation",
+      "spanish": "etiolación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "fluoridation",
+      "spanish": "fluorización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "fluoridization",
+      "spanish": "fluorización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "fulmination",
+      "spanish": "fulminación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "humification",
+      "spanish": "humificación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "incorruption",
+      "spanish": "incorrupción",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "metrication",
+      "spanish": "metrificación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "metrification",
+      "spanish": "metrificación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "mythologisation",
+      "spanish": "mitologización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "mythologization",
+      "spanish": "mitologización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "organification",
+      "spanish": "organificación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "overcapitalization",
+      "spanish": "sobrecapitalización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "oversimplification",
+      "spanish": "supersimplificación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "parturition",
+      "spanish": "parturición",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "peptisation",
+      "spanish": "peptización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "peptization",
+      "spanish": "peptización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "perseveration",
+      "spanish": "perseveración",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "pervaporation",
+      "spanish": "pervaporación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "phacoemulsification",
+      "spanish": "facoemulsificación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "plastination",
+      "spanish": "plastinación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "prechlorination",
+      "spanish": "precloración",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "preemption",
+      "spanish": "preempción",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "prognostication",
+      "spanish": "pronosticación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "pseudohallucination",
+      "spanish": "pseudoalucinación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "randomisation",
+      "spanish": "randomización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "randomization",
+      "spanish": "randomización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "ratiocination",
+      "spanish": "raciocinación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "reabsorption",
+      "spanish": "reabsorpción",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "reciprocation",
+      "spanish": "reciprocación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "redisposition",
+      "spanish": "redisposición",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "refabrication",
+      "spanish": "refabricación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "regimentation",
+      "spanish": "regimentación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "reharmonisation",
+      "spanish": "reharmonización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "reharmonization",
+      "spanish": "reharmonización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "reimposition",
+      "spanish": "reimposición",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "resorption",
+      "spanish": "reabsorpción",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "rumination",
+      "spanish": "ruminación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "sanguification",
+      "spanish": "sangüificación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "septation",
+      "spanish": "septación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "sibilation",
+      "spanish": "asibilación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "stagflation",
+      "spanish": "stagflación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "stridulation",
+      "spanish": "estridulación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "subjugation",
+      "spanish": "subjugación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "subsumption",
+      "spanish": "subsumición",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "sudation",
+      "spanish": "sudación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "supererogation",
+      "spanish": "supererogación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "superinfection",
+      "spanish": "superinfección",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "superordination",
+      "spanish": "superordinación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "terrorisation",
+      "spanish": "terrorización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "terrorization",
+      "spanish": "terrorización",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "vesication",
+      "spanish": "vesiculación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tion-cion",
+      "english": "vesiculation",
+      "spanish": "vesiculación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "admirability",
+      "spanish": "admirabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "adorability",
+      "spanish": "adorabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "arability",
+      "spanish": "arabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "atypicality",
+      "spanish": "atipicalidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "bioelectricity",
+      "spanish": "bioelectricidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "commutability",
+      "spanish": "conmutabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "cruciality",
+      "spanish": "crucialidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "cubicity",
+      "spanish": "cubicidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "curability",
+      "spanish": "curabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "declivity",
+      "spanish": "declividad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "delectability",
+      "spanish": "deleitabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "destructibility",
+      "spanish": "destructibilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "expansivity",
+      "spanish": "expansividad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "fissiparity",
+      "spanish": "fisiparidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "glutinosity",
+      "spanish": "gelatinosidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "immotility",
+      "spanish": "inmotilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "impassivity",
+      "spanish": "impasividad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "imperceptibility",
+      "spanish": "imperceptibilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "impermissibility",
+      "spanish": "impermisibilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "inaudibility",
+      "spanish": "inaudibilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "incommutability",
+      "spanish": "inconmutabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "incredibility",
+      "spanish": "incredibilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "incurability",
+      "spanish": "incurabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "indigestibility",
+      "spanish": "indigestibilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "indomitability",
+      "spanish": "indomabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "indubitability",
+      "spanish": "indudabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "inscrutability",
+      "spanish": "inescrutabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "insubstantiality",
+      "spanish": "insubstancialidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "intransitivity",
+      "spanish": "intransitividad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "irrepressibility",
+      "spanish": "irreprimibilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "jocundity",
+      "spanish": "jocundidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "lobularity",
+      "spanish": "lobularidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "manipulability",
+      "spanish": "manipulabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "measurability",
+      "spanish": "mesurabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "morbidity",
+      "spanish": "morbididad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "moronity",
+      "spanish": "moronidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "penetrability",
+      "spanish": "penetrabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "permutability",
+      "spanish": "permutabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "ponderosity",
+      "spanish": "ponderosidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "practicability",
+      "spanish": "practicabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "psychosexuality",
+      "spanish": "psicosexualidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "quiddity",
+      "spanish": "quididad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "rectangularity",
+      "spanish": "rectangularidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "risibility",
+      "spanish": "risibilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "substantiality",
+      "spanish": "sustancialidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "suggestibility",
+      "spanish": "sugestibilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "taxability",
+      "spanish": "taxabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "tenuity",
+      "spanish": "tenuidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "tractability",
+      "spanish": "tratabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "transmutability",
+      "spanish": "transmutabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "triangularity",
+      "spanish": "triangularidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "unacceptability",
+      "spanish": "inaceptabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "unadaptability",
+      "spanish": "inadapatabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "unquestionability",
+      "spanish": "incuestionabilidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ity-idad",
+      "english": "varicosity",
+      "spanish": "varicosidad",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "acetous",
+      "spanish": "acetoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "adenocarcinomatous",
+      "spanish": "adenocarcinomatoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "albuminous",
+      "spanish": "albuminoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "anasarcous",
+      "spanish": "anasarcoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "anestrous",
+      "spanish": "anestroso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "anginous",
+      "spanish": "anginoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "angiomatous",
+      "spanish": "angiomatoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "angiospermous",
+      "spanish": "angiospermoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "anoestrous",
+      "spanish": "anestroso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "argentous",
+      "spanish": "argentoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "arsenious",
+      "spanish": "arsenioso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "ascomycetous",
+      "spanish": "ascomicetoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "atheromatous",
+      "spanish": "ateromatoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "basidiomycetous",
+      "spanish": "basidiomicetoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "basidiosporous",
+      "spanish": "basidiosporoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "calculous",
+      "spanish": "calculoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "cerous",
+      "spanish": "cerioso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "ceruminous",
+      "spanish": "ceruminoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "chancrous",
+      "spanish": "chancroso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "chelicerous",
+      "spanish": "queliceroso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "estrous",
+      "spanish": "estroso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "flexuous",
+      "spanish": "flexuoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "fungous",
+      "spanish": "fungoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "ichorous",
+      "spanish": "icoroso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "jumentous",
+      "spanish": "jumentoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "sanious",
+      "spanish": "sanioso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "scotomatous",
+      "spanish": "escotomatoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "stertorous",
+      "spanish": "estertoroso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "unceremonious",
+      "spanish": "inceremonioso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ous-oso",
+      "english": "verminous",
+      "spanish": "verminoso",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "adorably",
+      "spanish": "adorablemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "angelically",
+      "spanish": "angélicamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "argumentatively",
+      "spanish": "argumentativamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "atonally",
+      "spanish": "atonalmente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "authoritatively",
+      "spanish": "autoritativamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "bacterially",
+      "spanish": "bacterianamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "cerebrally",
+      "spanish": "cerebralmente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "compatibly",
+      "spanish": "compatiblemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "complacently",
+      "spanish": "complacientemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "concavely",
+      "spanish": "cóncavamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "considerately",
+      "spanish": "consideradamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "contritely",
+      "spanish": "contritamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "convexly",
+      "spanish": "convexamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "cortically",
+      "spanish": "corticalmente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "culpably",
+      "spanish": "culpablemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "denominationally",
+      "spanish": "denominacionalmente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "dissolutely",
+      "spanish": "disolutamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "erotically",
+      "spanish": "eroticamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "eschatologically",
+      "spanish": "escatológicamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "extemporaneously",
+      "spanish": "extemporáneamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "extemporarily",
+      "spanish": "extemporáneamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "floridly",
+      "spanish": "floridamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "frugally",
+      "spanish": "frugalmente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "governmentally",
+      "spanish": "gubernamentalmente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "grandiloquently",
+      "spanish": "grandilocuentemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "harmoniously",
+      "spanish": "harmoniosamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "horticulturally",
+      "spanish": "horticulturalmente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "immoderately",
+      "spanish": "inmoderadamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "impudently",
+      "spanish": "impudentemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "inalienably",
+      "spanish": "inalienablemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "inaugurally",
+      "spanish": "inauguralmente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "incestuously",
+      "spanish": "incestuosamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "incompatibly",
+      "spanish": "incompatiblemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "inconclusively",
+      "spanish": "inconclusamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "inconsequentially",
+      "spanish": "inconsecuentemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "inconsequently",
+      "spanish": "inconsecuentemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "inelegantly",
+      "spanish": "inelegantemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "ineptly",
+      "spanish": "ineptamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "inexpertly",
+      "spanish": "inexpertamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "insecurely",
+      "spanish": "inseguramente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "insuperably",
+      "spanish": "insuperablemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "intemperately",
+      "spanish": "intemperadamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "interracially",
+      "spanish": "interracialmente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "intolerantly",
+      "spanish": "intolerantemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "irreproachably",
+      "spanish": "irreprochablemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "kinaesthetically",
+      "spanish": "kinestésicamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "kinesthetically",
+      "spanish": "kinestésicamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "logogrammatically",
+      "spanish": "logogramaticalmente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "meditatively",
+      "spanish": "meditativamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "melodramatically",
+      "spanish": "melodramáticamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "meteorologically",
+      "spanish": "metereológicamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "morosely",
+      "spanish": "morosamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "musicologically",
+      "spanish": "musicológicamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "onerously",
+      "spanish": "onerosamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "permissively",
+      "spanish": "permisivamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "perniciously",
+      "spanish": "perniciosamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "perseveringly",
+      "spanish": "perseverantemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "postoperatively",
+      "spanish": "postoperatoriamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "prepositionally",
+      "spanish": "preposicionalmente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "presidentially",
+      "spanish": "presidencialmente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "problematically",
+      "spanish": "problemáticamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "pyramidically",
+      "spanish": "piramidalmente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "relativistically",
+      "spanish": "relativísticamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "residentially",
+      "spanish": "residencialmente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "sacredly",
+      "spanish": "sagradamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "sociobiologically",
+      "spanish": "sociobiológicamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "sociolinguistically",
+      "spanish": "sociolingüísticamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "sordidly",
+      "spanish": "sórdidamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "spaciously",
+      "spanish": "espaciosamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "timidly",
+      "spanish": "timidamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "tolerantly",
+      "spanish": "tolerantemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "transcendentally",
+      "spanish": "transcendentalmente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "uncivilly",
+      "spanish": "incivilmente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "unintelligibly",
+      "spanish": "ininteligiblemente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "unquietly",
+      "spanish": "inquietamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "venomously",
+      "spanish": "venenosamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ly-mente",
+      "english": "voyeuristically",
+      "spanish": "voyeurísticamente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "ablepharia",
+      "spanish": "ablefaria",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "acetophenetidin",
+      "spanish": "acetofenecidina",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "acetphenetidin",
+      "spanish": "acetofenecidina",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "acrophobia",
+      "spanish": "acrofobia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "acrophobic",
+      "spanish": "acrofóbico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "acrophony",
+      "spanish": "acrofonía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "adoxography",
+      "spanish": "adoxografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "aerophilatelic",
+      "spanish": "aerofilatélico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "aerophilately",
+      "spanish": "aerofilatelia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "aerophile",
+      "spanish": "aerófilo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "ailurophobia",
+      "spanish": "ailurofobia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "algophobic",
+      "spanish": "algofóbico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "allelomorphic",
+      "spanish": "alelomórfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "allograph",
+      "spanish": "alógrafo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "allographic",
+      "spanish": "alográfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "allomorphic",
+      "spanish": "alomórfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "allophone",
+      "spanish": "alofono",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "amphibiotic",
+      "spanish": "anfibiótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "amphimixis",
+      "spanish": "anfimixis",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "amphiprotic",
+      "spanish": "anfiprótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "amphitropous",
+      "spanish": "amfitropo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "anaglyphic",
+      "spanish": "anaglífico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "anaphasic",
+      "spanish": "anafásico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "anaphrodisiac",
+      "spanish": "anafrodisiaco",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "anemographic",
+      "spanish": "anemográfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "anemography",
+      "spanish": "anemografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "anopheline",
+      "spanish": "anofelino",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "antistrophic",
+      "spanish": "antistrófico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "aphaeresis",
+      "spanish": "aferesis",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "aphaeretic",
+      "spanish": "aferético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "aphanite",
+      "spanish": "afanita",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "apheretic",
+      "spanish": "aferético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "aphorist",
+      "spanish": "aforista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "aphotic",
+      "spanish": "afótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "aplacophoran",
+      "spanish": "aplacóforo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "apocryphal",
+      "spanish": "apócrifa",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "apomorphine",
+      "spanish": "apomorfina",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "apostrophic",
+      "spanish": "apostrófico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "aquaphobia",
+      "spanish": "aquafobia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "atrophied",
+      "spanish": "atrofiado",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "autobiographic",
+      "spanish": "autobiográfica",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "autographic",
+      "spanish": "autográfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "autophytic",
+      "spanish": "autofítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "autoradiographic",
+      "spanish": "autoradiográfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "autoradiography",
+      "spanish": "autorradiografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "bacteriophagic",
+      "spanish": "bacteriofágico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "bacteriophagous",
+      "spanish": "bacteriofágico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "barograph",
+      "spanish": "barógrafo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "barographic",
+      "spanish": "barográfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "basophilia",
+      "spanish": "basofilia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "basophilic",
+      "spanish": "basofílico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "bibliophilic",
+      "spanish": "bibliofílico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "blastosphere",
+      "spanish": "blastósfera",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "blastospheric",
+      "spanish": "blastoférico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "blepharospasm",
+      "spanish": "blefaroespasmo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "bolographic",
+      "spanish": "bolográfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "boustrophedonic",
+      "spanish": "bustrofedónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "cardiograph",
+      "spanish": "cardiógrafo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "cardiographic",
+      "spanish": "cardiográfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "carpophagous",
+      "spanish": "carpófago",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "cataphoretic",
+      "spanish": "cataforético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "cephalalgia",
+      "spanish": "cefalalgia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "cephalhematoma",
+      "spanish": "cefalohematoma",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "cephalohematoma",
+      "spanish": "cefalohematoma",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "cephaloridine",
+      "spanish": "cefaloridina",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "chloramphenicol",
+      "spanish": "cloramfenicol",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "chloroacetophenone",
+      "spanish": "cloroacetofenona",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "coliphage",
+      "spanish": "colifago",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "coprophagia",
+      "spanish": "coprofagia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "coprophagy",
+      "spanish": "coprofagia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "coryphantha",
+      "spanish": "corifanta",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "cryophobia",
+      "spanish": "criofobia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "cynophobia",
+      "spanish": "cinofobia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "daphnia",
+      "spanish": "dafnia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "deipnosophist",
+      "spanish": "deipnosofista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "dermatoglyphics",
+      "spanish": "dermatoglífica",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "dichlorodiphenyltrichloroethane",
+      "spanish": "diclorodifeniltricloroetano",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "dihydroxyphenylalanine",
+      "spanish": "dihidroxifenilalanina",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "dolichocephalic",
+      "spanish": "dolicocéfalo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "dysaphia",
+      "spanish": "disafia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "dysphemistic",
+      "spanish": "disfemística",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "echoencephalogram",
+      "spanish": "ecoencefalograma",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "echoencephalography",
+      "spanish": "ecoencefalografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "ecphonesis",
+      "spanish": "ecfonesis",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "ectomorphic",
+      "spanish": "ectomorfo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "ectomorphy",
+      "spanish": "ectomorfo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "electroencephalograph",
+      "spanish": "electroencefalógrafo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "electrograph",
+      "spanish": "electrógrafo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "electromyograph",
+      "spanish": "electromiógrafo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "electrophorus",
+      "spanish": "electróforo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "encephalocele",
+      "spanish": "encefalocele",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "encephalomeningitis",
+      "spanish": "encefalomeningitis",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "endomorphic",
+      "spanish": "endomorfo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "enophile",
+      "spanish": "enofilo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "entomophobia",
+      "spanish": "entomofobia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "epanaphora",
+      "spanish": "epanáfora",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "epimorphic",
+      "spanish": "epimórfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "epiphora",
+      "spanish": "epífora",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "epistrophe",
+      "spanish": "epístrofe",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "euphonium",
+      "spanish": "eufonio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "euphuism",
+      "spanish": "eufuismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "exophthalmos",
+      "spanish": "exoftalmos",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "fluphenazine",
+      "spanish": "flufenazina",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "geomorphologic",
+      "spanish": "geomorfológica",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "geomorphological",
+      "spanish": "geomorfológica",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "geosphere",
+      "spanish": "geosfera",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "gymnosophical",
+      "spanish": "gimnosófico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "gynandromorphic",
+      "spanish": "ginandromorfo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "gynandromorphous",
+      "spanish": "ginandromorfo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "gynophobia",
+      "spanish": "ginofobia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "hebephrenia",
+      "spanish": "hebefrenia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "hebephrenic",
+      "spanish": "hebefrénico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "heckelphone",
+      "spanish": "heckelfón",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "hectograph",
+      "spanish": "hectógrafo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "heliograph",
+      "spanish": "heliógrafo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "hemimorphite",
+      "spanish": "hemimorfita",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "hemispherical",
+      "spanish": "hemisférica",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "hermaphroditic",
+      "spanish": "hermafrodítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "hexachlorophene",
+      "spanish": "hexaclorofeno",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "holocephalan",
+      "spanish": "holocéfalo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "holocephalian",
+      "spanish": "holocéfalo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "holograph",
+      "spanish": "hológrafo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "hydromorphone",
+      "spanish": "hidromorfona",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "hypertrophied",
+      "spanish": "hipertrofiado",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "hypnophobia",
+      "spanish": "hipnofobia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "hypophysectomize",
+      "spanish": "hipofisectomizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "ideography",
+      "spanish": "ideografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "immunoelectrophoresis",
+      "spanish": "inmunoelectroforesis",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "iontophoresis",
+      "spanish": "iontoforesis",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "kaliph",
+      "spanish": "kalif",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "kniphofia",
+      "spanish": "kniphofia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "lagophthalmos",
+      "spanish": "lagoftalmos",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "laryngopharyngitis",
+      "spanish": "laringofaringitis",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "lithosphere",
+      "spanish": "litosfera",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "logographic",
+      "spanish": "logografico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "lymphadenoma",
+      "spanish": "linfadenoma",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "lymphangiectasia",
+      "spanish": "linfangiectasia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "lymphangiectasis",
+      "spanish": "linfangiectasia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "lymphangiogram",
+      "spanish": "linfangiograma",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "lymphocytopenia",
+      "spanish": "linfocitopenia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "lymphogranuloma",
+      "spanish": "linfogranuloma",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "lymphuria",
+      "spanish": "linfuria",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "megalocephaly",
+      "spanish": "megalocefalia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "melphalan",
+      "spanish": "melfalán",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "mesophyte",
+      "spanish": "mesófita",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "mesophytic",
+      "spanish": "mesofítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "metencephalon",
+      "spanish": "metencéfalo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "microphotometer",
+      "spanish": "microfotómetro",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "morphemic",
+      "spanish": "morfémico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "morphophonemic",
+      "spanish": "morfofonémico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "myelencephalon",
+      "spanish": "mielencéfalo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "myrmecophagous",
+      "spanish": "mirmecófago",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "myrmecophile",
+      "spanish": "mirmecófilo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "myrmecophilous",
+      "spanish": "mirmecófilo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "myrmecophytic",
+      "spanish": "mirmecofítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "mysophobia",
+      "spanish": "misofobia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "mysophobic",
+      "spanish": "misofóbico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "naphthol",
+      "spanish": "naftol",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "naphthoquinone",
+      "spanish": "naftoquinona",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "necrophagia",
+      "spanish": "necrofagia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "necrophagy",
+      "spanish": "necrofagia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "nephoscope",
+      "spanish": "nefoscopio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "nephroblastoma",
+      "spanish": "nefroblastoma",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "nephrolith",
+      "spanish": "nefrolito",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "nephroptosia",
+      "spanish": "nefroptosis",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "nephroptosis",
+      "spanish": "nefroptosis",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "nephrotomy",
+      "spanish": "nefrotomía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "nephrotoxin",
+      "spanish": "nefrotoxina",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "odynophagia",
+      "spanish": "odinofagia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "oenophile",
+      "spanish": "enofilo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "oleophobic",
+      "spanish": "oleofóbico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "oophoritis",
+      "spanish": "ooforitis",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "oophorosalpingectomy",
+      "spanish": "ooforosalpingectomía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "ophidism",
+      "spanish": "ofidismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "ophiolatry",
+      "spanish": "ofiolatría",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "ophthalmia",
+      "spanish": "oftalmia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "orthophosphate",
+      "spanish": "ortofosfato",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "oscillograph",
+      "spanish": "oscilógrafo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "oxyphenbutazone",
+      "spanish": "oxifenbutazona",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "ozonosphere",
+      "spanish": "ozonosfera",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "palaeoethnography",
+      "spanish": "paleoetnografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "paleoethnography",
+      "spanish": "paleoetnografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "panencephalitis",
+      "spanish": "panencefalitis",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phacoemulsification",
+      "spanish": "facoemulsificación",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phalangitis",
+      "spanish": "falangitis",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phantasmagoria",
+      "spanish": "fantasmagoria",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phasianid",
+      "spanish": "fasiánido",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phenacetin",
+      "spanish": "fenacetina",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phenelzine",
+      "spanish": "fenelzina",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phenolic",
+      "spanish": "fenólica",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phenoplast",
+      "spanish": "fenoplástico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phenotypic",
+      "spanish": "fenotípica",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phenotypical",
+      "spanish": "fenotípica",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phentolamine",
+      "spanish": "fentolamina",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phenylpropanolamine",
+      "spanish": "fenilpropanolamina",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "philhellenic",
+      "spanish": "filohelénico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "philhellenist",
+      "spanish": "filohelenista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "philistinism",
+      "spanish": "filistinismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phlebectomy",
+      "spanish": "flebectomía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phlebogram",
+      "spanish": "flebograma",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phlebotomize",
+      "spanish": "flebotomitzar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phocomelia",
+      "spanish": "focomelia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phonogramic",
+      "spanish": "fonográmico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "photoconductive",
+      "spanish": "fotoconductor",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "photolithography",
+      "spanish": "fotolitografia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "photostat",
+      "spanish": "fotóstato",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phycobilin",
+      "spanish": "ficobilina",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "physostigmine",
+      "spanish": "fisostigmina",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phytonadione",
+      "spanish": "fitonadiona",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "phytotoxin",
+      "spanish": "fitotoxina",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "plagiocephaly",
+      "spanish": "plagiocefalia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "pogonophoran",
+      "spanish": "pogonóforo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "polarography",
+      "spanish": "polarografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "polymorphic",
+      "spanish": "polimórfica",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "polyplacophore",
+      "spanish": "poliplacóforo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "propoxyphene",
+      "spanish": "propoxifeno",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "pseudophloem",
+      "spanish": "pseudofloema",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "pyromorphite",
+      "spanish": "piromorfita",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "pyrophobia",
+      "spanish": "pirofobia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "radiographer",
+      "spanish": "radiógrafo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "radiophone",
+      "spanish": "radiófono",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "radiophotograph",
+      "spanish": "radiofotografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "radiophotography",
+      "spanish": "radiofotografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "radiotelegraph",
+      "spanish": "radiotelégrafo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "radiotelegraphy",
+      "spanish": "radiotelégrafo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "rhinencephalon",
+      "spanish": "rinencéfalo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "rhinophyma",
+      "spanish": "rinofima",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "saprophagous",
+      "spanish": "saprófago",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "saprophyte",
+      "spanish": "saprófito",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "saprophytic",
+      "spanish": "saprofítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "satanophobia",
+      "spanish": "satanofobia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "scaphocephaly",
+      "spanish": "escafocefalia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "scaphopod",
+      "spanish": "escafópodo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "semiautobiographical",
+      "spanish": "semiautobiográfica",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "siderophilin",
+      "spanish": "siderofilina",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "sousaphone",
+      "spanish": "sousafón",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "spectrographic",
+      "spanish": "espectográfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "sphenion",
+      "spanish": "esfenión",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "spheric",
+      "spanish": "esférica",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "sulpha",
+      "spanish": "sulfa",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "sulphate",
+      "spanish": "sulfate",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "telephotograph",
+      "spanish": "telefotografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "telephotography",
+      "spanish": "telefotografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "telophase",
+      "spanish": "telofase",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "telpher",
+      "spanish": "telfer",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "telpherage",
+      "spanish": "telferage",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "theosophism",
+      "spanish": "teosofismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "traumatophobia",
+      "spanish": "traumatofobia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "trephine",
+      "spanish": "trefinar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "triskaidekaphobia",
+      "spanish": "triscaidecafobia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "trophotropic",
+      "spanish": "trofotrópico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "ulatrophia",
+      "spanish": "ulatrofia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "venography",
+      "spanish": "venografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "xerophile",
+      "spanish": "xerófila",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ph-f",
+      "english": "zoophagous",
+      "spanish": "zoófago",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "abasic",
+      "spanish": "abásico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "abatic",
+      "spanish": "abásico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "abiogenetic",
+      "spanish": "abiogenético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "acatalectic",
+      "spanish": "acataléctico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "acentric",
+      "spanish": "acéntrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "acetonic",
+      "spanish": "acetónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "acetylic",
+      "spanish": "acetílico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "achlorhydric",
+      "spanish": "aclorhídrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "achondroplastic",
+      "spanish": "acondroplástico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "achromatinic",
+      "spanish": "acromatínico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "acidimetric",
+      "spanish": "acidimétrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "acrogenic",
+      "spanish": "acrogénico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "acrophobic",
+      "spanish": "acrofóbico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "actinomycotic",
+      "spanish": "actinomicótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "adrenocorticotrophic",
+      "spanish": "adrenocorticotrópico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "adrenocorticotropic",
+      "spanish": "adrenocorticotrópico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "adventuristic",
+      "spanish": "aventurístico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "adynamic",
+      "spanish": "adinámico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "aeromechanic",
+      "spanish": "aeromecánico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "aerophilatelic",
+      "spanish": "aerofilatélico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "agranulocytic",
+      "spanish": "agranulocítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "albinic",
+      "spanish": "albínico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "albinistic",
+      "spanish": "albinótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "albinotic",
+      "spanish": "albinótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "albitic",
+      "spanish": "albítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "albuminuric",
+      "spanish": "albuminúrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "aleuronic",
+      "spanish": "aleurónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "alexic",
+      "spanish": "aléxico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "algolagnic",
+      "spanish": "algolágnico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "algometric",
+      "spanish": "algométrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "algophobic",
+      "spanish": "algofóbico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "alkalotic",
+      "spanish": "alcalótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "allelomorphic",
+      "spanish": "alelomórfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "allochronic",
+      "spanish": "alocrónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "allometric",
+      "spanish": "alométrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "allopathic",
+      "spanish": "alopático",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "amaurotic",
+      "spanish": "amaurótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "amblyopic",
+      "spanish": "ambliópico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "amenorrheic",
+      "spanish": "amenorreico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "amenorrhoeic",
+      "spanish": "amenorreico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "ametabolic",
+      "spanish": "ametabólico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "ametropic",
+      "spanish": "ametrópico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "aminic",
+      "spanish": "amínico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "amitotic",
+      "spanish": "amitótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "ammonitic",
+      "spanish": "amonítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "amoristic",
+      "spanish": "amorístico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anabatic",
+      "spanish": "anabático",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anabiotic",
+      "spanish": "anabiótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anaclitic",
+      "spanish": "anaclítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anacoluthic",
+      "spanish": "anacolútico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "analeptic",
+      "spanish": "analéptico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "analgetic",
+      "spanish": "analgético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anamnestic",
+      "spanish": "anamnéstico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anaplastic",
+      "spanish": "anaplástico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anastigmatic",
+      "spanish": "anastigmático",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anchoritic",
+      "spanish": "anacorítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "androgenetic",
+      "spanish": "androgenético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anemographic",
+      "spanish": "anemográfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anicteric",
+      "spanish": "anictérico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anisogametic",
+      "spanish": "anisogamético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anisogamic",
+      "spanish": "anisogámico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anisometropic",
+      "spanish": "anisometrópico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "annalistic",
+      "spanish": "analístico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anorectic",
+      "spanish": "anoréctico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anorthic",
+      "spanish": "anórtico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anoxemic",
+      "spanish": "anoxémico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anthracitic",
+      "spanish": "antracítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anthropogenetic",
+      "spanish": "antropogenético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "antidromic",
+      "spanish": "antidrómico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "antimagnetic",
+      "spanish": "antimagnético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "antimonic",
+      "spanish": "antimónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "antistrophic",
+      "spanish": "antistrófico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "antitypic",
+      "spanish": "antitípico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "anuretic",
+      "spanish": "anurético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "aoristic",
+      "spanish": "aorístico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "aplanatic",
+      "spanish": "aplanético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "aplitic",
+      "spanish": "aplítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "apochromatic",
+      "spanish": "apocromático",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "apogametic",
+      "spanish": "apogámico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "apogamic",
+      "spanish": "apogámico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "aposiopetic",
+      "spanish": "aposiopético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "apostrophic",
+      "spanish": "apostrófico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "apothegmatic",
+      "spanish": "apotegmático",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "apractic",
+      "spanish": "apráctico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "apraxic",
+      "spanish": "apráxico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "arthralgic",
+      "spanish": "artrálgico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "arthromeric",
+      "spanish": "artromérico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "arthrosporic",
+      "spanish": "artrospórico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "ascosporic",
+      "spanish": "ascopórico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "astigmatic",
+      "spanish": "astigmático",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "astrocytic",
+      "spanish": "astrocítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "asyndetic",
+      "spanish": "asindético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "atactic",
+      "spanish": "atáctico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "ataraxic",
+      "spanish": "ataráxico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "atonalistic",
+      "spanish": "atonalístico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "atonic",
+      "spanish": "atónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "audiometric",
+      "spanish": "audiométrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "augitic",
+      "spanish": "augítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "autogenetic",
+      "spanish": "autogenético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "autographic",
+      "spanish": "autográfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "autoplastic",
+      "spanish": "autoplástico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "autoradiographic",
+      "spanish": "autoradiográfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "autotelic",
+      "spanish": "autotélico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "autotomic",
+      "spanish": "autotómico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "autotypic",
+      "spanish": "autotípico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "auxetic",
+      "spanish": "auxético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "avionic",
+      "spanish": "aviónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "avitaminotic",
+      "spanish": "avitaminótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "axenic",
+      "spanish": "axénico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "bacchantic",
+      "spanish": "bacántico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "bacteremic",
+      "spanish": "bacterémico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "bacteriolytic",
+      "spanish": "bacteriolítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "bacteriophagic",
+      "spanish": "bacteriofágico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "baric",
+      "spanish": "bárico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "barographic",
+      "spanish": "barográfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "barytic",
+      "spanish": "barítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "basophilic",
+      "spanish": "basofílico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "batholithic",
+      "spanish": "batolítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "batholitic",
+      "spanish": "batolítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "bauxitic",
+      "spanish": "bauxítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "behavioristic",
+      "spanish": "behaviorístico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "behaviouristic",
+      "spanish": "behaviorístico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "belemnitic",
+      "spanish": "belemnítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "bentonitic",
+      "spanish": "bentonítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "bibliophilic",
+      "spanish": "bibliofílico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "bibliopolic",
+      "spanish": "bibliopólico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "bigeneric",
+      "spanish": "bigenérico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "biocatalytic",
+      "spanish": "biocatalítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "bionomic",
+      "spanish": "bionómico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "biotitic",
+      "spanish": "biotítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "biotypic",
+      "spanish": "biotípico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "biquadratic",
+      "spanish": "bicuadrático",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "blastocoelic",
+      "spanish": "blastocélico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "blastodermatic",
+      "spanish": "blastodermático",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "blastodermic",
+      "spanish": "blastodérmico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "blastogenetic",
+      "spanish": "blastogenético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "blastomeric",
+      "spanish": "blastomérico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "blastomycotic",
+      "spanish": "blastomicótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "blastospheric",
+      "spanish": "blastoférico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "bolographic",
+      "spanish": "bolográfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "boustrophedonic",
+      "spanish": "bustrofedónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "bregmatic",
+      "spanish": "bregmático",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "bromic",
+      "spanish": "brómico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "bromidic",
+      "spanish": "bromídico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "bronchitic",
+      "spanish": "bronquítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "cacodaemonic",
+      "spanish": "cacodemónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "cacodemonic",
+      "spanish": "cacodemónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "cacodylic",
+      "spanish": "cacodílico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "cacogenic",
+      "spanish": "cacogénico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "caffeinic",
+      "spanish": "cafeínico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "calisthenic",
+      "spanish": "calisténico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "carbocyclic",
+      "spanish": "carbocíclico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "cardiographic",
+      "spanish": "cardiográfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "catachrestic",
+      "spanish": "catacréstico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "cataphoretic",
+      "spanish": "cataforético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "cataplastic",
+      "spanish": "cataplástico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "categorematic",
+      "spanish": "categoremático",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "catoptric",
+      "spanish": "catóptrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "cenogenetic",
+      "spanish": "cenogenético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "centrosomic",
+      "spanish": "centrosómico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "conspecific",
+      "spanish": "conspecífico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "coseismic",
+      "spanish": "cosísmico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "cryptologic",
+      "spanish": "criptológico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "cytoarchitectonic",
+      "spanish": "citoarquitectónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "cytoplastic",
+      "spanish": "citoplástico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "decasyllabic",
+      "spanish": "decasilábico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "dichromatic",
+      "spanish": "dicromático",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "dizygotic",
+      "spanish": "dizigótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "dyspeptic",
+      "spanish": "dispéptico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "dysplastic",
+      "spanish": "displástico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "ectothermic",
+      "spanish": "ectotérmico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "embolic",
+      "spanish": "embólico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "endogenic",
+      "spanish": "endogénico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "epicyclic",
+      "spanish": "epicíclico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "epimorphic",
+      "spanish": "epimórfico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "epizootic",
+      "spanish": "epizoótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "ergotropic",
+      "spanish": "ergotrópico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "eudaemonic",
+      "spanish": "eudemónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "eudemonic",
+      "spanish": "eudemónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "exocentric",
+      "spanish": "exocéntrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "exodontic",
+      "spanish": "exodóntico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "extropic",
+      "spanish": "extrópico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "fiberoptic",
+      "spanish": "fibroóptica",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "fibreoptic",
+      "spanish": "fibroóptica",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "hebephrenic",
+      "spanish": "hebefrénico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "helminthic",
+      "spanish": "helmíntico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "hermaphroditic",
+      "spanish": "hermafrodítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "heterothermic",
+      "spanish": "heterotérmico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "hidrotic",
+      "spanish": "hidrótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "homiletic",
+      "spanish": "homiléctico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "homocentric",
+      "spanish": "homocéntrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "homocyclic",
+      "spanish": "homocíclico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "hyaloplasmic",
+      "spanish": "hialoplásmico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "hyperemic",
+      "spanish": "hiperémico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "immunotherapeutic",
+      "spanish": "inmunoterapéutico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "intralinguistic",
+      "spanish": "intralingüístico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "iridic",
+      "spanish": "irídico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "isocyclic",
+      "spanish": "isocíclico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "isogonic",
+      "spanish": "isogónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "kaleidoscopic",
+      "spanish": "calidoscópico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "lactogenic",
+      "spanish": "lactogenico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "lithomantic",
+      "spanish": "litomántico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "logogrammatic",
+      "spanish": "logogramatico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "logographic",
+      "spanish": "logografico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "macrocosmic",
+      "spanish": "macrocósmico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "megakaryocytic",
+      "spanish": "megacariocítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "mesoblastic",
+      "spanish": "mesoblástico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "mesonic",
+      "spanish": "mesónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "metastatic",
+      "spanish": "metastático",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "miasmic",
+      "spanish": "miásmico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "microcosmic",
+      "spanish": "microcósmico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "micrometeoric",
+      "spanish": "micrometeórico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "micrometeoritic",
+      "spanish": "micrometeorítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "monistic",
+      "spanish": "monístico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "monocarpic",
+      "spanish": "monocárpico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "monometallic",
+      "spanish": "monometálico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "monozygotic",
+      "spanish": "monozigótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "morbific",
+      "spanish": "morbífico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "myalgic",
+      "spanish": "miálgico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "myelic",
+      "spanish": "miélico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "myelinic",
+      "spanish": "mielínico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "narcoleptic",
+      "spanish": "narcoleptico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "necromantic",
+      "spanish": "necromántico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "nominalistic",
+      "spanish": "nominalístico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "ohmic",
+      "spanish": "ohmico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "oleophobic",
+      "spanish": "oleofóbico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "onomatopoeic",
+      "spanish": "onomatopeico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "onomatopoetic",
+      "spanish": "onomatopeico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "ontogenetic",
+      "spanish": "ontogenetico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "paederastic",
+      "spanish": "pederastico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "palingenetic",
+      "spanish": "palingenético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "parhelic",
+      "spanish": "parhélico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "pectic",
+      "spanish": "péctico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "pederastic",
+      "spanish": "pederastico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "pentasyllabic",
+      "spanish": "pentasilábico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "phonogramic",
+      "spanish": "fonográmico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "plumbic",
+      "spanish": "plúmbico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "pneumogastric",
+      "spanish": "neumogástrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "pneumonic",
+      "spanish": "pneumónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "poikilothermic",
+      "spanish": "poiquilotérmico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "prognathic",
+      "spanish": "prognático",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "prosthodontic",
+      "spanish": "prostodóntico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "protanopic",
+      "spanish": "protanópico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "protozoic",
+      "spanish": "protozoico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "psycholinguistic",
+      "spanish": "psicolingüístico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "psychoneurotic",
+      "spanish": "psiconeurótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "pycnotic",
+      "spanish": "picnótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "pyretic",
+      "spanish": "pirético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "saprobic",
+      "spanish": "sapróbico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "sarcolemmic",
+      "spanish": "sarcolémico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "seriocomic",
+      "spanish": "seriocómico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "spectrometric",
+      "spanish": "espectrométrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "splenetic",
+      "spanish": "esplenético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "spondaic",
+      "spanish": "espondaico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "stenotic",
+      "spanish": "estenótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "suboceanic",
+      "spanish": "suboceánico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "sudorific",
+      "spanish": "sudorífico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "supernaturalistic",
+      "spanish": "sobrenaturalístico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "syndetic",
+      "spanish": "sindético",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "telegnostic",
+      "spanish": "telegnóstico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "telocentric",
+      "spanish": "telocéntrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "tetrametric",
+      "spanish": "tetramétrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "thermionic",
+      "spanish": "termiónico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "thermohydrometric",
+      "spanish": "termohidrométrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "trichromatic",
+      "spanish": "tricromático",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "tritanopic",
+      "spanish": "tritanópico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "trochaic",
+      "spanish": "trocaico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "trophotropic",
+      "spanish": "trofotrópico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "tympanitic",
+      "spanish": "timpanítico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "viscometric",
+      "spanish": "viscométrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "viscosimetric",
+      "spanish": "viscométrico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "voyeuristic",
+      "spanish": "voyerístico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ic-ico",
+      "english": "zygotic",
+      "spanish": "zigótico",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "admissive",
+      "spanish": "admisivo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "advective",
+      "spanish": "advectivo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "amalgamative",
+      "spanish": "amalgamativo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "appetitive",
+      "spanish": "apetitivo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "appositive",
+      "spanish": "apositivo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "approbative",
+      "spanish": "aprobativo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "appropriative",
+      "spanish": "apropiativo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "arbitrative",
+      "spanish": "arbitrativo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "circulative",
+      "spanish": "circulativo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "designative",
+      "spanish": "designativo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "digressive",
+      "spanish": "digresivo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "elucidative",
+      "spanish": "elucidativo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "exteroceptive",
+      "spanish": "exteroceptivo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "illative",
+      "spanish": "ilativo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "interoceptive",
+      "spanish": "interoceptivo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "mutative",
+      "spanish": "mutativo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "noninvasive",
+      "spanish": "noinvasivo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "proprioceptive",
+      "spanish": "proprioceptivo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "ratiocinative",
+      "spanish": "raciocinativo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "separative",
+      "spanish": "separativo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "subtractive",
+      "spanish": "subtractivo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "unconstructive",
+      "spanish": "inconstructivo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "uninformative",
+      "spanish": "desinformativo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ive-ivo",
+      "english": "unperceptive",
+      "spanish": "imperceptivo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "abiogenist",
+      "spanish": "abiogenista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "allergist",
+      "spanish": "alergista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "analogist",
+      "spanish": "analogista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "anecdotist",
+      "spanish": "anecdotista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "cymbalist",
+      "spanish": "cimbalista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "deipnosophist",
+      "spanish": "deipnosofista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "denturist",
+      "spanish": "denturista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "dogmatist",
+      "spanish": "dogmatista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "econometrist",
+      "spanish": "econometrista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "endodontist",
+      "spanish": "endodoncista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "mechanist",
+      "spanish": "mecanista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "microeconomist",
+      "spanish": "microeconomista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "mythologist",
+      "spanish": "mitologista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "oboist",
+      "spanish": "oboista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "obscurantist",
+      "spanish": "obscurantista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "protoctist",
+      "spanish": "protoctista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "royalist",
+      "spanish": "royalista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "seismologist",
+      "spanish": "seismologista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "sensualist",
+      "spanish": "sensualista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "teleologist",
+      "spanish": "teleologista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ist-ista",
+      "english": "transcendentalist",
+      "spanish": "transcendentalista",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ance-encia",
+      "english": "autofluorescence",
+      "spanish": "autofluorescencia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ance-encia",
+      "english": "bioluminescence",
+      "spanish": "bioluminescencia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ance-encia",
+      "english": "birefringence",
+      "spanish": "birefringencia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ance-encia",
+      "english": "coreference",
+      "spanish": "correferencia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ance-encia",
+      "english": "covalence",
+      "spanish": "covalencia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ance-encia",
+      "english": "evanescence",
+      "spanish": "evanescencia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ance-encia",
+      "english": "exorbitance",
+      "spanish": "exorbitancia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ance-encia",
+      "english": "fraudulence",
+      "spanish": "fraudulencia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ance-encia",
+      "english": "grandiloquence",
+      "spanish": "grandiloqüencia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ance-encia",
+      "english": "impenitence",
+      "spanish": "impenitencia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ance-encia",
+      "english": "inelegance",
+      "spanish": "inelegancia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ance-encia",
+      "english": "intumescence",
+      "spanish": "intumescencia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ance-encia",
+      "english": "luminescence",
+      "spanish": "luminescencia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ance-encia",
+      "english": "opalescence",
+      "spanish": "opalescencia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ance-encia",
+      "english": "oscitance",
+      "spanish": "oscitancia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ance-encia",
+      "english": "putrescence",
+      "spanish": "putrescencia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "academism",
+      "spanish": "academismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "actinism",
+      "spanish": "actinismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "adactylism",
+      "spanish": "adactilismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "aeroembolism",
+      "spanish": "aeroembolismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "algorism",
+      "spanish": "algorismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "alienism",
+      "spanish": "alienismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "amoralism",
+      "spanish": "amoralismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "antiferromagnetism",
+      "spanish": "antiferromagnetismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "archaism",
+      "spanish": "arcaismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "behaviorism",
+      "spanish": "behaviorismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "behaviourism",
+      "spanish": "behaviorismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "biologism",
+      "spanish": "biologismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "dichromatism",
+      "spanish": "dicromatismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "empiricism",
+      "spanish": "empiricismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "ergotropism",
+      "spanish": "ergotropismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "ferrimagnetism",
+      "spanish": "ferrimagnetismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "gargoylism",
+      "spanish": "gargolismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "hemimetabolism",
+      "spanish": "hemimetabolismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "holometabolism",
+      "spanish": "holometabolismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "humanitarianism",
+      "spanish": "humanitarianismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "hyperadrenalism",
+      "spanish": "hiperadrenalismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "hyperadrenocorticism",
+      "spanish": "hiperadrenocorticismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "hyperpituitarism",
+      "spanish": "hiperpituitarismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "hypersplenism",
+      "spanish": "hiperesplenismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "hypoadrenalism",
+      "spanish": "hipoadrenalismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "hypoadrenocorticism",
+      "spanish": "hipoadrenocorticismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "incendiarism",
+      "spanish": "incendiarismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "jingoism",
+      "spanish": "jingoismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "logicism",
+      "spanish": "logicismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "meningism",
+      "spanish": "meningismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "mongolism",
+      "spanish": "mongolismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "neurotropism",
+      "spanish": "neurotropismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "noctambulism",
+      "spanish": "noctambulismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "obscurantism",
+      "spanish": "obscurantismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "oneirism",
+      "spanish": "onirismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "papism",
+      "spanish": "papismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "paralogism",
+      "spanish": "paralogismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "philistinism",
+      "spanish": "filistinismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "pleochroism",
+      "spanish": "pleocroismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "plumbism",
+      "spanish": "plumbismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "polytonalism",
+      "spanish": "politonalismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "ruffianism",
+      "spanish": "rufianismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "sacerdotalism",
+      "spanish": "sacerdotalismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "saturnism",
+      "spanish": "saturnismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "segregationism",
+      "spanish": "segregacionismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "somnambulism",
+      "spanish": "somnambulismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "stigmatism",
+      "spanish": "stigmatismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "tarantism",
+      "spanish": "tarantismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "thermotropism",
+      "spanish": "termotropismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "ultramontanism",
+      "spanish": "ultramontanismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ism-ismo",
+      "english": "wellerism",
+      "spanish": "wellerismo",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "abdicable",
+      "spanish": "abdicable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "administrable",
+      "spanish": "administrable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "adsorbable",
+      "spanish": "adsorbible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "appropriable",
+      "spanish": "apropiable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "arbitrable",
+      "spanish": "arbitrable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "ascendable",
+      "spanish": "ascendible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "ascendible",
+      "spanish": "ascendible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "contestable",
+      "spanish": "contestable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "convincible",
+      "spanish": "convencible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "declarable",
+      "spanish": "declarable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "describable",
+      "spanish": "describible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "dispensable",
+      "spanish": "dispensable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "dissociable",
+      "spanish": "disociable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "eradicable",
+      "spanish": "erradicable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "evaporable",
+      "spanish": "evaporable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "expandable",
+      "spanish": "expansible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "expandible",
+      "spanish": "expansible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "expansible",
+      "spanish": "expansible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "expiable",
+      "spanish": "expiable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "exterminable",
+      "spanish": "exterminable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "filmable",
+      "spanish": "filmable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "harmonizable",
+      "spanish": "harmonizable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "illimitable",
+      "spanish": "ilimitable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "impermissible",
+      "spanish": "impermisible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "imputrescible",
+      "spanish": "imputrescible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "inconvertible",
+      "spanish": "inconvertible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "ineligible",
+      "spanish": "ineligible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "inexterminable",
+      "spanish": "inexterminable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "nonsubmergible",
+      "spanish": "insubmergible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "paintable",
+      "spanish": "pintable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "partible",
+      "spanish": "partible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "permutable",
+      "spanish": "permutable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "placable",
+      "spanish": "placable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "preservable",
+      "spanish": "preservable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "proportionable",
+      "spanish": "proporcionable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "putrescible",
+      "spanish": "putrescible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "reconcilable",
+      "spanish": "reconciliable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "rectifiable",
+      "spanish": "rectificable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "satiable",
+      "spanish": "saciable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "specifiable",
+      "spanish": "especificable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "subjugable",
+      "spanish": "subyugable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "substitutable",
+      "spanish": "substituible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "translatable",
+      "spanish": "transmutable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "transmutable",
+      "spanish": "transmutable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "transplantable",
+      "spanish": "transplantable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "unadoptable",
+      "spanish": "inadoptable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "unanalyzable",
+      "spanish": "inanalizable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "unconvertible",
+      "spanish": "inconvertible",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "uncultivable",
+      "spanish": "incultivable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "unidentifiable",
+      "spanish": "inidentificable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "unmentionable",
+      "spanish": "inmencionable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "unpronounceable",
+      "spanish": "inpronunciable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "vaporizable",
+      "spanish": "vaporizable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "vapourisable",
+      "spanish": "vaporizable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "violable",
+      "spanish": "violable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "volatilisable",
+      "spanish": "volatilizable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "able-ible",
+      "english": "volatilizable",
+      "spanish": "volatilizable",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "alcalescent",
+      "spanish": "alcalescente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "alkalescent",
+      "spanish": "alcalescente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "anticipant",
+      "spanish": "anticipante",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "antiperspirant",
+      "spanish": "antiperspirante",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "arctangent",
+      "spanish": "arcotangente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "birefringent",
+      "spanish": "birrefringente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "corticoafferent",
+      "spanish": "corticoaferente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "corticoefferent",
+      "spanish": "corticoeferente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "decumbent",
+      "spanish": "recumbente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "defervescent",
+      "spanish": "defervescente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "diffident",
+      "spanish": "difidente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "diluent",
+      "spanish": "diluente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "excrescent",
+      "spanish": "excrescente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "intumescent",
+      "spanish": "tumescente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "liquescent",
+      "spanish": "liquescente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "milliequivalent",
+      "spanish": "miliequivalente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "octant",
+      "spanish": "octante",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "prepubescent",
+      "spanish": "prepubescente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "recumbent",
+      "spanish": "recumbente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "rubefacient",
+      "spanish": "rubefaciente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "senescent",
+      "spanish": "senescente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "sorbent",
+      "spanish": "sorbente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "submediant",
+      "spanish": "submediante",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "totipotent",
+      "spanish": "totipotente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ant-ent",
+      "english": "tumescent",
+      "spanish": "tumescente",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "achromatize",
+      "spanish": "acromatizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "alkalize",
+      "spanish": "alcalizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "anaesthetize",
+      "spanish": "anestetizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "anatomize",
+      "spanish": "anatomizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "anesthetize",
+      "spanish": "anestetizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "arterialize",
+      "spanish": "arterializar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "bolshevize",
+      "spanish": "bolchevizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "carnalize",
+      "spanish": "carnalizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "cocainize",
+      "spanish": "cocainizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "collateralize",
+      "spanish": "colateralizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "conventionalize",
+      "spanish": "convencionalizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "cutinize",
+      "spanish": "cutinizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "deglycerolize",
+      "spanish": "desglicerolizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "detransitivize",
+      "spanish": "detransitivizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "devitalize",
+      "spanish": "desvitalizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "fossilize",
+      "spanish": "fosilizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "ghettoize",
+      "spanish": "ghettizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "glamorize",
+      "spanish": "glamorizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "glycerolize",
+      "spanish": "glicerolizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "hybridize",
+      "spanish": "hibridizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "immaterialize",
+      "spanish": "inmaterializar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "immortalize",
+      "spanish": "immortalizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "immunize",
+      "spanish": "immunizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "intransitivize",
+      "spanish": "intransitivizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "melanize",
+      "spanish": "melanizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "mythologize",
+      "spanish": "mitologizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "opalize",
+      "spanish": "opalizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "ozonize",
+      "spanish": "ozonizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "remilitarize",
+      "spanish": "remilitarizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "sectionalize",
+      "spanish": "seccionalizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "sensualize",
+      "spanish": "sensualizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "sovietize",
+      "spanish": "sovietizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "transitivize",
+      "spanish": "transitivizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "vasectomize",
+      "spanish": "vasectomizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ize-izar",
+      "english": "vitaminize",
+      "spanish": "vitaminizar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "fy-ficar",
+      "english": "etherify",
+      "spanish": "eterificar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "fy-ficar",
+      "english": "lapidify",
+      "spanish": "lapidificar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "fy-ficar",
+      "english": "objectify",
+      "spanish": "objetificar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "fy-ficar",
+      "english": "reify",
+      "spanish": "reificar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "fy-ficar",
+      "english": "syllabify",
+      "spanish": "silabificar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "abdominovesical",
+      "spanish": "abdominovesical",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "accessional",
+      "spanish": "accesional",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "acculturational",
+      "spanish": "aculturacional",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "adenoidal",
+      "spanish": "adenoidal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "adnexal",
+      "spanish": "anexal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "adrenocortical",
+      "spanish": "adrenocortical",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "alkaloidal",
+      "spanish": "alcaloidal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "amobarbital",
+      "spanish": "amobarbital",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "anginal",
+      "spanish": "anginal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "annexal",
+      "spanish": "anexal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "antimonial",
+      "spanish": "antimonial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "apicultural",
+      "spanish": "apicultural",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "apodal",
+      "spanish": "apodal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "apothecial",
+      "spanish": "apotecial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "apsidal",
+      "spanish": "apsidal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "aptitudinal",
+      "spanish": "aptitudinal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "aquacultural",
+      "spanish": "aquicultural",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "aquicultural",
+      "spanish": "aquicultural",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "archangelical",
+      "spanish": "arcangelical",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "archducal",
+      "spanish": "archiducal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "archesporial",
+      "spanish": "arquesporial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "archidiaconal",
+      "spanish": "archidiaconal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "areal",
+      "spanish": "areal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "argal",
+      "spanish": "argal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "associational",
+      "spanish": "asociacional",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "aural",
+      "spanish": "aural",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "autacoidal",
+      "spanish": "autacoidal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "autosomal",
+      "spanish": "autosomal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "azonal",
+      "spanish": "azonal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "bacterioidal",
+      "spanish": "bacteroidal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "bacteroidal",
+      "spanish": "bacteroidal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "barbital",
+      "spanish": "barbital",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "basidial",
+      "spanish": "basidial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "bibliothecal",
+      "spanish": "bibliotecal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "bicipital",
+      "spanish": "bicipital",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "bimanual",
+      "spanish": "bimanual",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "bimetal",
+      "spanish": "bimetal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "biracial",
+      "spanish": "biracial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "bisectional",
+      "spanish": "biseccional",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "bismuthal",
+      "spanish": "bismutal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "bizonal",
+      "spanish": "bizonal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "botulinal",
+      "spanish": "botulinal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "bracteal",
+      "spanish": "bracteal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "brumal",
+      "spanish": "brumal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "cacuminal",
+      "spanish": "cacuminal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "caesural",
+      "spanish": "cesural",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "calcaneal",
+      "spanish": "calcaneal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "carinal",
+      "spanish": "carinal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "cataclinal",
+      "spanish": "cataclinal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "catamenial",
+      "spanish": "catamenial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "catechismal",
+      "spanish": "catecismal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "centesimal",
+      "spanish": "centesimal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "cerebrospinal",
+      "spanish": "cerebrospinal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "chanal",
+      "spanish": "chanal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "chancroidal",
+      "spanish": "chancroidal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "clausal",
+      "spanish": "clausal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "colorectal",
+      "spanish": "colorectal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "coreferential",
+      "spanish": "correferencial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "correlational",
+      "spanish": "correlacional",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "crotal",
+      "spanish": "crotal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "crottal",
+      "spanish": "crotal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "cytoarchitectural",
+      "spanish": "citoarquitectural",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "deformational",
+      "spanish": "deformacional",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "demurral",
+      "spanish": "demurral",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "despisal",
+      "spanish": "despisal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "dhal",
+      "spanish": "dhal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "disciplinal",
+      "spanish": "disciplinal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "epicarpal",
+      "spanish": "epicarpial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "exuvial",
+      "spanish": "exuvial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "fallal",
+      "spanish": "fallal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "faucal",
+      "spanish": "faucal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "fenestral",
+      "spanish": "fenestral",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "fiducial",
+      "spanish": "fiducial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "filarial",
+      "spanish": "filarial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "galangal",
+      "spanish": "galangal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "gayal",
+      "spanish": "gayal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "goral",
+      "spanish": "goral",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "gunmetal",
+      "spanish": "gunmetal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "hadal",
+      "spanish": "hadal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "ictal",
+      "spanish": "ictal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "inflectional",
+      "spanish": "inflexional",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "informercial",
+      "spanish": "informercial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "intensional",
+      "spanish": "intensional",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "intimal",
+      "spanish": "intimal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "intradermal",
+      "spanish": "intradermal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "isobilateral",
+      "spanish": "isobilateral",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "isoclinal",
+      "spanish": "isoclinal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "jumbal",
+      "spanish": "jumbal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "mastoidal",
+      "spanish": "mastoidal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "mensal",
+      "spanish": "mensal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "mescal",
+      "spanish": "mescal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "mesodermal",
+      "spanish": "mesodermal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "metacarpal",
+      "spanish": "metacarpial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "methanal",
+      "spanish": "metanal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "metical",
+      "spanish": "metical",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "microsomal",
+      "spanish": "microsomial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "monal",
+      "spanish": "monal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "motional",
+      "spanish": "mocional",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "multinomial",
+      "spanish": "multinomial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "multiracial",
+      "spanish": "multiracial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "neocortical",
+      "spanish": "neocortical",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "palatoglossal",
+      "spanish": "palatoglosal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "paleocortical",
+      "spanish": "paleocortical",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "paraboloidal",
+      "spanish": "paraboloidal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "pentobarbital",
+      "spanish": "pentobarbital",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "perigonal",
+      "spanish": "perigonal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "peroneal",
+      "spanish": "peroneal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "pipal",
+      "spanish": "pipal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "polytonal",
+      "spanish": "politonal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "postnuptial",
+      "spanish": "postnupcial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "poundal",
+      "spanish": "poundal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "praetorial",
+      "spanish": "pretorial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "preanal",
+      "spanish": "preanal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "prenominal",
+      "spanish": "prenominal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "preprandial",
+      "spanish": "preprandial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "prepupal",
+      "spanish": "prepupal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "presentational",
+      "spanish": "presentacional",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "pretorial",
+      "spanish": "pretorial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "procural",
+      "spanish": "procural",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "propanal",
+      "spanish": "propanal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "propenal",
+      "spanish": "propenal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "pupal",
+      "spanish": "pupal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "refutal",
+      "spanish": "refutal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "revisal",
+      "spanish": "revisal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "rhizoidal",
+      "spanish": "rizoidal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "salal",
+      "spanish": "salal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "sarcolemmal",
+      "spanish": "sarcolemal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "scriptural",
+      "spanish": "escriptural",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "secobarbital",
+      "spanish": "secobarbital",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "sensorineural",
+      "spanish": "sensorineural",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "simal",
+      "spanish": "simal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "substantival",
+      "spanish": "substantival",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "subtotal",
+      "spanish": "subtotal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "surmisal",
+      "spanish": "surmisal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "surprisal",
+      "spanish": "surprisal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "thalamocortical",
+      "spanish": "talamocortical",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "tical",
+      "spanish": "tical",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "tubal",
+      "spanish": "tubal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "turbinal",
+      "spanish": "turbinal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "underseal",
+      "spanish": "underseal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "unimodal",
+      "spanish": "unimodal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "uninominal",
+      "spanish": "uninomial",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "vigesimal",
+      "spanish": "vigesimal",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "al-al",
+      "english": "vulval",
+      "spanish": "vulval",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "sion-sion",
+      "english": "countersubversion",
+      "spanish": "contrasubversión",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "sion-sion",
+      "english": "pretermission",
+      "spanish": "pretermisión",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "sion-sion",
+      "english": "scansion",
+      "spanish": "escansión",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ary-ario",
+      "english": "abolitionary",
+      "spanish": "abolicionario",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ary-ario",
+      "english": "biliary",
+      "spanish": "biliario",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ary-ario",
+      "english": "elocutionary",
+      "spanish": "elocucionario",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ary-ario",
+      "english": "fritillary",
+      "spanish": "fritilaria",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ary-ario",
+      "english": "justiciary",
+      "spanish": "justiciario",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ary-ario",
+      "english": "ostiary",
+      "spanish": "ostiario",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ary-ario",
+      "english": "topiary",
+      "spanish": "topiaria",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ory-orio",
+      "english": "adjudicatory",
+      "spanish": "adjudicatorio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ory-orio",
+      "english": "auscultatory",
+      "spanish": "auscultatorio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ory-orio",
+      "english": "certificatory",
+      "spanish": "certificatorio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ory-orio",
+      "english": "exclamatory",
+      "spanish": "exclamatorio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ory-orio",
+      "english": "expiratory",
+      "spanish": "expiratorio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ory-orio",
+      "english": "gustatory",
+      "spanish": "gustatorio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ory-orio",
+      "english": "lachrymatory",
+      "spanish": "lacrimatorio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ory-orio",
+      "english": "lacrimatory",
+      "spanish": "lacrimatorio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ory-orio",
+      "english": "mediatory",
+      "spanish": "mediatorio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ory-orio",
+      "english": "piscatory",
+      "spanish": "piscatorio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ory-orio",
+      "english": "signatory",
+      "spanish": "signatorio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ory-orio",
+      "english": "sternutatory",
+      "spanish": "estornutatorio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ory-orio",
+      "english": "sudatory",
+      "spanish": "sudatorio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ture-tura",
+      "english": "cytoarchitecture",
+      "spanish": "citoarquitectura",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "tude-tud",
+      "english": "crassitude",
+      "spanish": "crasitud",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "bioclimatology",
+      "spanish": "bioclimatología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "exobiology",
+      "spanish": "exobiología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "immunopathology",
+      "spanish": "inmunopatología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "misology",
+      "spanish": "misología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "palaeogeology",
+      "spanish": "paleogeología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "palaeology",
+      "spanish": "paleología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "palaeornithology",
+      "spanish": "paleornitología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "paleogeology",
+      "spanish": "paleogeología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "paleology",
+      "spanish": "paleología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "paleornithology",
+      "spanish": "paleornitología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "penology",
+      "spanish": "penología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "poenology",
+      "spanish": "penología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "pomology",
+      "spanish": "pomología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "protoarchaeology",
+      "spanish": "protoarqueología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "protoarcheology",
+      "spanish": "protoarqueología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "protozoology",
+      "spanish": "protozoología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "logy-logia",
+      "english": "radiobiology",
+      "spanish": "radiobiología",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "graphy-grafia",
+      "english": "adoxography",
+      "spanish": "adoxografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "graphy-grafia",
+      "english": "anemography",
+      "spanish": "anemografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "graphy-grafia",
+      "english": "autoradiography",
+      "spanish": "autorradiografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "graphy-grafia",
+      "english": "echoencephalography",
+      "spanish": "ecoencefalografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "graphy-grafia",
+      "english": "ideography",
+      "spanish": "ideografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "graphy-grafia",
+      "english": "myelography",
+      "spanish": "mielografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "graphy-grafia",
+      "english": "palaeoethnography",
+      "spanish": "paleoetnografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "graphy-grafia",
+      "english": "paleoethnography",
+      "spanish": "paleoetnografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "graphy-grafia",
+      "english": "polarography",
+      "spanish": "polarografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "graphy-grafia",
+      "english": "radiophotography",
+      "spanish": "radiofotografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "graphy-grafia",
+      "english": "telephotography",
+      "spanish": "telefotografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "graphy-grafia",
+      "english": "venography",
+      "spanish": "venografía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "cracy-cracia",
+      "english": "gynecocracy",
+      "spanish": "ginecocracia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "cracy-cracia",
+      "english": "stratocracy",
+      "spanish": "estratocracia",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "nomy-nomia",
+      "english": "antinomy",
+      "spanish": "antinomía",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "metry-metria",
+      "english": "actinometry",
+      "spanish": "actinometría",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "metry-metria",
+      "english": "anemometry",
+      "spanish": "anemometría",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "metry-metria",
+      "english": "densitometry",
+      "spanish": "densitometría",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "metry-metria",
+      "english": "gravimetry",
+      "spanish": "gravimetría",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "metry-metria",
+      "english": "hydrometry",
+      "spanish": "hidrometría",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "metry-metria",
+      "english": "tonometry",
+      "spanish": "tonometría",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "metry-metria",
+      "english": "viscometry",
+      "spanish": "viscometría",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "metry-metria",
+      "english": "viscosimetry",
+      "spanish": "viscosimetría",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "scope-scopio",
+      "english": "bioscope",
+      "spanish": "bioscopio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "scope-scopio",
+      "english": "chronoscope",
+      "spanish": "cronoscopio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "scope-scopio",
+      "english": "epidiascope",
+      "spanish": "epidiascopio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "scope-scopio",
+      "english": "fluoroscope",
+      "spanish": "fluoroscopio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "scope-scopio",
+      "english": "gastroscope",
+      "spanish": "gastroscopio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "scope-scopio",
+      "english": "hygroscope",
+      "spanish": "higroscopio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "scope-scopio",
+      "english": "iconoscope",
+      "spanish": "iconoscopio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "scope-scopio",
+      "english": "laryngoscope",
+      "spanish": "laringoscopio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "scope-scopio",
+      "english": "orthoscope",
+      "spanish": "ortoscopio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "scope-scopio",
+      "english": "proctoscope",
+      "spanish": "proctoscopio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "scope-scopio",
+      "english": "rhinoscope",
+      "spanish": "rinoscopio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "scope-scopio",
+      "english": "ultramicroscope",
+      "spanish": "ultramicroscopio",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ct-cto",
+      "english": "pinnatisect",
+      "spanish": "pinnatisecto",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ct-cto",
+      "english": "semiabstract",
+      "spanish": "semiabstracto",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "id-ido",
+      "english": "filariid",
+      "spanish": "filárido",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "id-ido",
+      "english": "palmatifid",
+      "spanish": "palmatífido",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "id-ido",
+      "english": "tumid",
+      "spanish": "túmido",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "ablactate",
+      "spanish": "ablactar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "alliterate",
+      "spanish": "aliterar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "ameliorate",
+      "spanish": "ameliorar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "assibilate",
+      "spanish": "asibilar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "confabulate",
+      "spanish": "confabular",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "conflagrate",
+      "spanish": "conflagrar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "conglobate",
+      "spanish": "conglobar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "conglutinate",
+      "spanish": "conglutinar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "dehydrogenate",
+      "spanish": "deshidrogenar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "demodulate",
+      "spanish": "desmodular",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "dissimilate",
+      "spanish": "disimilar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "individuate",
+      "spanish": "individuar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "indoctrinate",
+      "spanish": "indoctrinar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "meliorate",
+      "spanish": "ameliorar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "nauseate",
+      "spanish": "nausear",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "prefabricate",
+      "spanish": "prefabricar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "sibilate",
+      "spanish": "asibilar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "telecommunicate",
+      "spanish": "telecomunicar",
+      "status": "quarantined_for_review"
+    },
+    {
+      "pattern": "ate-ar",
+      "english": "trifurcate",
+      "spanish": "trifurcar",
+      "status": "quarantined_for_review"
+    }
+  ]
+}
