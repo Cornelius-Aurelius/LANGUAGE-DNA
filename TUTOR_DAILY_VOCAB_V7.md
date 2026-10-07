@@ -74,3 +74,12 @@ The browser defaults to 100 and shows only 20 items per page, so storing 1,000 e
 ## Game Mode
 
 The v7 upgrade deliberately does **not** change Game Mode mechanics, scoring, difficulty ladder, answer reveal behaviour or 37/40 pass rule.
+
+
+## v8 frequency ranking and tutor correction
+
+Ranks 101–1,000 are now ordered using the English and Spanish FrequencyWords 2018 50k source lists, while still requiring membership in the existing Data Quality v2 production Pattern Dictionaries. Entries require evidence in both frequency lists for the v8 expansion set. The UI exposes the two source ranks and a frequency band inside optional language-intelligence details.
+
+Known high-risk false-friend mappings such as English *actually* → Spanish *actualmente* and *realize* → *realizar* are excluded from this expansion rather than presented as clean learner pairs.
+
+The conversation coach now accepts strong close variants, suggests a more natural model when useful, and provides a correction card with the learner's attempt, a better reply and a short English explanation when the match is weak.
