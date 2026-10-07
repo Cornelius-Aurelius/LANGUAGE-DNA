@@ -208,7 +208,18 @@
     const familiar=e.target.closest('[data-everyday-known]');if(familiar){const key=String(familiar.dataset.everydayKnown);if(known.has(key))known.delete(key);else known.add(key);saveKnown();renderPreview();renderLearn();return}
     const audio=e.target.closest('[data-everyday-speak]');if(audio){speak(audio.dataset.everydaySpeak);return}
     const start=e.target.closest('[data-game-start]');if(start&&!start.disabled){state.view='game';startGame(Number(start.dataset.gameStart));renderTabs();return}
-    const answer=e.target.closest('[data-game-answer]');if(answer&&state.game&&!state.game.finished){state.game.answers[state.game.current]=Number(answer.dataset.gameAnswer);renderGameQuestion();return}
+    const answer=e.target.closest('[data-game-answer]');if(answer&&state.game&&!state.game.finished){
+      const questionIndex=state.game.current;
+      state.game.answers[questionIndex]=Number(answer.dataset.gameAnswer);
+      renderGameQuestion();
+      if(questionIndex<39)setTimeout(function(){
+        if(state.game&&!state.game.finished&&state.game.current===questionIndex){
+          state.game.current=questionIndex+1;
+          renderGameQuestion()
+        }
+      },180);
+      return
+    }
     const next=e.target.closest('[data-game-next]');if(next&&state.game&&state.game.answers[state.game.current]!==null){state.game.current=Math.min(39,state.game.current+1);renderGameQuestion();return}
     const prev=e.target.closest('[data-game-prev]');if(prev&&state.game){state.game.current=Math.max(0,state.game.current-1);renderGameQuestion();return}
     const jump=e.target.closest('[data-game-jump]');if(jump&&state.game){state.game.current=Math.max(0,Math.min(39,Number(jump.dataset.gameJump)||0));renderGameQuestion();return}
