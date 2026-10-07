@@ -97,3 +97,5 @@ LanguageDNA now adds four beginner-first upgrades while deliberately leaving the
 - **Vocabulary 100 → 500 → 1,000:** the first 100 remain hand-curated day-to-day essentials. Ranks 101–1,000 are drawn from the existing quality-gated production Pattern Dictionaries and retain English/Spanish links, pattern family, teaching-level heuristic, usefulness band, morphology/pattern information and simple example frames. The expansion labels are teaching heuristics, not official CEFR certification or exact corpus-frequency ranks.
 
 The vocabulary browser still shows only 20 items per page and defaults to the core 100, so expanding the underlying data does not make the beginner screen more overwhelming.
+
+See `TUTOR_DAILY_VOCAB_V7.md` for the learner-state logic, scenario design, static-site tutor boundary and vocabulary-tier provenance.
