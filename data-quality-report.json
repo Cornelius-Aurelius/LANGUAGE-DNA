@@ -1,0 +1,206 @@
+{
+  "generated_on": "2026-10-07",
+  "version": "Data Quality v2",
+  "layout_changed": false,
+  "dictionary_count": 31,
+  "candidate_rows_before_quality_gate": 9507,
+  "production_rows": 8264,
+  "quarantined_for_review": 1243,
+  "curated_rows_preserved": 850,
+  "validation_layers": [
+    "Open Multilingual Wordnet shared-synset alignment",
+    "Spanish Wiktionary-derived lexical corroboration",
+    "Spanish UniMorph morphology corroboration",
+    "English 50k frequency signal",
+    "Spanish 50k frequency signal"
+  ],
+  "policy": "Curated LanguageDNA rows are preserved. An automated OMW candidate is quarantined only when it lacks all independent corroboration signals used in the audit.",
+  "patterns": {
+    "tion-cion": {
+      "candidate_rows": 1391,
+      "production_rows": 1317,
+      "quarantined_rows": 74,
+      "curated_rows": 233
+    },
+    "ity-idad": {
+      "candidate_rows": 561,
+      "production_rows": 506,
+      "quarantined_rows": 55,
+      "curated_rows": 80
+    },
+    "ous-oso": {
+      "candidate_rows": 189,
+      "production_rows": 159,
+      "quarantined_rows": 30,
+      "curated_rows": 31
+    },
+    "ly-mente": {
+      "candidate_rows": 787,
+      "production_rows": 710,
+      "quarantined_rows": 77,
+      "curated_rows": 57
+    },
+    "ph-f": {
+      "candidate_rows": 1002,
+      "production_rows": 747,
+      "quarantined_rows": 255,
+      "curated_rows": 43
+    },
+    "ic-ico": {
+      "candidate_rows": 1111,
+      "production_rows": 838,
+      "quarantined_rows": 273,
+      "curated_rows": 69
+    },
+    "ive-ivo": {
+      "candidate_rows": 281,
+      "production_rows": 257,
+      "quarantined_rows": 24,
+      "curated_rows": 46
+    },
+    "ist-ista": {
+      "candidate_rows": 250,
+      "production_rows": 229,
+      "quarantined_rows": 21,
+      "curated_rows": 32
+    },
+    "ance-encia": {
+      "candidate_rows": 238,
+      "production_rows": 222,
+      "quarantined_rows": 16,
+      "curated_rows": 38
+    },
+    "ism-ismo": {
+      "candidate_rows": 381,
+      "production_rows": 330,
+      "quarantined_rows": 51,
+      "curated_rows": 47
+    },
+    "able-ible": {
+      "candidate_rows": 414,
+      "production_rows": 357,
+      "quarantined_rows": 57,
+      "curated_rows": 31
+    },
+    "ant-ent": {
+      "candidate_rows": 373,
+      "production_rows": 348,
+      "quarantined_rows": 25,
+      "curated_rows": 26
+    },
+    "ize-izar": {
+      "candidate_rows": 239,
+      "production_rows": 204,
+      "quarantined_rows": 35,
+      "curated_rows": 35
+    },
+    "fy-ficar": {
+      "candidate_rows": 69,
+      "production_rows": 64,
+      "quarantined_rows": 5,
+      "curated_rows": 29
+    },
+    "al-al": {
+      "candidate_rows": 814,
+      "production_rows": 670,
+      "quarantined_rows": 144,
+      "curated_rows": 53
+    },
+    "sion-sion": {
+      "candidate_rows": 141,
+      "production_rows": 138,
+      "quarantined_rows": 3,
+      "curated_rows": 0
+    },
+    "ment-mento": {
+      "candidate_rows": 48,
+      "production_rows": 48,
+      "quarantined_rows": 0,
+      "curated_rows": 0
+    },
+    "ment-miento": {
+      "candidate_rows": 32,
+      "production_rows": 32,
+      "quarantined_rows": 0,
+      "curated_rows": 0
+    },
+    "ary-ario": {
+      "candidate_rows": 136,
+      "production_rows": 129,
+      "quarantined_rows": 7,
+      "curated_rows": 0
+    },
+    "ory-orio": {
+      "candidate_rows": 102,
+      "production_rows": 89,
+      "quarantined_rows": 13,
+      "curated_rows": 0
+    },
+    "ture-tura": {
+      "candidate_rows": 64,
+      "production_rows": 63,
+      "quarantined_rows": 1,
+      "curated_rows": 0
+    },
+    "tude-tud": {
+      "candidate_rows": 34,
+      "production_rows": 33,
+      "quarantined_rows": 1,
+      "curated_rows": 0
+    },
+    "logy-logia": {
+      "candidate_rows": 167,
+      "production_rows": 150,
+      "quarantined_rows": 17,
+      "curated_rows": 0
+    },
+    "graphy-grafia": {
+      "candidate_rows": 68,
+      "production_rows": 56,
+      "quarantined_rows": 12,
+      "curated_rows": 0
+    },
+    "cracy-cracia": {
+      "candidate_rows": 14,
+      "production_rows": 12,
+      "quarantined_rows": 2,
+      "curated_rows": 0
+    },
+    "nomy-nomia": {
+      "candidate_rows": 7,
+      "production_rows": 6,
+      "quarantined_rows": 1,
+      "curated_rows": 0
+    },
+    "metry-metria": {
+      "candidate_rows": 29,
+      "production_rows": 21,
+      "quarantined_rows": 8,
+      "curated_rows": 0
+    },
+    "scope-scopio": {
+      "candidate_rows": 30,
+      "production_rows": 18,
+      "quarantined_rows": 12,
+      "curated_rows": 0
+    },
+    "ct-cto": {
+      "candidate_rows": 19,
+      "production_rows": 17,
+      "quarantined_rows": 2,
+      "curated_rows": 0
+    },
+    "id-ido": {
+      "candidate_rows": 48,
+      "production_rows": 45,
+      "quarantined_rows": 3,
+      "curated_rows": 0
+    },
+    "ate-ar": {
+      "candidate_rows": 468,
+      "production_rows": 449,
+      "quarantined_rows": 19,
+      "curated_rows": 0
+    }
+  }
+}
