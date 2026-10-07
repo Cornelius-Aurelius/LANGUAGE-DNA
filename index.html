@@ -7,7 +7,7 @@
   <meta name="description" content="LanguageDNA — learn Spanish through links between English and Spanish words, sounds and sentence patterns." />
   <title>LanguageDNA — Learn Spanish Through Patterns</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css?v=3" />
+  <link rel="stylesheet" href="styles.css?v=4" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -84,6 +84,16 @@
           <div class="starter-grid" id="starterGrid"></div>
         </section>
 
+        <section class="home-section sentence-dna-home" id="sentenceDnaHome">
+          <div class="section-heading">
+            <div><span class="eyebrow">SENTENCE DNA LAB</span><h2>Build whole sentences from reusable frames.</h2><p>See what stays fixed, what changes, and how one structure can generate many useful sentences.</p></div>
+          </div>
+          <div class="sentence-dna-shell">
+            <div class="sentence-frame-list" id="sentenceFrameList" aria-label="Sentence DNA frames"></div>
+            <article class="sentence-dna-stage" id="sentenceDnaStage" aria-live="polite"></article>
+          </div>
+        </section>
+
         <section class="home-section">
           <div class="section-heading"><div><span class="eyebrow">EXPLORE BY CONNECTION</span><h2>Choose the kind of link you want.</h2></div></div>
           <div class="family-grid" id="familyGrid"></div>
@@ -152,6 +162,10 @@
           <span class="eyebrow">PRACTICE</span><h1>Train one link at a time.</h1>
           <p>Choose how you want to practise. You can reveal the answer or skip at any time — no punishment, no broken streak.</p>
         </div>
+        <section class="smart-review-bar" id="smartReviewBar" aria-label="Spaced repetition review status">
+          <div><span class="eyebrow">SMART REVIEW</span><strong><span id="reviewDueCount">0</span> due now</strong><small id="reviewDueText">Practice today, then LanguageDNA schedules the next review automatically.</small></div>
+          <button type="button" class="primary-btn" id="reviewStartButton" data-smart-review>Start smart review</button>
+        </section>
         <div class="practice-toolbar"><label for="practicePatternSelect"><strong>Pattern</strong></label><select id="practicePatternSelect"></select></div>
         <div class="practice-mode-grid">
           <button type="button" class="mode-card active" data-mode="write"><span>✍️</span><strong>Write</strong><small>Produce Spanish</small></button>
@@ -172,6 +186,19 @@
           <div class="dna-ring" id="dnaRing"><div><strong id="dnaPercent">0%</strong><span>skills built</span></div></div>
           <div class="skill-summary" id="skillSummary"></div>
         </div>
+
+        <div class="dna-intelligence-grid" id="dnaIntelligenceGrid">
+          <article class="dna-metric"><span>🧬</span><strong id="dnaPatternStrong">0</strong><small>strong patterns</small></article>
+          <article class="dna-metric"><span>⏱</span><strong id="dnaReviewDue">0</strong><small>reviews due</small></article>
+          <article class="dna-metric"><span>🎙️</span><strong id="dnaPronunciation">—</strong><small>speech match average</small></article>
+          <article class="dna-metric"><span>🧱</span><strong id="dnaSentenceStrong">0</strong><small>sentence frames strong</small></article>
+          <article class="dna-metric"><span>🔗</span><strong id="dnaWordReach">—</strong><small>pattern-linked words in reach</small></article>
+        </div>
+
+        <section class="dna-health-grid">
+          <article class="dna-health-card" id="memoryHealth"></article>
+          <article class="dna-health-card" id="pronunciationHealth"></article>
+        </section>
 
         <section class="dna-section">
           <div class="section-heading"><div><span class="eyebrow">YOUR PATTERN MAP</span><h2>Connections by family</h2><p>Tap any node to reopen that pattern.</p></div></div>
@@ -196,6 +223,6 @@
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=6"></script>
+  <script src="app.js?v=7"></script>
 </body>
 </html>
