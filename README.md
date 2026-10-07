@@ -5,18 +5,19 @@ LanguageDNA teaches Spanish through reusable links between English and Spanish r
 ## Current experience
 
 - Beginner-first home screen
+- Guided A1 → A2 → B1 Bridge course path with progressive unit unlocking
 - English ↔ Spanish translator with offline-first exact lookup across all 8,264 production dictionary rows, then live translation fallback
 - Visual, sound, sentence, verb and question pattern families
 - WHO / WHAT / WHERE / WHY / WHEN meaning lenses
 - Connected next-pattern links
 - Five-skill mastery per pattern: See, Hear, Write, Speak, Use
-- Writing, speaking, hearing, choice and rapid-recognition practice
+- Adaptive 8-question lessons plus writing, speaking, hearing, choice and rapid-recognition practice
 - Skip and reveal-answer controls with no penalty
 - LanguageDNA map showing pattern growth by family and meaning
 - Responsive mobile and desktop layouts
 - Offline app shell for the pattern library and practice engine
 
-The current starter library contains 60 hand-authored English → Spanish patterns and is designed to expand into a much larger lexical and grammatical graph.
+The current teaching library contains 82 hand-authored English → Spanish patterns and is designed to expand into a much larger lexical and grammatical graph.
 
 This static HTML/CSS/JavaScript app is deployed with GitHub Pages.
 
@@ -48,7 +49,7 @@ The home translator now lazy-loads the production Pattern Dictionary lexicon on 
 
 ## Learning Engine v4
 
-LanguageDNA now combines five learner-facing upgrades while keeping the existing four-tab structure:
+LanguageDNA now combines five learner-facing upgrades while preserving the core product structure:
 
 - **Translator DNA:** exact dictionary matches and live translations can reveal the reusable pattern, a stress clue, related same-pattern words, slow audio and a direct practice action.
 - **Pronunciation coach:** Speak practice uses browser speech recognition, normal/slow model audio, Spanish stress cues, transcript comparison and a recognition-match score. This score measures how closely the browser recognised the intended phrase; it is not a laboratory phoneme/accent score.
@@ -57,3 +58,17 @@ LanguageDNA now combines five learner-facing upgrades while keeping the existing
 - **My DNA intelligence:** the learner dashboard now shows strong patterns, due reviews, speech-match history, sentence-frame strength, memory health and an honest estimate of pattern-linked dictionary words in reach.
 
 The scheduling and learner model are local-first and stored in browser storage, so the static GitHub Pages app does not require an account or backend.
+
+
+## Learning Platform v5
+
+LanguageDNA now adds a guided course layer and a deeper adaptive learner model on top of the existing pattern engine.
+
+- **Guided A1 → A2 → B1 Bridge course:** structured units unlock progressively from prior mastery. The displayed course stage is a LanguageDNA learning-path estimate, not an official CEFR assessment.
+- **Adaptive 8-question lessons:** course lessons and Smart Review mix question modes, prioritise due reviews and weak/high-value patterns, auto-advance after correct answers, and finish with a session summary plus mistake-repair option.
+- **Intelligence v3 learner metadata:** every pattern receives a course-level placement, usefulness heuristic and teaching-confidence label. Translator results can also show known false-friend alerts and regular present-tense families for safely handled regular verb patterns.
+- **Advanced speech coaching:** Speak mode now gives word-by-word recognition scores, remembers recurring sound categories, and lets learners re-practise a difficult word with the microphone.
+- **My DNA command centre:** adds a personalised next action, seven-day activity view, strongest/weakest pattern families, recurring speech focus and a seven-day review calendar.
+- **Local-first activity model:** practice, speech and session history stay in browser storage and power the learner dashboard without requiring an account.
+
+See `INTELLIGENCE_V3.md` for the distinction between verified lexical data and LanguageDNA's learner-priority heuristics.
