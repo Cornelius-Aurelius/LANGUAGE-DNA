@@ -67,7 +67,7 @@
     const q=normalize(state.learnSearch);
     return tierData().filter(function(item){
       const categoryOk=state.learnCategory==='All'||item.category===state.learnCategory;
-      const search=normalize([item.english,item.spanish,item.category,item.exampleEn,item.exampleEs,item.family,item.morphology,item.note].join(' '));
+      const search=normalize([item.english,item.spanish,item.category,item.exampleEn,item.exampleEs,item.family,item.morphology,item.conjugation,item.note,item.frequencyBand].join(' '));
       return categoryOk&&(!q||search.indexOf(q)>=0)
     })
   }
@@ -79,7 +79,7 @@
     const limit=tierLimit(),knownInTier=Array.from(known).filter(function(k){return Number(k)<=limit}).length;
     root.innerHTML='<div class="everyday-learn-head"><div><span class="eyebrow">ENGLISH FIRST</span><h2>Everyday '+limit+' vocabulary</h2><p>'+(limit===100?'Start with the most immediately useful day-to-day English you already know.':'Expand through quality-gated English ↔ Spanish pattern links while keeping the first 100 as your core foundation.')+'</p></div><div class="everyday-known-ring"><strong>'+knownInTier+'</strong><small>familiar of '+limit+'</small></div></div>'+
       '<div class="vocab-tier-tabs" aria-label="Vocabulary size"><button type="button" data-vocab-tier="100" class="'+(limit===100?'active':'')+'"><strong>100</strong><small>Core everyday</small></button><button type="button" data-vocab-tier="500" class="'+(limit===500?'active':'')+'"><strong>500</strong><small>Useful expansion</small></button><button type="button" data-vocab-tier="1000" class="'+(limit===1000?'active':'')+'"><strong>1,000</strong><small>Broader vocabulary</small></button></div>'+
-      '<p class="vocab-tier-note">'+(limit===100?'Hand-curated for daily life.':'Ranks 101–1,000 come from the existing quality-gated production Pattern Dictionaries. Their CEFR/usefulness labels are LanguageDNA teaching heuristics, not official frequency certification.')+'</p>'+
+      '<p class="vocab-tier-note">'+(limit===100?'Hand-curated for daily life.':'Ranks 101–1,000 come from the quality-gated production Pattern Dictionaries and are re-ranked using English + Spanish FrequencyWords 50k evidence. CEFR labels remain LanguageDNA estimates.')+'</p>'+
       '<div class="everyday-tools"><label class="search-box"><span>⌕</span><input id="everydaySearch" type="search" placeholder="Search: where, action, normal…" value="'+escapeHtml(state.learnSearch)+'"></label><div class="everyday-category-row">'+categories().map(function(cat){return'<button type="button" data-everyday-category="'+escapeHtml(cat)+'" class="'+(state.learnCategory===cat?'active':'')+'">'+escapeHtml(cat)+'</button>'}).join('')+'</div></div>'+
       '<div class="everyday-grid">'+visible.map(renderEverydayCard).join('')+'</div>'+
       '<div class="everyday-pagination"><button type="button" data-everyday-page="'+(state.learnPage-1)+'" '+(state.learnPage<=1?'disabled':'')+'>← Previous</button><span>Page '+state.learnPage+' of '+pages+' · '+items.length+' items</span><button type="button" data-everyday-page="'+(state.learnPage+1)+'" '+(state.learnPage>=pages?'disabled':'')+'>Next →</button></div>'+
@@ -89,15 +89,18 @@
   function renderEverydayCard(item){
     const done=known.has(itemKey(item));
     const detailBits=[];
-    if(item.family)detailBits.push('<p><b>Word family:</b> '+escapeHtml(item.family)+'</p>');
-    if(item.morphology)detailBits.push('<p><b>Forms:</b> '+escapeHtml(item.morphology)+'</p>');
-    if(item.note)detailBits.push('<p><b>Usage note:</b> '+escapeHtml(item.note)+'</p>');
-    if(item.frequencyNote)detailBits.push('<p><b>Frequency/usefulness:</b> '+escapeHtml(item.frequencyNote)+'</p>');
+    if(item.family)detailBits.push('<p><b>Pattern family:</b> '+escapeHtml(item.family)+'</p>');
+    if(item.morphology)detailBits.push('<p><b>Transformation:</b> '+escapeHtml(item.morphology)+'</p>');
+    if(item.conjugation)detailBits.push('<p><b>Regular present family:</b> '+escapeHtml(item.conjugation)+'</p>');
+    if(item.note)detailBits.push('<p><b>Usage/source note:</b> '+escapeHtml(item.note)+'</p>');
+    if(item.frequencyBand)detailBits.push('<p><b>Frequency evidence:</b> '+escapeHtml(item.frequencyBand)+' · English rank '+Number(item.frequencyRankEn).toLocaleString()+' · Spanish rank '+Number(item.frequencyRankEs).toLocaleString()+'.</p>');
+    else if(item.frequencyNote)detailBits.push('<p><b>Frequency/usefulness:</b> '+escapeHtml(item.frequencyNote)+'</p>');
+    if(item.cefrConfidence)detailBits.push('<p><b>Level confidence:</b> '+escapeHtml(item.cefrConfidence)+' — LanguageDNA estimate, not an official CEFR assessment.</p>');
     return '<article class="everyday-card '+(done?'known':'')+'">'+
       '<div class="everyday-card-top"><span>#'+item.rank+' · '+escapeHtml(item.category)+'</span><span>'+escapeHtml(item.cefr)+' · '+escapeHtml(usefulnessLabel(item))+'</span></div>'+
       '<h3>'+escapeHtml(item.english)+'</h3><div class="everyday-spanish"><strong>'+escapeHtml(item.spanish)+'</strong><button type="button" data-everyday-speak="'+escapeHtml(item.spanish)+'" aria-label="Hear '+escapeHtml(item.spanish)+'">🔊</button></div>'+
-      '<div class="everyday-example"><small>USE IT</small><p>'+escapeHtml(item.exampleEn)+' <b>→</b> '+escapeHtml(item.exampleEs)+'</p></div>'+
-      '<details><summary>More language intelligence</summary><div>'+detailBits.join('')+'<p><b>Learner level:</b> '+escapeHtml(item.cefr)+' · <b>Usefulness:</b> '+item.usefulness+'/100</p></div></details>'+
+      '<div class="everyday-example"><small>'+(item.exampleQuality==='curated natural'?'NATURAL EXAMPLE':item.exampleQuality==='teaching cue'?'PATTERN CUE':'USE IT')+'</small><p>'+escapeHtml(item.exampleEn)+' <b>→</b> '+escapeHtml(item.exampleEs)+'</p></div>'+
+      '<details><summary>More language intelligence</summary><div>'+detailBits.join('')+'<p><b>Learner level:</b> '+escapeHtml(item.cefr)+' · <b>Learner priority:</b> '+item.usefulness+'/100</p></div></details>'+
       '<button type="button" class="everyday-known-btn" data-everyday-known="'+item.rank+'">'+(done?'✓ Familiar':'Mark familiar')+'</button>'+
       '</article>'
   }
