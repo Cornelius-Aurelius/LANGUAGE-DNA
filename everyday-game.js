@@ -88,7 +88,9 @@
 
   function renderEverydayCard(item){
     const done=known.has(itemKey(item));
+    const qualityLabel=item.rank<=100?'Curated everyday core':item.exampleQuality==='curated natural'?'Frequency-backed + curated example':'Frequency-backed production match';
     const detailBits=[];
+    detailBits.push('<p><b>Learner quality:</b> '+escapeHtml(qualityLabel)+'.</p>');
     if(item.family)detailBits.push('<p><b>Pattern family:</b> '+escapeHtml(item.family)+'</p>');
     if(item.morphology)detailBits.push('<p><b>Transformation:</b> '+escapeHtml(item.morphology)+'</p>');
     if(item.conjugation)detailBits.push('<p><b>Regular present family:</b> '+escapeHtml(item.conjugation)+'</p>');
@@ -97,7 +99,7 @@
     else if(item.frequencyNote)detailBits.push('<p><b>Frequency/usefulness:</b> '+escapeHtml(item.frequencyNote)+'</p>');
     if(item.cefrConfidence)detailBits.push('<p><b>Level confidence:</b> '+escapeHtml(item.cefrConfidence)+' — LanguageDNA estimate, not an official CEFR assessment.</p>');
     return '<article class="everyday-card '+(done?'known':'')+'">'+
-      '<div class="everyday-card-top"><span>#'+item.rank+' · '+escapeHtml(item.category)+'</span><span>'+escapeHtml(item.cefr)+' · '+escapeHtml(usefulnessLabel(item))+'</span></div>'+
+      '<div class="everyday-card-top"><span>#'+item.rank+' · '+escapeHtml(item.category)+'</span><span>'+escapeHtml(item.cefr)+' · '+escapeHtml(usefulnessLabel(item))+'</span></div><div class="vocab-quality-chip">'+escapeHtml(qualityLabel)+'</div>'+
       '<h3>'+escapeHtml(item.english)+'</h3><div class="everyday-spanish"><strong>'+escapeHtml(item.spanish)+'</strong><button type="button" data-everyday-speak="'+escapeHtml(item.spanish)+'" aria-label="Hear '+escapeHtml(item.spanish)+'">🔊</button></div>'+
       '<div class="everyday-example"><small>'+(item.exampleQuality==='curated natural'?'NATURAL EXAMPLE':item.exampleQuality==='teaching cue'?'PATTERN CUE':'USE IT')+'</small><p>'+escapeHtml(item.exampleEn)+' <b>→</b> '+escapeHtml(item.exampleEs)+'</p></div>'+
       '<details><summary>More language intelligence</summary><div>'+detailBits.join('')+'<p><b>Learner level:</b> '+escapeHtml(item.cefr)+' · <b>Learner priority:</b> '+item.usefulness+'/100</p></div></details>'+
@@ -169,6 +171,7 @@
     const oldBest=progress.best[game.level.id];if(oldBest==null||score>oldBest)progress.best[game.level.id]=score;
     if(game.passed&&game.level.id<LEVELS.length)progress.unlocked=Math.max(progress.unlocked,game.level.id+1);
     progress.attempts.push({level:game.level.id,score:score,passed:game.passed,at:Date.now()});if(progress.attempts.length>50)progress.attempts=progress.attempts.slice(-50);saveProgress();
+    if(window.LanguageDNACore&&typeof window.LanguageDNACore.trackEvent==='function')window.LanguageDNACore.trackEvent('game_result',{level:game.level.id,score:score,passed:game.passed});
     renderGameResults()
   }
 
@@ -208,7 +211,7 @@
     const tier=e.target.closest('[data-vocab-tier]');if(tier){state.vocabTier=Number(tier.dataset.vocabTier)||100;localStorage.setItem('ldna-vocab-tier-v1',String(state.vocabTier));state.learnCategory='All';state.learnPage=1;renderLearn();return}
     const cat=e.target.closest('[data-everyday-category]');if(cat){state.learnCategory=cat.dataset.everydayCategory;state.learnPage=1;renderLearn();return}
     const page=e.target.closest('[data-everyday-page]');if(page&&!page.disabled){state.learnPage=Number(page.dataset.everydayPage)||1;renderLearn();return}
-    const familiar=e.target.closest('[data-everyday-known]');if(familiar){const key=String(familiar.dataset.everydayKnown);if(known.has(key))known.delete(key);else known.add(key);saveKnown();renderPreview();renderLearn();return}
+    const familiar=e.target.closest('[data-everyday-known]');if(familiar){const key=String(familiar.dataset.everydayKnown),wasKnown=known.has(key);if(wasKnown)known.delete(key);else known.add(key);saveKnown();if(window.LanguageDNACore&&typeof window.LanguageDNACore.trackEvent==='function')window.LanguageDNACore.trackEvent('vocab_familiar',{rank:Number(key),familiar:!wasKnown});renderPreview();renderLearn();return}
     const audio=e.target.closest('[data-everyday-speak]');if(audio){speak(audio.dataset.everydaySpeak);return}
     const start=e.target.closest('[data-game-start]');if(start&&!start.disabled){state.view='game';startGame(Number(start.dataset.gameStart));renderTabs();return}
     const answer=e.target.closest('[data-game-answer]');if(answer&&state.game&&!state.game.finished){
