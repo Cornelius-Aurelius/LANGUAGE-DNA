@@ -244,3 +244,19 @@ body.dark .lexical-warning{background:#4c4024;border-color:#796a3b}body.dark .le
   .welcome-grid{padding-bottom:15px}
   .home-section{margin-top:24px}
 }
+
+
+/* Tutor correction + mobile game polish v8 */
+.tutor-correction{margin-top:8px;padding:12px;border:1px solid #d9bf7a;border-radius:13px;background:#fbf5e7;color:var(--text)}
+.tutor-correction>strong{display:block;font-size:13px}.tutor-correction p{margin:5px 0;color:#6d5b2f;line-height:1.45}.tutor-correction .secondary-btn{margin-top:8px;min-height:39px;font-size:10px}
+body.dark .tutor-correction{background:#463d27;border-color:#75663c}body.dark .tutor-correction p{color:#dfcf9f}
+.game-answer-grid button{transition:transform .12s ease,border-color .12s ease,background .12s ease}
+.game-answer-grid button.selected{transform:scale(.992)}
+@media(max-width:680px){
+  .game-session-head h2{font-size:25px}
+  .game-question-card h3{font-size:31px}
+  .game-answer-grid button{min-height:68px}
+  .game-question-nav{margin-bottom:20px}
+  .game-hidden-note{line-height:1.45}
+  .conversation-note{font-size:9px}
+}
