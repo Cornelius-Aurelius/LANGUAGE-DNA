@@ -60,7 +60,7 @@
     root.innerHTML=DATA.slice(0,8).map(function(item){
       return '<article class="everyday-preview-card"><span>#'+item.rank+'</span><strong>'+escapeHtml(item.english)+'</strong><b>'+escapeHtml(item.spanish)+'</b><small>'+escapeHtml(item.category)+'</small></article>'
     }).join('');
-    const stat=document.getElementById('everydayKnownPreview');if(stat)stat.textContent=known.size+' / 100 familiar';
+    const stat=document.getElementById('everydayKnownPreview'),coreKnown=Array.from(known).filter(function(k){return Number(k)<=100}).length;if(stat)stat.textContent=coreKnown+' / 100 familiar';
   }
 
   function learnItems(){
