@@ -2,7 +2,7 @@
   "generated_on": "2026-10-07",
   "layout_changed": false,
   "dictionary_count": 31,
-  "total_rows": 9507,
+  "total_rows": 8264,
   "omw_rows_added": 8561,
   "sources": {
     "english": {
@@ -19,127 +19,195 @@
   "patterns": {
     "tion-cion": {
       "total": 1391,
-      "omwAdded": 1158
+      "omwAdded": 1158,
+      "production": 1317,
+      "quarantined": 74
     },
     "sion-sion": {
       "total": 141,
-      "omwAdded": 133
+      "omwAdded": 133,
+      "production": 138,
+      "quarantined": 3
     },
     "ity-idad": {
       "total": 561,
-      "omwAdded": 481
+      "omwAdded": 481,
+      "production": 506,
+      "quarantined": 55
     },
     "ous-oso": {
       "total": 189,
-      "omwAdded": 158
+      "omwAdded": 158,
+      "production": 159,
+      "quarantined": 30
     },
     "ly-mente": {
       "total": 787,
-      "omwAdded": 730
+      "omwAdded": 730,
+      "production": 710,
+      "quarantined": 77
     },
     "ic-ico": {
       "total": 1111,
-      "omwAdded": 1042
+      "omwAdded": 1042,
+      "production": 838,
+      "quarantined": 273
     },
     "ive-ivo": {
       "total": 281,
-      "omwAdded": 235
+      "omwAdded": 235,
+      "production": 257,
+      "quarantined": 24
     },
     "ist-ista": {
       "total": 250,
-      "omwAdded": 218
+      "omwAdded": 218,
+      "production": 229,
+      "quarantined": 21
     },
     "ance-encia": {
       "total": 238,
-      "omwAdded": 200
+      "omwAdded": 200,
+      "production": 222,
+      "quarantined": 16
     },
     "ism-ismo": {
       "total": 381,
-      "omwAdded": 334
+      "omwAdded": 334,
+      "production": 330,
+      "quarantined": 51
     },
     "able-ible": {
       "total": 414,
-      "omwAdded": 383
+      "omwAdded": 383,
+      "production": 357,
+      "quarantined": 57
     },
     "ant-ent": {
       "total": 373,
-      "omwAdded": 347
+      "omwAdded": 347,
+      "production": 348,
+      "quarantined": 25
     },
     "ize-izar": {
       "total": 239,
-      "omwAdded": 204
+      "omwAdded": 204,
+      "production": 204,
+      "quarantined": 35
     },
     "fy-ficar": {
       "total": 69,
-      "omwAdded": 40
+      "omwAdded": 40,
+      "production": 64,
+      "quarantined": 5
     },
     "al-al": {
       "total": 814,
-      "omwAdded": 761
+      "omwAdded": 761,
+      "production": 670,
+      "quarantined": 144
     },
     "ment-mento": {
       "total": 48,
-      "omwAdded": 42
+      "omwAdded": 42,
+      "production": 48,
+      "quarantined": 0
     },
     "ment-miento": {
       "total": 32,
-      "omwAdded": 26
+      "omwAdded": 26,
+      "production": 32,
+      "quarantined": 0
     },
     "ary-ario": {
       "total": 136,
-      "omwAdded": 130
+      "omwAdded": 130,
+      "production": 129,
+      "quarantined": 7
     },
     "ory-orio": {
       "total": 102,
-      "omwAdded": 96
+      "omwAdded": 96,
+      "production": 89,
+      "quarantined": 13
     },
     "ture-tura": {
       "total": 64,
-      "omwAdded": 58
+      "omwAdded": 58,
+      "production": 63,
+      "quarantined": 1
     },
     "tude-tud": {
       "total": 34,
-      "omwAdded": 28
+      "omwAdded": 28,
+      "production": 33,
+      "quarantined": 1
     },
     "logy-logia": {
       "total": 167,
-      "omwAdded": 160
+      "omwAdded": 160,
+      "production": 150,
+      "quarantined": 17
     },
     "graphy-grafia": {
       "total": 68,
-      "omwAdded": 63
+      "omwAdded": 63,
+      "production": 56,
+      "quarantined": 12
     },
     "cracy-cracia": {
       "total": 14,
-      "omwAdded": 10
+      "omwAdded": 10,
+      "production": 12,
+      "quarantined": 2
     },
     "nomy-nomia": {
       "total": 7,
-      "omwAdded": 2
+      "omwAdded": 2,
+      "production": 6,
+      "quarantined": 1
     },
     "metry-metria": {
       "total": 29,
-      "omwAdded": 24
+      "omwAdded": 24,
+      "production": 21,
+      "quarantined": 8
     },
     "scope-scopio": {
       "total": 30,
-      "omwAdded": 25
+      "omwAdded": 25,
+      "production": 18,
+      "quarantined": 12
     },
     "ct-cto": {
       "total": 19,
-      "omwAdded": 12
+      "omwAdded": 12,
+      "production": 17,
+      "quarantined": 2
     },
     "id-ido": {
       "total": 48,
-      "omwAdded": 41
+      "omwAdded": 41,
+      "production": 45,
+      "quarantined": 3
     },
     "ate-ar": {
       "total": 468,
-      "omwAdded": 461
+      "omwAdded": 461,
+      "production": 449,
+      "quarantined": 19
     },
     "ph-f": {
       "total": 1002,
-      "omwAdded": 959
+      "omwAdded": 959,
+      "production": 747,
+      "quarantined": 255
     }
-  }
+  },
+  "version": "Data Quality v2",
+  "aligned_candidate_rows": 9507,
+  "quarantined_for_review": 1243,
+  "curated_rows_preserved": 850,
+  "quality_report": "data-quality-report.json",
+  "review_queue": "data-review-queue.json"
 }
