@@ -1,8 +1,8 @@
-/* LanguageDNA lexical data
-English: Princeton WordNet via Open Multilingual Wordnet (WordNet License), blob 4ddc0bdeba3323afc6e264243a17bba7bbf0b07a
-Spanish: Multilingual Central Repository via Open Multilingual Wordnet (CC BY 3.0), blob 86c9e367d64a794300b414e55c78b54dbb07eb27
-Method: shared synset + POS + explicit spelling pattern + stem similarity. Curated LanguageDNA rows override automated candidates.
-See DATA_SOURCES.md.
+/* LanguageDNA lexical data — Data Quality v2
+Production backbone: Princeton WordNet + MCR Spanish via Open Multilingual Wordnet.
+Validation: Spanish Wiktionary-derived data, Spanish UniMorph, English/Spanish 50k frequency lists.
+Curated rows are preserved. Unsupported automated rows move to data-review-queue.json.
+UI/layout unchanged. See DATA_SOURCES.md and DATA_QUALITY.md.
 */
 window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
   "tion-cion": {
@@ -36,10 +36,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "abjuración"
       ],
       [
-        "ablactation",
-        "ablactación"
-      ],
-      [
         "ablation",
         "ablación"
       ],
@@ -58,10 +54,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "abomination",
         "abominación"
-      ],
-      [
-        "abreaction",
-        "abreacción"
       ],
       [
         "abrogation",
@@ -316,14 +308,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ambición"
       ],
       [
-        "ambulation",
-        "ambulación"
-      ],
-      [
-        "ammonification",
-        "amonificación"
-      ],
-      [
         "amortisation",
         "amortización"
       ],
@@ -408,10 +392,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "argumentación"
       ],
       [
-        "arrogation",
-        "arrogación"
-      ],
-      [
         "articulation",
         "articulación"
       ],
@@ -430,10 +410,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "asseveration",
         "aseveración"
-      ],
-      [
-        "assibilation",
-        "asibilación"
       ],
       [
         "assignation",
@@ -576,14 +552,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "capitulación"
       ],
       [
-        "captivation",
-        "cautivación"
-      ],
-      [
-        "carbonation",
-        "carbonación"
-      ],
-      [
         "carbonisation",
         "carbonización"
       ],
@@ -644,14 +612,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "caracterización"
       ],
       [
-        "circularisation",
-        "circularización"
-      ],
-      [
-        "circularization",
-        "circularización"
-      ],
-      [
         "circulation",
         "circulación"
       ],
@@ -670,10 +630,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "circumspection",
         "circunspección"
-      ],
-      [
-        "circumvolution",
-        "cicunvolución"
       ],
       [
         "citation",
@@ -718,10 +674,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "cogitation",
         "cogitación"
-      ],
-      [
-        "cognation",
-        "cognación"
       ],
       [
         "cognition",
@@ -1008,10 +960,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "construcción"
       ],
       [
-        "consubstantiation",
-        "consubstanciación"
-      ],
-      [
         "consultation",
         "consulta"
       ],
@@ -1134,10 +1082,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "cremation",
         "cremación"
-      ],
-      [
-        "crenation",
-        "crenación"
       ],
       [
         "crepitation",
@@ -1294,10 +1238,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "defenestration",
         "defenestración"
-      ],
-      [
-        "defibrillation",
-        "defibrilación"
       ],
       [
         "definition",
@@ -1472,10 +1412,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "denudación"
       ],
       [
-        "denunciation",
-        "denunciación"
-      ],
-      [
         "depersonalisation",
         "despersonalización"
       ],
@@ -1534,10 +1470,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "derogation",
         "derogación"
-      ],
-      [
-        "desalination",
-        "desalinación"
       ],
       [
         "desalinisation",
@@ -1658,14 +1590,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "deviation",
         "desviación"
-      ],
-      [
-        "devitalisation",
-        "desvitalización"
-      ],
-      [
-        "devitalization",
-        "desvitalización"
       ],
       [
         "devotion",
@@ -1988,10 +1912,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "emasculación"
       ],
       [
-        "embrocation",
-        "embrocación"
-      ],
-      [
         "emigration",
         "emigración"
       ],
@@ -2006,14 +1926,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "encrustation",
         "incrustación"
-      ],
-      [
-        "enculturation",
-        "endoculturación"
-      ],
-      [
-        "enervation",
-        "enervación"
       ],
       [
         "enthronisation",
@@ -2070,10 +1982,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "estivation",
         "estivación"
-      ],
-      [
-        "etiolation",
-        "etiolación"
       ],
       [
         "evacuation",
@@ -2420,14 +2328,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "fluctuación"
       ],
       [
-        "fluoridation",
-        "fluorización"
-      ],
-      [
-        "fluoridization",
-        "fluorización"
-      ],
-      [
         "focalisation",
         "focalización"
       ],
@@ -2498,10 +2398,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "frustration",
         "frustración"
-      ],
-      [
-        "fulmination",
-        "fulminación"
       ],
       [
         "fumigation",
@@ -2654,10 +2550,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "humanization",
         "humanización"
-      ],
-      [
-        "humification",
-        "humificación"
       ],
       [
         "humiliation",
@@ -2838,10 +2730,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "incorporation",
         "incorporación"
-      ],
-      [
-        "incorruption",
-        "incorrupción"
       ],
       [
         "incrimination",
@@ -3532,14 +3420,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "mención"
       ],
       [
-        "metrication",
-        "metrificación"
-      ],
-      [
-        "metrification",
-        "metrificación"
-      ],
-      [
         "microevolution",
         "microevolución"
       ],
@@ -3650,14 +3530,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "mutilation",
         "mutilación"
-      ],
-      [
-        "mythologisation",
-        "mitologización"
-      ],
-      [
-        "mythologization",
-        "mitologización"
       ],
       [
         "narration",
@@ -3832,10 +3704,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ordenación"
       ],
       [
-        "organification",
-        "organificación"
-      ],
-      [
         "organisation",
         "organización"
       ],
@@ -3868,16 +3736,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ovación"
       ],
       [
-        "overcapitalization",
-        "sobrecapitalización"
-      ],
-      [
         "overproduction",
         "superproducción"
-      ],
-      [
-        "oversimplification",
-        "supersimplificación"
       ],
       [
         "ovulation",
@@ -3932,10 +3792,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "partición"
       ],
       [
-        "parturition",
-        "parturición"
-      ],
-      [
         "pasteurisation",
         "pasteurización"
       ],
@@ -3954,14 +3810,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "penetration",
         "penetración"
-      ],
-      [
-        "peptisation",
-        "peptización"
-      ],
-      [
-        "peptization",
-        "peptización"
       ],
       [
         "perception",
@@ -4008,10 +3856,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "persecución"
       ],
       [
-        "perseveration",
-        "perseveración"
-      ],
-      [
         "personification",
         "personificación"
       ],
@@ -4022,10 +3866,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "perturbation",
         "perturbación"
-      ],
-      [
-        "pervaporation",
-        "pervaporación"
       ],
       [
         "petition",
@@ -4040,10 +3880,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "petrificación"
       ],
       [
-        "phacoemulsification",
-        "facoemulsificación"
-      ],
-      [
         "pigmentation",
         "pigmentación"
       ],
@@ -4054,10 +3890,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "plantation",
         "plantación"
-      ],
-      [
-        "plastination",
-        "plastinación"
       ],
       [
         "polarisation",
@@ -4120,10 +3952,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "precaución"
       ],
       [
-        "prechlorination",
-        "precloración"
-      ],
-      [
         "precipitation",
         "precipitación"
       ],
@@ -4166,10 +3994,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "predisposition",
         "predisposición"
-      ],
-      [
-        "preemption",
-        "preempción"
       ],
       [
         "prefabrication",
@@ -4264,10 +4088,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "profesionalización"
       ],
       [
-        "prognostication",
-        "pronosticación"
-      ],
-      [
         "prohibition",
         "prohibición"
       ],
@@ -4348,10 +4168,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "provocación"
       ],
       [
-        "pseudohallucination",
-        "pseudoalucinación"
-      ],
-      [
         "publication",
         "publicación"
       ],
@@ -4412,24 +4228,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ramificación"
       ],
       [
-        "randomisation",
-        "randomización"
-      ],
-      [
-        "randomization",
-        "randomización"
-      ],
-      [
         "rarefaction",
         "rarefacción"
       ],
       [
         "ratification",
         "ratificación"
-      ],
-      [
-        "ratiocination",
-        "raciocinación"
       ],
       [
         "ration",
@@ -4442,10 +4246,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "rationalization",
         "racionalización"
-      ],
-      [
-        "reabsorption",
-        "reabsorpción"
       ],
       [
         "reaction",
@@ -4474,10 +4274,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "reception",
         "recepción"
-      ],
-      [
-        "reciprocation",
-        "reciprocación"
       ],
       [
         "recirculation",
@@ -4540,10 +4336,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "reposición"
       ],
       [
-        "redisposition",
-        "redisposición"
-      ],
-      [
         "redistribution",
         "redistribución"
       ],
@@ -4558,10 +4350,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "reelection",
         "reelección"
-      ],
-      [
-        "refabrication",
-        "refabricación"
       ],
       [
         "refection",
@@ -4596,10 +4384,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "regeneración"
       ],
       [
-        "regimentation",
-        "regimentación"
-      ],
-      [
         "registration",
         "registración"
       ],
@@ -4624,20 +4408,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "rehabilitación"
       ],
       [
-        "reharmonisation",
-        "reharmonización"
-      ],
-      [
-        "reharmonization",
-        "reharmonización"
-      ],
-      [
         "reification",
         "reificación"
-      ],
-      [
-        "reimposition",
-        "reimposición"
       ],
       [
         "reincarnation",
@@ -4744,10 +4516,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "resolución"
       ],
       [
-        "resorption",
-        "reabsorpción"
-      ],
-      [
         "respiration",
         "respiración"
       ],
@@ -4832,10 +4600,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "rotación"
       ],
       [
-        "rumination",
-        "ruminación"
-      ],
-      [
         "salivation",
         "salivación"
       ],
@@ -4854,10 +4618,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "sanction",
         "sanción"
-      ],
-      [
-        "sanguification",
-        "sangüificación"
       ],
       [
         "saponification",
@@ -4932,20 +4692,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "separación"
       ],
       [
-        "septation",
-        "septación"
-      ],
-      [
         "serialisation",
         "serialización"
       ],
       [
         "serialization",
         "serialización"
-      ],
-      [
-        "sibilation",
-        "asibilación"
       ],
       [
         "signalization",
@@ -5040,10 +4792,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "estabilización"
       ],
       [
-        "stagflation",
-        "stagflación"
-      ],
-      [
         "standardisation",
         "estandarización"
       ],
@@ -5088,10 +4836,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "estratificación"
       ],
       [
-        "stridulation",
-        "estridulación"
-      ],
-      [
         "stupefaction",
         "estupefacción"
       ],
@@ -5102,10 +4846,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "subduction",
         "subducción"
-      ],
-      [
-        "subjugation",
-        "subjugación"
       ],
       [
         "sublimation",
@@ -5140,10 +4880,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "sustitución"
       ],
       [
-        "subsumption",
-        "subsumición"
-      ],
-      [
         "subtraction",
         "substracción"
       ],
@@ -5156,24 +4892,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "succión"
       ],
       [
-        "sudation",
-        "sudación"
-      ],
-      [
-        "supererogation",
-        "supererogación"
-      ],
-      [
         "superfetation",
         "superfetación"
-      ],
-      [
-        "superinfection",
-        "superinfección"
-      ],
-      [
-        "superordination",
-        "superordinación"
       ],
       [
         "superstition",
@@ -5258,14 +4978,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "territorialization",
         "territorialización"
-      ],
-      [
-        "terrorisation",
-        "terrorización"
-      ],
-      [
-        "terrorization",
-        "terrorización"
       ],
       [
         "traction",
@@ -5484,14 +5196,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "versificación"
       ],
       [
-        "vesication",
-        "vesiculación"
-      ],
-      [
-        "vesiculation",
-        "vesiculación"
-      ],
-      [
         "vexation",
         "vejación"
       ],
@@ -5581,7 +5285,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ity-idad": {
     "id": "ity-idad",
@@ -5638,16 +5343,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "adiposidad"
       ],
       [
-        "admirability",
-        "admirabilidad"
-      ],
-      [
         "admissibility",
         "admisibilidad"
-      ],
-      [
-        "adorability",
-        "adorabilidad"
       ],
       [
         "adversity",
@@ -5714,10 +5411,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "aplicabilidad"
       ],
       [
-        "arability",
-        "arabilidad"
-      ],
-      [
         "arity",
         "aridad"
       ],
@@ -5744,10 +5437,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "atrocity",
         "atrocidad"
-      ],
-      [
-        "atypicality",
-        "atipicalidad"
       ],
       [
         "audibility",
@@ -5792,10 +5481,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "biodiversity",
         "biodiversidad"
-      ],
-      [
-        "bioelectricity",
-        "bioelectricidad"
       ],
       [
         "bisexuality",
@@ -5884,10 +5569,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "community",
         "comunidad"
-      ],
-      [
-        "commutability",
-        "conmutabilidad"
       ],
       [
         "comparability",
@@ -5994,20 +5675,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "criminalidad"
       ],
       [
-        "cruciality",
-        "crucialidad"
-      ],
-      [
-        "cubicity",
-        "cubicidad"
-      ],
-      [
         "culpability",
         "culpabilidad"
-      ],
-      [
-        "curability",
-        "curabilidad"
       ],
       [
         "curiosity",
@@ -6022,10 +5691,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "debilidad"
       ],
       [
-        "declivity",
-        "declividad"
-      ],
-      [
         "deformity",
         "deformidad"
       ],
@@ -6034,20 +5699,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "deidad"
       ],
       [
-        "delectability",
-        "deleitabilidad"
-      ],
-      [
         "density",
         "densidad"
       ],
       [
         "desirability",
         "deseabilidad"
-      ],
-      [
-        "destructibility",
-        "destructibilidad"
       ],
       [
         "digestibility",
@@ -6174,10 +5831,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "exigüidad"
       ],
       [
-        "expansivity",
-        "expansividad"
-      ],
-      [
         "externality",
         "externalidad"
       ],
@@ -6238,10 +5891,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "finalidad"
       ],
       [
-        "fissiparity",
-        "fisiparidad"
-      ],
-      [
         "flammability",
         "inflamabilidad"
       ],
@@ -6300,10 +5949,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "generosity",
         "generosidad"
-      ],
-      [
-        "glutinosity",
-        "gelatinosidad"
       ],
       [
         "gracility",
@@ -6410,10 +6055,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "inmortalidad"
       ],
       [
-        "immotility",
-        "inmotilidad"
-      ],
-      [
         "immunity",
         "inmunidad"
       ],
@@ -6426,24 +6067,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "imparcialidad"
       ],
       [
-        "impassivity",
-        "impasividad"
-      ],
-      [
         "impenetrability",
         "impenetrabilidad"
       ],
       [
-        "imperceptibility",
-        "imperceptibilidad"
-      ],
-      [
         "impermeability",
         "impermeabilidad"
-      ],
-      [
-        "impermissibility",
-        "impermisibilidad"
       ],
       [
         "imperturbability",
@@ -6498,16 +6127,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "inaplicabilidad"
       ],
       [
-        "inaudibility",
-        "inaudibilidad"
-      ],
-      [
         "incivility",
         "incivilidad"
-      ],
-      [
-        "incommutability",
-        "inconmutabilidad"
       ],
       [
         "incompatibility",
@@ -6526,16 +6147,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "incorruptibilidad"
       ],
       [
-        "incredibility",
-        "incredibilidad"
-      ],
-      [
         "incredulity",
         "incredulidad"
-      ],
-      [
-        "incurability",
-        "incurabilidad"
       ],
       [
         "indemnity",
@@ -6546,24 +6159,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "indestructibilidad"
       ],
       [
-        "indigestibility",
-        "indigestibilidad"
-      ],
-      [
         "indignity",
         "indignidad"
       ],
       [
         "individuality",
         "individualidad"
-      ],
-      [
-        "indomitability",
-        "indomabilidad"
-      ],
-      [
-        "indubitability",
-        "indudabilidad"
       ],
       [
         "inelasticity",
@@ -6630,10 +6231,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "insalubridad"
       ],
       [
-        "inscrutability",
-        "inescrutabilidad"
-      ],
-      [
         "insecurity",
         "inseguridad"
       ],
@@ -6648,10 +6245,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "instability",
         "inestabilidad"
-      ],
-      [
-        "insubstantiality",
-        "insubstancialidad"
       ],
       [
         "insularity",
@@ -6694,10 +6287,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "interoperabilidad"
       ],
       [
-        "intransitivity",
-        "intransitividad"
-      ],
-      [
         "inutility",
         "inutilidad"
       ],
@@ -6734,10 +6323,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "irregularidad"
       ],
       [
-        "irrepressibility",
-        "irreprimibilidad"
-      ],
-      [
         "irresponsibility",
         "irresponsabilidad"
       ],
@@ -6752,10 +6337,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "jocosity",
         "jocosidad"
-      ],
-      [
-        "jocundity",
-        "jocundidad"
       ],
       [
         "joviality",
@@ -6792,10 +6373,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "linearity",
         "linearidad"
-      ],
-      [
-        "lobularity",
-        "lobularidad"
       ],
       [
         "locality",
@@ -6838,10 +6415,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "manejabilidad"
       ],
       [
-        "manipulability",
-        "manipulabilidad"
-      ],
-      [
         "marginality",
         "marginalidad"
       ],
@@ -6856,10 +6429,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "maternity",
         "maternidad"
-      ],
-      [
-        "measurability",
-        "mesurabilidad"
       ],
       [
         "mediocrity",
@@ -6916,14 +6485,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "morality",
         "moralidad"
-      ],
-      [
-        "morbidity",
-        "morbididad"
-      ],
-      [
-        "moronity",
-        "moronidad"
       ],
       [
         "mortality",
@@ -7058,10 +6619,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "peculiaridad"
       ],
       [
-        "penetrability",
-        "penetrabilidad"
-      ],
-      [
         "perceptibility",
         "perceptibilidad"
       ],
@@ -7084,10 +6641,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "permissibility",
         "permisibilidad"
-      ],
-      [
-        "permutability",
-        "permutabilidad"
       ],
       [
         "perpendicularity",
@@ -7150,10 +6703,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "pomposidad"
       ],
       [
-        "ponderosity",
-        "ponderosidad"
-      ],
-      [
         "popularity",
         "popularidad"
       ],
@@ -7176,10 +6725,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "posterity",
         "posteridad"
-      ],
-      [
-        "practicability",
-        "practicabilidad"
       ],
       [
         "practicality",
@@ -7246,10 +6791,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "proximidad"
       ],
       [
-        "psychosexuality",
-        "psicosexualidad"
-      ],
-      [
         "publicity",
         "publicidad"
       ],
@@ -7282,10 +6823,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "cantidad"
       ],
       [
-        "quiddity",
-        "quididad"
-      ],
-      [
         "radioactivity",
         "radioactividad"
       ],
@@ -7316,10 +6853,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "reciprocity",
         "reciprocidad"
-      ],
-      [
-        "rectangularity",
-        "rectangularidad"
       ],
       [
         "reflectivity",
@@ -7364,10 +6897,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "reversibility",
         "reversibilidad"
-      ],
-      [
-        "risibility",
-        "risibilidad"
       ],
       [
         "rotundity",
@@ -7530,14 +7059,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "subnormalidad"
       ],
       [
-        "substantiality",
-        "sustancialidad"
-      ],
-      [
-        "suggestibility",
-        "sugestibilidad"
-      ],
-      [
         "sumptuosity",
         "suntuosidad"
       ],
@@ -7578,10 +7099,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "tangibilidad"
       ],
       [
-        "taxability",
-        "taxabilidad"
-      ],
-      [
         "temerity",
         "temeridad"
       ],
@@ -7592,10 +7109,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "tenacity",
         "tenacidad"
-      ],
-      [
-        "tenuity",
-        "tenuidad"
       ],
       [
         "territoriality",
@@ -7630,10 +7143,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "toxicidad"
       ],
       [
-        "tractability",
-        "tratabilidad"
-      ],
-      [
         "tranquility",
         "tranquilidad"
       ],
@@ -7650,14 +7159,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "transitividad"
       ],
       [
-        "transmutability",
-        "transmutabilidad"
-      ],
-      [
-        "triangularity",
-        "triangularidad"
-      ],
-      [
         "trinity",
         "trinidad"
       ],
@@ -7672,14 +7173,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "ubiquity",
         "ubicuidad"
-      ],
-      [
-        "unacceptability",
-        "inaceptabilidad"
-      ],
-      [
-        "unadaptability",
-        "inadapatabilidad"
       ],
       [
         "unanimity",
@@ -7708,10 +7201,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "unpopularity",
         "impopularidad"
-      ],
-      [
-        "unquestionability",
-        "incuestionabilidad"
       ],
       [
         "unregularity",
@@ -7744,10 +7233,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "variability",
         "variabilidad"
-      ],
-      [
-        "varicosity",
-        "varicosidad"
       ],
       [
         "variety",
@@ -7839,7 +7324,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ous-oso": {
     "id": "ous-oso",
@@ -7847,18 +7333,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
     "explanation": "Many English adjectives ending in -ous have a related Spanish adjective ending in -oso or -osa.",
     "listenLanguage": "es-ES",
     "words": [
-      [
-        "acetous",
-        "acetoso"
-      ],
-      [
-        "adenocarcinomatous",
-        "adenocarcinomatoso"
-      ],
-      [
-        "albuminous",
-        "albuminoso"
-      ],
       [
         "aluminous",
         "aluminoso"
@@ -7872,56 +7346,16 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "amoroso"
       ],
       [
-        "anasarcous",
-        "anasarcoso"
-      ],
-      [
-        "anestrous",
-        "anestroso"
-      ],
-      [
         "anfractuous",
         "anfractuoso"
-      ],
-      [
-        "anginous",
-        "anginoso"
-      ],
-      [
-        "angiomatous",
-        "angiomatoso"
-      ],
-      [
-        "angiospermous",
-        "angiospermoso"
-      ],
-      [
-        "anoestrous",
-        "anestroso"
       ],
       [
         "anxious",
         "ansioso"
       ],
       [
-        "argentous",
-        "argentoso"
-      ],
-      [
-        "arsenious",
-        "arsenioso"
-      ],
-      [
         "arteriovenous",
         "arteriovenoso"
-      ],
-      [
-        "ascomycetous",
-        "ascomicetoso"
-      ],
-      [
-        "atheromatous",
-        "ateromatoso"
       ],
       [
         "auspicious",
@@ -7930,14 +7364,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "avaricious",
         "avaricioso"
-      ],
-      [
-        "basidiomycetous",
-        "basidiomicetoso"
-      ],
-      [
-        "basidiosporous",
-        "basidiosporoso"
       ],
       [
         "bilious",
@@ -7958,10 +7384,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "calamitous",
         "calamitoso"
-      ],
-      [
-        "calculous",
-        "calculoso"
       ],
       [
         "callous",
@@ -8004,22 +7426,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ceremonioso"
       ],
       [
-        "cerous",
-        "cerioso"
-      ],
-      [
-        "ceruminous",
-        "ceruminoso"
-      ],
-      [
-        "chancrous",
-        "chancroso"
-      ],
-      [
-        "chelicerous",
-        "queliceroso"
-      ],
-      [
         "contagious",
         "contagioso"
       ],
@@ -8060,10 +7466,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "endovenoso"
       ],
       [
-        "estrous",
-        "estroso"
-      ],
-      [
         "fabulous",
         "fabuloso"
       ],
@@ -8096,16 +7498,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "fistuloso"
       ],
       [
-        "flexuous",
-        "flexuoso"
-      ],
-      [
         "fulgurous",
         "fulguroso"
-      ],
-      [
-        "fungous",
-        "fungoso"
       ],
       [
         "furious",
@@ -8160,10 +7554,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "armonioso"
       ],
       [
-        "ichorous",
-        "icoroso"
-      ],
-      [
         "ignominious",
         "ignominioso"
       ],
@@ -8210,10 +7600,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "judicious",
         "juicioso"
-      ],
-      [
-        "jumentous",
-        "jumentoso"
       ],
       [
         "laborious",
@@ -8412,20 +7798,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ruinoso"
       ],
       [
-        "sanious",
-        "sanioso"
-      ],
-      [
         "scabrous",
         "escabroso"
       ],
       [
         "scandalous",
         "escandaloso"
-      ],
-      [
-        "scotomatous",
-        "escotomatoso"
       ],
       [
         "scrofulous",
@@ -8474,10 +7852,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "spirituous",
         "espirituoso"
-      ],
-      [
-        "stertorous",
-        "estertoroso"
       ],
       [
         "studious",
@@ -8540,10 +7914,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ulceroso"
       ],
       [
-        "unceremonious",
-        "inceremonioso"
-      ],
-      [
         "unscrupulous",
         "inescrupuloso"
       ],
@@ -8562,10 +7932,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "venous",
         "venoso"
-      ],
-      [
-        "verminous",
-        "verminoso"
       ],
       [
         "vertiginous",
@@ -8609,7 +7975,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ly-mente": {
     "id": "ly-mente",
@@ -8682,10 +8049,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "admirablemente"
       ],
       [
-        "adorably",
-        "adorablemente"
-      ],
-      [
         "aesthetically",
         "estéticamente"
       ],
@@ -8734,10 +8097,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "anatómicamente"
       ],
       [
-        "angelically",
-        "angélicamente"
-      ],
-      [
         "animatedly",
         "animadamente"
       ],
@@ -8778,10 +8137,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "arbitrariamente"
       ],
       [
-        "argumentatively",
-        "argumentativamente"
-      ],
-      [
         "aristocratically",
         "aristocráticamente"
       ],
@@ -8814,10 +8169,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "astutamente"
       ],
       [
-        "atonally",
-        "atonalmente"
-      ],
-      [
         "attractively",
         "atractivamente"
       ],
@@ -8832,10 +8183,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "authentically",
         "auténticamente"
-      ],
-      [
-        "authoritatively",
-        "autoritativamente"
       ],
       [
         "autocratically",
@@ -8860,10 +8207,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "axiomatically",
         "axiomáticamente"
-      ],
-      [
-        "bacterially",
-        "bacterianamente"
       ],
       [
         "barbarously",
@@ -8920,10 +8263,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "cautiously",
         "cautelosamente"
-      ],
-      [
-        "cerebrally",
-        "cerebralmente"
       ],
       [
         "certainly",
@@ -9014,20 +8353,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "comparativamente"
       ],
       [
-        "compatibly",
-        "compatiblemente"
-      ],
-      [
         "competently",
         "competentemente"
       ],
       [
         "competitively",
         "competitivamente"
-      ],
-      [
-        "complacently",
-        "complacientemente"
       ],
       [
         "completely",
@@ -9040,10 +8371,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "computationally",
         "computacionalmente"
-      ],
-      [
-        "concavely",
-        "cóncavamente"
       ],
       [
         "concisely",
@@ -9094,10 +8421,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "considerablemente"
       ],
       [
-        "considerately",
-        "consideradamente"
-      ],
-      [
         "consistently",
         "consistentemente"
       ],
@@ -9130,20 +8453,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "contradictoriamente"
       ],
       [
-        "contritely",
-        "contritamente"
-      ],
-      [
         "conveniently",
         "convenientemente"
       ],
       [
         "conventionally",
         "convencionalmente"
-      ],
-      [
-        "convexly",
-        "convexamente"
       ],
       [
         "convulsively",
@@ -9168,10 +8483,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "corruptly",
         "corruptamente"
-      ],
-      [
-        "cortically",
-        "corticalmente"
       ],
       [
         "cosmetically",
@@ -9200,10 +8511,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "cryptically",
         "crípticamente"
-      ],
-      [
-        "culpably",
-        "culpablemente"
       ],
       [
         "culturally",
@@ -9248,10 +8555,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "democratically",
         "democráticamente"
-      ],
-      [
-        "denominationally",
-        "denominacionalmente"
       ],
       [
         "densely",
@@ -9336,10 +8639,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "disproportionately",
         "desproporcionadamente"
-      ],
-      [
-        "dissolutely",
-        "disolutamente"
       ],
       [
         "distinctively",
@@ -9462,20 +8761,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "equívocamente"
       ],
       [
-        "erotically",
-        "eroticamente"
-      ],
-      [
         "erratically",
         "erráticamente"
       ],
       [
         "erroneously",
         "erróneamente"
-      ],
-      [
-        "eschatologically",
-        "escatológicamente"
       ],
       [
         "especially",
@@ -9552,14 +8843,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "exquisitely",
         "exquisitamente"
-      ],
-      [
-        "extemporaneously",
-        "extemporáneamente"
-      ],
-      [
-        "extemporarily",
-        "extemporáneamente"
       ],
       [
         "extensively",
@@ -9658,10 +8941,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "flexiblemente"
       ],
       [
-        "floridly",
-        "floridamente"
-      ],
-      [
         "fluently",
         "fluentemente"
       ],
@@ -9704,10 +8983,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "frontally",
         "frontalmente"
-      ],
-      [
-        "frugally",
-        "frugalmente"
       ],
       [
         "functionally",
@@ -9766,10 +9041,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "gloriosamente"
       ],
       [
-        "governmentally",
-        "gubernamentalmente"
-      ],
-      [
         "gracefully",
         "grácilmente"
       ],
@@ -9780,10 +9051,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "grammatically",
         "gramaticalmente"
-      ],
-      [
-        "grandiloquently",
-        "grandilocuentemente"
       ],
       [
         "gratuitously",
@@ -9808,10 +9075,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "harmonically",
         "armónicamente"
-      ],
-      [
-        "harmoniously",
-        "harmoniosamente"
       ],
       [
         "hermetically",
@@ -9848,10 +9111,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "horribly",
         "horriblemente"
-      ],
-      [
-        "horticulturally",
-        "horticulturalmente"
       ],
       [
         "hostilely",
@@ -9930,10 +9189,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "inmensamente"
       ],
       [
-        "immoderately",
-        "inmoderadamente"
-      ],
-      [
         "immorally",
         "inmoralmente"
       ],
@@ -9986,10 +9241,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "imprudentemente"
       ],
       [
-        "impudently",
-        "impudentemente"
-      ],
-      [
         "impulsively",
         "impulsivamente"
       ],
@@ -9998,24 +9249,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "inadvertidamente"
       ],
       [
-        "inalienably",
-        "inalienablemente"
-      ],
-      [
         "inappropriately",
         "inapropiadamente"
       ],
       [
-        "inaugurally",
-        "inauguralmente"
-      ],
-      [
         "incessantly",
         "incesantemente"
-      ],
-      [
-        "incestuously",
-        "incestuosamente"
       ],
       [
         "incoherently",
@@ -10026,24 +9265,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "incomparablemente"
       ],
       [
-        "incompatibly",
-        "incompatiblemente"
-      ],
-      [
         "incompletely",
         "incompletamente"
-      ],
-      [
-        "inconclusively",
-        "inconclusamente"
-      ],
-      [
-        "inconsequentially",
-        "inconsecuentemente"
-      ],
-      [
-        "inconsequently",
-        "inconsecuentemente"
       ],
       [
         "incorrectly",
@@ -10094,14 +9317,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "industrialmente"
       ],
       [
-        "inelegantly",
-        "inelegantemente"
-      ],
-      [
-        "ineptly",
-        "ineptamente"
-      ],
-      [
         "inevitably",
         "inevitablemente"
       ],
@@ -10112,10 +9327,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "inexorably",
         "inexorablemente"
-      ],
-      [
-        "inexpertly",
-        "inexpertamente"
       ],
       [
         "infinitely",
@@ -10144,10 +9355,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "insatiably",
         "insaciablemente"
-      ],
-      [
-        "insecurely",
-        "inseguramente"
       ],
       [
         "inseparably",
@@ -10186,20 +9393,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "insuficientemente"
       ],
       [
-        "insuperably",
-        "insuperablemente"
-      ],
-      [
         "intelligently",
         "inteligentemente"
       ],
       [
         "intelligibly",
         "inteligiblemente"
-      ],
-      [
-        "intemperately",
-        "intemperadamente"
       ],
       [
         "intensely",
@@ -10230,20 +9429,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "internacionalmente"
       ],
       [
-        "interracially",
-        "interracialmente"
-      ],
-      [
         "interrogatively",
         "interrogativamente"
       ],
       [
         "intimately",
         "íntimamente"
-      ],
-      [
-        "intolerantly",
-        "intolerantemente"
       ],
       [
         "intransitively",
@@ -10294,10 +9485,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "irreparablemente"
       ],
       [
-        "irreproachably",
-        "irreprochablemente"
-      ],
-      [
         "irresistibly",
         "irresistiblemente"
       ],
@@ -10332,14 +9519,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "justly",
         "justamente"
-      ],
-      [
-        "kinaesthetically",
-        "kinestésicamente"
-      ],
-      [
-        "kinesthetically",
-        "kinestésicamente"
       ],
       [
         "laboriously",
@@ -10406,10 +9585,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "lógicamente"
       ],
       [
-        "logogrammatically",
-        "logogramaticalmente"
-      ],
-      [
         "longitudinally",
         "longitudinalmente"
       ],
@@ -10474,16 +9649,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "mecánicamente"
       ],
       [
-        "meditatively",
-        "meditativamente"
-      ],
-      [
         "melodically",
         "melódicamente"
-      ],
-      [
-        "melodramatically",
-        "melodramáticamente"
       ],
       [
         "memorably",
@@ -10504,10 +9671,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "metaphorically",
         "metafóricamente"
-      ],
-      [
-        "meteorologically",
-        "metereológicamente"
       ],
       [
         "meticulously",
@@ -10558,10 +9721,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "moralmente"
       ],
       [
-        "morosely",
-        "morosamente"
-      ],
-      [
         "morphologically",
         "morfológicamente"
       ],
@@ -10580,10 +9739,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "musically",
         "musicalmente"
-      ],
-      [
-        "musicologically",
-        "musicológicamente"
       ],
       [
         "mutually",
@@ -10668,10 +9823,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "officially",
         "oficialmente"
-      ],
-      [
-        "onerously",
-        "onerosamente"
       ],
       [
         "operationally",
@@ -10778,24 +9929,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "permanentemente"
       ],
       [
-        "permissively",
-        "permisivamente"
-      ],
-      [
-        "perniciously",
-        "perniciosamente"
-      ],
-      [
         "perpendicularly",
         "perpendicularmente"
       ],
       [
         "perpetually",
         "perpetuamente"
-      ],
-      [
-        "perseveringly",
-        "perseverantemente"
       ],
       [
         "persistently",
@@ -10858,10 +9997,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "posiblemente"
       ],
       [
-        "postoperatively",
-        "postoperatoriamente"
-      ],
-      [
         "potentially",
         "potencialmente"
       ],
@@ -10902,16 +10037,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "preponderantemente"
       ],
       [
-        "prepositionally",
-        "preposicionalmente"
-      ],
-      [
         "presently",
         "presentemente"
-      ],
-      [
-        "presidentially",
-        "presidencialmente"
       ],
       [
         "presumably",
@@ -10948,10 +10075,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "probably",
         "probablemente"
-      ],
-      [
-        "problematically",
-        "problemáticamente"
       ],
       [
         "professionally",
@@ -11030,10 +10153,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "puramente"
       ],
       [
-        "pyramidically",
-        "piramidalmente"
-      ],
-      [
         "qualitatively",
         "cualitativamente"
       ],
@@ -11094,10 +10213,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "relativamente"
       ],
       [
-        "relativistically",
-        "relativísticamente"
-      ],
-      [
         "religiously",
         "religiosamente"
       ],
@@ -11112,10 +10227,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "repetitively",
         "repetitivamente"
-      ],
-      [
-        "residentially",
-        "residencialmente"
       ],
       [
         "respectively",
@@ -11168,10 +10279,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "roundly",
         "rotundamente"
-      ],
-      [
-        "sacredly",
-        "sagradamente"
       ],
       [
         "sanely",
@@ -11298,16 +10405,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "socialmente"
       ],
       [
-        "sociobiologically",
-        "sociobiológicamente"
-      ],
-      [
         "socioeconomically",
         "socioeconómicamente"
-      ],
-      [
-        "sociolinguistically",
-        "sociolingüísticamente"
       ],
       [
         "sociologically",
@@ -11328,14 +10427,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "solitarily",
         "solitariamente"
-      ],
-      [
-        "sordidly",
-        "sórdidamente"
-      ],
-      [
-        "spaciously",
-        "espaciosamente"
       ],
       [
         "spasmodically",
@@ -11522,14 +10613,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "termodinámicamente"
       ],
       [
-        "timidly",
-        "timidamente"
-      ],
-      [
-        "tolerantly",
-        "tolerantemente"
-      ],
-      [
         "topographically",
         "topográficamente"
       ],
@@ -11556,10 +10639,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "tranquilly",
         "tranquilamente"
-      ],
-      [
-        "transcendentally",
-        "transcendentalmente"
       ],
       [
         "transitively",
@@ -11598,10 +10677,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "unánimemente"
       ],
       [
-        "uncivilly",
-        "incivilmente"
-      ],
-      [
         "uncomparably",
         "incomparablemente"
       ],
@@ -11634,10 +10709,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "unilateralmente"
       ],
       [
-        "unintelligibly",
-        "ininteligiblemente"
-      ],
-      [
         "uninterruptedly",
         "ininterrumpidamente"
       ],
@@ -11662,10 +10733,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "incuestionablemente"
       ],
       [
-        "unquietly",
-        "inquietamente"
-      ],
-      [
         "unsentimentally",
         "sentimentalmente"
       ],
@@ -11688,10 +10755,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "variably",
         "variablemente"
-      ],
-      [
-        "venomously",
-        "venenosamente"
       ],
       [
         "verbally",
@@ -11760,10 +10823,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "voluntarily",
         "voluntariamente"
-      ],
-      [
-        "voyeuristically",
-        "voyeurísticamente"
       ]
     ],
     "dataSource": "LanguageDNA curated + Open Multilingual Wordnet aligned synsets",
@@ -11771,7 +10830,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ph-f": {
     "id": "ph-f",
@@ -11779,10 +10839,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
     "explanation": "Many English words written with ph have a related Spanish cognate written with f.",
     "listenLanguage": "es-ES",
     "words": [
-      [
-        "ablepharia",
-        "ablefaria"
-      ],
       [
         "acanthocephalan",
         "acantocéfalo"
@@ -11812,14 +10868,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "acetaminofeno"
       ],
       [
-        "acetophenetidin",
-        "acetofenecidina"
-      ],
-      [
-        "acetphenetidin",
-        "acetofenecidina"
-      ],
-      [
         "acidophil",
         "acidófilo"
       ],
@@ -11836,40 +10884,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "acidófilo"
       ],
       [
-        "acrophobia",
-        "acrofobia"
-      ],
-      [
-        "acrophobic",
-        "acrofóbico"
-      ],
-      [
-        "acrophony",
-        "acrofonía"
-      ],
-      [
         "actinomorphic",
         "actinomorfo"
       ],
       [
         "actinomorphous",
         "actinomorfo"
-      ],
-      [
-        "adoxography",
-        "adoxografía"
-      ],
-      [
-        "aerophilatelic",
-        "aerofilatélico"
-      ],
-      [
-        "aerophilately",
-        "aerofilatelia"
-      ],
-      [
-        "aerophile",
-        "aerófilo"
       ],
       [
         "agoraphobia",
@@ -11884,20 +10904,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "agrafia"
       ],
       [
-        "ailurophobia",
-        "ailurofobia"
-      ],
-      [
         "aleph",
         "alef"
       ],
       [
         "algophilia",
         "algofilia"
-      ],
-      [
-        "algophobic",
-        "algofóbico"
       ],
       [
         "aliphatic",
@@ -11908,28 +10920,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "alelomorfo"
       ],
       [
-        "allelomorphic",
-        "alelomórfico"
-      ],
-      [
-        "allograph",
-        "alógrafo"
-      ],
-      [
-        "allographic",
-        "alográfico"
-      ],
-      [
         "allomorph",
         "alomorfo"
-      ],
-      [
-        "allomorphic",
-        "alomórfico"
-      ],
-      [
-        "allophone",
-        "alofono"
       ],
       [
         "allophonic",
@@ -11984,10 +10976,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "anfetamina"
       ],
       [
-        "amphibiotic",
-        "anfibiótico"
-      ],
-      [
         "amphibole",
         "anfíbol"
       ],
@@ -12000,10 +10988,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "anfíbraco"
       ],
       [
-        "amphimixis",
-        "anfimixis"
-      ],
-      [
         "amphipod",
         "anfípodo"
       ],
@@ -12012,16 +10996,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "anfipróstilo"
       ],
       [
-        "amphiprotic",
-        "anfiprótico"
-      ],
-      [
         "amphisbaena",
         "anfisbena"
-      ],
-      [
-        "amphitropous",
-        "amfitropo"
       ],
       [
         "amphora",
@@ -12034,10 +11010,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "anaglyph",
         "anaglifo"
-      ],
-      [
-        "anaglyphic",
-        "anaglífico"
       ],
       [
         "analphabetic",
@@ -12064,10 +11036,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "anafase"
       ],
       [
-        "anaphasic",
-        "anafásico"
-      ],
-      [
         "anaphor",
         "anáfora"
       ],
@@ -12084,10 +11052,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "anafrodisia"
       ],
       [
-        "anaphrodisiac",
-        "anafrodisiaco"
-      ],
-      [
         "anaphylaxis",
         "anafilaxis"
       ],
@@ -12098,14 +11062,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "androphobia",
         "androfobia"
-      ],
-      [
-        "anemographic",
-        "anemográfico"
-      ],
-      [
-        "anemography",
-        "anemografía"
       ],
       [
         "anemophilous",
@@ -12134,10 +11090,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "anglophobe",
         "anglófobo"
-      ],
-      [
-        "anopheline",
-        "anofelino"
       ],
       [
         "anthropomorphic",
@@ -12200,24 +11152,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "antistrofa"
       ],
       [
-        "antistrophic",
-        "antistrófico"
-      ],
-      [
-        "aphaeresis",
-        "aferesis"
-      ],
-      [
-        "aphaeretic",
-        "aferético"
-      ],
-      [
         "aphagia",
         "afagia"
-      ],
-      [
-        "aphanite",
-        "afanita"
       ],
       [
         "aphanitic",
@@ -12240,10 +11176,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "aféresis"
       ],
       [
-        "apheretic",
-        "aferético"
-      ],
-      [
         "aphesis",
         "aféresis"
       ],
@@ -12264,16 +11196,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "aforismo"
       ],
       [
-        "aphorist",
-        "aforista"
-      ],
-      [
         "aphoristic",
         "aforístico"
-      ],
-      [
-        "aphotic",
-        "afótico"
       ],
       [
         "aphrodisiac",
@@ -12284,32 +11208,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "afrodisiaco"
       ],
       [
-        "aplacophoran",
-        "aplacóforo"
-      ],
-      [
-        "apocryphal",
-        "apócrifa"
-      ],
-      [
-        "apomorphine",
-        "apomorfina"
-      ],
-      [
         "apophysis",
         "apófisis"
       ],
       [
         "apostrophe",
         "apóstrofo"
-      ],
-      [
-        "apostrophic",
-        "apostrófico"
-      ],
-      [
-        "aquaphobia",
-        "aquafobia"
       ],
       [
         "arachnophobia",
@@ -12372,16 +11276,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "atrófico"
       ],
       [
-        "atrophied",
-        "atrofiado"
-      ],
-      [
         "autobiographer",
         "autobiógrafo"
-      ],
-      [
-        "autobiographic",
-        "autobiográfica"
       ],
       [
         "autobiographical",
@@ -12400,22 +11296,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "autografiado"
       ],
       [
-        "autographic",
-        "autográfico"
-      ],
-      [
-        "autophytic",
-        "autofítico"
-      ],
-      [
-        "autoradiographic",
-        "autoradiográfico"
-      ],
-      [
-        "autoradiography",
-        "autorradiografía"
-      ],
-      [
         "autotroph",
         "autótrofo"
       ],
@@ -12432,36 +11312,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "bacteriófago"
       ],
       [
-        "bacteriophagic",
-        "bacteriofágico"
-      ],
-      [
-        "bacteriophagous",
-        "bacteriofágico"
-      ],
-      [
-        "barograph",
-        "barógrafo"
-      ],
-      [
-        "barographic",
-        "barográfico"
-      ],
-      [
         "basophil",
         "basófilo"
       ],
       [
         "basophile",
         "basófilo"
-      ],
-      [
-        "basophilia",
-        "basofilia"
-      ],
-      [
-        "basophilic",
-        "basofílico"
       ],
       [
         "bibliographer",
@@ -12482,10 +11338,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "bibliophile",
         "bibliófilo"
-      ],
-      [
-        "bibliophilic",
-        "bibliofílico"
       ],
       [
         "bicephalous",
@@ -12544,32 +11396,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "blasfemia"
       ],
       [
-        "blastosphere",
-        "blastósfera"
-      ],
-      [
-        "blastospheric",
-        "blastoférico"
-      ],
-      [
         "blepharitis",
         "blefaritis"
       ],
       [
-        "blepharospasm",
-        "blefaroespasmo"
-      ],
-      [
-        "bolographic",
-        "bolográfico"
-      ],
-      [
         "boustrophedon",
         "bustrofedon"
-      ],
-      [
-        "boustrophedonic",
-        "bustrofedónico"
       ],
       [
         "cacography",
@@ -12600,18 +11432,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "caligráfico"
       ],
       [
-        "cardiograph",
-        "cardiógrafo"
-      ],
-      [
-        "cardiographic",
-        "cardiográfico"
-      ],
-      [
-        "carpophagous",
-        "carpófago"
-      ],
-      [
         "cartographer",
         "cartógrafo"
       ],
@@ -12626,10 +11446,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "cartography",
         "cartografía"
-      ],
-      [
-        "cataphoretic",
-        "cataforético"
       ],
       [
         "catastrophe",
@@ -12648,14 +11464,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "cenotafio"
       ],
       [
-        "cephalalgia",
-        "cefalalgia"
-      ],
-      [
-        "cephalhematoma",
-        "cefalohematoma"
-      ],
-      [
         "cephalic",
         "cefálico"
       ],
@@ -12666,10 +11474,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "cephalochordate",
         "cefalocordado"
-      ],
-      [
-        "cephalohematoma",
-        "cefalohematoma"
       ],
       [
         "cephalometry",
@@ -12684,20 +11488,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "cefalópodo"
       ],
       [
-        "cephaloridine",
-        "cefaloridina"
-      ],
-      [
         "cephalosporin",
         "cefalosporina"
-      ],
-      [
-        "chloramphenicol",
-        "cloramfenicol"
-      ],
-      [
-        "chloroacetophenone",
-        "cloroacetofenona"
       ],
       [
         "cholangiography",
@@ -12760,10 +11552,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "claustrofóbico"
       ],
       [
-        "coliphage",
-        "colifago"
-      ],
-      [
         "colophon",
         "colofón"
       ],
@@ -12776,24 +11564,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "conidióforo"
       ],
       [
-        "coprophagia",
-        "coprofagia"
-      ],
-      [
-        "coprophagy",
-        "coprofagia"
-      ],
-      [
-        "coryphantha",
-        "corifanta"
-      ],
-      [
         "cosmography",
         "cosmografía"
-      ],
-      [
-        "cryophobia",
-        "criofobia"
       ],
       [
         "cryptograph",
@@ -12816,18 +11588,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ctenóforo"
       ],
       [
-        "cynophobia",
-        "cinofobia"
-      ],
-      [
-        "daphnia",
-        "dafnia"
-      ],
-      [
-        "deipnosophist",
-        "deipnosofista"
-      ],
-      [
         "demographer",
         "demógrafo"
       ],
@@ -12838,10 +11598,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "demography",
         "demografía"
-      ],
-      [
-        "dermatoglyphics",
-        "dermatoglífica"
       ],
       [
         "dermatophytosis",
@@ -12868,20 +11624,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "diáfisis"
       ],
       [
-        "dichlorodiphenyltrichloroethane",
-        "diclorodifeniltricloroetano"
-      ],
-      [
         "diencephalon",
         "diencéfalo"
       ],
       [
         "digraph",
         "dígrafo"
-      ],
-      [
-        "dihydroxyphenylalanine",
-        "dihidroxifenilalanina"
       ],
       [
         "dimorphic",
@@ -12904,16 +11652,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "discografía"
       ],
       [
-        "dolichocephalic",
-        "dolicocéfalo"
-      ],
-      [
         "dolphin",
         "delfín"
-      ],
-      [
-        "dysaphia",
-        "disafia"
       ],
       [
         "dysphagia",
@@ -12928,10 +11668,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "disfemismo"
       ],
       [
-        "dysphemistic",
-        "disfemística"
-      ],
-      [
         "dysphonia",
         "disfonía"
       ],
@@ -12942,26 +11678,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "echocardiography",
         "ecocardiografía"
-      ],
-      [
-        "echoencephalogram",
-        "ecoencefalograma"
-      ],
-      [
-        "echoencephalography",
-        "ecoencefalografía"
-      ],
-      [
-        "ecphonesis",
-        "ecfonesis"
-      ],
-      [
-        "ectomorphic",
-        "ectomorfo"
-      ],
-      [
-        "ectomorphy",
-        "ectomorfo"
       ],
       [
         "electrocardiograph",
@@ -12980,20 +11696,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "electroencefalograma"
       ],
       [
-        "electroencephalograph",
-        "electroencefalógrafo"
-      ],
-      [
         "electroencephalographic",
         "electroencefalográfico"
-      ],
-      [
-        "electrograph",
-        "electrógrafo"
-      ],
-      [
-        "electromyograph",
-        "electromiógrafo"
       ],
       [
         "electromyography",
@@ -13006,10 +11710,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "electrophoretic",
         "electroforético"
-      ],
-      [
-        "electrophorus",
-        "electróforo"
       ],
       [
         "elephant",
@@ -13040,16 +11740,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "encefalitis"
       ],
       [
-        "encephalocele",
-        "encefalocele"
-      ],
-      [
         "encephalogram",
         "encefalograma"
-      ],
-      [
-        "encephalomeningitis",
-        "encefalomeningitis"
       ],
       [
         "encephalomyelitis",
@@ -13064,10 +11756,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "encefalopatía"
       ],
       [
-        "endomorphic",
-        "endomorfo"
-      ],
-      [
         "endorphin",
         "endorfina"
       ],
@@ -13076,16 +11764,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "encefalina"
       ],
       [
-        "enophile",
-        "enofilo"
-      ],
-      [
         "entomophilous",
         "entomófilo"
-      ],
-      [
-        "entomophobia",
-        "entomofobia"
       ],
       [
         "eosinophil",
@@ -13102,10 +11782,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "eosinophilic",
         "eosinofílico"
-      ],
-      [
-        "epanaphora",
-        "epanáfora"
       ],
       [
         "ephedrine",
@@ -13128,10 +11804,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "epigrafía"
       ],
       [
-        "epimorphic",
-        "epimórfico"
-      ],
-      [
         "epinephrin",
         "epinefrina"
       ],
@@ -13144,20 +11816,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "epifanía"
       ],
       [
-        "epiphora",
-        "epífora"
-      ],
-      [
         "epiphysis",
         "epífisis"
       ],
       [
         "epiphytic",
         "epifítico"
-      ],
-      [
-        "epistrophe",
-        "epístrofe"
       ],
       [
         "epitaph",
@@ -13196,10 +11860,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "eufónico"
       ],
       [
-        "euphonium",
-        "eufonio"
-      ],
-      [
         "euphorbium",
         "euforbio"
       ],
@@ -13212,10 +11872,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "eufórico"
       ],
       [
-        "euphuism",
-        "eufuismo"
-      ],
-      [
         "eutrophic",
         "eutrófico"
       ],
@@ -13224,16 +11880,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "eutrofización"
       ],
       [
-        "exophthalmos",
-        "exoftalmos"
-      ],
-      [
         "exosphere",
         "exosfera"
-      ],
-      [
-        "fluphenazine",
-        "flufenazina"
       ],
       [
         "gametophyte",
@@ -13264,24 +11912,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "geografía"
       ],
       [
-        "geomorphologic",
-        "geomorfológica"
-      ],
-      [
-        "geomorphological",
-        "geomorfológica"
-      ],
-      [
         "geomorphology",
         "geomorfología"
       ],
       [
         "geophysics",
         "geofísica"
-      ],
-      [
-        "geosphere",
-        "geosfera"
       ],
       [
         "glomerulonephritis",
@@ -13332,22 +11968,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "grifón"
       ],
       [
-        "gymnosophical",
-        "gimnosófico"
-      ],
-      [
-        "gynandromorphic",
-        "ginandromorfo"
-      ],
-      [
-        "gynandromorphous",
-        "ginandromorfo"
-      ],
-      [
-        "gynophobia",
-        "ginofobia"
-      ],
-      [
         "gynophore",
         "ginóforo"
       ],
@@ -13384,32 +12004,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "halófita"
       ],
       [
-        "hebephrenia",
-        "hebefrenia"
-      ],
-      [
-        "hebephrenic",
-        "hebefrénico"
-      ],
-      [
-        "heckelphone",
-        "heckelfón"
-      ],
-      [
-        "hectograph",
-        "hectógrafo"
-      ],
-      [
-        "heliograph",
-        "heliógrafo"
-      ],
-      [
         "heliosphere",
         "heliosfera"
-      ],
-      [
-        "hemimorphite",
-        "hemimorfita"
       ],
       [
         "hemisphere",
@@ -13418,10 +12014,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "hemispheric",
         "hemisférico"
-      ],
-      [
-        "hemispherical",
-        "hemisférica"
       ],
       [
         "hemophilia",
@@ -13440,16 +12032,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "hermafrodita"
       ],
       [
-        "hermaphroditic",
-        "hermafrodítico"
-      ],
-      [
         "heterotroph",
         "heterótrofo"
-      ],
-      [
-        "hexachlorophene",
-        "hexaclorofeno"
       ],
       [
         "historiographer",
@@ -13458,18 +12042,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "historiography",
         "historiografía"
-      ],
-      [
-        "holocephalan",
-        "holocéfalo"
-      ],
-      [
-        "holocephalian",
-        "holocéfalo"
-      ],
-      [
-        "holograph",
-        "hológrafo"
       ],
       [
         "holographic",
@@ -13540,10 +12112,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "hidrográfico"
       ],
       [
-        "hydromorphone",
-        "hidromorfona"
-      ],
-      [
         "hydronephrosis",
         "hidronefrosis"
       ],
@@ -13564,20 +12132,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "hidrosfera"
       ],
       [
-        "hypertrophied",
-        "hipertrofiado"
-      ],
-      [
         "hypha",
         "hifa"
-      ],
-      [
-        "hypnophobia",
-        "hipnofobia"
-      ],
-      [
-        "hypophysectomize",
-        "hipofisectomizar"
       ],
       [
         "hypophysis",
@@ -13592,16 +12148,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ideográfico"
       ],
       [
-        "ideography",
-        "ideografía"
-      ],
-      [
         "idiographic",
         "ideográfico"
-      ],
-      [
-        "immunoelectrophoresis",
-        "inmunoelectroforesis"
       ],
       [
         "indecipherable",
@@ -13616,10 +12164,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ionosfera"
       ],
       [
-        "iontophoresis",
-        "iontoforesis"
-      ],
-      [
         "isomorphic",
         "isomorfo"
       ],
@@ -13632,24 +12176,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "isomorfo"
       ],
       [
-        "kaliph",
-        "kalif"
-      ],
-      [
-        "kniphofia",
-        "kniphofia"
-      ],
-      [
         "lagomorph",
         "lagomorfo"
-      ],
-      [
-        "lagophthalmos",
-        "lagoftalmos"
-      ],
-      [
-        "laryngopharyngitis",
-        "laringofaringitis"
       ],
       [
         "leukoencephalitis",
@@ -13680,32 +12208,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "litográfico"
       ],
       [
-        "lithosphere",
-        "litosfera"
-      ],
-      [
-        "logographic",
-        "logografico"
-      ],
-      [
         "lymphadenitis",
         "linfadenitis"
-      ],
-      [
-        "lymphadenoma",
-        "linfadenoma"
-      ],
-      [
-        "lymphangiectasia",
-        "linfangiectasia"
-      ],
-      [
-        "lymphangiectasis",
-        "linfangiectasia"
-      ],
-      [
-        "lymphangiogram",
-        "linfangiograma"
       ],
       [
         "lymphangioma",
@@ -13720,16 +12224,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "linfedema"
       ],
       [
-        "lymphocytopenia",
-        "linfocitopenia"
-      ],
-      [
         "lymphocytosis",
         "linfocitosis"
-      ],
-      [
-        "lymphogranuloma",
-        "linfogranuloma"
       ],
       [
         "lymphopenia",
@@ -13738,10 +12234,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "lymphopoiesis",
         "linfopoyesis"
-      ],
-      [
-        "lymphuria",
-        "linfuria"
       ],
       [
         "lyophilisation",
@@ -13764,16 +12256,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "magnetosfera"
       ],
       [
-        "megalocephaly",
-        "megalocefalia"
-      ],
-      [
         "megaphone",
         "megáfono"
-      ],
-      [
-        "melphalan",
-        "melfalán"
       ],
       [
         "membranophone",
@@ -13806,14 +12290,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "mesomorphy",
         "mesomorfo"
-      ],
-      [
-        "mesophyte",
-        "mesófita"
-      ],
-      [
-        "mesophytic",
-        "mesofítico"
       ],
       [
         "mesosphere",
@@ -13864,10 +12340,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "metáfisis"
       ],
       [
-        "metencephalon",
-        "metencéfalo"
-      ],
-      [
         "methamphetamine",
         "metanfetamina"
       ],
@@ -13886,10 +12358,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "microphone",
         "micrófono"
-      ],
-      [
-        "microphotometer",
-        "microfotómetro"
       ],
       [
         "mimeograph",
@@ -13916,10 +12384,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "morfema"
       ],
       [
-        "morphemic",
-        "morfémico"
-      ],
-      [
         "morphia",
         "morfina"
       ],
@@ -13944,60 +12408,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "morfología"
       ],
       [
-        "morphophonemic",
-        "morfofonémico"
-      ],
-      [
-        "myelencephalon",
-        "mielencéfalo"
-      ],
-      [
-        "myrmecophagous",
-        "mirmecófago"
-      ],
-      [
-        "myrmecophile",
-        "mirmecófilo"
-      ],
-      [
-        "myrmecophilous",
-        "mirmecófilo"
-      ],
-      [
-        "myrmecophytic",
-        "mirmecofítico"
-      ],
-      [
-        "mysophobia",
-        "misofobia"
-      ],
-      [
-        "mysophobic",
-        "misofóbico"
-      ],
-      [
         "naphtha",
         "nafta"
       ],
       [
         "naphthalene",
         "naftaleno"
-      ],
-      [
-        "naphthol",
-        "naftol"
-      ],
-      [
-        "naphthoquinone",
-        "naftoquinona"
-      ],
-      [
-        "necrophagia",
-        "necrofagia"
-      ],
-      [
-        "necrophagy",
-        "necrofagia"
       ],
       [
         "necrophilia",
@@ -14024,10 +12440,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "nefología"
       ],
       [
-        "nephoscope",
-        "nefoscopio"
-      ],
-      [
         "nephrectomy",
         "nefrectomía"
       ],
@@ -14042,14 +12454,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "nephritis",
         "nefritis"
-      ],
-      [
-        "nephroblastoma",
-        "nefroblastoma"
-      ],
-      [
-        "nephrolith",
-        "nefrolito"
       ],
       [
         "nephrolithiasis",
@@ -14068,28 +12472,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "nefropatía"
       ],
       [
-        "nephroptosia",
-        "nefroptosis"
-      ],
-      [
-        "nephroptosis",
-        "nefroptosis"
-      ],
-      [
         "nephrosclerosis",
         "nefrosclerosis"
       ],
       [
         "nephrosis",
         "nefrosis"
-      ],
-      [
-        "nephrotomy",
-        "nefrotomía"
-      ],
-      [
-        "nephrotoxin",
-        "nefrotoxina"
       ],
       [
         "neurophysiological",
@@ -14128,20 +12516,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "oceanografía"
       ],
       [
-        "odynophagia",
-        "odinofagia"
-      ],
-      [
-        "oenophile",
-        "enofilo"
-      ],
-      [
         "oesophagitis",
         "esofagitis"
-      ],
-      [
-        "oleophobic",
-        "oleofóbico"
       ],
       [
         "omophagia",
@@ -14156,28 +12532,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ooforectomía"
       ],
       [
-        "oophoritis",
-        "ooforitis"
-      ],
-      [
-        "oophorosalpingectomy",
-        "ooforosalpingectomía"
-      ],
-      [
         "oosphere",
         "oosfera"
-      ],
-      [
-        "ophidism",
-        "ofidismo"
-      ],
-      [
-        "ophiolatry",
-        "ofiolatría"
-      ],
-      [
-        "ophthalmia",
-        "oftalmia"
       ],
       [
         "ophthalmic",
@@ -14220,28 +12576,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ortografía"
       ],
       [
-        "orthophosphate",
-        "ortofosfato"
-      ],
-      [
-        "oscillograph",
-        "oscilógrafo"
-      ],
-      [
         "osteodystrophy",
         "osteodistrofia"
       ],
       [
         "osteophyte",
         "osteofito"
-      ],
-      [
-        "oxyphenbutazone",
-        "oxifenbutazona"
-      ],
-      [
-        "ozonosphere",
-        "ozonosfera"
       ],
       [
         "paedophile",
@@ -14252,16 +12592,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "paidofilia"
       ],
       [
-        "palaeoethnography",
-        "paleoetnografía"
-      ],
-      [
         "palaeogeography",
         "paleogeografía"
-      ],
-      [
-        "paleoethnography",
-        "paleoetnografía"
       ],
       [
         "paleogeography",
@@ -14282,10 +12614,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "pamphlet",
         "panfleto"
-      ],
-      [
-        "panencephalitis",
-        "panencefalitis"
       ],
       [
         "pantograph",
@@ -14340,10 +12668,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "petroglifo"
       ],
       [
-        "phacoemulsification",
-        "facoemulsificación"
-      ],
-      [
         "phaeochromocytoma",
         "feocromocitoma"
       ],
@@ -14364,10 +12688,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "falangista"
       ],
       [
-        "phalangitis",
-        "falangitis"
-      ],
-      [
         "phalarope",
         "falaropo"
       ],
@@ -14382,10 +12702,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "phantasma",
         "fantasma"
-      ],
-      [
-        "phantasmagoria",
-        "fantasmagoria"
       ],
       [
         "phantasmagoric",
@@ -14464,20 +12780,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "fase"
       ],
       [
-        "phasianid",
-        "fasiánido"
-      ],
-      [
-        "phenacetin",
-        "fenacetina"
-      ],
-      [
         "phencyclidine",
         "fenciclidina"
-      ],
-      [
-        "phenelzine",
-        "fenelzina"
       ],
       [
         "phenobarbital",
@@ -14490,10 +12794,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "phenol",
         "fenol"
-      ],
-      [
-        "phenolic",
-        "fenólica"
       ],
       [
         "phenolphthalein",
@@ -14512,28 +12812,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "fenómeno"
       ],
       [
-        "phenoplast",
-        "fenoplástico"
-      ],
-      [
         "phenothiazine",
         "fenotiazina"
       ],
       [
         "phenotype",
         "fenotipo"
-      ],
-      [
-        "phenotypic",
-        "fenotípica"
-      ],
-      [
-        "phenotypical",
-        "fenotípica"
-      ],
-      [
-        "phentolamine",
-        "fentolamina"
       ],
       [
         "phenylalanine",
@@ -14554,10 +12838,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "phenylketonuria",
         "fenilcetonuria"
-      ],
-      [
-        "phenylpropanolamine",
-        "fenilpropanolamina"
       ],
       [
         "phenytoin",
@@ -14604,24 +12884,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "filarmónico"
       ],
       [
-        "philhellenic",
-        "filohelénico"
-      ],
-      [
-        "philhellenist",
-        "filohelenista"
-      ],
-      [
         "philia",
         "filia"
       ],
       [
         "philippic",
         "filípica"
-      ],
-      [
-        "philistinism",
-        "filistinismo"
       ],
       [
         "philological",
@@ -14660,20 +12928,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "fimosis"
       ],
       [
-        "phlebectomy",
-        "flebectomía"
-      ],
-      [
         "phlebitis",
         "flebitis"
-      ],
-      [
-        "phlebogram",
-        "flebograma"
-      ],
-      [
-        "phlebotomize",
-        "flebotomitzar"
       ],
       [
         "phlebotomus",
@@ -14720,10 +12976,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "fobofobia"
       ],
       [
-        "phocomelia",
-        "focomelia"
-      ],
-      [
         "phoenix",
         "fénix"
       ],
@@ -14758,10 +13010,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "phonogram",
         "fonograma"
-      ],
-      [
-        "phonogramic",
-        "fonográmico"
       ],
       [
         "phonograph",
@@ -14852,10 +13100,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "fotocátodo"
       ],
       [
-        "photoconductive",
-        "fotoconductor"
-      ],
-      [
         "photocopy",
         "fotocopia"
       ],
@@ -14900,10 +13144,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "fotolitografía"
       ],
       [
-        "photolithography",
-        "fotolitografia"
-      ],
-      [
         "photometer",
         "fotómetro"
       ],
@@ -14942,10 +13182,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "photosphere",
         "fotosfera"
-      ],
-      [
-        "photostat",
-        "fotóstato"
       ],
       [
         "photosynthesis",
@@ -15000,10 +13236,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "frenología"
       ],
       [
-        "phycobilin",
-        "ficobilina"
-      ],
-      [
         "phylloquinone",
         "filoquinona"
       ],
@@ -15036,44 +13268,20 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "fisioterapéutico"
       ],
       [
-        "physostigmine",
-        "fisostigmina"
-      ],
-      [
         "phytohormone",
         "fitohormona"
-      ],
-      [
-        "phytonadione",
-        "fitonadiona"
       ],
       [
         "phytoplankton",
         "fitoplancton"
       ],
       [
-        "phytotoxin",
-        "fitotoxina"
-      ],
-      [
         "pictographic",
         "pictográfico"
       ],
       [
-        "plagiocephaly",
-        "plagiocefalia"
-      ],
-      [
         "plasmapheresis",
         "plasmaféresis"
-      ],
-      [
-        "pogonophoran",
-        "pogonóforo"
-      ],
-      [
-        "polarography",
-        "polarografía"
       ],
       [
         "polygraph",
@@ -15082,10 +13290,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "polymorph",
         "polimorfo"
-      ],
-      [
-        "polymorphic",
-        "polimórfica"
       ],
       [
         "polymorphism",
@@ -15098,10 +13302,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "polyphosphate",
         "polifosfato"
-      ],
-      [
-        "polyplacophore",
-        "poliplacóforo"
       ],
       [
         "pornographer",
@@ -15156,10 +13356,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "profilaxis"
       ],
       [
-        "propoxyphene",
-        "propoxifeno"
-      ],
-      [
         "prosencephalon",
         "prosencéfalo"
       ],
@@ -15174,10 +13370,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "pseudohermaphroditic",
         "pseudohermafrodita"
-      ],
-      [
-        "pseudophloem",
-        "pseudofloema"
       ],
       [
         "psychopharmacological",
@@ -15196,14 +13388,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "pielonefritis"
       ],
       [
-        "pyromorphite",
-        "piromorfita"
-      ],
-      [
-        "pyrophobia",
-        "pirofobia"
-      ],
-      [
         "pyrophosphate",
         "pirofosfato"
       ],
@@ -15220,10 +13404,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "radiografía"
       ],
       [
-        "radiographer",
-        "radiógrafo"
-      ],
-      [
         "radiographic",
         "radiográfico"
       ],
@@ -15232,28 +13412,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "radiografía"
       ],
       [
-        "radiophone",
-        "radiófono"
-      ],
-      [
         "radiophonic",
         "radiofónico"
-      ],
-      [
-        "radiophotograph",
-        "radiofotografía"
-      ],
-      [
-        "radiophotography",
-        "radiofotografía"
-      ],
-      [
-        "radiotelegraph",
-        "radiotelégrafo"
-      ],
-      [
-        "radiotelegraphy",
-        "radiotelégrafo"
       ],
       [
         "radiotelephone",
@@ -15280,14 +13440,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "rafe"
       ],
       [
-        "rhinencephalon",
-        "rinencéfalo"
-      ],
-      [
-        "rhinophyma",
-        "rinofima"
-      ],
-      [
         "rhizomorph",
         "rizomorfo"
       ],
@@ -15296,24 +13448,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "rombencéfalo"
       ],
       [
-        "saprophagous",
-        "saprófago"
-      ],
-      [
-        "saprophyte",
-        "saprófito"
-      ],
-      [
-        "saprophytic",
-        "saprofítico"
-      ],
-      [
         "sarcophagus",
         "sarcófago"
-      ],
-      [
-        "satanophobia",
-        "satanofobia"
       ],
       [
         "saxophone",
@@ -15322,14 +13458,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "saxophonist",
         "saxofonista"
-      ],
-      [
-        "scaphocephaly",
-        "escafocefalia"
-      ],
-      [
-        "scaphopod",
-        "escafópodo"
       ],
       [
         "schizophrenia",
@@ -15342,10 +13470,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "semaphore",
         "semáforo"
-      ],
-      [
-        "semiautobiographical",
-        "semiautobiográfica"
       ],
       [
         "seraphic",
@@ -15370,10 +13494,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "shophar",
         "shofar"
-      ],
-      [
-        "siderophilin",
-        "siderofilina"
       ],
       [
         "siphon",
@@ -15408,16 +13528,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "sofista"
       ],
       [
-        "sousaphone",
-        "sousafón"
-      ],
-      [
         "spectrograph",
         "espectrógrafo"
-      ],
-      [
-        "spectrographic",
-        "espectográfico"
       ],
       [
         "spectrophotometer",
@@ -15428,20 +13540,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "esfalerita"
       ],
       [
-        "sphenion",
-        "esfenión"
-      ],
-      [
         "sphenoid",
         "esfenoide"
       ],
       [
         "sphere",
         "esfera"
-      ],
-      [
-        "spheric",
-        "esférica"
       ],
       [
         "spherical",
@@ -15498,14 +13602,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "stratosphere",
         "estratosfera"
-      ],
-      [
-        "sulpha",
-        "sulfa"
-      ],
-      [
-        "sulphate",
-        "sulfate"
       ],
       [
         "sulphuric",
@@ -15580,32 +13676,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "telefoto"
       ],
       [
-        "telephotograph",
-        "telefotografía"
-      ],
-      [
-        "telephotography",
-        "telefotografía"
-      ],
-      [
-        "telophase",
-        "telofase"
-      ],
-      [
-        "telpher",
-        "telfer"
-      ],
-      [
-        "telpherage",
-        "telferage"
-      ],
-      [
         "thanatophobia",
         "tanatofobia"
-      ],
-      [
-        "theosophism",
-        "teosofismo"
       ],
       [
         "thermograph",
@@ -15644,18 +13716,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "topografía"
       ],
       [
-        "traumatophobia",
-        "traumatofobia"
-      ],
-      [
-        "trephine",
-        "trefinar"
-      ],
-      [
-        "triskaidekaphobia",
-        "triscaidecafobia"
-      ],
-      [
         "triumphal",
         "triunfal"
       ],
@@ -15670,10 +13730,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "trophoblastic",
         "trofoblástico"
-      ],
-      [
-        "trophotropic",
-        "trofotrópico"
       ],
       [
         "trophozoite",
@@ -15712,16 +13768,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "tipografía"
       ],
       [
-        "ulatrophia",
-        "ulatrofia"
-      ],
-      [
         "undecipherable",
         "indescifrable"
-      ],
-      [
-        "venography",
-        "venografía"
       ],
       [
         "vibraphone",
@@ -15742,10 +13790,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "xerography",
         "xerografía"
-      ],
-      [
-        "xerophile",
-        "xerófila"
       ],
       [
         "xerophthalmia",
@@ -15772,10 +13816,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "xilofonista"
       ],
       [
-        "zoophagous",
-        "zoófago"
-      ],
-      [
         "zoophilia",
         "zoofilia"
       ],
@@ -15793,7 +13833,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ic-ico": {
     "id": "ic-ico",
@@ -15801,18 +13842,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
     "explanation": "Many English adjectives ending in -ic have a related Spanish form ending in -ico or -ica.",
     "listenLanguage": "es-ES",
     "words": [
-      [
-        "abasic",
-        "abásico"
-      ],
-      [
-        "abatic",
-        "abásico"
-      ],
-      [
-        "abiogenetic",
-        "abiogenético"
-      ],
       [
         "aboulic",
         "abúlico"
@@ -15826,56 +13855,24 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "académico"
       ],
       [
-        "acatalectic",
-        "acataléctico"
-      ],
-      [
-        "acentric",
-        "acéntrico"
-      ],
-      [
         "acetic",
         "acético"
-      ],
-      [
-        "acetonic",
-        "acetónico"
       ],
       [
         "acetylenic",
         "acetilénico"
       ],
       [
-        "acetylic",
-        "acetílico"
-      ],
-      [
-        "achlorhydric",
-        "aclorhídrico"
-      ],
-      [
         "achondritic",
         "acondrítico"
-      ],
-      [
-        "achondroplastic",
-        "acondroplástico"
       ],
       [
         "achromatic",
         "acromático"
       ],
       [
-        "achromatinic",
-        "acromatínico"
-      ],
-      [
         "acidic",
         "acídico"
-      ],
-      [
-        "acidimetric",
-        "acidimétrico"
       ],
       [
         "acidotic",
@@ -15894,16 +13891,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "acrocéntrico"
       ],
       [
-        "acrogenic",
-        "acrogénico"
-      ],
-      [
         "acromegalic",
         "acromegálico"
-      ],
-      [
-        "acrophobic",
-        "acrofóbico"
       ],
       [
         "actinic",
@@ -15912,10 +13901,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "actinometric",
         "actinométrico"
-      ],
-      [
-        "actinomycotic",
-        "actinomicótico"
       ],
       [
         "acyclic",
@@ -15930,22 +13915,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "adrenérgico"
       ],
       [
-        "adrenocorticotrophic",
-        "adrenocorticotrópico"
-      ],
-      [
-        "adrenocorticotropic",
-        "adrenocorticotrópico"
-      ],
-      [
-        "adventuristic",
-        "aventurístico"
-      ],
-      [
-        "adynamic",
-        "adinámico"
-      ],
-      [
         "aerobic",
         "aeróbico"
       ],
@@ -15954,16 +13923,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "aerodinámico"
       ],
       [
-        "aeromechanic",
-        "aeromecánico"
-      ],
-      [
         "aeronautic",
         "aeronáutico"
-      ],
-      [
-        "aerophilatelic",
-        "aerofilatélico"
       ],
       [
         "aetiologic",
@@ -15982,10 +13943,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "agorafóbico"
       ],
       [
-        "agranulocytic",
-        "agranulocítico"
-      ],
-      [
         "agrobiologic",
         "agrobiológico"
       ],
@@ -15998,60 +13955,16 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "agronómico"
       ],
       [
-        "albinic",
-        "albínico"
-      ],
-      [
-        "albinistic",
-        "albinótico"
-      ],
-      [
-        "albinotic",
-        "albinótico"
-      ],
-      [
-        "albitic",
-        "albítico"
-      ],
-      [
-        "albuminuric",
-        "albuminúrico"
-      ],
-      [
         "alcoholic",
         "alcohólico"
-      ],
-      [
-        "aleuronic",
-        "aleurónico"
-      ],
-      [
-        "alexic",
-        "aléxico"
       ],
       [
         "algebraic",
         "algebraico"
       ],
       [
-        "algolagnic",
-        "algolágnico"
-      ],
-      [
-        "algometric",
-        "algométrico"
-      ],
-      [
-        "algophobic",
-        "algofóbico"
-      ],
-      [
         "algorithmic",
         "algorítmico"
-      ],
-      [
-        "alkalotic",
-        "alcalótico"
       ],
       [
         "allegoric",
@@ -16062,28 +13975,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "alélico"
       ],
       [
-        "allelomorphic",
-        "alelomórfico"
-      ],
-      [
         "allergenic",
         "alergénico"
       ],
       [
         "allergic",
         "alérgico"
-      ],
-      [
-        "allochronic",
-        "alocrónico"
-      ],
-      [
-        "allometric",
-        "alométrico"
-      ],
-      [
-        "allopathic",
-        "alopático"
       ],
       [
         "allopatric",
@@ -16106,42 +14003,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "alfanumérico"
       ],
       [
-        "amaurotic",
-        "amaurótico"
-      ],
-      [
-        "amblyopic",
-        "ambliópico"
-      ],
-      [
-        "amenorrheic",
-        "amenorreico"
-      ],
-      [
-        "amenorrhoeic",
-        "amenorreico"
-      ],
-      [
-        "ametabolic",
-        "ametabólico"
-      ],
-      [
-        "ametropic",
-        "ametrópico"
-      ],
-      [
-        "aminic",
-        "amínico"
-      ],
-      [
-        "amitotic",
-        "amitótico"
-      ],
-      [
-        "ammonitic",
-        "amonítico"
-      ],
-      [
         "amnesic",
         "amnésico"
       ],
@@ -16158,32 +14019,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "amniótico"
       ],
       [
-        "amoristic",
-        "amorístico"
-      ],
-      [
-        "anabatic",
-        "anabático"
-      ],
-      [
-        "anabiotic",
-        "anabiótico"
-      ],
-      [
         "anabolic",
         "anabólico"
       ],
       [
         "anachronic",
         "anacrónico"
-      ],
-      [
-        "anaclitic",
-        "anaclítico"
-      ],
-      [
-        "anacoluthic",
-        "anacolútico"
       ],
       [
         "anaemic",
@@ -16202,24 +14043,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "anagramático"
       ],
       [
-        "analeptic",
-        "analéptico"
-      ],
-      [
         "analgesic",
         "analgésico"
       ],
       [
-        "analgetic",
-        "analgético"
-      ],
-      [
         "analytic",
         "analítico"
-      ],
-      [
-        "anamnestic",
-        "anamnéstico"
       ],
       [
         "anamorphic",
@@ -16234,28 +14063,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "anapéstico"
       ],
       [
-        "anaplastic",
-        "anaplástico"
-      ],
-      [
-        "anastigmatic",
-        "anastigmático"
-      ],
-      [
         "anastomotic",
         "anastomótico"
       ],
       [
         "anatomic",
         "anatómico"
-      ],
-      [
-        "anchoritic",
-        "anacorítico"
-      ],
-      [
-        "androgenetic",
-        "androgenético"
       ],
       [
         "androgenic",
@@ -16268,10 +14081,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "anemic",
         "anémico"
-      ],
-      [
-        "anemographic",
-        "anemográfico"
       ],
       [
         "anemometric",
@@ -16294,56 +14103,24 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "angélico"
       ],
       [
-        "anicteric",
-        "anictérico"
-      ],
-      [
         "anionic",
         "aniónico"
-      ],
-      [
-        "anisogametic",
-        "anisogamético"
-      ],
-      [
-        "anisogamic",
-        "anisogámico"
-      ],
-      [
-        "anisometropic",
-        "anisometrópico"
       ],
       [
         "anisotropic",
         "anisotrópico"
       ],
       [
-        "annalistic",
-        "analístico"
-      ],
-      [
         "anodic",
         "anódico"
-      ],
-      [
-        "anorectic",
-        "anoréctico"
       ],
       [
         "anorexic",
         "anoréxico"
       ],
       [
-        "anorthic",
-        "anórtico"
-      ],
-      [
         "anosmic",
         "anósmico"
-      ],
-      [
-        "anoxemic",
-        "anoxémico"
       ],
       [
         "anoxic",
@@ -16358,16 +14135,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "antihelmíntico"
       ],
       [
-        "anthracitic",
-        "antracítico"
-      ],
-      [
         "anthropocentric",
         "antropocéntrico"
-      ],
-      [
-        "anthropogenetic",
-        "antropogenético"
       ],
       [
         "anthropogenic",
@@ -16398,24 +14167,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "anticiclónico"
       ],
       [
-        "antidromic",
-        "antidrómico"
-      ],
-      [
         "antiferromagnetic",
         "antiferromagnético"
       ],
       [
         "antigenic",
         "antigénico"
-      ],
-      [
-        "antimagnetic",
-        "antimagnético"
-      ],
-      [
-        "antimonic",
-        "antimónico"
       ],
       [
         "antiphlogistic",
@@ -16434,10 +14191,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "antiséptico"
       ],
       [
-        "antistrophic",
-        "antistrófico"
-      ],
-      [
         "antithetic",
         "antitético"
       ],
@@ -16446,24 +14199,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "antitóxico"
       ],
       [
-        "antitypic",
-        "antitípico"
-      ],
-      [
-        "anuretic",
-        "anurético"
-      ],
-      [
         "anuric",
         "anúrico"
       ],
       [
         "anxiolytic",
         "ansiolítico"
-      ],
-      [
-        "aoristic",
-        "aorístico"
       ],
       [
         "aortic",
@@ -16478,14 +14219,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "aforístico"
       ],
       [
-        "aplanatic",
-        "aplanético"
-      ],
-      [
-        "aplitic",
-        "aplítico"
-      ],
-      [
         "apneic",
         "apneico"
       ],
@@ -16498,24 +14231,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "apocalíptico"
       ],
       [
-        "apochromatic",
-        "apocromático"
-      ],
-      [
         "apodeictic",
         "apodíctico"
       ],
       [
         "apodictic",
         "apodíctico"
-      ],
-      [
-        "apogametic",
-        "apogámico"
-      ],
-      [
-        "apogamic",
-        "apogámico"
       ],
       [
         "apologetic",
@@ -16530,28 +14251,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "apoplético"
       ],
       [
-        "aposiopetic",
-        "aposiopético"
-      ],
-      [
         "apostolic",
         "apostólico"
-      ],
-      [
-        "apostrophic",
-        "apostrófico"
-      ],
-      [
-        "apothegmatic",
-        "apotegmático"
-      ],
-      [
-        "apractic",
-        "apráctico"
-      ],
-      [
-        "apraxic",
-        "apráxico"
       ],
       [
         "aquatic",
@@ -16598,20 +14299,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "arteriosclerótico"
       ],
       [
-        "arthralgic",
-        "artrálgico"
-      ],
-      [
         "arthritic",
         "artrítico"
-      ],
-      [
-        "arthromeric",
-        "artromérico"
-      ],
-      [
-        "arthrosporic",
-        "artrospórico"
       ],
       [
         "artistic",
@@ -16626,24 +14315,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ascítico"
       ],
       [
-        "ascosporic",
-        "ascopórico"
-      ],
-      [
         "aseptic",
         "aséptico"
       ],
       [
         "asthenic",
         "asténico"
-      ],
-      [
-        "astigmatic",
-        "astigmático"
-      ],
-      [
-        "astrocytic",
-        "astrocítico"
       ],
       [
         "astronautic",
@@ -16656,18 +14333,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "asymmetric",
         "asimétrico"
-      ],
-      [
-        "asyndetic",
-        "asindético"
-      ],
-      [
-        "atactic",
-        "atáctico"
-      ],
-      [
-        "ataraxic",
-        "ataráxico"
       ],
       [
         "ataxic",
@@ -16692,22 +14357,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "atomistic",
         "atomístico"
-      ],
-      [
-        "atonalistic",
-        "atonalístico"
-      ],
-      [
-        "atonic",
-        "atónico"
-      ],
-      [
-        "audiometric",
-        "audiométrico"
-      ],
-      [
-        "augitic",
-        "augítico"
       ],
       [
         "auric",
@@ -16738,14 +14387,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "autodidáctico"
       ],
       [
-        "autogenetic",
-        "autogenético"
-      ],
-      [
-        "autographic",
-        "autográfico"
-      ],
-      [
         "autolytic",
         "autolítico"
       ],
@@ -16758,44 +14399,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "autonómico"
       ],
       [
-        "autoplastic",
-        "autoplástico"
-      ],
-      [
-        "autoradiographic",
-        "autoradiográfico"
-      ],
-      [
-        "autotelic",
-        "autotélico"
-      ],
-      [
-        "autotomic",
-        "autotómico"
-      ],
-      [
         "autotrophic",
         "autotrófico"
-      ],
-      [
-        "autotypic",
-        "autotípico"
-      ],
-      [
-        "auxetic",
-        "auxético"
-      ],
-      [
-        "avionic",
-        "aviónico"
-      ],
-      [
-        "avitaminotic",
-        "avitaminótico"
-      ],
-      [
-        "axenic",
-        "axénico"
       ],
       [
         "axiomatic",
@@ -16806,24 +14411,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "azoico"
       ],
       [
-        "bacchantic",
-        "bacántico"
-      ],
-      [
-        "bacteremic",
-        "bacterémico"
-      ],
-      [
         "bacteriologic",
         "bacteriológico"
-      ],
-      [
-        "bacteriolytic",
-        "bacteriolítico"
-      ],
-      [
-        "bacteriophagic",
-        "bacteriofágico"
       ],
       [
         "bacteriostatic",
@@ -16838,20 +14427,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "balsámico"
       ],
       [
-        "baric",
-        "bárico"
-      ],
-      [
-        "barographic",
-        "barográfico"
-      ],
-      [
         "barometric",
         "barométrico"
-      ],
-      [
-        "barytic",
-        "barítico"
       ],
       [
         "basaltic",
@@ -16862,40 +14439,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "básico"
       ],
       [
-        "basophilic",
-        "basofílico"
-      ],
-      [
-        "batholithic",
-        "batolítico"
-      ],
-      [
-        "batholitic",
-        "batolítico"
-      ],
-      [
         "bathymetric",
         "batimétrico"
       ],
       [
-        "bauxitic",
-        "bauxítico"
-      ],
-      [
         "beatific",
         "beatífico"
-      ],
-      [
-        "behavioristic",
-        "behaviorístico"
-      ],
-      [
-        "behaviouristic",
-        "behaviorístico"
-      ],
-      [
-        "belemnitic",
-        "belemnítico"
       ],
       [
         "benefic",
@@ -16906,24 +14455,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "bentónico"
       ],
       [
-        "bentonitic",
-        "bentonítico"
-      ],
-      [
         "benzoic",
         "benzoico"
       ],
       [
         "bibliographic",
         "bibliográfico"
-      ],
-      [
-        "bibliophilic",
-        "bibliofílico"
-      ],
-      [
-        "bibliopolic",
-        "bibliopólico"
       ],
       [
         "bicentric",
@@ -16934,16 +14471,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "bicíclico"
       ],
       [
-        "bigeneric",
-        "bigenérico"
-      ],
-      [
         "bimetallic",
         "bimetálico"
-      ],
-      [
-        "biocatalytic",
-        "biocatalítico"
       ],
       [
         "bioclimatic",
@@ -16974,10 +14503,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "biónico"
       ],
       [
-        "bionomic",
-        "bionómico"
-      ],
-      [
         "biosynthetic",
         "biosintético"
       ],
@@ -16988,50 +14513,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "biotic",
         "biótico"
-      ],
-      [
-        "biotitic",
-        "biotítico"
-      ],
-      [
-        "biotypic",
-        "biotípico"
-      ],
-      [
-        "biquadratic",
-        "bicuadrático"
-      ],
-      [
-        "blastocoelic",
-        "blastocélico"
-      ],
-      [
-        "blastodermatic",
-        "blastodermático"
-      ],
-      [
-        "blastodermic",
-        "blastodérmico"
-      ],
-      [
-        "blastogenetic",
-        "blastogenético"
-      ],
-      [
-        "blastomeric",
-        "blastomérico"
-      ],
-      [
-        "blastomycotic",
-        "blastomicótico"
-      ],
-      [
-        "blastospheric",
-        "blastoférico"
-      ],
-      [
-        "bolographic",
-        "bolográfico"
       ],
       [
         "bolometric",
@@ -17054,28 +14535,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "botánico"
       ],
       [
-        "boustrophedonic",
-        "bustrofedónico"
-      ],
-      [
         "brahminic",
         "brahmánico"
-      ],
-      [
-        "bregmatic",
-        "bregmático"
-      ],
-      [
-        "bromic",
-        "brómico"
-      ],
-      [
-        "bromidic",
-        "bromídico"
-      ],
-      [
-        "bronchitic",
-        "bronquítico"
       ],
       [
         "bubonic",
@@ -17098,22 +14559,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "cabalístico"
       ],
       [
-        "cacodaemonic",
-        "cacodemónico"
-      ],
-      [
-        "cacodemonic",
-        "cacodemónico"
-      ],
-      [
-        "cacodylic",
-        "cacodílico"
-      ],
-      [
-        "cacogenic",
-        "cacogénico"
-      ],
-      [
         "cacophonic",
         "cacofónico"
       ],
@@ -17122,20 +14567,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "cadavérico"
       ],
       [
-        "caffeinic",
-        "cafeínico"
-      ],
-      [
         "calcic",
         "cálcico"
       ],
       [
         "calcitic",
         "calcítico"
-      ],
-      [
-        "calisthenic",
-        "calisténico"
       ],
       [
         "caloric",
@@ -17154,10 +14591,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "canónico"
       ],
       [
-        "carbocyclic",
-        "carbocíclico"
-      ],
-      [
         "carbonic",
         "carbónico"
       ],
@@ -17172,10 +14605,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "carcinogenic",
         "carcinogénico"
-      ],
-      [
-        "cardiographic",
-        "cardiográfico"
       ],
       [
         "cardiologic",
@@ -17198,10 +14627,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "catabólico"
       ],
       [
-        "catachrestic",
-        "catacréstico"
-      ],
-      [
         "catalatic",
         "catalítico"
       ],
@@ -17218,14 +14643,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "catalítico"
       ],
       [
-        "cataphoretic",
-        "cataforético"
-      ],
-      [
-        "cataplastic",
-        "cataplástico"
-      ],
-      [
         "catastrophic",
         "catastrófico"
       ],
@@ -17236,10 +14653,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "catechistic",
         "catequístico"
-      ],
-      [
-        "categorematic",
-        "categoremático"
       ],
       [
         "categoric",
@@ -17262,10 +14675,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "catiónico"
       ],
       [
-        "catoptric",
-        "catóptrico"
-      ],
-      [
         "caustic",
         "cáustico"
       ],
@@ -17274,20 +14683,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "cenobítico"
       ],
       [
-        "cenogenetic",
-        "cenogenético"
-      ],
-      [
         "centric",
         "céntrico"
       ],
       [
         "centromeric",
         "centromérico"
-      ],
-      [
-        "centrosomic",
-        "centrosómico"
       ],
       [
         "ceramic",
@@ -17402,14 +14803,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "cónico"
       ],
       [
-        "conspecific",
-        "conspecífico"
-      ],
-      [
-        "coseismic",
-        "cosísmico"
-      ],
-      [
         "cosmetic",
         "cosmético"
       ],
@@ -17454,10 +14847,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "criptográfico"
       ],
       [
-        "cryptologic",
-        "criptológico"
-      ],
-      [
         "cubic",
         "cúbico"
       ],
@@ -17486,10 +14875,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "cístico"
       ],
       [
-        "cytoarchitectonic",
-        "citoarquitectónico"
-      ],
-      [
         "cytogenetic",
         "citogenético"
       ],
@@ -17506,20 +14891,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "citoplásmico"
       ],
       [
-        "cytoplastic",
-        "citoplástico"
-      ],
-      [
         "cytotoxic",
         "citotóxico"
       ],
       [
         "dactylic",
         "dactílico"
-      ],
-      [
-        "decasyllabic",
-        "decasilábico"
       ],
       [
         "deictic",
@@ -17618,10 +14995,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "diatónico"
       ],
       [
-        "dichromatic",
-        "dicromático"
-      ],
-      [
         "didactic",
         "didáctico"
       ],
@@ -17636,10 +15009,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "disyllabic",
         "disilábico"
-      ],
-      [
-        "dizygotic",
-        "dizigótico"
       ],
       [
         "dogmatic",
@@ -17682,14 +15051,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "disléxico"
       ],
       [
-        "dyspeptic",
-        "dispéptico"
-      ],
-      [
-        "dysplastic",
-        "displástico"
-      ],
-      [
         "eccentric",
         "excéntrico"
       ],
@@ -17724,10 +15085,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "ectodermic",
         "ectodérmico"
-      ],
-      [
-        "ectothermic",
-        "ectotérmico"
       ],
       [
         "ecumenic",
@@ -17786,10 +15143,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "emblemático"
       ],
       [
-        "embolic",
-        "embólico"
-      ],
-      [
         "empathic",
         "empático"
       ],
@@ -17820,10 +15173,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "endogamic",
         "endogámico"
-      ],
-      [
-        "endogenic",
-        "endogénico"
       ],
       [
         "endoscopic",
@@ -17866,10 +15215,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "épico"
       ],
       [
-        "epicyclic",
-        "epicíclico"
-      ],
-      [
         "epidemic",
         "epidémico"
       ],
@@ -17894,16 +15239,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "epiléptico"
       ],
       [
-        "epimorphic",
-        "epimórfico"
-      ],
-      [
         "episodic",
         "episódico"
-      ],
-      [
-        "epizootic",
-        "epizoótico"
       ],
       [
         "eremitic",
@@ -17912,10 +15249,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "ergonomic",
         "ergonómico"
-      ],
-      [
-        "ergotropic",
-        "ergotrópico"
       ],
       [
         "erotic",
@@ -17966,14 +15299,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "eucariótico"
       ],
       [
-        "eudaemonic",
-        "eudemónico"
-      ],
-      [
-        "eudemonic",
-        "eudemónico"
-      ],
-      [
         "eugenic",
         "eugénico"
       ],
@@ -17988,14 +15313,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "exegetic",
         "exegético"
-      ],
-      [
-        "exocentric",
-        "exocéntrico"
-      ],
-      [
-        "exodontic",
-        "exodóntico"
       ],
       [
         "exogamic",
@@ -18026,10 +15343,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "extrasistólico"
       ],
       [
-        "extropic",
-        "extrópico"
-      ],
-      [
         "fanatic",
         "fanático"
       ],
@@ -18044,14 +15357,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "ferromagnetic",
         "ferromagnético"
-      ],
-      [
-        "fiberoptic",
-        "fibroóptica"
-      ],
-      [
-        "fibreoptic",
-        "fibroóptica"
       ],
       [
         "formic",
@@ -18202,10 +15507,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "harmónico"
       ],
       [
-        "hebephrenic",
-        "hebefrénico"
-      ],
-      [
         "hedonic",
         "hedónico"
       ],
@@ -18216,10 +15517,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "heliocentric",
         "heliocéntrico"
-      ],
-      [
-        "helminthic",
-        "helmíntico"
       ],
       [
         "hematic",
@@ -18270,10 +15567,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "heráldico"
       ],
       [
-        "hermaphroditic",
-        "hermafrodítico"
-      ],
-      [
         "hermeneutic",
         "hermenéutico"
       ],
@@ -18290,16 +15583,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "heterocíclico"
       ],
       [
-        "heterothermic",
-        "heterotérmico"
-      ],
-      [
         "heuristic",
         "heurístico"
-      ],
-      [
-        "hidrotic",
-        "hidrótico"
       ],
       [
         "hieratic",
@@ -18334,20 +15619,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "homeostático"
       ],
       [
-        "homiletic",
-        "homiléctico"
-      ],
-      [
-        "homocentric",
-        "homocéntrico"
-      ],
-      [
         "homochromatic",
         "monocromático"
-      ],
-      [
-        "homocyclic",
-        "homocíclico"
       ],
       [
         "homoerotic",
@@ -18372,10 +15645,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "humic",
         "húmico"
-      ],
-      [
-        "hyaloplasmic",
-        "hialoplásmico"
       ],
       [
         "hydraulic",
@@ -18428,10 +15697,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "hypercatalectic",
         "hipercataléctico"
-      ],
-      [
-        "hyperemic",
-        "hiperémico"
       ],
       [
         "hypertonic",
@@ -18514,10 +15779,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "inmunológico"
       ],
       [
-        "immunotherapeutic",
-        "inmunoterapéutico"
-      ],
-      [
         "impolitic",
         "impolítico"
       ],
@@ -18550,10 +15811,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "intradérmico"
       ],
       [
-        "intralinguistic",
-        "intralingüístico"
-      ],
-      [
         "intraspecific",
         "intraespecífico"
       ],
@@ -18562,24 +15819,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "iónico"
       ],
       [
-        "iridic",
-        "irídico"
-      ],
-      [
         "ironic",
         "irónico"
       ],
       [
         "isentropic",
         "isentrópico"
-      ],
-      [
-        "isocyclic",
-        "isocíclico"
-      ],
-      [
-        "isogonic",
-        "isogónico"
       ],
       [
         "isometric",
@@ -18614,10 +15859,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "cabalístico"
       ],
       [
-        "kaleidoscopic",
-        "calidoscópico"
-      ],
-      [
         "katabatic",
         "catabático"
       ],
@@ -18636,10 +15877,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "lactic",
         "láctico"
-      ],
-      [
-        "lactogenic",
-        "lactogenico"
       ],
       [
         "laic",
@@ -18662,24 +15899,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "lipofílico"
       ],
       [
-        "lithomantic",
-        "litomántico"
-      ],
-      [
         "logarithmic",
         "logarítmico"
       ],
       [
         "logistic",
         "logístico"
-      ],
-      [
-        "logogrammatic",
-        "logogramatico"
-      ],
-      [
-        "logographic",
-        "logografico"
       ],
       [
         "lunatic",
@@ -18692,10 +15917,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "macrobiotic",
         "macrobiótico"
-      ],
-      [
-        "macrocosmic",
-        "macrocósmico"
       ],
       [
         "macroeconomic",
@@ -18730,10 +15951,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "mecánico"
       ],
       [
-        "megakaryocytic",
-        "megacariocítico"
-      ],
-      [
         "megalithic",
         "megalítico"
       ],
@@ -18760,14 +15977,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "mesenteric",
         "mesentérico"
-      ],
-      [
-        "mesoblastic",
-        "mesoblástico"
-      ],
-      [
-        "mesonic",
-        "mesónico"
       ],
       [
         "messianic",
@@ -18798,10 +16007,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "metafórico"
       ],
       [
-        "metastatic",
-        "metastático"
-      ],
-      [
         "meteoric",
         "meteórico"
       ],
@@ -18822,28 +16027,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "métrico"
       ],
       [
-        "miasmic",
-        "miásmico"
-      ],
-      [
-        "microcosmic",
-        "microcósmico"
-      ],
-      [
         "microeconomic",
         "microeconómico"
       ],
       [
         "microelectronic",
         "microelectrónico"
-      ],
-      [
-        "micrometeoric",
-        "micrometeórico"
-      ],
-      [
-        "micrometeoritic",
-        "micrometeorítico"
       ],
       [
         "microscopic",
@@ -18878,14 +16067,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "monástico"
       ],
       [
-        "monistic",
-        "monístico"
-      ],
-      [
-        "monocarpic",
-        "monocárpico"
-      ],
-      [
         "monochromatic",
         "monocromático"
       ],
@@ -18902,10 +16083,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "monolítico"
       ],
       [
-        "monometallic",
-        "monometálico"
-      ],
-      [
         "monophonic",
         "monofónico"
       ],
@@ -18916,14 +16093,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "monosyllabic",
         "monosilábico"
-      ],
-      [
-        "monozygotic",
-        "monozigótico"
-      ],
-      [
-        "morbific",
-        "morbífico"
       ],
       [
         "morganatic",
@@ -18942,18 +16111,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "mutagénico"
       ],
       [
-        "myalgic",
-        "miálgico"
-      ],
-      [
-        "myelic",
-        "miélico"
-      ],
-      [
-        "myelinic",
-        "mielínico"
-      ],
-      [
         "mystic",
         "místico"
       ],
@@ -18962,20 +16119,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "mitológico"
       ],
       [
-        "narcoleptic",
-        "narcoleptico"
-      ],
-      [
         "narcotic",
         "narcótico"
       ],
       [
         "natriuretic",
         "natriurético"
-      ],
-      [
-        "necromantic",
-        "necromántico"
       ],
       [
         "necrotic",
@@ -19030,10 +16179,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "noético"
       ],
       [
-        "nominalistic",
-        "nominalístico"
-      ],
-      [
         "nordic",
         "nórdico"
       ],
@@ -19062,14 +16207,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ecuménico"
       ],
       [
-        "ohmic",
-        "ohmico"
-      ],
-      [
-        "oleophobic",
-        "oleofóbico"
-      ],
-      [
         "oligarchic",
         "oligárquico"
       ],
@@ -19084,18 +16221,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "onomastic",
         "onomástico"
-      ],
-      [
-        "onomatopoeic",
-        "onomatopeico"
-      ],
-      [
-        "onomatopoetic",
-        "onomatopeico"
-      ],
-      [
-        "ontogenetic",
-        "ontogenetico"
       ],
       [
         "optic",
@@ -19142,10 +16267,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "pacífico"
       ],
       [
-        "paederastic",
-        "pederastico"
-      ],
-      [
         "paediatric",
         "pediátrico"
       ],
@@ -19156,10 +16277,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "paleolithic",
         "paleolítico"
-      ],
-      [
-        "palingenetic",
-        "palingenético"
       ],
       [
         "pancreatic",
@@ -19214,10 +16331,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "parentético"
       ],
       [
-        "parhelic",
-        "parhélico"
-      ],
-      [
         "parthenogenetic",
         "partenogenético"
       ],
@@ -19242,16 +16355,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "patronímico"
       ],
       [
-        "pectic",
-        "péctico"
-      ],
-      [
         "pedagogic",
         "pedagógico"
-      ],
-      [
-        "pederastic",
-        "pederastico"
       ],
       [
         "pediatric",
@@ -19264,10 +16369,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "pelvic",
         "pélvico"
-      ],
-      [
-        "pentasyllabic",
-        "pentasilábico"
       ],
       [
         "pentatonic",
@@ -19308,10 +16409,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "philatelic",
         "filatélico"
-      ],
-      [
-        "phonogramic",
-        "fonográmico"
       ],
       [
         "phonologic",
@@ -19374,10 +16471,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "pletórico"
       ],
       [
-        "plumbic",
-        "plúmbico"
-      ],
-      [
         "plutocratic",
         "plutocrático"
       ],
@@ -19390,20 +16483,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "neumático"
       ],
       [
-        "pneumogastric",
-        "neumogástrico"
-      ],
-      [
-        "pneumonic",
-        "pneumónico"
-      ],
-      [
         "poetic",
         "poético"
-      ],
-      [
-        "poikilothermic",
-        "poiquilotérmico"
       ],
       [
         "polemic",
@@ -19470,10 +16551,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "prodrómico"
       ],
       [
-        "prognathic",
-        "prognático"
-      ],
-      [
         "prokaryotic",
         "procariótico"
       ],
@@ -19502,14 +16579,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "prostético"
       ],
       [
-        "prosthodontic",
-        "prostodóntico"
-      ],
-      [
-        "protanopic",
-        "protanópico"
-      ],
-      [
         "proteolytic",
         "proteolítico"
       ],
@@ -19526,10 +16595,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "prototípico"
       ],
       [
-        "protozoic",
-        "protozoico"
-      ],
-      [
         "pseudoscientific",
         "pseudocientífico"
       ],
@@ -19542,20 +16607,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "psicogénico"
       ],
       [
-        "psycholinguistic",
-        "psicolingüístico"
-      ],
-      [
         "psychological",
         "psicológico"
       ],
       [
         "psychometric",
         "psicométrico"
-      ],
-      [
-        "psychoneurotic",
-        "psiconeurótico"
       ],
       [
         "psychopathologic",
@@ -19590,16 +16647,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "púnico"
       ],
       [
-        "pycnotic",
-        "picnótico"
-      ],
-      [
         "pyloric",
         "pilórico"
-      ],
-      [
-        "pyretic",
-        "pirético"
       ],
       [
         "pyrotechnic",
@@ -19674,16 +16723,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "sabático"
       ],
       [
-        "saprobic",
-        "sapróbico"
-      ],
-      [
         "sarcastic",
         "sarcástico"
-      ],
-      [
-        "sarcolemmic",
-        "sarcolémico"
       ],
       [
         "sardonic",
@@ -19762,10 +16803,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "septicémico"
       ],
       [
-        "seriocomic",
-        "seriocómico"
-      ],
-      [
         "serologic",
         "serológico"
       ],
@@ -19810,10 +16847,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "específico"
       ],
       [
-        "spectrometric",
-        "espectrométrico"
-      ],
-      [
         "spectroscopic",
         "espectroscópico"
       ],
@@ -19822,16 +16855,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "espermático"
       ],
       [
-        "splenetic",
-        "esplenético"
-      ],
-      [
         "splenic",
         "esplénico"
-      ],
-      [
-        "spondaic",
-        "espondaico"
       ],
       [
         "sporadic",
@@ -19844,10 +16869,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "stearic",
         "esteárico"
-      ],
-      [
-        "stenotic",
-        "estenótico"
       ],
       [
         "stereoscopic",
@@ -19886,10 +16907,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "subatómico"
       ],
       [
-        "suboceanic",
-        "suboceánico"
-      ],
-      [
         "subsonic",
         "subsónico"
       ],
@@ -19898,16 +16915,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "succínico"
       ],
       [
-        "sudorific",
-        "sudorífico"
-      ],
-      [
         "sulfuric",
         "sulfúrico"
-      ],
-      [
-        "supernaturalistic",
-        "sobrenaturalístico"
       ],
       [
         "supersonic",
@@ -19940,10 +16949,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "synchronic",
         "sincrónico"
-      ],
-      [
-        "syndetic",
-        "sindético"
       ],
       [
         "synoptic",
@@ -19994,10 +16999,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "tectónico"
       ],
       [
-        "telegnostic",
-        "telegnóstico"
-      ],
-      [
         "telegraphic",
         "telegráfico"
       ],
@@ -20018,16 +17019,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "telúrico"
       ],
       [
-        "telocentric",
-        "telocéntrico"
-      ],
-      [
         "terrific",
         "terrorífico"
-      ],
-      [
-        "tetrametric",
-        "tetramétrico"
       ],
       [
         "thematic",
@@ -20050,20 +17043,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "térmico"
       ],
       [
-        "thermionic",
-        "termiónico"
-      ],
-      [
         "thermodynamic",
         "termodinámico"
       ],
       [
         "thermoelectric",
         "termoeléctrico"
-      ],
-      [
-        "thermohydrometric",
-        "termohidrométrico"
       ],
       [
         "thermometric",
@@ -20138,10 +17123,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "traumático"
       ],
       [
-        "trichromatic",
-        "tricromático"
-      ],
-      [
         "triclinic",
         "triclínico"
       ],
@@ -20150,20 +17131,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "trigonométrico"
       ],
       [
-        "tritanopic",
-        "tritanópico"
-      ],
-      [
-        "trochaic",
-        "trocaico"
-      ],
-      [
         "trophoblastic",
         "trofoblástico"
-      ],
-      [
-        "trophotropic",
-        "trofotrópico"
       ],
       [
         "tropic",
@@ -20172,10 +17141,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "tympanic",
         "timpánico"
-      ],
-      [
-        "tympanitic",
-        "timpanítico"
       ],
       [
         "typical",
@@ -20206,14 +17171,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "úrico"
       ],
       [
-        "viscometric",
-        "viscométrico"
-      ],
-      [
-        "viscosimetric",
-        "viscométrico"
-      ],
-      [
         "vitriolic",
         "vitriólico"
       ],
@@ -20230,20 +17187,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "volumétrico"
       ],
       [
-        "voyeuristic",
-        "voyerístico"
-      ],
-      [
         "xerographic",
         "xerográfico"
       ],
       [
         "zoonotic",
         "zoonótico"
-      ],
-      [
-        "zygotic",
-        "zigótico"
       ]
     ],
     "dataSource": "LanguageDNA curated + Open Multilingual Wordnet aligned synsets",
@@ -20251,7 +17200,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ive-ivo": {
     "id": "ive-ivo",
@@ -20328,16 +17278,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "administrativo"
       ],
       [
-        "admissive",
-        "admisivo"
-      ],
-      [
         "adoptive",
         "adoptivo"
-      ],
-      [
-        "advective",
-        "advectivo"
       ],
       [
         "adversative",
@@ -20364,40 +17306,16 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "alternativo"
       ],
       [
-        "amalgamative",
-        "amalgamativo"
-      ],
-      [
         "appellative",
         "apelativo"
-      ],
-      [
-        "appetitive",
-        "apetitivo"
-      ],
-      [
-        "appositive",
-        "apositivo"
       ],
       [
         "appreciative",
         "apreciativo"
       ],
       [
-        "approbative",
-        "aprobativo"
-      ],
-      [
-        "appropriative",
-        "apropiativo"
-      ],
-      [
         "approximative",
         "aproximativo"
-      ],
-      [
-        "arbitrative",
-        "arbitrativo"
       ],
       [
         "argumentative",
@@ -20446,10 +17364,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "causative",
         "causativo"
-      ],
-      [
-        "circulative",
-        "circulativo"
       ],
       [
         "coextensive",
@@ -20652,10 +17566,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "descriptivo"
       ],
       [
-        "designative",
-        "designativo"
-      ],
-      [
         "destructive",
         "destructivo"
       ],
@@ -20670,10 +17580,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "digestive",
         "digestivo"
-      ],
-      [
-        "digressive",
-        "digresivo"
       ],
       [
         "diminutive",
@@ -20718,10 +17624,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "elective",
         "electivo"
-      ],
-      [
-        "elucidative",
-        "elucidativo"
       ],
       [
         "emotive",
@@ -20780,10 +17682,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "extensivo"
       ],
       [
-        "exteroceptive",
-        "exteroceptivo"
-      ],
-      [
         "extrusive",
         "extrusivo"
       ],
@@ -20834,10 +17732,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "hypertensive",
         "hipertensivo"
-      ],
-      [
-        "illative",
-        "ilativo"
       ],
       [
         "illustrative",
@@ -20924,10 +17818,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "interactivo"
       ],
       [
-        "interoceptive",
-        "interoceptivo"
-      ],
-      [
         "interpretative",
         "interpretativo"
       ],
@@ -20996,10 +17886,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "multiplicativo"
       ],
       [
-        "mutative",
-        "mutativo"
-      ],
-      [
         "narrative",
         "narrativo"
       ],
@@ -21014,10 +17900,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "nominative",
         "nominativo"
-      ],
-      [
-        "noninvasive",
-        "noinvasivo"
       ],
       [
         "normative",
@@ -21148,10 +18030,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "prohibitivo"
       ],
       [
-        "proprioceptive",
-        "proprioceptivo"
-      ],
-      [
         "prospective",
         "prospectivo"
       ],
@@ -21182,10 +18060,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "radioactive",
         "radioactivo"
-      ],
-      [
-        "ratiocinative",
-        "raciocinativo"
       ],
       [
         "reactive",
@@ -21292,10 +18166,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "sensitivo"
       ],
       [
-        "separative",
-        "separativo"
-      ],
-      [
         "significative",
         "significativo"
       ],
@@ -21314,10 +18184,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "substantive",
         "sustantivo"
-      ],
-      [
-        "subtractive",
-        "subtractivo"
       ],
       [
         "subversive",
@@ -21344,20 +18210,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "transitivo"
       ],
       [
-        "unconstructive",
-        "inconstructivo"
-      ],
-      [
         "unexpressive",
         "inexpresivo"
-      ],
-      [
-        "uninformative",
-        "desinformativo"
-      ],
-      [
-        "unperceptive",
-        "imperceptivo"
       ],
       [
         "unproductive",
@@ -21389,7 +18243,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ist-ista": {
     "id": "ist-ista",
@@ -21397,10 +18252,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
     "explanation": "Many English nouns ending in -ist have a closely related Spanish noun ending in -ista.",
     "listenLanguage": "es-ES",
     "words": [
-      [
-        "abiogenist",
-        "abiogenista"
-      ],
       [
         "abolitionist",
         "abolicionista"
@@ -21438,10 +18289,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "alienista"
       ],
       [
-        "allergist",
-        "alergista"
-      ],
-      [
         "alpinist",
         "alpinista"
       ],
@@ -21450,16 +18297,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "altruista"
       ],
       [
-        "analogist",
-        "analogista"
-      ],
-      [
         "anatomist",
         "anatomista"
-      ],
-      [
-        "anecdotist",
-        "anecdotista"
       ],
       [
         "anesthetist",
@@ -21618,20 +18457,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ciclista"
       ],
       [
-        "cymbalist",
-        "cimbalista"
-      ],
-      [
-        "deipnosophist",
-        "deipnosofista"
-      ],
-      [
         "dentist",
         "dentista"
-      ],
-      [
-        "denturist",
-        "denturista"
       ],
       [
         "determinist",
@@ -21644,10 +18471,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "diarist",
         "diarista"
-      ],
-      [
-        "dogmatist",
-        "dogmatista"
       ],
       [
         "dualist",
@@ -21664,10 +18487,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "ecologist",
         "ecologista"
-      ],
-      [
-        "econometrist",
-        "econometrista"
       ],
       [
         "economist",
@@ -21696,10 +18515,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "encyclopedist",
         "enciclopedista"
-      ],
-      [
-        "endodontist",
-        "endodoncista"
       ],
       [
         "essayist",
@@ -21910,10 +18725,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "materialista"
       ],
       [
-        "mechanist",
-        "mecanista"
-      ],
-      [
         "medalist",
         "medallista"
       ],
@@ -21924,10 +18735,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "metallurgist",
         "metalurgista"
-      ],
-      [
-        "microeconomist",
-        "microeconomista"
       ],
       [
         "militarist",
@@ -21978,10 +18785,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "muralista"
       ],
       [
-        "mythologist",
-        "mitologista"
-      ],
-      [
         "narcissist",
         "narcisista"
       ],
@@ -22028,14 +18831,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "nutritionist",
         "nutricionista"
-      ],
-      [
-        "oboist",
-        "oboista"
-      ],
-      [
-        "obscurantist",
-        "obscurantista"
       ],
       [
         "obstructionist",
@@ -22178,10 +18973,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "protista"
       ],
       [
-        "protoctist",
-        "protoctista"
-      ],
-      [
         "psalmist",
         "salmista"
       ],
@@ -22234,10 +19025,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ritualista"
       ],
       [
-        "royalist",
-        "royalista"
-      ],
-      [
         "sadomasochist",
         "sadomasoquista"
       ],
@@ -22262,10 +19049,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "segregacionista"
       ],
       [
-        "seismologist",
-        "seismologista"
-      ],
-      [
         "semifinalist",
         "semifinalista"
       ],
@@ -22276,10 +19059,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "sensationalist",
         "sensacionalista"
-      ],
-      [
-        "sensualist",
-        "sensualista"
       ],
       [
         "separatist",
@@ -22342,10 +19121,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "telegrafista"
       ],
       [
-        "teleologist",
-        "teleologista"
-      ],
-      [
         "telephonist",
         "telefonista"
       ],
@@ -22364,10 +19139,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "traditionalist",
         "tradicionalista"
-      ],
-      [
-        "transcendentalist",
-        "transcendentalista"
       ],
       [
         "trombonist",
@@ -22403,7 +19174,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ance-encia": {
     "id": "ance-encia",
@@ -22476,10 +19248,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "audiencia"
       ],
       [
-        "autofluorescence",
-        "autofluorescencia"
-      ],
-      [
         "belligerence",
         "beligerancia"
       ],
@@ -22492,16 +19260,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "benevolencia"
       ],
       [
-        "bioluminescence",
-        "bioluminescencia"
-      ],
-      [
         "bioscience",
         "biociencia"
-      ],
-      [
-        "birefringence",
-        "birefringencia"
       ],
       [
         "cadence",
@@ -22616,10 +19376,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "convergencia"
       ],
       [
-        "coreference",
-        "correferencia"
-      ],
-      [
         "corpulence",
         "corpulencia"
       ],
@@ -22630,10 +19386,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "counterintelligence",
         "contrainteligencia"
-      ],
-      [
-        "covalence",
-        "covalencia"
       ],
       [
         "covariance",
@@ -22728,10 +19480,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "equivalencia"
       ],
       [
-        "evanescence",
-        "evanescencia"
-      ],
-      [
         "evidence",
         "evidencia"
       ],
@@ -22746,10 +19494,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "existence",
         "existencia"
-      ],
-      [
-        "exorbitance",
-        "exorbitancia"
       ],
       [
         "experience",
@@ -22776,20 +19520,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "fragancia"
       ],
       [
-        "fraudulence",
-        "fraudulencia"
-      ],
-      [
         "frequence",
         "frecuencia"
       ],
       [
         "frequency",
         "frecuencia"
-      ],
-      [
-        "grandiloquence",
-        "grandiloqüencia"
       ],
       [
         "ignorance",
@@ -22818,10 +19554,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "impedance",
         "impedancia"
-      ],
-      [
-        "impenitence",
-        "impenitencia"
       ],
       [
         "impertinence",
@@ -22900,10 +19632,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "indulgencia"
       ],
       [
-        "inelegance",
-        "inelegancia"
-      ],
-      [
         "inexperience",
         "inexperiencia"
       ],
@@ -22972,10 +19700,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "intransigencia"
       ],
       [
-        "intumescence",
-        "intumescencia"
-      ],
-      [
         "iridescence",
         "iridiscencia"
       ],
@@ -22994,10 +19718,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "luminance",
         "luminancia"
-      ],
-      [
-        "luminescence",
-        "luminescencia"
       ],
       [
         "magnificence",
@@ -23056,16 +19776,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "omnisciencia"
       ],
       [
-        "opalescence",
-        "opalescencia"
-      ],
-      [
         "opulence",
         "opulencia"
-      ],
-      [
-        "oscitance",
-        "oscitancia"
       ],
       [
         "patience",
@@ -23170,10 +19882,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "purulence",
         "purulencia"
-      ],
-      [
-        "putrescence",
-        "putrescencia"
       ],
       [
         "quintessence",
@@ -23369,7 +20077,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ism-ismo": {
     "id": "ism-ismo",
@@ -23398,32 +20107,16 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "academicismo"
       ],
       [
-        "academism",
-        "academismo"
-      ],
-      [
         "achromatism",
         "acromatismo"
-      ],
-      [
-        "actinism",
-        "actinismo"
       ],
       [
         "activism",
         "activismo"
       ],
       [
-        "adactylism",
-        "adactilismo"
-      ],
-      [
         "adventurism",
         "aventurismo"
-      ],
-      [
-        "aeroembolism",
-        "aeroembolismo"
       ],
       [
         "agnosticism",
@@ -23446,24 +20139,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "aldosteronismo"
       ],
       [
-        "algorism",
-        "algorismo"
-      ],
-      [
-        "alienism",
-        "alienismo"
-      ],
-      [
         "altruism",
         "altruismo"
       ],
       [
         "amateurism",
         "amateurismo"
-      ],
-      [
-        "amoralism",
-        "amoralismo"
       ],
       [
         "anabolism",
@@ -23510,20 +20191,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "antifeminismo"
       ],
       [
-        "antiferromagnetism",
-        "antiferromagnetismo"
-      ],
-      [
         "antinomianism",
         "antinomianismo"
       ],
       [
         "antisemitism",
         "antisemitismo"
-      ],
-      [
-        "archaism",
-        "arcaismo"
       ],
       [
         "associationism",
@@ -23582,24 +20255,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "barbarismo"
       ],
       [
-        "behaviorism",
-        "behaviorismo"
-      ],
-      [
-        "behaviourism",
-        "behaviorismo"
-      ],
-      [
         "bilingualism",
         "bilingüismo"
       ],
       [
         "bimetallism",
         "bimetalismo"
-      ],
-      [
-        "biologism",
-        "biologismo"
       ],
       [
         "bioterrorism",
@@ -23758,10 +20419,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "diamagnetismo"
       ],
       [
-        "dichromatism",
-        "dicromatismo"
-      ],
-      [
         "dogmatism",
         "dogmatismo"
       ],
@@ -23818,10 +20475,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "embolismo"
       ],
       [
-        "empiricism",
-        "empiricismo"
-      ],
-      [
         "encyclopaedism",
         "enciclopedismo"
       ],
@@ -23840,10 +20493,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "ergotism",
         "ergotismo"
-      ],
-      [
-        "ergotropism",
-        "ergotropismo"
       ],
       [
         "erotism",
@@ -23926,10 +20575,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "feminismo"
       ],
       [
-        "ferrimagnetism",
-        "ferrimagnetismo"
-      ],
-      [
         "ferromagnetism",
         "ferromagnetismo"
       ],
@@ -23970,10 +20615,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "galvanismo"
       ],
       [
-        "gargoylism",
-        "gargolismo"
-      ],
-      [
         "geotropism",
         "geotropismo"
       ],
@@ -23998,10 +20639,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "heliotropismo"
       ],
       [
-        "hemimetabolism",
-        "hemimetabolismo"
-      ],
-      [
         "heterosexism",
         "heterosexismo"
       ],
@@ -24018,28 +20655,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "holismo"
       ],
       [
-        "holometabolism",
-        "holometabolismo"
-      ],
-      [
         "homomorphism",
         "homomorfismo"
       ],
       [
         "humanism",
         "humanismo"
-      ],
-      [
-        "humanitarianism",
-        "humanitarianismo"
-      ],
-      [
-        "hyperadrenalism",
-        "hiperadrenalismo"
-      ],
-      [
-        "hyperadrenocorticism",
-        "hiperadrenocorticismo"
       ],
       [
         "hyperaldosteronism",
@@ -24050,28 +20671,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "hiperparatiroidismo"
       ],
       [
-        "hyperpituitarism",
-        "hiperpituitarismo"
-      ],
-      [
-        "hypersplenism",
-        "hiperesplenismo"
-      ],
-      [
         "hyperthyroidism",
         "hipertiroidismo"
       ],
       [
         "hypnotism",
         "hipnotismo"
-      ],
-      [
-        "hypoadrenalism",
-        "hipoadrenalismo"
-      ],
-      [
-        "hypoadrenocorticism",
-        "hipoadrenocorticismo"
       ],
       [
         "hypogonadism",
@@ -24092,10 +20697,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "imperialism",
         "imperialismo"
-      ],
-      [
-        "incendiarism",
-        "incendiarismo"
       ],
       [
         "individualism",
@@ -24142,10 +20743,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "isomorfismo"
       ],
       [
-        "jingoism",
-        "jingoismo"
-      ],
-      [
         "katabolism",
         "catabolismo"
       ],
@@ -24178,10 +20775,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "localismo"
       ],
       [
-        "logicism",
-        "logicismo"
-      ],
-      [
         "magnetism",
         "magnetismo"
       ],
@@ -24204,10 +20797,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "melanism",
         "melanismo"
-      ],
-      [
-        "meningism",
-        "meningismo"
       ],
       [
         "mentalism",
@@ -24260,10 +20849,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "monetarism",
         "monetarismo"
-      ],
-      [
-        "mongolism",
-        "mongolismo"
       ],
       [
         "monism",
@@ -24350,20 +20935,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "nepotismo"
       ],
       [
-        "neurotropism",
-        "neurotropismo"
-      ],
-      [
         "neutralism",
         "neutralismo"
       ],
       [
         "nihilism",
         "nihilismo"
-      ],
-      [
-        "noctambulism",
-        "noctambulismo"
       ],
       [
         "nominalism",
@@ -24376,10 +20953,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "nudism",
         "nudismo"
-      ],
-      [
-        "obscurantism",
-        "obscurantismo"
       ],
       [
         "obstructionism",
@@ -24396,10 +20969,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "onanism",
         "onanismo"
-      ],
-      [
-        "oneirism",
-        "onirismo"
       ],
       [
         "opportunism",
@@ -24434,16 +21003,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "paganismo"
       ],
       [
-        "papism",
-        "papismo"
-      ],
-      [
         "parallelism",
         "paralelismo"
-      ],
-      [
-        "paralogism",
-        "paralogismo"
       ],
       [
         "paramagnetism",
@@ -24478,10 +21039,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "pesimismo"
       ],
       [
-        "philistinism",
-        "filistinismo"
-      ],
-      [
         "phototropism",
         "fototropismo"
       ],
@@ -24490,24 +21047,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "pianismo"
       ],
       [
-        "pleochroism",
-        "pleocroismo"
-      ],
-      [
-        "plumbism",
-        "plumbismo"
-      ],
-      [
         "pluralism",
         "pluralismo"
       ],
       [
         "pointillism",
         "puntillismo"
-      ],
-      [
-        "polytonalism",
-        "politonalismo"
       ],
       [
         "popularism",
@@ -24638,24 +21183,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "romanticismo"
       ],
       [
-        "ruffianism",
-        "rufianismo"
-      ],
-      [
-        "sacerdotalism",
-        "sacerdotalismo"
-      ],
-      [
         "sadism",
         "sadismo"
       ],
       [
         "sadomasochism",
         "sadomasoquismo"
-      ],
-      [
-        "saturnism",
-        "saturnismo"
       ],
       [
         "scepticism",
@@ -24672,10 +21205,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "secularism",
         "secularismo"
-      ],
-      [
-        "segregationism",
-        "segregacionismo"
       ],
       [
         "sensationalism",
@@ -24738,10 +21267,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "solipsismo"
       ],
       [
-        "somnambulism",
-        "somnambulismo"
-      ],
-      [
         "sovietism",
         "sovietismo"
       ],
@@ -24752,10 +21277,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "spiritualism",
         "espiritualismo"
-      ],
-      [
-        "stigmatism",
-        "stigmatismo"
       ],
       [
         "stoicism",
@@ -24798,16 +21319,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "sinergismo"
       ],
       [
-        "tarantism",
-        "tarantismo"
-      ],
-      [
         "terrorism",
         "terrorismo"
-      ],
-      [
-        "thermotropism",
-        "termotropismo"
       ],
       [
         "totalitarianism",
@@ -24844,10 +21357,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "tropism",
         "tropismo"
-      ],
-      [
-        "ultramontanism",
-        "ultramontanismo"
       ],
       [
         "ultranationalism",
@@ -24896,10 +21405,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "vulgarism",
         "vulgarismo"
-      ],
-      [
-        "wellerism",
-        "wellerismo"
       ]
     ],
     "dataSource": "LanguageDNA curated + Open Multilingual Wordnet aligned synsets",
@@ -24907,7 +21412,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "able-ible": {
     "id": "able-ible",
@@ -24915,10 +21421,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
     "explanation": "Many English adjectives ending in -able or -ible have a similar Spanish cognate ending.",
     "listenLanguage": "es-ES",
     "words": [
-      [
-        "abdicable",
-        "abdicable"
-      ],
       [
         "abominable",
         "abominable"
@@ -24948,10 +21450,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ajustable"
       ],
       [
-        "administrable",
-        "administrable"
-      ],
-      [
         "admirable",
         "admirable"
       ],
@@ -24966,10 +21464,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "adorable",
         "adorable"
-      ],
-      [
-        "adsorbable",
-        "adsorbible"
       ],
       [
         "alienable",
@@ -24996,24 +21490,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "apreciable"
       ],
       [
-        "appropriable",
-        "apropiable"
-      ],
-      [
         "arable",
         "arable"
-      ],
-      [
-        "arbitrable",
-        "arbitrable"
-      ],
-      [
-        "ascendable",
-        "ascendible"
-      ],
-      [
-        "ascendible",
-        "ascendible"
       ],
       [
         "assignable",
@@ -25124,20 +21602,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "consumible"
       ],
       [
-        "contestable",
-        "contestable"
-      ],
-      [
         "controllable",
         "controlable"
       ],
       [
         "convertible",
         "convertible"
-      ],
-      [
-        "convincible",
-        "convencible"
       ],
       [
         "corrigible",
@@ -25180,10 +21650,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "debatible"
       ],
       [
-        "declarable",
-        "declarable"
-      ],
-      [
         "deductible",
         "deductible"
       ],
@@ -25218,10 +21684,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "derivable",
         "derivable"
-      ],
-      [
-        "describable",
-        "describible"
       ],
       [
         "desirable",
@@ -25268,16 +21730,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "discernible"
       ],
       [
-        "dispensable",
-        "dispensable"
-      ],
-      [
         "disputable",
         "disputable"
-      ],
-      [
-        "dissociable",
-        "disociable"
       ],
       [
         "distinguishable",
@@ -25304,16 +21758,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "enumerable"
       ],
       [
-        "eradicable",
-        "erradicable"
-      ],
-      [
         "estimable",
         "estimable"
-      ],
-      [
-        "evaporable",
-        "evaporable"
       ],
       [
         "evitable",
@@ -25332,22 +21778,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "execrable"
       ],
       [
-        "expandable",
-        "expansible"
-      ],
-      [
-        "expandible",
-        "expansible"
-      ],
-      [
-        "expansible",
-        "expansible"
-      ],
-      [
-        "expiable",
-        "expiable"
-      ],
-      [
         "explicable",
         "explicable"
       ],
@@ -25364,10 +21794,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "extensible"
       ],
       [
-        "exterminable",
-        "exterminable"
-      ],
-      [
         "fallible",
         "falible"
       ],
@@ -25378,10 +21804,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "favourable",
         "favorable"
-      ],
-      [
-        "filmable",
-        "filmable"
       ],
       [
         "fissionable",
@@ -25412,10 +21834,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "habitable"
       ],
       [
-        "harmonizable",
-        "harmonizable"
-      ],
-      [
         "honorable",
         "honorable"
       ],
@@ -25434,10 +21852,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "illegible",
         "ilegible"
-      ],
-      [
-        "illimitable",
-        "ilimitable"
       ],
       [
         "imaginable",
@@ -25476,10 +21890,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "impermeable"
       ],
       [
-        "impermissible",
-        "impermisible"
-      ],
-      [
         "imperturbable",
         "imperturbable"
       ],
@@ -25514,10 +21924,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "imputable",
         "imputable"
-      ],
-      [
-        "imputrescible",
-        "imputrescible"
       ],
       [
         "inaccessible",
@@ -25600,10 +22006,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "incontrovertible"
       ],
       [
-        "inconvertible",
-        "inconvertible"
-      ],
-      [
         "incorrigible",
         "incorregible"
       ],
@@ -25676,10 +22078,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "inefable"
       ],
       [
-        "ineligible",
-        "ineligible"
-      ],
-      [
         "inestimable",
         "inestimable"
       ],
@@ -25710,10 +22108,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "inexpugnable",
         "inexpugnable"
-      ],
-      [
-        "inexterminable",
-        "inexterminable"
       ],
       [
         "inextinguishable",
@@ -25976,10 +22370,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "indigestible"
       ],
       [
-        "nonsubmergible",
-        "insubmergible"
-      ],
-      [
         "nontransferable",
         "intransferible"
       ],
@@ -26008,20 +22398,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ostensible"
       ],
       [
-        "paintable",
-        "pintable"
-      ],
-      [
         "palpable",
         "palpable"
       ],
       [
         "pardonable",
         "perdonable"
-      ],
-      [
-        "partible",
-        "partible"
       ],
       [
         "passable",
@@ -26052,20 +22434,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "permisible"
       ],
       [
-        "permutable",
-        "permutable"
-      ],
-      [
         "persuadable",
         "persuasible"
       ],
       [
         "persuasible",
         "persuasible"
-      ],
-      [
-        "placable",
-        "placable"
       ],
       [
         "plausible",
@@ -26100,10 +22474,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "presentable"
       ],
       [
-        "preservable",
-        "preservable"
-      ],
-      [
         "presumable",
         "presumible"
       ],
@@ -26120,16 +22490,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "pronunciable"
       ],
       [
-        "proportionable",
-        "proporcionable"
-      ],
-      [
         "provable",
         "probable"
-      ],
-      [
-        "putrescible",
-        "putrescible"
       ],
       [
         "quantifiable",
@@ -26150,14 +22512,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "rechargeable",
         "recargable"
-      ],
-      [
-        "reconcilable",
-        "reconciliable"
-      ],
-      [
-        "rectifiable",
-        "rectificable"
       ],
       [
         "recyclable",
@@ -26244,10 +22598,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "sacrificable"
       ],
       [
-        "satiable",
-        "saciable"
-      ],
-      [
         "satisfiable",
         "satisfacible"
       ],
@@ -26272,20 +22622,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "sociable"
       ],
       [
-        "specifiable",
-        "especificable"
-      ],
-      [
-        "subjugable",
-        "subyugable"
-      ],
-      [
         "submergible",
         "sumergible"
-      ],
-      [
-        "substitutable",
-        "substituible"
       ],
       [
         "superable",
@@ -26332,20 +22670,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "transformable"
       ],
       [
-        "translatable",
-        "transmutable"
-      ],
-      [
         "transmissible",
         "transmisible"
-      ],
-      [
-        "transmutable",
-        "transmutable"
-      ],
-      [
-        "transplantable",
-        "transplantable"
       ],
       [
         "transportable",
@@ -26364,20 +22690,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "inadaptable"
       ],
       [
-        "unadoptable",
-        "inadoptable"
-      ],
-      [
         "unalienable",
         "inalienable"
       ],
       [
         "unalterable",
         "inalterable"
-      ],
-      [
-        "unanalyzable",
-        "inanalizable"
       ],
       [
         "uncomparable",
@@ -26394,14 +22712,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "uncontrollable",
         "incontrolable"
-      ],
-      [
-        "unconvertible",
-        "inconvertible"
-      ],
-      [
-        "uncultivable",
-        "incultivable"
       ],
       [
         "undefendable",
@@ -26436,10 +22746,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ingobernable"
       ],
       [
-        "unidentifiable",
-        "inidentificable"
-      ],
-      [
         "unimaginable",
         "inimaginable"
       ],
@@ -26460,10 +22766,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "inmemorable"
       ],
       [
-        "unmentionable",
-        "inmencionable"
-      ],
-      [
         "unmodifiable",
         "inmodificable"
       ],
@@ -26478,10 +22780,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "unpresentable",
         "impresentable"
-      ],
-      [
-        "unpronounceable",
-        "inpronunciable"
       ],
       [
         "unquestionable",
@@ -26516,14 +22814,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "utilizable"
       ],
       [
-        "vaporizable",
-        "vaporizable"
-      ],
-      [
-        "vapourisable",
-        "vaporizable"
-      ],
-      [
         "variable",
         "variable"
       ],
@@ -26552,20 +22842,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "vencible"
       ],
       [
-        "violable",
-        "violable"
-      ],
-      [
         "visible",
         "visible"
-      ],
-      [
-        "volatilisable",
-        "volatilizable"
-      ],
-      [
-        "volatilizable",
-        "volatilizable"
       ],
       [
         "vulnerable",
@@ -26577,7 +22855,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ant-ent": {
     "id": "ant-ent",
@@ -26646,14 +22925,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "agente"
       ],
       [
-        "alcalescent",
-        "alcalescente"
-      ],
-      [
-        "alkalescent",
-        "alcalescente"
-      ],
-      [
         "ambivalent",
         "ambivalente"
       ],
@@ -26666,10 +22937,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "antecedente"
       ],
       [
-        "anticipant",
-        "anticipante"
-      ],
-      [
         "anticoagulant",
         "anticoagulante"
       ],
@@ -26678,20 +22945,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "antioxidante"
       ],
       [
-        "antiperspirant",
-        "antiperspirante"
-      ],
-      [
         "apparent",
         "aparente"
       ],
       [
         "arborescent",
         "arborescente"
-      ],
-      [
-        "arctangent",
-        "arcotangente"
       ],
       [
         "ardent",
@@ -26736,10 +22995,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "bioluminescent",
         "bioluminiscente"
-      ],
-      [
-        "birefringent",
-        "birrefringente"
       ],
       [
         "bivalent",
@@ -26902,14 +23157,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "correspondiente"
       ],
       [
-        "corticoafferent",
-        "corticoaferente"
-      ],
-      [
-        "corticoefferent",
-        "corticoeferente"
-      ],
-      [
         "cosecant",
         "cosecante"
       ],
@@ -26930,16 +23177,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "decente"
       ],
       [
-        "decumbent",
-        "recumbente"
-      ],
-      [
         "deferent",
         "deferente"
-      ],
-      [
-        "defervescent",
-        "defervescente"
       ],
       [
         "deficient",
@@ -27002,16 +23241,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "diferente"
       ],
       [
-        "diffident",
-        "difidente"
-      ],
-      [
         "diligent",
         "diligente"
-      ],
-      [
-        "diluent",
-        "diluente"
       ],
       [
         "dilutant",
@@ -27132,10 +23363,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "excitant",
         "excitante"
-      ],
-      [
-        "excrescent",
-        "excrescente"
       ],
       [
         "exigent",
@@ -27458,10 +23685,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "intransigente"
       ],
       [
-        "intumescent",
-        "tumescente"
-      ],
-      [
         "invariant",
         "invariante"
       ],
@@ -27486,10 +23709,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "latente"
       ],
       [
-        "liquescent",
-        "liquescente"
-      ],
-      [
         "litigant",
         "litigante"
       ],
@@ -27512,10 +23731,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "militant",
         "militante"
-      ],
-      [
-        "milliequivalent",
-        "miliequivalente"
       ],
       [
         "monovalent",
@@ -27572,10 +23787,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "occupant",
         "ocupante"
-      ],
-      [
-        "octant",
-        "octante"
       ],
       [
         "officiant",
@@ -27682,10 +23893,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "preponderante"
       ],
       [
-        "prepubescent",
-        "prepubescente"
-      ],
-      [
         "prescient",
         "presciente"
       ],
@@ -27764,10 +23971,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "recombinant",
         "recombinante"
-      ],
-      [
-        "recumbent",
-        "recumbente"
       ],
       [
         "recurrent",
@@ -27878,10 +24081,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "reverente"
       ],
       [
-        "rubefacient",
-        "rubefaciente"
-      ],
-      [
         "ruminant",
         "rumiante"
       ],
@@ -27896,10 +24095,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "semitransparent",
         "semitransparente"
-      ],
-      [
-        "senescent",
-        "senescente"
       ],
       [
         "serpent",
@@ -27920,10 +24115,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "solvent",
         "solvente"
-      ],
-      [
-        "sorbent",
-        "sorbente"
       ],
       [
         "spirant",
@@ -27948,10 +24139,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "subjacent",
         "subyacente"
-      ],
-      [
-        "submediant",
-        "submediante"
       ],
       [
         "subsequent",
@@ -27998,10 +24185,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "torrente"
       ],
       [
-        "totipotent",
-        "totipotente"
-      ],
-      [
         "transcendent",
         "trascendente"
       ],
@@ -28016,10 +24199,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "trident",
         "tridente"
-      ],
-      [
-        "tumescent",
-        "tumescente"
       ],
       [
         "unintelligent",
@@ -28083,7 +24262,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ize-izar": {
     "id": "ize-izar",
@@ -28091,10 +24271,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
     "explanation": "Many English verbs ending in -ize have a related Spanish infinitive ending in -izar.",
     "listenLanguage": "es-ES",
     "words": [
-      [
-        "achromatize",
-        "acromatizar"
-      ],
       [
         "actualize",
         "actualizar"
@@ -28112,10 +24288,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "alcalinizar"
       ],
       [
-        "alkalize",
-        "alcalizar"
-      ],
-      [
         "allegorize",
         "alegorizar"
       ],
@@ -28128,20 +24300,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "amortizar"
       ],
       [
-        "anaesthetize",
-        "anestetizar"
-      ],
-      [
         "anathematize",
         "anatematizar"
-      ],
-      [
-        "anatomize",
-        "anatomizar"
-      ],
-      [
-        "anesthetize",
-        "anestetizar"
       ],
       [
         "anglicize",
@@ -28172,10 +24332,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "aromatizar"
       ],
       [
-        "arterialize",
-        "arterializar"
-      ],
-      [
         "atomize",
         "atomizar"
       ],
@@ -28198,10 +24354,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "bestialize",
         "bestializar"
-      ],
-      [
-        "bolshevize",
-        "bolchevizar"
       ],
       [
         "brutalize",
@@ -28232,10 +24384,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "carbonizar"
       ],
       [
-        "carnalize",
-        "carnalizar"
-      ],
-      [
         "categorize",
         "categorizar"
       ],
@@ -28264,14 +24412,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "civilizar"
       ],
       [
-        "cocainize",
-        "cocainizar"
-      ],
-      [
-        "collateralize",
-        "colateralizar"
-      ],
-      [
         "collectivize",
         "colectivizar"
       ],
@@ -28292,10 +24432,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "constitucionalizar"
       ],
       [
-        "conventionalize",
-        "convencionalizar"
-      ],
-      [
         "criminalize",
         "criminalizar"
       ],
@@ -28312,10 +24448,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "customizar"
       ],
       [
-        "cutinize",
-        "cutinizar"
-      ],
-      [
         "decentralize",
         "descentralizar"
       ],
@@ -28326,10 +24458,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "decolonize",
         "descolonizar"
-      ],
-      [
-        "deglycerolize",
-        "desglicerolizar"
       ],
       [
         "dehumanize",
@@ -28386,14 +24514,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "destabilize",
         "desestabilizar"
-      ],
-      [
-        "detransitivize",
-        "detransitivizar"
-      ],
-      [
-        "devitalize",
-        "desvitalizar"
       ],
       [
         "digitalize",
@@ -28480,10 +24600,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "formalizar"
       ],
       [
-        "fossilize",
-        "fosilizar"
-      ],
-      [
         "fraternize",
         "fraternizar"
       ],
@@ -28496,20 +24612,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "generalizar"
       ],
       [
-        "ghettoize",
-        "ghettizar"
-      ],
-      [
-        "glamorize",
-        "glamorizar"
-      ],
-      [
         "globalize",
         "globalizar"
-      ],
-      [
-        "glycerolize",
-        "glicerolizar"
       ],
       [
         "harmonize",
@@ -28528,10 +24632,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "humanizar"
       ],
       [
-        "hybridize",
-        "hibridizar"
-      ],
-      [
         "hygienize",
         "higienizar"
       ],
@@ -28548,20 +24648,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ilegalizar"
       ],
       [
-        "immaterialize",
-        "inmaterializar"
-      ],
-      [
         "immobilize",
         "immobilizar"
-      ],
-      [
-        "immortalize",
-        "immortalizar"
-      ],
-      [
-        "immunize",
-        "immunizar"
       ],
       [
         "individualize",
@@ -28586,10 +24674,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "internationalize",
         "internacionalizar"
-      ],
-      [
-        "intransitivize",
-        "intransitivizar"
       ],
       [
         "ionize",
@@ -28648,10 +24732,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "mecanizar"
       ],
       [
-        "melanize",
-        "melanizar"
-      ],
-      [
         "memorize",
         "memorizar"
       ],
@@ -28708,10 +24788,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "motorizar"
       ],
       [
-        "mythologize",
-        "mitologizar"
-      ],
-      [
         "narcotize",
         "narcotizar"
       ],
@@ -28740,10 +24816,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "occidentalizar"
       ],
       [
-        "opalize",
-        "opalizar"
-      ],
-      [
         "optimize",
         "optimizar"
       ],
@@ -28754,10 +24826,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "orientalize",
         "orientalizar"
-      ],
-      [
-        "ozonize",
-        "ozonizar"
       ],
       [
         "palatalize",
@@ -28840,10 +24908,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "relativizar"
       ],
       [
-        "remilitarize",
-        "remilitarizar"
-      ],
-      [
         "renormalize",
         "normalizar"
       ],
@@ -28872,20 +24936,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "escandalizar"
       ],
       [
-        "sectionalize",
-        "seccionalizar"
-      ],
-      [
         "secularize",
         "secularizar"
       ],
       [
         "sensibilize",
         "sensibilizar"
-      ],
-      [
-        "sensualize",
-        "sensualizar"
       ],
       [
         "singularize",
@@ -28902,10 +24958,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "solemnize",
         "solemnizar"
-      ],
-      [
-        "sovietize",
-        "sovietizar"
       ],
       [
         "specialize",
@@ -28972,10 +25024,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "tranquilizar"
       ],
       [
-        "transitivize",
-        "transitivizar"
-      ],
-      [
         "traumatize",
         "traumatizar"
       ],
@@ -29012,10 +25060,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "vascularizar"
       ],
       [
-        "vasectomize",
-        "vasectomizar"
-      ],
-      [
         "verbalize",
         "verbalizar"
       ],
@@ -29030,10 +25074,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "vitalize",
         "vitalizar"
-      ],
-      [
-        "vitaminize",
-        "vitaminizar"
       ],
       [
         "vocalize",
@@ -29053,7 +25093,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "fy-ficar": {
     "id": "fy-ficar",
@@ -29130,10 +25171,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "electrificar"
       ],
       [
-        "etherify",
-        "eterificar"
-      ],
-      [
         "exemplify",
         "ejemplificar"
       ],
@@ -29182,10 +25219,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "justificar"
       ],
       [
-        "lapidify",
-        "lapidificar"
-      ],
-      [
         "magnify",
         "magnificar"
       ],
@@ -29208,10 +25241,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "notify",
         "notificar"
-      ],
-      [
-        "objectify",
-        "objetificar"
       ],
       [
         "ossify",
@@ -29252,10 +25281,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "rectify",
         "rectificar"
-      ],
-      [
-        "reify",
-        "reificar"
       ],
       [
         "reunify",
@@ -29302,10 +25327,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "estratificar"
       ],
       [
-        "syllabify",
-        "silabificar"
-      ],
-      [
         "testify",
         "testificar"
       ],
@@ -29343,7 +25364,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "al-al": {
     "id": "al-al",
@@ -29360,10 +25382,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "abdominal"
       ],
       [
-        "abdominovesical",
-        "abdominovesical"
-      ],
-      [
         "abnormal",
         "anormal"
       ],
@@ -29376,16 +25394,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "acentual"
       ],
       [
-        "accessional",
-        "accesional"
-      ],
-      [
         "accidental",
         "accidental"
-      ],
-      [
-        "acculturational",
-        "aculturacional"
       ],
       [
         "acetal",
@@ -29404,24 +25414,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "adaxial"
       ],
       [
-        "adenoidal",
-        "adenoidal"
-      ],
-      [
         "adjectival",
         "adjetival"
       ],
       [
-        "adnexal",
-        "anexal"
-      ],
-      [
         "adrenal",
         "adrenal"
-      ],
-      [
-        "adrenocortical",
-        "adrenocortical"
       ],
       [
         "adverbial",
@@ -29440,10 +25438,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "agonal"
       ],
       [
-        "alkaloidal",
-        "alcaloidal"
-      ],
-      [
         "alluvial",
         "aluvial"
       ],
@@ -29460,10 +25454,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ambulacral"
       ],
       [
-        "amobarbital",
-        "amobarbital"
-      ],
-      [
         "anal",
         "anal"
       ],
@@ -29476,16 +25466,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "angelical"
       ],
       [
-        "anginal",
-        "anginal"
-      ],
-      [
         "animal",
         "animal"
-      ],
-      [
-        "annexal",
-        "anexal"
       ],
       [
         "annual",
@@ -29508,10 +25490,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "anticlinal"
       ],
       [
-        "antimonial",
-        "antimonial"
-      ],
-      [
         "antisocial",
         "antisocial"
       ],
@@ -29524,60 +25502,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "apical"
       ],
       [
-        "apicultural",
-        "apicultural"
-      ],
-      [
-        "apodal",
-        "apodal"
-      ],
-      [
-        "apothecial",
-        "apotecial"
-      ],
-      [
-        "apsidal",
-        "apsidal"
-      ],
-      [
-        "aptitudinal",
-        "aptitudinal"
-      ],
-      [
-        "aquacultural",
-        "aquicultural"
-      ],
-      [
-        "aquicultural",
-        "aquicultural"
-      ],
-      [
         "arbitral",
         "arbitral"
-      ],
-      [
-        "archangelical",
-        "arcangelical"
-      ],
-      [
-        "archducal",
-        "archiducal"
-      ],
-      [
-        "archesporial",
-        "arquesporial"
-      ],
-      [
-        "archidiaconal",
-        "archidiaconal"
-      ],
-      [
-        "areal",
-        "areal"
-      ],
-      [
-        "argal",
-        "argal"
       ],
       [
         "arsenal",
@@ -29608,10 +25534,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "aspectual"
       ],
       [
-        "associational",
-        "asociacional"
-      ],
-      [
         "asteroidal",
         "asteroidal"
       ],
@@ -29632,24 +25554,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "audiovisual"
       ],
       [
-        "aural",
-        "aural"
-      ],
-      [
         "auroral",
         "auroral"
       ],
       [
         "austral",
         "austral"
-      ],
-      [
-        "autacoidal",
-        "autacoidal"
-      ],
-      [
-        "autosomal",
-        "autosomal"
       ],
       [
         "axial",
@@ -29664,18 +25574,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "azimutal"
       ],
       [
-        "azonal",
-        "azonal"
-      ],
-      [
-        "bacterioidal",
-        "bacteroidal"
-      ],
-      [
-        "bacteroidal",
-        "bacteroidal"
-      ],
-      [
         "banal",
         "banal"
       ],
@@ -29684,16 +25582,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "baptismal"
       ],
       [
-        "barbital",
-        "barbital"
-      ],
-      [
         "basal",
         "basal"
-      ],
-      [
-        "basidial",
-        "basidial"
       ],
       [
         "bestial",
@@ -29716,16 +25606,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "biaxial"
       ],
       [
-        "bibliothecal",
-        "bibliotecal"
-      ],
-      [
         "bicameral",
         "bicameral"
-      ],
-      [
-        "bicipital",
-        "bicipital"
       ],
       [
         "bidirectional",
@@ -29748,16 +25630,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "bilateral"
       ],
       [
-        "bimanual",
-        "bimanual"
-      ],
-      [
         "bimestrial",
         "bimestral"
-      ],
-      [
-        "bimetal",
-        "bimetal"
       ],
       [
         "bimodal",
@@ -29780,60 +25654,20 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "bipedal"
       ],
       [
-        "biracial",
-        "biracial"
-      ],
-      [
-        "bisectional",
-        "biseccional"
-      ],
-      [
         "bisexual",
         "bisexual"
-      ],
-      [
-        "bismuthal",
-        "bismutal"
-      ],
-      [
-        "bizonal",
-        "bizonal"
       ],
       [
         "boreal",
         "boreal"
       ],
       [
-        "botulinal",
-        "botulinal"
-      ],
-      [
-        "bracteal",
-        "bracteal"
-      ],
-      [
-        "brumal",
-        "brumal"
-      ],
-      [
         "brutal",
         "brutal"
       ],
       [
-        "cacuminal",
-        "cacuminal"
-      ],
-      [
         "cadastral",
         "catastral"
-      ],
-      [
-        "caesural",
-        "cesural"
-      ],
-      [
-        "calcaneal",
-        "calcaneal"
       ],
       [
         "calycinal",
@@ -29864,10 +25698,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "cardinal"
       ],
       [
-        "carinal",
-        "carinal"
-      ],
-      [
         "carnal",
         "carnal"
       ],
@@ -29884,20 +25714,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "casual"
       ],
       [
-        "cataclinal",
-        "cataclinal"
-      ],
-      [
-        "catamenial",
-        "catamenial"
-      ],
-      [
         "catarrhal",
         "catarral"
-      ],
-      [
-        "catechismal",
-        "catecismal"
       ],
       [
         "categorial",
@@ -29924,10 +25742,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "celestial"
       ],
       [
-        "centesimal",
-        "centesimal"
-      ],
-      [
         "central",
         "central"
       ],
@@ -29940,24 +25754,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "cerebral"
       ],
       [
-        "cerebrospinal",
-        "cerebrospinal"
-      ],
-      [
         "ceremonial",
         "ceremonial"
       ],
       [
         "cervical",
         "cervical"
-      ],
-      [
-        "chanal",
-        "chanal"
-      ],
-      [
-        "chancroidal",
-        "chancroidal"
       ],
       [
         "chaparral",
@@ -29970,10 +25772,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "circumstantial",
         "circunstancial"
-      ],
-      [
-        "clausal",
-        "clausal"
       ],
       [
         "clerical",
@@ -30018,10 +25816,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "colonial",
         "colonial"
-      ],
-      [
-        "colorectal",
-        "colorectal"
       ],
       [
         "colossal",
@@ -30132,10 +25926,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "cordial"
       ],
       [
-        "coreferential",
-        "correferencial"
-      ],
-      [
         "corneal",
         "corneal"
       ],
@@ -30160,10 +25950,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "correccional"
       ],
       [
-        "correlational",
-        "correlacional"
-      ],
-      [
         "cortical",
         "cortical"
       ],
@@ -30182,14 +25968,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "criminal",
         "criminal"
-      ],
-      [
-        "crotal",
-        "crotal"
-      ],
-      [
-        "crottal",
-        "crotal"
       ],
       [
         "crucial",
@@ -30212,20 +25990,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "cicloidal"
       ],
       [
-        "cytoarchitectural",
-        "citoarquitectural"
-      ],
-      [
         "decimal",
         "decimal"
-      ],
-      [
-        "deformational",
-        "deformacional"
-      ],
-      [
-        "demurral",
-        "demurral"
       ],
       [
         "dental",
@@ -30242,14 +26008,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "dermal",
         "dermal"
-      ],
-      [
-        "despisal",
-        "despisal"
-      ],
-      [
-        "dhal",
-        "dhal"
       ],
       [
         "diagonal",
@@ -30294,10 +26052,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "directional",
         "direccional"
-      ],
-      [
-        "disciplinal",
-        "disciplinal"
       ],
       [
         "discoidal",
@@ -30404,10 +26158,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "endotelial"
       ],
       [
-        "epicarpal",
-        "epicarpial"
-      ],
-      [
         "epidural",
         "epidural"
       ],
@@ -30496,10 +26246,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "extraterritorial"
       ],
       [
-        "exuvial",
-        "exuvial"
-      ],
-      [
         "facial",
         "facial"
       ],
@@ -30512,16 +26258,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "factual"
       ],
       [
-        "fallal",
-        "fallal"
-      ],
-      [
         "fatal",
         "fatal"
-      ],
-      [
-        "faucal",
-        "faucal"
       ],
       [
         "fecal",
@@ -30534,10 +26272,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "femoral",
         "femoral"
-      ],
-      [
-        "fenestral",
-        "fenestral"
       ],
       [
         "ferial",
@@ -30554,14 +26288,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "feudal",
         "feudal"
-      ],
-      [
-        "fiducial",
-        "fiducial"
-      ],
-      [
-        "filarial",
-        "filarial"
       ],
       [
         "filial",
@@ -30628,10 +26354,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "furfural"
       ],
       [
-        "galangal",
-        "galangal"
-      ],
-      [
         "gastroduodenal",
         "gastroduodenal"
       ],
@@ -30642,10 +26364,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "gavial",
         "gavial"
-      ],
-      [
-        "gayal",
-        "gayal"
       ],
       [
         "general",
@@ -30696,10 +26414,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "gonadal"
       ],
       [
-        "goral",
-        "goral"
-      ],
-      [
         "gradual",
         "gradual"
       ],
@@ -30712,20 +26426,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "gravitacional"
       ],
       [
-        "gunmetal",
-        "gunmetal"
-      ],
-      [
         "guttural",
         "gutural"
       ],
       [
         "habitual",
         "habitual"
-      ],
-      [
-        "hadal",
-        "hadal"
       ],
       [
         "halal",
@@ -30774,10 +26480,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "humoral",
         "humoral"
-      ],
-      [
-        "ictal",
-        "ictal"
       ],
       [
         "ideal",
@@ -30852,20 +26554,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "infinitesimal"
       ],
       [
-        "inflectional",
-        "inflexional"
-      ],
-      [
         "infomercial",
         "infomercial"
       ],
       [
         "informal",
         "informal"
-      ],
-      [
-        "informercial",
-        "informercial"
       ],
       [
         "inguinal",
@@ -30910,10 +26604,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "intellectual",
         "intelectual"
-      ],
-      [
-        "intensional",
-        "intensional"
       ],
       [
         "intentional",
@@ -30968,24 +26658,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "intestinal"
       ],
       [
-        "intimal",
-        "intimal"
-      ],
-      [
-        "intradermal",
-        "intradermal"
-      ],
-      [
         "irrational",
         "irracional"
-      ],
-      [
-        "isobilateral",
-        "isobilateral"
-      ],
-      [
-        "isoclinal",
-        "isoclinal"
       ],
       [
         "jovial",
@@ -30994,10 +26668,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "judicial",
         "judicial"
-      ],
-      [
-        "jumbal",
-        "jumbal"
       ],
       [
         "jurisdictional",
@@ -31112,10 +26782,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "marcial"
       ],
       [
-        "mastoidal",
-        "mastoidal"
-      ],
-      [
         "material",
         "material"
       ],
@@ -31160,10 +26826,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "memorial"
       ],
       [
-        "mensal",
-        "mensal"
-      ],
-      [
         "menstrual",
         "menstrual"
       ],
@@ -31184,40 +26846,16 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "meridional"
       ],
       [
-        "mescal",
-        "mescal"
-      ],
-      [
         "mesial",
         "mesial"
-      ],
-      [
-        "mesodermal",
-        "mesodermal"
-      ],
-      [
-        "metacarpal",
-        "metacarpial"
       ],
       [
         "metal",
         "metal"
       ],
       [
-        "methanal",
-        "metanal"
-      ],
-      [
-        "metical",
-        "metical"
-      ],
-      [
         "mezcal",
         "mezcal"
-      ],
-      [
-        "microsomal",
-        "microsomial"
       ],
       [
         "mineral",
@@ -31240,10 +26878,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "modal"
       ],
       [
-        "monal",
-        "monal"
-      ],
-      [
         "monaural",
         "monoaural"
       ],
@@ -31264,10 +26898,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "mortal"
       ],
       [
-        "motional",
-        "mocional"
-      ],
-      [
         "motivational",
         "motivacional"
       ],
@@ -31286,14 +26916,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "multinational",
         "multinacional"
-      ],
-      [
-        "multinomial",
-        "multinomial"
-      ],
-      [
-        "multiracial",
-        "multiracial"
       ],
       [
         "municipal",
@@ -31334,10 +26956,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "naval",
         "naval"
-      ],
-      [
-        "neocortical",
-        "neocortical"
       ],
       [
         "neoliberal",
@@ -31484,24 +27102,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "palacial"
       ],
       [
-        "palatoglossal",
-        "palatoglosal"
-      ],
-      [
-        "paleocortical",
-        "paleocortical"
-      ],
-      [
         "pansexual",
         "pansexual"
       ],
       [
         "papal",
         "papal"
-      ],
-      [
-        "paraboloidal",
-        "paraboloidal"
       ],
       [
         "paralegal",
@@ -31584,14 +27190,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "pentagonal"
       ],
       [
-        "pentobarbital",
-        "pentobarbital"
-      ],
-      [
-        "perigonal",
-        "perigonal"
-      ],
-      [
         "perinasal",
         "perinasal"
       ],
@@ -31612,10 +27210,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "peritoneal"
       ],
       [
-        "peroneal",
-        "peroneal"
-      ],
-      [
         "personal",
         "personal"
       ],
@@ -31626,10 +27220,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "pineal",
         "pineal"
-      ],
-      [
-        "pipal",
-        "pipal"
       ],
       [
         "planetesimal",
@@ -31650,10 +27240,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "polynomial",
         "polinomial"
-      ],
-      [
-        "polytonal",
-        "politonal"
       ],
       [
         "pontifical",
@@ -31684,10 +27270,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "postnatal"
       ],
       [
-        "postnuptial",
-        "postnupcial"
-      ],
-      [
         "postprandial",
         "posprandial"
       ],
@@ -31698,18 +27280,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "potential",
         "potencial"
-      ],
-      [
-        "poundal",
-        "poundal"
-      ],
-      [
-        "praetorial",
-        "pretorial"
-      ],
-      [
-        "preanal",
-        "preanal"
       ],
       [
         "prefectural",
@@ -31740,10 +27310,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "prenatal"
       ],
       [
-        "prenominal",
-        "prenominal"
-      ],
-      [
         "prenuptial",
         "prenupcial"
       ],
@@ -31752,28 +27318,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "preposicional"
       ],
       [
-        "preprandial",
-        "preprandial"
-      ],
-      [
-        "prepupal",
-        "prepupal"
-      ],
-      [
-        "presentational",
-        "presentacional"
-      ],
-      [
         "presidential",
         "presidencial"
       ],
       [
         "preternatural",
         "preternatural"
-      ],
-      [
-        "pretorial",
-        "pretorial"
       ],
       [
         "primordial",
@@ -31792,10 +27342,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "procesional"
       ],
       [
-        "procural",
-        "procural"
-      ],
-      [
         "professional",
         "profesional"
       ],
@@ -31810,14 +27356,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "pronominal",
         "pronominal"
-      ],
-      [
-        "propanal",
-        "propanal"
-      ],
-      [
-        "propenal",
-        "propenal"
       ],
       [
         "proportional",
@@ -31858,10 +27396,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "punctual",
         "puntual"
-      ],
-      [
-        "pupal",
-        "pupal"
       ],
       [
         "pyramidal",
@@ -31912,10 +27446,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "referencial"
       ],
       [
-        "refutal",
-        "refutal"
-      ],
-      [
         "regimental",
         "regimental"
       ],
@@ -31950,14 +27480,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "reverential",
         "reverencial"
-      ],
-      [
-        "revisal",
-        "revisal"
-      ],
-      [
-        "rhizoidal",
-        "rizoidal"
       ],
       [
         "rial",
@@ -32000,28 +27522,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "sagital"
       ],
       [
-        "salal",
-        "salal"
-      ],
-      [
-        "sarcolemmal",
-        "sarcolemal"
-      ],
-      [
         "sartorial",
         "sartorial"
       ],
       [
-        "scriptural",
-        "escriptural"
-      ],
-      [
         "scrotal",
         "escrotal"
-      ],
-      [
-        "secobarbital",
-        "secobarbital"
       ],
       [
         "secretarial",
@@ -32084,10 +27590,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "sensorial"
       ],
       [
-        "sensorineural",
-        "sensorineural"
-      ],
-      [
         "sensual",
         "sensual"
       ],
@@ -32130,10 +27632,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "sigmoidal",
         "sigmoidal"
-      ],
-      [
-        "simal",
-        "simal"
       ],
       [
         "sinusoidal",
@@ -32220,16 +27718,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "substancial"
       ],
       [
-        "substantival",
-        "substantival"
-      ],
-      [
         "subterminal",
         "subterminal"
-      ],
-      [
-        "subtotal",
-        "subtotal"
       ],
       [
         "subtropical",
@@ -32242,14 +27732,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "supranational",
         "supranacional"
-      ],
-      [
-        "surmisal",
-        "surmisal"
-      ],
-      [
-        "surprisal",
-        "surprisal"
       ],
       [
         "synclinal",
@@ -32300,10 +27782,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "textual"
       ],
       [
-        "thalamocortical",
-        "talamocortical"
-      ],
-      [
         "thermal",
         "termal"
       ],
@@ -32314,10 +27792,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "tibial",
         "tibial"
-      ],
-      [
-        "tical",
-        "tical"
       ],
       [
         "tonal",
@@ -32400,14 +27874,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "tropical"
       ],
       [
-        "tubal",
-        "tubal"
-      ],
-      [
-        "turbinal",
-        "turbinal"
-      ],
-      [
         "tutorial",
         "tutorial"
       ],
@@ -32426,10 +27892,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "unconstitutional",
         "inconstitucional"
-      ],
-      [
-        "underseal",
-        "underseal"
       ],
       [
         "ungual",
@@ -32454,14 +27916,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "unilateral",
         "unilateral"
-      ],
-      [
-        "unimodal",
-        "unimodal"
-      ],
-      [
-        "uninominal",
-        "uninomial"
       ],
       [
         "unisexual",
@@ -32560,10 +28014,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "vecinal"
       ],
       [
-        "vigesimal",
-        "vigesimal"
-      ],
-      [
         "viral",
         "viral"
       ],
@@ -32596,10 +28046,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "vocacional"
       ],
       [
-        "vulval",
-        "vulval"
-      ],
-      [
         "zodiacal",
         "zodiacal"
       ],
@@ -32613,7 +28059,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "sion-sion": {
     "id": "sion-sion",
@@ -32740,10 +28187,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "corrosion",
         "corrosión"
-      ],
-      [
-        "countersubversion",
-        "contrasubversión"
       ],
       [
         "decision",
@@ -33038,10 +28481,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "pretensión"
       ],
       [
-        "pretermission",
-        "pretermisión"
-      ],
-      [
         "prevision",
         "previsión"
       ],
@@ -33122,10 +28561,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "revulsión"
       ],
       [
-        "scansion",
-        "escansión"
-      ],
-      [
         "secession",
         "secesión"
       ],
@@ -33191,7 +28626,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ment-mento": {
     "id": "ment-mento",
@@ -33397,7 +28833,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ment-miento": {
     "id": "ment-miento",
@@ -33539,7 +28976,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ary-ario": {
     "id": "ary-ario",
@@ -33547,10 +28985,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
     "explanation": "Many English words ending in -ary have a related Spanish form ending in -ario or -aria.",
     "listenLanguage": "es-ES",
     "words": [
-      [
-        "abolitionary",
-        "abolicionario"
-      ],
       [
         "actuary",
         "actuario"
@@ -33598,10 +29032,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "bicentenary",
         "bicentenario"
-      ],
-      [
-        "biliary",
-        "biliario"
       ],
       [
         "binary",
@@ -33704,10 +29134,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "dromedario"
       ],
       [
-        "elocutionary",
-        "elocucionario"
-      ],
-      [
         "emissary",
         "emisario"
       ],
@@ -33734,10 +29160,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "fragmentary",
         "fragmentario"
-      ],
-      [
-        "fritillary",
-        "fritilaria"
       ],
       [
         "functionary",
@@ -33808,10 +29230,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "itinerario"
       ],
       [
-        "justiciary",
-        "justiciario"
-      ],
-      [
         "lapidary",
         "lapidario"
       ],
@@ -33874,10 +29292,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "ordinary",
         "ordinario"
-      ],
-      [
-        "ostiary",
-        "ostiario"
       ],
       [
         "ovary",
@@ -34040,10 +29454,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "testamentario"
       ],
       [
-        "topiary",
-        "topiaria"
-      ],
-      [
         "tributary",
         "tributario"
       ],
@@ -34097,7 +29507,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ory-orio": {
     "id": "ory-orio",
@@ -34112,10 +29523,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "accusatory",
         "acusatorio"
-      ],
-      [
-        "adjudicatory",
-        "adjudicatorio"
       ],
       [
         "admonitory",
@@ -34142,20 +29549,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "articulatorio"
       ],
       [
-        "auscultatory",
-        "auscultatorio"
-      ],
-      [
         "cardiorespiratory",
         "cardiorespiratorio"
       ],
       [
         "category",
         "categoria"
-      ],
-      [
-        "certificatory",
-        "certificatorio"
       ],
       [
         "chicory",
@@ -34258,10 +29657,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "dormitorio"
       ],
       [
-        "exclamatory",
-        "exclamatorio"
-      ],
-      [
         "excretory",
         "excretorio"
       ],
@@ -34278,20 +29673,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "expiatorio"
       ],
       [
-        "expiratory",
-        "expiratorio"
-      ],
-      [
         "exploratory",
         "exploratorio"
       ],
       [
         "glory",
         "gloria"
-      ],
-      [
-        "gustatory",
-        "gustatorio"
       ],
       [
         "hallucinatory",
@@ -34338,20 +29725,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "laboratorio"
       ],
       [
-        "lachrymatory",
-        "lacrimatorio"
-      ],
-      [
-        "lacrimatory",
-        "lacrimatorio"
-      ],
-      [
         "laudatory",
         "laudatorio"
-      ],
-      [
-        "mediatory",
-        "mediatorio"
       ],
       [
         "memory",
@@ -34396,10 +29771,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "perfunctory",
         "perfunctorio"
-      ],
-      [
-        "piscatory",
-        "piscatorio"
       ],
       [
         "prehistory",
@@ -34470,20 +29841,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "satisfactorio"
       ],
       [
-        "signatory",
-        "signatorio"
-      ],
-      [
-        "sternutatory",
-        "estornutatorio"
-      ],
-      [
         "subdirectory",
         "subdirectorio"
-      ],
-      [
-        "sudatory",
-        "sudatorio"
       ],
       [
         "suppository",
@@ -34519,7 +29878,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ture-tura": {
     "id": "ture-tura",
@@ -34606,10 +29966,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "cyberculture",
         "cibercultura"
-      ],
-      [
-        "cytoarchitecture",
-        "citoarquitectura"
       ],
       [
         "floriculture",
@@ -34789,7 +30145,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "tude-tud": {
     "id": "tude-tud",
@@ -34820,10 +30177,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "certitude",
         "certitud"
-      ],
-      [
-        "crassitude",
-        "crasitud"
       ],
       [
         "decrepitude",
@@ -34939,7 +30292,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "logy-logia": {
     "id": "logy-logia",
@@ -35018,10 +30372,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "bacteriology",
         "bacteriología"
-      ],
-      [
-        "bioclimatology",
-        "bioclimatología"
       ],
       [
         "biology",
@@ -35132,10 +30482,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "etimología"
       ],
       [
-        "exobiology",
-        "exobiología"
-      ],
-      [
         "futurology",
         "futurología"
       ],
@@ -35204,10 +30550,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "inmunología"
       ],
       [
-        "immunopathology",
-        "inmunopatología"
-      ],
-      [
         "kinesiology",
         "kinesiología"
       ],
@@ -35250,10 +30592,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "mineralogy",
         "mineralogía"
-      ],
-      [
-        "misology",
-        "misología"
       ],
       [
         "musicology",
@@ -35356,24 +30694,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "paleoecología"
       ],
       [
-        "palaeogeology",
-        "paleogeología"
-      ],
-      [
-        "palaeology",
-        "paleología"
-      ],
-      [
         "palaeontology",
         "paleontología"
       ],
       [
         "palaeopathology",
         "paleopatología"
-      ],
-      [
-        "palaeornithology",
-        "paleornitología"
       ],
       [
         "palaeozoology",
@@ -35396,24 +30722,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "paleoecología"
       ],
       [
-        "paleogeology",
-        "paleogeología"
-      ],
-      [
-        "paleology",
-        "paleología"
-      ],
-      [
         "paleontology",
         "paleontología"
       ],
       [
         "paleopathology",
         "paleopatología"
-      ],
-      [
-        "paleornithology",
-        "paleornitología"
       ],
       [
         "paleozoology",
@@ -35428,10 +30742,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "patología"
       ],
       [
-        "penology",
-        "penología"
-      ],
-      [
         "petrology",
         "petrología"
       ],
@@ -35442,14 +30752,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "phenomenology",
         "fenomenología"
-      ],
-      [
-        "poenology",
-        "penología"
-      ],
-      [
-        "pomology",
-        "pomología"
       ],
       [
         "posology",
@@ -35464,28 +30766,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "proctología"
       ],
       [
-        "protoarchaeology",
-        "protoarqueología"
-      ],
-      [
-        "protoarcheology",
-        "protoarqueología"
-      ],
-      [
-        "protozoology",
-        "protozoología"
-      ],
-      [
         "psychology",
         "psicología"
       ],
       [
         "psychopathology",
         "psicopatología"
-      ],
-      [
-        "radiobiology",
-        "radiobiología"
       ],
       [
         "radiology",
@@ -35621,7 +30907,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "graphy-grafia": {
     "id": "graphy-grafia",
@@ -35629,14 +30916,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
     "explanation": "Many English nouns ending in -graphy have a Spanish cognate ending in -grafía.",
     "listenLanguage": "es-ES",
     "words": [
-      [
-        "adoxography",
-        "adoxografía"
-      ],
-      [
-        "anemography",
-        "anemografía"
-      ],
       [
         "angiography",
         "angiografía"
@@ -35648,10 +30927,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "autobiography",
         "autobiografía"
-      ],
-      [
-        "autoradiography",
-        "autorradiografía"
       ],
       [
         "bibliography",
@@ -35722,10 +30997,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ecocardiografía"
       ],
       [
-        "echoencephalography",
-        "ecoencefalografía"
-      ],
-      [
         "echography",
         "ecografía"
       ],
@@ -35774,10 +31045,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "iconografía"
       ],
       [
-        "ideography",
-        "ideografía"
-      ],
-      [
         "lexicography",
         "lexicografía"
       ],
@@ -35788,10 +31055,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "mammography",
         "mamografía"
-      ],
-      [
-        "myelography",
-        "mielografía"
       ],
       [
         "oceanography",
@@ -35806,16 +31069,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "ortografía"
       ],
       [
-        "palaeoethnography",
-        "paleoetnografía"
-      ],
-      [
         "palaeogeography",
         "paleogeografía"
-      ],
-      [
-        "paleoethnography",
-        "paleoetnografía"
       ],
       [
         "paleogeography",
@@ -35834,20 +31089,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "fotolitografía"
       ],
       [
-        "polarography",
-        "polarografía"
-      ],
-      [
         "pornography",
         "pornografía"
       ],
       [
         "radiography",
         "radiografía"
-      ],
-      [
-        "radiophotography",
-        "radiofotografía"
       ],
       [
         "radiotelegraphy",
@@ -35874,10 +31121,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "telegrafía"
       ],
       [
-        "telephotography",
-        "telefotografía"
-      ],
-      [
         "thermography",
         "termografía"
       ],
@@ -35894,10 +31137,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "tipografía"
       ],
       [
-        "venography",
-        "venografía"
-      ],
-      [
         "xerography",
         "xerografía"
       ]
@@ -35907,7 +31146,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "cracy-cracia": {
     "id": "cracy-cracia",
@@ -35940,10 +31180,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "gerontocracia"
       ],
       [
-        "gynecocracy",
-        "ginecocracia"
-      ],
-      [
         "hierocracy",
         "hierocracia"
       ],
@@ -35960,10 +31196,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "plutocracia"
       ],
       [
-        "stratocracy",
-        "estratocracia"
-      ],
-      [
         "technocracy",
         "tecnocracia"
       ],
@@ -35977,7 +31209,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "nomy-nomia": {
     "id": "nomy-nomia",
@@ -35988,10 +31221,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "agronomy",
         "agronomía"
-      ],
-      [
-        "antinomy",
-        "antinomía"
       ],
       [
         "astronomy",
@@ -36019,7 +31248,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "metry-metria": {
     "id": "metry-metria",
@@ -36032,20 +31262,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "acidimetría"
       ],
       [
-        "actinometry",
-        "actinometría"
-      ],
-      [
         "alkalimetry",
         "alcalimetría"
       ],
       [
         "allometry",
         "alometría"
-      ],
-      [
-        "anemometry",
-        "anemometría"
       ],
       [
         "anthropometry",
@@ -36072,20 +31294,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "colorimetría"
       ],
       [
-        "densitometry",
-        "densitometría"
-      ],
-      [
         "geometry",
         "geometría"
-      ],
-      [
-        "gravimetry",
-        "gravimetría"
-      ],
-      [
-        "hydrometry",
-        "hidrometría"
       ],
       [
         "isometry",
@@ -36128,20 +31338,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "termometría"
       ],
       [
-        "tonometry",
-        "tonometría"
-      ],
-      [
         "trigonometry",
         "trigonometría"
-      ],
-      [
-        "viscometry",
-        "viscometría"
-      ],
-      [
-        "viscosimetry",
-        "viscosimetría"
       ]
     ],
     "dataSource": "LanguageDNA curated + Open Multilingual Wordnet aligned synsets",
@@ -36149,7 +31347,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "scope-scopio": {
     "id": "scope-scopio",
@@ -36162,16 +31361,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "artroscopio"
       ],
       [
-        "bioscope",
-        "bioscopio"
-      ],
-      [
         "bronchoscope",
         "broncoscopio"
-      ],
-      [
-        "chronoscope",
-        "cronoscopio"
       ],
       [
         "colonoscope",
@@ -36186,28 +31377,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "endoscopio"
       ],
       [
-        "epidiascope",
-        "epidiascopio"
-      ],
-      [
-        "fluoroscope",
-        "fluoroscopio"
-      ],
-      [
-        "gastroscope",
-        "gastroscopio"
-      ],
-      [
         "gyroscope",
         "giroscopio"
-      ],
-      [
-        "hygroscope",
-        "higroscopio"
-      ],
-      [
-        "iconoscope",
-        "iconoscopio"
       ],
       [
         "kaleidoscope",
@@ -36222,16 +31393,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "laparoscopio"
       ],
       [
-        "laryngoscope",
-        "laringoscopio"
-      ],
-      [
         "microscope",
         "microscopio"
-      ],
-      [
-        "orthoscope",
-        "ortoscopio"
       ],
       [
         "oscilloscope",
@@ -36244,14 +31407,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "periscope",
         "periscopio"
-      ],
-      [
-        "proctoscope",
-        "proctoscopio"
-      ],
-      [
-        "rhinoscope",
-        "rinoscopio"
       ],
       [
         "spectroscope",
@@ -36272,10 +31427,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "telescope",
         "telescopio"
-      ],
-      [
-        "ultramicroscope",
-        "ultramicroscopio"
       ]
     ],
     "dataSource": "LanguageDNA curated + Open Multilingual Wordnet aligned synsets",
@@ -36283,7 +31434,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ct-cto": {
     "id": "ct-cto",
@@ -36352,16 +31504,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "perfecto"
       ],
       [
-        "pinnatisect",
-        "pinnatisecto"
-      ],
-      [
         "select",
         "selecto"
-      ],
-      [
-        "semiabstract",
-        "semiabstracto"
       ],
       [
         "strict",
@@ -36373,7 +31517,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "id-ido": {
     "id": "id-ido",
@@ -36428,10 +31573,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "fetid",
         "fétido"
-      ],
-      [
-        "filariid",
-        "filárido"
       ],
       [
         "flaccid",
@@ -36502,10 +31643,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "pálido"
       ],
       [
-        "palmatifid",
-        "palmatífido"
-      ],
-      [
         "pinnatifid",
         "pinnatífido"
       ],
@@ -36562,10 +31699,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "tórrido"
       ],
       [
-        "tumid",
-        "túmido"
-      ],
-      [
         "valid",
         "válido"
       ],
@@ -36579,7 +31712,8 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   },
   "ate-ar": {
     "id": "ate-ar",
@@ -36594,10 +31728,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "abdicate",
         "abdicar"
-      ],
-      [
-        "ablactate",
-        "ablactar"
       ],
       [
         "abnegate",
@@ -36684,10 +31814,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "alienar"
       ],
       [
-        "alliterate",
-        "aliterar"
-      ],
-      [
         "altercate",
         "altercar"
       ],
@@ -36698,10 +31824,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "amalgamate",
         "amalgamar"
-      ],
-      [
-        "ameliorate",
-        "ameliorar"
       ],
       [
         "amputate",
@@ -36754,10 +31876,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "asseverate",
         "aseverar"
-      ],
-      [
-        "assibilate",
-        "asibilar"
       ],
       [
         "assimilate",
@@ -36896,28 +32014,12 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "conciliar"
       ],
       [
-        "confabulate",
-        "confabular"
-      ],
-      [
         "confiscate",
         "confiscar"
       ],
       [
-        "conflagrate",
-        "conflagrar"
-      ],
-      [
-        "conglobate",
-        "conglobar"
-      ],
-      [
         "conglomerate",
         "conglomerar"
-      ],
-      [
-        "conglutinate",
-        "conglutinar"
       ],
       [
         "congratulate",
@@ -37044,10 +32146,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "degenerar"
       ],
       [
-        "dehydrogenate",
-        "deshidrogenar"
-      ],
-      [
         "delegate",
         "delegar"
       ],
@@ -37066,10 +32164,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "demarcate",
         "demarcar"
-      ],
-      [
-        "demodulate",
-        "desmodular"
       ],
       [
         "demonstrate",
@@ -37182,10 +32276,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "dissertate",
         "disertar"
-      ],
-      [
-        "dissimilate",
-        "disimilar"
       ],
       [
         "dissimulate",
@@ -37608,14 +32698,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "indicar"
       ],
       [
-        "individuate",
-        "individuar"
-      ],
-      [
-        "indoctrinate",
-        "indoctrinar"
-      ],
-      [
         "infatuate",
         "infatuar"
       ],
@@ -37828,10 +32910,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "meditar"
       ],
       [
-        "meliorate",
-        "ameliorar"
-      ],
-      [
         "menstruate",
         "menstruar"
       ],
@@ -37878,10 +32956,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "narrate",
         "narrar"
-      ],
-      [
-        "nauseate",
-        "nausear"
       ],
       [
         "navigate",
@@ -38046,10 +33120,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "predominate",
         "predominar"
-      ],
-      [
-        "prefabricate",
-        "prefabricar"
       ],
       [
         "premeditate",
@@ -38284,10 +33354,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "separar"
       ],
       [
-        "sibilate",
-        "asibilar"
-      ],
-      [
         "simulate",
         "simular"
       ],
@@ -38356,10 +33422,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
         "tabular"
       ],
       [
-        "telecommunicate",
-        "telecomunicar"
-      ],
-      [
         "tergiversate",
         "tergiversar"
       ],
@@ -38386,10 +33448,6 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       [
         "triangulate",
         "triangular"
-      ],
-      [
-        "trifurcate",
-        "trifurcar"
       ],
       [
         "triplicate",
@@ -38465,6 +33523,7 @@ window.LANGUAGE_DNA_PATTERN_DICTIONARIES={
       "english": "Princeton WordNet via OMW",
       "spanish": "MCR Spanish via OMW"
     },
-    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override"
+    "generatedMethod": "same synset + POS constraint + explicit pattern + normalized stem similarity; curated rows override",
+    "qualityPolicy": "Data Quality v2: curated rows preserved; automated rows quarantined only when absent from Spanish Wiktionary snapshot, Spanish UniMorph, English top-50k and Spanish top-50k."
   }
 };
