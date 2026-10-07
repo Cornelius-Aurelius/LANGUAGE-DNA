@@ -26,10 +26,17 @@ Selected high-leverage word-link patterns now open dedicated A–Z dictionary pa
 
 ### Dictionary expansion
 
-LanguageDNA now includes 15 dedicated full Pattern Dictionaries containing 850 curated English ↔ Spanish word pairs. New pattern families include `-ism → -ismo`, `-able/-ible`, `-ant/-ent → -ante/-ente`, `-ize → -izar`, `-fy → -ficar`, and `-al → -al`.
+LanguageDNA now includes 31 full Pattern Dictionaries. The WordNet-aligned expansion produced 9,507 candidate pairs; Data Quality v2 serves 8,264 production pairs and quarantines 1,243 unsupported automated candidates for review. All 850 hand-curated pairs are preserved.
 
 ## Lexical data pipeline
 
 The Pattern Dictionary data now uses English/Spanish lemmas aligned through Open Multilingual Wordnet: Princeton WordNet on the English side and Multilingual Central Repository Spanish on the Spanish side. Automated candidates are accepted only when they share a synset, match the required part of speech, match an explicit LanguageDNA transformation rule, and pass an orthographic stem-similarity threshold. Hand-curated pairs take priority.
 
 See `DATA_SOURCES.md` and `data-build-report.json` for provenance, licenses, build rules, and per-pattern counts.
+
+
+## Data Quality v2
+
+The production dictionaries now pass an additional corroboration gate using Spanish Wiktionary-derived lexical data, Spanish UniMorph, and English/Spanish frequency lists. Automated OMW rows with no support from any of those layers are moved to a review queue rather than shown to learners. This reduces the learner-facing set from 9,507 aligned candidates to 8,264 stronger production rows while preserving all 850 hand-curated pairs.
+
+The learner-facing layout is unchanged. See `DATA_QUALITY.md`, `data-quality-report.json`, and `data-review-queue.json` for the audit rules and counts.
