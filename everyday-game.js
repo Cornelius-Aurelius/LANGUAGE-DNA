@@ -2,6 +2,8 @@
   'use strict';
 
   const DATA = Array.isArray(window.LANGUAGE_DNA_EVERYDAY_100) ? window.LANGUAGE_DNA_EVERYDAY_100 : [];
+  const EXPANDED = Array.isArray(window.LANGUAGE_DNA_EVERYDAY_EXPANDED) ? window.LANGUAGE_DNA_EVERYDAY_EXPANDED : [];
+  const VOCAB = DATA.concat(EXPANDED);
   const PASS_SCORE = 37;
   const TOTAL_QUESTIONS = 40;
   const LEVELS = [
@@ -24,6 +26,7 @@
     learnPage:1,
     learnCategory:'All',
     learnSearch:'',
+    vocabTier:Number(localStorage.getItem('ldna-vocab-tier-v1')||100),
     view:'learn',
     game:null,
     reviewFilter:'all'
@@ -47,7 +50,9 @@
   function simpleHash(text){let h=2166136261;for(let i=0;i<text.length;i++){h^=text.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
   function unique(values){const seen=new Set(),out=[];values.forEach(function(v){const k=normalize(v);if(k&&!seen.has(k)){seen.add(k);out.push(v)}});return out}
   function usefulnessLabel(item){return item.band+' · '+item.usefulness+'/100'}
-  function categories(){return ['All'].concat(Array.from(new Set(DATA.map(function(x){return x.category}))))}
+  function tierLimit(){return [100,500,1000].includes(state.vocabTier)?state.vocabTier:100}
+  function tierData(){return VOCAB.filter(function(x){return x.rank<=tierLimit()})}
+  function categories(){return ['All'].concat(Array.from(new Set(tierData().map(function(x){return x.category}))))}
   function itemKey(item){return String(item.rank)}
 
   function renderPreview(){
@@ -60,7 +65,7 @@
 
   function learnItems(){
     const q=normalize(state.learnSearch);
-    return DATA.filter(function(item){
+    return tierData().filter(function(item){
       const categoryOk=state.learnCategory==='All'||item.category===state.learnCategory;
       const search=normalize([item.english,item.spanish,item.category,item.exampleEn,item.exampleEs,item.family,item.morphology,item.note].join(' '));
       return categoryOk&&(!q||search.indexOf(q)>=0)
@@ -71,8 +76,11 @@
     const root=document.getElementById('everydayLearnPanel');if(!root)return;
     const items=learnItems(),perPage=20,pages=Math.max(1,Math.ceil(items.length/perPage));state.learnPage=Math.max(1,Math.min(state.learnPage,pages));
     const visible=items.slice((state.learnPage-1)*perPage,state.learnPage*perPage);
-    root.innerHTML='<div class="everyday-learn-head"><div><span class="eyebrow">ENGLISH FIRST</span><h2>100 everyday Spanish essentials</h2><p>Start with the English you already know. This is a curated day-to-day teaching order, not a claim of exact corpus frequency.</p></div><div class="everyday-known-ring"><strong>'+known.size+'</strong><small>familiar</small></div></div>'+
-      '<div class="everyday-tools"><label class="search-box"><span>⌕</span><input id="everydaySearch" type="search" placeholder="Search: where, coffee, help…" value="'+escapeHtml(state.learnSearch)+'"></label><div class="everyday-category-row">'+categories().map(function(cat){return'<button type="button" data-everyday-category="'+escapeHtml(cat)+'" class="'+(state.learnCategory===cat?'active':'')+'">'+escapeHtml(cat)+'</button>'}).join('')+'</div></div>'+
+    const limit=tierLimit(),knownInTier=Array.from(known).filter(function(k){return Number(k)<=limit}).length;
+    root.innerHTML='<div class="everyday-learn-head"><div><span class="eyebrow">ENGLISH FIRST</span><h2>Everyday '+limit+' vocabulary</h2><p>'+(limit===100?'Start with the most immediately useful day-to-day English you already know.':'Expand through quality-gated English ↔ Spanish pattern links while keeping the first 100 as your core foundation.')+'</p></div><div class="everyday-known-ring"><strong>'+knownInTier+'</strong><small>familiar of '+limit+'</small></div></div>'+
+      '<div class="vocab-tier-tabs" aria-label="Vocabulary size"><button type="button" data-vocab-tier="100" class="'+(limit===100?'active':'')+'"><strong>100</strong><small>Core everyday</small></button><button type="button" data-vocab-tier="500" class="'+(limit===500?'active':'')+'"><strong>500</strong><small>Useful expansion</small></button><button type="button" data-vocab-tier="1000" class="'+(limit===1000?'active':'')+'"><strong>1,000</strong><small>Broader vocabulary</small></button></div>'+
+      '<p class="vocab-tier-note">'+(limit===100?'Hand-curated for daily life.':'Ranks 101–1,000 come from the existing quality-gated production Pattern Dictionaries. Their CEFR/usefulness labels are LanguageDNA teaching heuristics, not official frequency certification.')+'</p>'+
+      '<div class="everyday-tools"><label class="search-box"><span>⌕</span><input id="everydaySearch" type="search" placeholder="Search: where, action, normal…" value="'+escapeHtml(state.learnSearch)+'"></label><div class="everyday-category-row">'+categories().map(function(cat){return'<button type="button" data-everyday-category="'+escapeHtml(cat)+'" class="'+(state.learnCategory===cat?'active':'')+'">'+escapeHtml(cat)+'</button>'}).join('')+'</div></div>'+
       '<div class="everyday-grid">'+visible.map(renderEverydayCard).join('')+'</div>'+
       '<div class="everyday-pagination"><button type="button" data-everyday-page="'+(state.learnPage-1)+'" '+(state.learnPage<=1?'disabled':'')+'>← Previous</button><span>Page '+state.learnPage+' of '+pages+' · '+items.length+' items</span><button type="button" data-everyday-page="'+(state.learnPage+1)+'" '+(state.learnPage>=pages?'disabled':'')+'>Next →</button></div>'+
       '<details class="meaning-traps"><summary>6 common English → Spanish meaning traps</summary><div class="meaning-trap-grid">'+FALSE_FRIENDS.map(function(row){return'<article><small>'+escapeHtml(row[0])+' ≠ '+escapeHtml(row[1])+'</small><strong>'+escapeHtml(row[2])+'</strong><p>'+escapeHtml(row[3])+'</p></article>'}).join('')+'</div></details>'
@@ -84,6 +92,7 @@
     if(item.family)detailBits.push('<p><b>Word family:</b> '+escapeHtml(item.family)+'</p>');
     if(item.morphology)detailBits.push('<p><b>Forms:</b> '+escapeHtml(item.morphology)+'</p>');
     if(item.note)detailBits.push('<p><b>Usage note:</b> '+escapeHtml(item.note)+'</p>');
+    if(item.frequencyNote)detailBits.push('<p><b>Frequency/usefulness:</b> '+escapeHtml(item.frequencyNote)+'</p>');
     return '<article class="everyday-card '+(done?'known':'')+'">'+
       '<div class="everyday-card-top"><span>#'+item.rank+' · '+escapeHtml(item.category)+'</span><span>'+escapeHtml(item.cefr)+' · '+escapeHtml(usefulnessLabel(item))+'</span></div>'+
       '<h3>'+escapeHtml(item.english)+'</h3><div class="everyday-spanish"><strong>'+escapeHtml(item.spanish)+'</strong><button type="button" data-everyday-speak="'+escapeHtml(item.spanish)+'" aria-label="Hear '+escapeHtml(item.spanish)+'">🔊</button></div>'+
@@ -193,6 +202,7 @@
   document.addEventListener('click',function(e){
     const openMode=e.target.closest('[data-everyday-open]');if(openMode){state.view=openMode.dataset.everydayOpen||'learn';renderTabs();if(state.view==='learn')renderLearn();else if(!state.game)renderGameHome();return}
     const tab=e.target.closest('[data-everyday-tab]');if(tab){state.view=tab.dataset.everydayTab;if(state.view==='game'&&!state.game)renderGameHome();renderTabs();return}
+    const tier=e.target.closest('[data-vocab-tier]');if(tier){state.vocabTier=Number(tier.dataset.vocabTier)||100;localStorage.setItem('ldna-vocab-tier-v1',String(state.vocabTier));state.learnCategory='All';state.learnPage=1;renderLearn();return}
     const cat=e.target.closest('[data-everyday-category]');if(cat){state.learnCategory=cat.dataset.everydayCategory;state.learnPage=1;renderLearn();return}
     const page=e.target.closest('[data-everyday-page]');if(page&&!page.disabled){state.learnPage=Number(page.dataset.everydayPage)||1;renderLearn();return}
     const familiar=e.target.closest('[data-everyday-known]');if(familiar){const key=String(familiar.dataset.everydayKnown);if(known.has(key))known.delete(key);else known.add(key);saveKnown();renderPreview();renderLearn();return}
