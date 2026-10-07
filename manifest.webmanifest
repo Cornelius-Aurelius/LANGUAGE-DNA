@@ -1,0 +1,9 @@
+{
+  "name": "LanguageDNA — English to Spanish",
+  "short_name": "LanguageDNA",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8f7f0",
+  "theme_color": "#163d33",
+  "description": "Learn Spanish through high-leverage visual, sound and writing patterns."
+}
