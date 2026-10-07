@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#123c31" />
+  <meta name="description" content="LanguageDNA pattern dictionary — English and Spanish words linked by reusable patterns." />
+  <title>LanguageDNA Pattern Dictionary</title>
+  <link rel="stylesheet" href="pattern.css?v=1" />
+</head>
+<body>
+  <header class="pattern-topbar">
+    <a class="back-link" href="index.html" aria-label="Back to LanguageDNA">← <span>LanguageDNA</span></a>
+    <div class="course-label">🇬🇧 English → 🇪🇸 Spanish</div>
+  </header>
+
+  <main class="pattern-page">
+    <header class="pattern-heading">
+      <span class="eyebrow">PATTERN DICTIONARY</span>
+      <h1 id="patternTitle">Loading pattern…</h1>
+      <p id="patternExplanation"></p>
+      <small id="patternCount"></small>
+    </header>
+
+    <section class="dictionary-controls" aria-label="Dictionary controls">
+      <label class="dictionary-search">
+        <span aria-hidden="true">⌕</span>
+        <span class="sr-only">Search words in this pattern</span>
+        <input id="wordSearch" type="search" placeholder="Search English or Spanish…" autocomplete="off" />
+      </label>
+      <nav class="alphabet" id="alphabet" aria-label="Filter by English first letter"></nav>
+    </section>
+
+    <div class="table-meta">
+      <span id="resultSummary">Loading words…</span>
+      <button id="clearFilters" class="clear-button" type="button">Show all</button>
+    </div>
+
+    <div class="dictionary-table-wrap">
+      <table class="dictionary-table">
+        <thead><tr><th scope="col">English word</th><th scope="col">Spanish word</th><th scope="col" class="listen-head">Listen</th></tr></thead>
+        <tbody id="wordRows"></tbody>
+      </table>
+    </div>
+
+    <nav class="pagination" id="pagination" aria-label="Dictionary pages"></nav>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="pattern-data.js?v=1"></script>
+  <script src="pattern-page.js?v=1"></script>
+</body>
+</html>
