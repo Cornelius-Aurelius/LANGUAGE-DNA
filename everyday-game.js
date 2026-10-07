@@ -11,6 +11,14 @@
     {id:4,title:'Spanish → English',subtitle:'Recognise familiar Spanish without leaning on the English first.',mode:'reverse',pick:function(){return DATA.slice(60,100)}},
     {id:5,title:'Mixed Real-life Challenge',subtitle:'A mixed test of words, phrases, sentences and reverse recognition.',mode:'mixed',pick:function(){const out=[];for(let i=0;i<DATA.length&&out.length<40;i+=2)out.push(DATA[i]);return out.slice(0,40)}}
   ];
+  const FALSE_FRIENDS=[
+    ['actual','actual','current / present','Spanish actual usually means current or present — not English “actual”.'],
+    ['embarrassed','embarazada','pregnant','Embarazada means pregnant. Use avergonzado/a for embarrassed.'],
+    ['assist','asistir','attend','Asistir usually means to attend. Ayudar is to help/assist.'],
+    ['library','librería','bookshop','Librería is a bookshop. Biblioteca is a library.'],
+    ['carpet','carpeta','folder','Carpeta usually means a folder. Alfombra is a carpet.'],
+    ['sensible','sensible','sensitive','Spanish sensible usually means sensitive; sensato/a means sensible/prudent.']
+  ];
 
   const state = {
     learnPage:1,
@@ -66,7 +74,8 @@
     root.innerHTML='<div class="everyday-learn-head"><div><span class="eyebrow">ENGLISH FIRST</span><h2>100 everyday Spanish essentials</h2><p>Start with the English you already know. This is a curated day-to-day teaching order, not a claim of exact corpus frequency.</p></div><div class="everyday-known-ring"><strong>'+known.size+'</strong><small>familiar</small></div></div>'+
       '<div class="everyday-tools"><label class="search-box"><span>⌕</span><input id="everydaySearch" type="search" placeholder="Search: where, coffee, help…" value="'+escapeHtml(state.learnSearch)+'"></label><div class="everyday-category-row">'+categories().map(function(cat){return'<button type="button" data-everyday-category="'+escapeHtml(cat)+'" class="'+(state.learnCategory===cat?'active':'')+'">'+escapeHtml(cat)+'</button>'}).join('')+'</div></div>'+
       '<div class="everyday-grid">'+visible.map(renderEverydayCard).join('')+'</div>'+
-      '<div class="everyday-pagination"><button type="button" data-everyday-page="'+(state.learnPage-1)+'" '+(state.learnPage<=1?'disabled':'')+'>← Previous</button><span>Page '+state.learnPage+' of '+pages+' · '+items.length+' items</span><button type="button" data-everyday-page="'+(state.learnPage+1)+'" '+(state.learnPage>=pages?'disabled':'')+'>Next →</button></div>'
+      '<div class="everyday-pagination"><button type="button" data-everyday-page="'+(state.learnPage-1)+'" '+(state.learnPage<=1?'disabled':'')+'>← Previous</button><span>Page '+state.learnPage+' of '+pages+' · '+items.length+' items</span><button type="button" data-everyday-page="'+(state.learnPage+1)+'" '+(state.learnPage>=pages?'disabled':'')+'>Next →</button></div>'+
+      '<details class="meaning-traps"><summary>6 common English → Spanish meaning traps</summary><div class="meaning-trap-grid">'+FALSE_FRIENDS.map(function(row){return'<article><small>'+escapeHtml(row[0])+' ≠ '+escapeHtml(row[1])+'</small><strong>'+escapeHtml(row[2])+'</strong><p>'+escapeHtml(row[3])+'</p></article>'}).join('')+'</div></details>'
   }
 
   function renderEverydayCard(item){
@@ -182,6 +191,7 @@
   });
 
   document.addEventListener('click',function(e){
+    const openMode=e.target.closest('[data-everyday-open]');if(openMode){state.view=openMode.dataset.everydayOpen||'learn';renderTabs();if(state.view==='learn')renderLearn();else if(!state.game)renderGameHome();return}
     const tab=e.target.closest('[data-everyday-tab]');if(tab){state.view=tab.dataset.everydayTab;if(state.view==='game'&&!state.game)renderGameHome();renderTabs();return}
     const cat=e.target.closest('[data-everyday-category]');if(cat){state.learnCategory=cat.dataset.everydayCategory;state.learnPage=1;renderLearn();return}
     const page=e.target.closest('[data-everyday-page]');if(page&&!page.disabled){state.learnPage=Number(page.dataset.everydayPage)||1;renderLearn();return}
