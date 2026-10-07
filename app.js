@@ -339,61 +339,149 @@
   function openPattern(id){if(FULL_PATTERN_DICTIONARIES.has(id)){window.location.href='pattern.html?id='+encodeURIComponent(id);return}const p=getPattern(id);const examples=p.examples.map(function(pair){const hi=highlightWordPair(String(pair[0]),String(pair[1]));return'<div class="transform-example"><div class="transform-word">'+hi.en+'</div><div class="arrow">→</div><div class="transform-word">'+hi.es+'</div><button type="button" class="small-audio" data-speak="'+escapeHtml(String(pair[1]))+'" aria-label="Hear '+escapeHtml(String(pair[1]))+'">🔊</button></div>'}).join('');const row=state.skills[p.id]||{};const skills=SKILLS.map(function(s){return'<button type="button" class="skill-button '+(row[s.key]?'done':'')+'" data-skill-practice="'+s.mode+'" data-id="'+p.id+'"><span>'+(row[s.key]?'✓':s.icon)+'</span><strong>'+s.label+'</strong></button>'}).join('');const related=relatedPatterns(p).map(function(x){return'<button type="button" class="related-card" data-open="'+x.id+'"><strong>'+escapeHtml(x.title)+'</strong><small>'+escapeHtml(x.scoreLabel||'Connected pattern')+'</small></button>'}).join('');els.dialogContent.innerHTML='<div class="dialog-hero"><span class="mini-badge '+p.type+'">'+typeLabel(p.type)+'</span><h2 id="dialogTitle">'+escapeHtml(p.title)+'</h2><p>'+escapeHtml(p.rule)+'</p><div class="lens-tags">'+p.lenses.map(function(x){return'<span class="lens-tag">'+x+'</span>'}).join('')+'</div></div><div class="pattern-transform"><div class="pattern-transform-label">SEE THE LINK</div>'+examples+'</div><div class="unlock-panel"><h3>🔓 This pattern unlocks more Spanish</h3><p>'+escapeHtml(p.scoreLabel||'Use the same connection when you meet similar words or sentences.')+'</p></div><h3>Build it in five skills</h3><div class="skill-strip">'+skills+'</div><div class="related-section"><h3>🔗 Connected next</h3><div class="related-grid">'+related+'</div></div>';els.dialog.showModal()}
   function goView(name){state.view=name;document.querySelectorAll('.view').forEach(function(v){v.classList.toggle('active',v.dataset.viewPanel===name)});document.querySelectorAll('.nav-item').forEach(function(b){b.classList.toggle('active',b.dataset.view===name)});if(name==='home')renderSentenceDNA();if(name==='course')renderCourse();if(name==='library'){renderFamilies();renderLibrary()}if(name==='practice'){renderReviewBar();renderSessionPanel();renderPractice()}if(name==='dna')renderDNA();window.scrollTo({top:0,behavior:'smooth'})}
   function populatePracticeSelect(){els.practiceSelect.innerHTML=patterns.slice().sort(function(a,b){return a.rank-b.rank}).map(function(p){return'<option value="'+p.id+'">#'+p.rank+' · '+escapeHtml(p.title)+'</option>'}).join('');els.practiceSelect.value=state.currentId}
-  function startPractice(id,mode){state.currentId=id;state.mode=mode||state.mode||'write';els.practiceSelect.value=id;document.querySelectorAll('.mode-card').forEach(function(b){b.classList.toggle('active',b.dataset.mode===state.mode)});if(els.dialog.open)els.dialog.close();goView('practice')}
+  function startPractice(id,mode){
+    state.session=null;state.currentId=id;state.mode=mode||state.mode||'write';els.practiceSelect.value=id;
+    document.querySelectorAll('.mode-card').forEach(function(b){b.classList.toggle('active',b.dataset.mode===state.mode)});
+    if(els.dialog.open)els.dialog.close();renderSessionPanel();goView('practice')
+  }
   function practiceSkillForMode(mode){return mode==='write'?'write':mode==='speak'?'speak':mode==='hear'?'hear':mode==='choice'?'use':'see'}
   function feedback(ok,text){const f=document.getElementById('practiceFeedback');if(!f)return;f.textContent=text;f.className='feedback '+(ok?'correct':'incorrect')}
-  function nextPracticeQuestion(currentId){
-    const due=duePatterns().filter(function(p){return p.id!==currentId});
-    if(due.length)return due[0];
-    const ordered=patterns.slice().sort(function(a,b){
-      const aScore=(5-progressFor(a.id))*24+a.power-(reviewRecord(a.id)?8:0);
-      const bScore=(5-progressFor(b.id))*24+b.power-(reviewRecord(b.id)?8:0);
-      return bScore-aScore||a.rank-b.rank
+
+  function sessionModeFor(p,index){
+    const preferred=recommendedMode(p),cycle=['write','hear','choice','speak','tick'];
+    if(index%3===0)return preferred;
+    const candidate=cycle[index%cycle.length],row=state.skills[p.id]||{},skill=practiceSkillForMode(candidate);
+    return row[skill]?preferred:candidate
+  }
+  function buildLessonItems(patternIds,count){
+    const allowed=new Set((patternIds&&patternIds.length?patternIds:patterns.map(function(p){return p.id})).filter(function(id){return!!patterns.find(function(p){return p.id===id})}));
+    let pool=patterns.filter(function(p){return allowed.has(p.id)});
+    const due=duePatterns().filter(function(p){return allowed.has(p.id)});
+    pool=pool.slice().sort(function(a,b){
+      const aWeak=(5-progressFor(a.id))*25+a.power+(reviewRecord(a.id)&&reviewRecord(a.id).lastQuality<3?20:0);
+      const bWeak=(5-progressFor(b.id))*25+b.power+(reviewRecord(b.id)&&reviewRecord(b.id).lastQuality<3?20:0);
+      return bWeak-aWeak||a.rank-b.rank
     });
+    const ordered=[],seen=new Set();
+    due.concat(pool).forEach(function(p){if(!seen.has(p.id)){seen.add(p.id);ordered.push(p)}});
+    const total=Math.max(1,count||8),items=[];
+    for(let i=0;i<total;i++){const p=ordered[i%ordered.length]||patterns[0];items.push({patternId:p.id,mode:sessionModeFor(p,i)})}
+    return items
+  }
+  function startLessonSession(title,patternIds,unitId){
+    const items=buildLessonItems(patternIds,8);
+    state.session={title:title||'Adaptive lesson',unitId:unitId||null,items:items,index:0,correct:0,skipped:0,mistakes:[],improved:[],startedAt:Date.now(),completed:false};
+    loadSessionItem();goView('practice')
+  }
+  function loadSessionItem(){
+    if(!state.session||state.session.completed)return;
+    const item=state.session.items[state.session.index];if(!item){finishSession();return}
+    state.currentId=item.patternId;state.mode=item.mode;els.practiceSelect.value=state.currentId;
+    document.querySelectorAll('.mode-card').forEach(function(b){b.classList.toggle('active',b.dataset.mode===state.mode)});
+    renderSessionPanel();renderPractice()
+  }
+  function renderSessionPanel(){
+    const panel=document.getElementById('lessonSessionPanel');if(!panel)return;
+    const s=state.session;if(!s){panel.hidden=true;panel.innerHTML='';return}
+    panel.hidden=false;
+    if(s.completed){panel.innerHTML='<div><span class="eyebrow">LESSON COMPLETE</span><strong>'+escapeHtml(s.title)+'</strong><small>'+s.correct+'/'+s.items.length+' correct · '+s.skipped+' skipped</small></div><div class="session-progress"><span style="width:100%"></span></div>';return}
+    const q=Math.min(s.index+1,s.items.length),pct=Math.round(s.index/s.items.length*100);
+    panel.innerHTML='<div class="lesson-session-head"><div><span class="eyebrow">ADAPTIVE LESSON</span><strong>'+escapeHtml(s.title)+'</strong><small>Question '+q+' of '+s.items.length+' · '+s.correct+' correct</small></div><span class="review-pill">'+escapeHtml(state.mode.toUpperCase())+'</span></div><div class="session-progress"><span style="width:'+pct+'%"></span></div>'
+  }
+  function finishSession(){
+    if(!state.session)return;state.session.completed=true;state.session.finishedAt=Date.now();logActivity('session',{unitId:state.session.unitId,title:state.session.title,correct:state.session.correct,total:state.session.items.length,skipped:state.session.skipped});
+    renderSessionPanel();renderPractice();renderCourse();if(state.view==='dna')renderDNA()
+  }
+  function renderSessionSummary(){
+    const s=state.session;if(!s||!s.completed)return;
+    const accuracy=Math.round(s.correct/s.items.length*100),uniqueImproved=Array.from(new Set(s.improved)),mistakes=Array.from(new Set(s.mistakes));
+    els.practiceStage.innerHTML='<div class="session-summary"><span class="eyebrow">SESSION SUMMARY</span><h2>'+accuracy+'% retrieval score</h2><p>You completed '+s.items.length+' adaptive questions. Correct answers were scheduled for later review; difficult items will return sooner.</p><div class="session-summary-grid"><article><strong>'+s.correct+'</strong><small>correct</small></article><article><strong>'+uniqueImproved.length+'</strong><small>patterns strengthened</small></article><article><strong>'+mistakes.length+'</strong><small>patterns to revisit</small></article></div>'+(mistakes.length?'<div class="session-mistakes"><small>REVISIT</small>'+mistakes.slice(0,5).map(function(id){return'<span>'+escapeHtml(getPattern(id).title)+'</span>'}).join('')+'</div>':'<div class="session-win">✓ No persistent mistakes recorded in this session.</div>')+'<div class="session-summary-actions">'+(mistakes.length?'<button type="button" class="primary-btn" data-session-retry>Repair mistakes</button>':'')+'<button type="button" class="secondary-btn" data-course-return>Back to course</button><button type="button" class="secondary-btn" data-smart-review>Smart practice</button></div></div>'
+  }
+  function nextPracticeQuestion(currentId){
+    const due=duePatterns().filter(function(p){return p.id!==currentId});if(due.length)return due[0];
+    const ordered=patterns.slice().sort(function(a,b){const aScore=(5-progressFor(a.id))*24+a.power-(reviewRecord(a.id)?8:0),bScore=(5-progressFor(b.id))*24+b.power-(reviewRecord(b.id)?8:0);return bScore-aScore||a.rank-b.rank});
     return ordered.find(function(p){return p.id!==currentId})||getPattern(currentId)
   }
+  function recordIncorrect(p){
+    scheduleReview(p.id,2);logActivity('answer',{pattern:p.id,mode:state.mode,correct:false});
+    if(state.session&&!state.session.completed&&!state.session.mistakes.includes(p.id))state.session.mistakes.push(p.id)
+  }
   function successForCurrent(quality){
-    const completedId=state.currentId,skill=practiceSkillForMode(state.mode);
+    const completedId=state.currentId,completedMode=state.mode,skill=practiceSkillForMode(completedMode);
     scheduleReview(completedId,quality==null?4:quality);
-    if(!state.skills[completedId])state.skills[completedId]={};
-    state.skills[completedId][skill]=true;
-    persistSkills();
-    const next=nextPracticeQuestion(completedId);
-    state.currentId=next.id;
-    els.practiceSelect.value=next.id;
-    toast('✓ Correct — next question.');
-    renderAllProgress()
+    if(!state.skills[completedId])state.skills[completedId]={};state.skills[completedId][skill]=true;persistSkills();
+    logActivity('answer',{pattern:completedId,mode:completedMode,correct:true,quality:quality==null?4:quality});
+    if(state.session&&!state.session.completed){
+      state.session.correct+=1;state.session.improved.push(completedId);state.session.index+=1;
+      if(state.session.index>=state.session.items.length){toast('✓ Lesson complete.');finishSession();return}
+      const item=state.session.items[state.session.index];state.currentId=item.patternId;state.mode=item.mode;els.practiceSelect.value=state.currentId;
+      document.querySelectorAll('.mode-card').forEach(function(b){b.classList.toggle('active',b.dataset.mode===state.mode)});
+      toast('✓ Correct — next question.');renderAllProgress();renderSessionPanel();return
+    }
+    const next=nextPracticeQuestion(completedId);state.currentId=next.id;els.practiceSelect.value=next.id;toast('✓ Correct — next question.');renderAllProgress()
   }
 
-  function reviewStatusHtml(p){const r=reviewRecord(p.id);return'<div class="review-status"><span class="review-pill">'+(r?'Memory: '+formatDue(r.due):'Memory: not scheduled')+'</span>'+(r?'<span class="review-pill">Interval: '+(r.interval?r.interval+' day'+(r.interval===1?'':'s'):'15 min')+'</span>':'')+'</div>'}
+  function reviewStatusHtml(p){const r=reviewRecord(p.id),intel=patternIntelligence(p);return'<div class="review-status"><span class="review-pill">'+intel.level+'</span><span class="review-pill">'+intel.usefulness+' usefulness</span><span class="review-pill">'+(r?'Memory: '+formatDue(r.due):'Memory: not scheduled')+'</span>'+(r?'<span class="review-pill">Interval: '+(r.interval?r.interval+' day'+(r.interval===1?'':'s'):'15 min')+'</span>':'')+'</div>'}
   function renderPractice(){
+    if(state.session&&state.session.completed){renderSessionSummary();return}
     const p=getPattern(state.currentId);els.practiceSelect.value=p.id;const ex=p.examples[0]||['',p.practice.answers[0]];
     let body='<div class="practice-head"><div><span class="mini-badge '+p.type+'">'+typeLabel(p.type)+'</span><h2>'+escapeHtml(p.title)+'</h2><p>'+escapeHtml(p.rule)+'</p>'+reviewStatusHtml(p)+'</div><span class="practice-score">'+progressFor(p.id)+' / 5 skills</span></div>';
     if(state.mode==='write')body+='<div class="prompt-box"><span class="prompt-label">WRITE IN SPANISH</span><strong>'+escapeHtml(p.practice.prompt)+'</strong></div><form class="answer-form" id="writingForm"><input id="writingAnswer" autocomplete="off" placeholder="Type your Spanish answer…" aria-label="Your Spanish answer"><button class="primary-btn" type="submit">Check</button></form><div class="practice-actions"><button class="secondary-btn" type="button" data-reveal="'+escapeHtml(p.practice.answers[0])+'">Show answer</button><button class="secondary-btn" type="button" data-speak="'+escapeHtml(p.practice.answers[0])+'">🔊 Hear it</button></div>';
-    else if(state.mode==='speak'){const target=speakTargetForPattern(p);body+='<div class="pronunciation-coach"><div class="pronunciation-target"><div><small>SAY THIS IN SPANISH</small><strong>'+escapeHtml(target)+'</strong><div class="reading-guide" aria-label="Stress clue">'+stressCueHtml(target)+'</div></div><span class="review-pill">Mic feedback</span></div><p class="speech-tip">'+escapeHtml(pronunciationTip(target))+'</p><div class="practice-actions"><button class="mic-btn" type="button" id="micButton">🎙 Start speaking</button><button class="secondary-btn" type="button" data-speak="'+escapeHtml(target)+'">🔊 Hear normal</button><button class="secondary-btn" type="button" data-speak-slow="'+escapeHtml(target)+'">🐢 Hear slowly</button><button class="secondary-btn" type="button" id="selfCheckSpeak">Mic unavailable? Self-check ✓</button></div><div class="pronunciation-result empty" id="pronunciationResult">Your recognised phrase and speech-recognition match score will appear here.</div></div>'}
+    else if(state.mode==='speak'){const target=speakTargetForPattern(p);body+='<div class="pronunciation-coach"><div class="pronunciation-target"><div><small>SAY THIS IN SPANISH</small><strong>'+escapeHtml(target)+'</strong><div class="reading-guide" aria-label="Stress clue">'+stressCueHtml(target)+'</div></div><span class="review-pill">Word-level feedback</span></div><p class="speech-tip">'+escapeHtml(pronunciationTip(target))+'</p><div class="practice-actions"><button class="mic-btn" type="button" id="micButton">🎙 Start speaking</button><button class="secondary-btn" type="button" data-speak="'+escapeHtml(target)+'">🔊 Hear normal</button><button class="secondary-btn" type="button" data-speak-slow="'+escapeHtml(target)+'">🐢 Hear slowly</button><button class="secondary-btn" type="button" id="selfCheckSpeak">Mic unavailable? Self-check ✓</button></div><div class="pronunciation-result empty" id="pronunciationResult">Say the phrase to get word-by-word recognition feedback and recurring sound-focus hints.</div></div>'}
     else if(state.mode==='hear')body+='<button class="big-listen" type="button" data-speak="'+escapeHtml(p.practice.answers[0])+'">🔊 Tap to hear Spanish</button><div class="prompt-box"><span class="prompt-label">WHAT DOES IT MEAN?</span><strong>Choose the closest English meaning.</strong></div><div class="choice-grid"><button class="choice-btn" type="button" data-choice="true">'+escapeHtml(ex[0])+'</button><button class="choice-btn" type="button" data-choice="false">'+escapeHtml(p.practice.wrong)+'</button></div>';
     else if(state.mode==='choice')body+='<div class="prompt-box"><span class="prompt-label">THIS OR THAT</span><strong>'+escapeHtml(p.practice.prompt)+'</strong></div><div class="choice-grid"><button class="choice-btn" type="button" data-choice="true">'+escapeHtml(p.practice.answers[0])+'</button><button class="choice-btn" type="button" data-choice="false">'+escapeHtml(p.practice.wrong)+'</button></div>';
     else{const good2=p.examples[1]?p.examples[1][1]:p.practice.answers[0];body+='<div class="prompt-box"><span class="prompt-label">TICK EVERY EXAMPLE THAT FITS</span><strong>'+escapeHtml(p.title)+'</strong></div><div class="tick-list"><label class="tick-item"><input type="checkbox" data-tick="good"><span>'+escapeHtml(ex[1])+'</span></label><label class="tick-item"><input type="checkbox" data-tick="bad"><span>'+escapeHtml(p.practice.wrong)+'</span></label><label class="tick-item"><input type="checkbox" data-tick="good"><span>'+escapeHtml(good2)+'</span></label></div><button class="primary-btn" type="button" id="checkTicks">Check ticks</button>'}
-    body+='<div class="feedback" id="practiceFeedback">Retrieval strengthens memory. Reveal or skip whenever you need to.</div><div class="practice-footer"><small>Correct answers schedule a later review; difficult answers come back sooner.</small><button class="skip-btn" type="button" id="skipPractice">Skip for now →</button></div>';
-    els.practiceStage.innerHTML=body;bindPractice(p);
+    body+='<div class="feedback" id="practiceFeedback">Retrieval strengthens memory. Reveal or skip whenever you need to.</div><div class="practice-footer"><small>'+(state.session?'Correct answers move straight to the next question.':'Correct answers schedule a later review and move to the next question.')+'</small><button class="skip-btn" type="button" id="skipPractice">Skip for now →</button></div>';
+    els.practiceStage.innerHTML=body;bindPractice(p)
   }
   function bindPractice(p){
-    const form=document.getElementById('writingForm');if(form)form.addEventListener('submit',function(e){e.preventDefault();const ans=normalize(document.getElementById('writingAnswer').value),ok=p.practice.answers.some(function(a){return normalize(a)===ans});feedback(ok,ok?'✓ Correct. You retrieved the link from memory.':'Almost. Try again, or tap “Show answer”.');if(ok)successForCurrent(5);else scheduleReview(p.id,2)});
+    const form=document.getElementById('writingForm');if(form)form.addEventListener('submit',function(e){e.preventDefault();const ans=normalize(document.getElementById('writingAnswer').value),ok=p.practice.answers.some(function(a){return normalize(a)===ans});feedback(ok,ok?'✓ Correct. Moving to the next question…':'Almost. Try again, or tap “Show answer”.');if(ok)successForCurrent(5);else recordIncorrect(p)});
     const mic=document.getElementById('micButton');if(mic)mic.addEventListener('click',function(){startRecognition(p)});
-    const selfSpeak=document.getElementById('selfCheckSpeak');if(selfSpeak)selfSpeak.addEventListener('click',function(){feedback(true,'Self-check saved. The mic score is more precise when speech recognition is available.');successForCurrent(3)});
-    const ticks=document.getElementById('checkTicks');if(ticks)ticks.addEventListener('click',function(){const boxes=Array.from(els.practiceStage.querySelectorAll('[data-tick]')),ok=boxes.every(function(b){return(b.dataset.tick==='good')===b.checked});feedback(ok,ok?'✓ Exactly. You spotted the pattern.':'Not quite. Tick only the examples that fit the target link.');if(ok)successForCurrent(4);else scheduleReview(p.id,2)});
+    const selfSpeak=document.getElementById('selfCheckSpeak');if(selfSpeak)selfSpeak.addEventListener('click',function(){feedback(true,'Self-check saved. Moving on.');successForCurrent(3)});
+    const ticks=document.getElementById('checkTicks');if(ticks)ticks.addEventListener('click',function(){const boxes=Array.from(els.practiceStage.querySelectorAll('[data-tick]')),ok=boxes.every(function(b){return(b.dataset.tick==='good')===b.checked});feedback(ok,ok?'✓ Exactly. Moving to the next question…':'Not quite. Tick only the examples that fit the target link.');if(ok)successForCurrent(4);else recordIncorrect(p)});
     const skip=document.getElementById('skipPractice');if(skip)skip.addEventListener('click',skipPractice)
   }
-  function skipPractice(){const p=nextBestPattern();if(p.id===state.currentId){const ordered=patterns.slice().sort(function(a,b){return a.rank-b.rank}),i=ordered.findIndex(function(x){return x.id===state.currentId});state.currentId=ordered[(i+1)%ordered.length].id}else state.currentId=p.id;els.practiceSelect.value=state.currentId;toast('Skipped — no penalty. Here is another useful link.');renderPractice()}
-  function renderPronunciationResult(score,heard,target){
-    const box=document.getElementById('pronunciationResult');if(!box)return;const label=score>=90?'Excellent match':score>=75?'Strong match':score>=60?'Close — refine it':'Keep shaping the sound';
-    box.className='pronunciation-result';box.innerHTML='<div class="pronunciation-score-row"><div><small>RECOGNISED</small><strong>'+escapeHtml(label)+'</strong></div><strong>'+score+'%</strong></div><div class="pronunciation-meter"><span style="width:'+score+'%"></span></div><div class="pronunciation-transcript">You said: <b>'+escapeHtml(heard)+'</b><br>Target: <b>'+escapeHtml(target)+'</b></div><p class="speech-tip">'+escapeHtml(score>=80?'Good. Repeat once more for consistency.':pronunciationTip(target))+'</p>'
+  function skipPractice(){
+    if(state.session&&!state.session.completed){state.session.skipped+=1;state.session.index+=1;if(state.session.index>=state.session.items.length){finishSession();return}const item=state.session.items[state.session.index];state.currentId=item.patternId;state.mode=item.mode;els.practiceSelect.value=state.currentId;toast('Skipped — no penalty.');renderSessionPanel();renderPractice();return}
+    const p=nextBestPattern();if(p.id===state.currentId){const ordered=patterns.slice().sort(function(a,b){return a.rank-b.rank}),i=ordered.findIndex(function(x){return x.id===state.currentId});state.currentId=ordered[(i+1)%ordered.length].id}else state.currentId=p.id;els.practiceSelect.value=state.currentId;toast('Skipped — no penalty. Here is another useful link.');renderPractice()
+  }
+
+  function tokeniseSpeech(text){return normalize(text).split(' ').filter(Boolean)}
+  function analysePronunciation(target,heard){
+    const targetWords=tokeniseSpeech(target),heardWords=tokeniseSpeech(heard),words=targetWords.map(function(word,i){const spoken=heardWords[i]||'',score=spoken?pronunciationSimilarity(word,spoken):0;return{target:word,heard:spoken,score:score,categories:SOUND_CATEGORIES.filter(function(cat){return cat.test(word)}).map(function(cat){return cat.id})}});
+    const score=pronunciationSimilarity(target,heard),focus=[];
+    words.forEach(function(w){if(w.score<78)w.categories.forEach(function(id){if(!focus.includes(id))focus.push(id)})});
+    return{score:score,words:words,focus:focus}
+  }
+  function recordPronunciationWeaknesses(analysis){
+    analysis.words.forEach(function(word){word.categories.forEach(function(id){const old=state.pronunciationWeaknesses[id]||{attempts:0,total:0,misses:0};old.attempts+=1;old.total+=word.score;if(word.score<78)old.misses+=1;old.lastAt=Date.now();state.pronunciationWeaknesses[id]=old})});persistPronunciationWeaknesses()
+  }
+  function pronunciationWeaknessSummary(){
+    return Object.keys(state.pronunciationWeaknesses).map(function(id){const row=state.pronunciationWeaknesses[id],meta=SOUND_CATEGORIES.find(function(x){return x.id===id});return{id:id,label:meta?meta.label:id,attempts:row.attempts,average:row.attempts?Math.round(row.total/row.attempts):100,misses:row.misses||0}}).filter(function(x){return x.attempts>=1}).sort(function(a,b){return a.average-b.average||b.misses-a.misses})
+  }
+  function renderPronunciationResult(analysis,heard,target){
+    const box=document.getElementById('pronunciationResult');if(!box)return;const score=analysis.score,label=score>=90?'Excellent match':score>=75?'Strong match':score>=60?'Close — refine it':'Keep shaping the sound';
+    const wordHtml=analysis.words.map(function(w){const cls=w.score>=85?'good':w.score>=60?'warn':'bad';return'<button type="button" class="speech-word '+cls+'" data-pronounce-word="'+escapeHtml(w.target)+'"><strong>'+escapeHtml(w.target)+'</strong><small>'+w.score+'%'+(w.heard?' · '+escapeHtml(w.heard):' · missed')+'</small></button>'}).join('');
+    const focusLabels=analysis.focus.map(function(id){const x=SOUND_CATEGORIES.find(function(cat){return cat.id===id});return x?x.label:id});
+    box.className='pronunciation-result';box.innerHTML='<div class="pronunciation-score-row"><div><small>SPEECH-RECOGNITION MATCH</small><strong>'+escapeHtml(label)+'</strong></div><strong>'+score+'%</strong></div><div class="pronunciation-meter"><span style="width:'+score+'%"></span></div><div class="speech-word-grid">'+wordHtml+'</div><div class="pronunciation-transcript">You said: <b>'+escapeHtml(heard)+'</b><br>Target: <b>'+escapeHtml(target)+'</b></div>'+(focusLabels.length?'<p class="speech-tip"><b>Focus next:</b> '+escapeHtml(focusLabels.join(' · '))+'. Tap a difficult word above to practise only that word.</p>':'<p class="speech-tip">All target words were recognised strongly. Repeat once more for consistency.</p>')
+  }
+  function makeRecognition(target,onResult,onEnd){
+    const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;if(!Recognition)return null;
+    const rec=new Recognition();rec.lang='es-ES';rec.interimResults=false;rec.maxAlternatives=5;
+    rec.onresult=function(e){const alternatives=Array.from(e.results[0]).map(function(r){return r.transcript});let best={heard:alternatives[0]||'',score:0};alternatives.forEach(function(heard){const score=pronunciationSimilarity(target,heard);if(score>best.score)best={heard:heard,score:score}});onResult(best)};
+    rec.onerror=function(){feedback(false,'I could not capture that clearly. Check microphone permission and try again.')};rec.onend=function(){if(onEnd)onEnd()};return rec
+  }
+  function startWordRecognition(word,patternId){
+    const rec=makeRecognition(word,function(best){const analysis=analysePronunciation(word,best.heard);recordPronunciationWeaknesses(analysis);const box=document.getElementById('pronunciationResult');if(box)box.insertAdjacentHTML('afterbegin','<div class="word-focus-result"><strong>'+escapeHtml(word)+' · '+best.score+'%</strong><small>Recognised as “'+escapeHtml(best.heard)+'”. '+escapeHtml(best.score>=80?'Good — return to the full phrase.':pronunciationTip(word))+'</small></div>')},function(){});
+    if(!rec){feedback(false,'Speech recognition is unavailable in this browser. Use slow audio and repeat the word aloud.');return}feedback(true,'Listening for “'+word+'”…');rec.start()
   }
   function startRecognition(p){
-    const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;if(!Recognition){feedback(false,'Speech recognition is unavailable in this browser. Use “Hear slowly”, repeat aloud, then use self-check.');return}
-    const rec=new Recognition();rec.lang='es-ES';rec.interimResults=false;rec.maxAlternatives=5;const mic=document.getElementById('micButton'),target=speakTargetForPattern(p);mic.disabled=true;mic.textContent='Listening…';
-    rec.onresult=function(e){const alternatives=Array.from(e.results[0]).map(function(r){return r.transcript});let best={heard:alternatives[0]||'',score:0};alternatives.forEach(function(heard){const score=pronunciationSimilarity(target,heard);if(score>best.score)best={heard:heard,score:score}});recordPronunciation(p.id,best.score,best.heard,target);renderPronunciationResult(best.score,best.heard,target);const quality=best.score>=92?5:best.score>=78?4:best.score>=62?3:2;scheduleReview(p.id,quality);if(best.score>=62){markSkill(p.id,'speak',true);feedback(true,'✓ Speech recognised. '+best.score+'% match.')}else feedback(false,'I heard “'+best.heard+'”. Use the stress clue and slow model, then try again.');renderAllProgress()};
-    rec.onerror=function(){feedback(false,'I could not capture that clearly. Check microphone permission, try again, or use self-check.')};rec.onend=function(){mic.disabled=false;mic.textContent='🎙 Start speaking'};rec.start()
+    const target=speakTargetForPattern(p),mic=document.getElementById('micButton'),rec=makeRecognition(target,function(best){
+      const analysis=analysePronunciation(target,best.heard);recordPronunciation(p.id,best.score,best.heard,target);recordPronunciationWeaknesses(analysis);logActivity('speech',{pattern:p.id,score:best.score});renderPronunciationResult(analysis,best.heard,target);
+      const quality=best.score>=92?5:best.score>=78?4:best.score>=62?3:2;
+      if(best.score>=62){feedback(true,'✓ Speech recognised. '+best.score+'% match — moving on.');successForCurrent(quality)}else{recordIncorrect(p);feedback(false,'I heard “'+best.heard+'”. Tap a difficult word, use slow audio, then try again.')}
+    },function(){if(mic){mic.disabled=false;mic.textContent='🎙 Start speaking'}});
+    if(!rec){feedback(false,'Speech recognition is unavailable in this browser. Use “Hear slowly”, repeat aloud, then use self-check.');return}mic.disabled=true;mic.textContent='Listening…';rec.start()
   }
 
   function renderDNA(){
