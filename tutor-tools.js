@@ -126,6 +126,32 @@
   function unlockedRanks(){
     const set=knownSet();for(let i=1;i<=12;i++)set.add(String(i));return set
   }
+  function familiarSpanishWords(){
+    const ranks=unlockedRanks(),words=new Set(['si','no','por','favor','gracias','de','la','el','un','una','a','al','en','y','que','me','mi','es','esta','está','son','muy','lo']);
+    ALL.forEach(function(x){if(ranks.has(String(x.rank)))String(x.spanish||'').toLowerCase().split(/[^a-záéíóúüñ]+/i).filter(Boolean).forEach(function(w){words.add(normalize(w))})});
+    return words
+  }
+  function unfamiliarReplyWords(answer){
+    const allowed=familiarSpanishWords();
+    return normalize(answer).split(' ').filter(Boolean).filter(function(w){return w.length>2&&!allowed.has(w)})
+  }
+  function replyAnalysis(answer,turn){
+    const canonical=turn.replies[0],score=bestSimilarity(answer,turn.replies),answerWords=new Set(normalize(answer).split(' ').filter(Boolean));
+    const missing=normalize(canonical).split(' ').filter(function(w){return w.length>2&&!answerWords.has(w)}).slice(0,3);
+    return{canonical:canonical,score:score,missing:missing,unfamiliar:unfamiliarReplyWords(answer)}
+  }
+  function coachLabel(who){return who==='tutor'?'Spanish coach':who==='coach'?'LanguageDNA coach':'You'}
+  function advanceConversation(answer,analysis){
+    const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turn=s.turns[state.turn];
+    state.messages.push({who:'learner',text:answer});
+    let response=analysis.score>=.86?'That works naturally.':analysis.score>=.56?'That works. A more natural model is: “'+analysis.canonical+'”.':'Use this corrected reply: “'+analysis.canonical+'”.';
+    if(analysis.unfamiliar.length)response+=' You used extra Spanish too; I’ll keep my next prompt inside your familiar vocabulary.';
+    state.messages.push({who:'coach',text:response,english:'English link: '+turn.explain});
+    state.turn+=1;
+    if(state.turn<s.turns.length){const next=s.turns[state.turn];state.messages.push({who:'tutor',text:next.npc,english:next.english})}else{markDailyStep('scenario')}
+    renderConversation()
+  }
+
   function scenarioReadiness(s){
     const unlocked=unlockedRanks(),have=s.required.filter(r=>unlocked.has(String(r))).length;
     return {have,total:s.required.length,pct:Math.round(have/s.required.length*100)}
@@ -191,7 +217,7 @@
     const s=SCENARIOS.find(x=>x.id===state.scenario)||SCENARIOS[0],ready=scenarioReadiness(s),turn=s.turns[Math.min(state.turn,s.turns.length-1)];
     const boundary=unlockedRanks().size;
     root.innerHTML='<div class="conversation-layout"><aside class="conversation-side"><span class="eyebrow">CONVERSATION TUTOR</span><h2>'+s.icon+' '+escapeHtml(s.title)+'</h2><p>'+escapeHtml(s.aim)+'</p><div class="conversation-boundary"><strong>'+boundary+'</strong><small>starter + familiar words available</small></div><div class="readiness-bar"><span style="width:'+ready.pct+'%"></span></div><small>'+ready.have+'/'+ready.total+' scenario essentials already familiar. Missing words stay supported with hints.</small><button type="button" class="secondary-btn" data-tutor-tab="scenarios">Choose another scenario</button></aside>'+
-      '<section class="conversation-main"><div class="conversation-note">Local constrained coach · keeps replies short and close to the vocabulary you have learned. This is not an unrestricted generative AI chat.</div><div class="chat-stream">'+state.messages.map(m=>'<div class="chat-bubble '+m.who+'"><strong>'+(m.who==='tutor'?'Spanish coach':'You')+'</strong><p>'+escapeHtml(m.text)+'</p>'+(m.english?'<small>'+escapeHtml(m.english)+'</small>':'')+'</div>').join('')+'</div>'+
+      '<section class="conversation-main"><div class="conversation-note">Beginner-safe coach · accepts close natural replies, corrects mistakes gently, and keeps its own prompts close to vocabulary you have unlocked.</div><div class="chat-stream">'+state.messages.map(m=>'<div class="chat-bubble '+m.who+'"><strong>'+(m.who==='tutor'?'Spanish coach':'You')+'</strong><p>'+escapeHtml(m.text)+'</p>'+(m.english?'<small>'+escapeHtml(m.english)+'</small>':'')+'</div>').join('')+'</div>'+
       (state.turn>=s.turns.length?'<div class="conversation-complete"><strong>✓ Scenario complete</strong><p>You handled '+s.turns.length+' short turns without needing a long lesson.</p><button type="button" class="primary-btn" data-conversation-restart>Try again</button></div>':
       '<form id="conversationForm" class="conversation-form"><label><span class="sr-only">Reply in Spanish</span><input id="conversationInput" autocomplete="off" placeholder="Reply in Spanish…"></label><button type="submit" class="primary-btn">Send</button></form><div class="conversation-support"><button type="button" data-conversation-help>Show English help</button><button type="button" data-conversation-suggest>Show a reply I can use</button><button type="button" data-tutor-speak="'+escapeHtml(turn.npc)+'">🔊 Hear question</button></div><div id="conversationFeedback" class="conversation-feedback" aria-live="polite"></div>')+
       '</section></div>';
@@ -200,16 +226,12 @@
   function submitConversation(e){
     e.preventDefault();const input=document.getElementById('conversationInput');if(!input)return;
     const answer=input.value.trim();if(!answer)return;
-    const s=SCENARIOS.find(x=>x.id===state.scenario),turn=s.turns[state.turn],score=bestSimilarity(answer,turn.replies);
-    const feedback=document.getElementById('conversationFeedback');
-    if(score>=.56||turn.replies.some(r=>normalize(answer).includes(normalize(r))||normalize(r).includes(normalize(answer)))){
-      state.messages.push({who:'learner',text:answer});
-      state.messages.push({who:'coach',text:'Good — '+turn.explain});
-      state.turn+=1;
-      if(state.turn<s.turns.length){const next=s.turns[state.turn];state.messages.push({who:'tutor',text:next.npc,english:next.english})}else{markDailyStep('scenario')}
-      renderConversation()
-    }else{
-      if(feedback)feedback.innerHTML='<strong>Almost.</strong> Keep it short. Try something close to: <em>'+escapeHtml(turn.replies[0])+'</em>'
+    const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turn=s.turns[state.turn],analysis=replyAnalysis(answer,turn),feedback=document.getElementById('conversationFeedback');
+    const contains=turn.replies.some(function(r){return normalize(answer).includes(normalize(r))||normalize(r).includes(normalize(answer))});
+    if(analysis.score>=.56||contains){advanceConversation(answer,analysis);return}
+    if(feedback){
+      const missing=analysis.missing.length?' Focus on: <b>'+escapeHtml(analysis.missing.join(' · '))+'</b>.':'';
+      feedback.innerHTML='<div class="tutor-correction"><strong>Good attempt — change it slightly.</strong><p>You wrote: <em>'+escapeHtml(answer)+'</em></p><p>Better: <b>'+escapeHtml(analysis.canonical)+'</b></p><p>'+escapeHtml(turn.explain)+'</p>'+missing+'<button type="button" class="secondary-btn" data-conversation-use-correction>Use corrected reply</button></div>'
     }
   }
 
@@ -232,6 +254,7 @@
     const done=e.target.closest('[data-daily-done]');if(done){markDailyStep(done.dataset.dailyDone);return}
     const action=e.target.closest('[data-daily-action]');if(action){const plan=dailyPlan(),a=action.dataset.dailyAction;if(a==='review'){markDailyStep('review');openSmartReview()}if(a==='hear1'){speak(plan.first.spanish);markFamiliar(plan.first.rank);markDailyStep('word1')}if(a==='hear2'){speak(plan.second.spanish);markFamiliar(plan.second.rank);markDailyStep('word2')}if(a==='speak'){startSpeechCheck(plan.first.spanish)}if(a==='scenario'){state.scenario=plan.scenario.id;state.tab='conversation';resetConversation(state.scenario);renderTabs()}return}
     const scenario=e.target.closest('[data-scenario-start]');if(scenario){state.scenario=scenario.dataset.scenarioStart;state.tab='conversation';resetConversation(state.scenario);renderTabs();return}
+    const correction=e.target.closest('[data-conversation-use-correction]');if(correction){const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turn=s.turns[state.turn],canonical=turn.replies[0];advanceConversation(canonical,replyAnalysis(canonical,turn));return}
     const restart=e.target.closest('[data-conversation-restart]');if(restart){resetConversation(state.scenario);return}
     const help=e.target.closest('[data-conversation-help]');if(help){const s=SCENARIOS.find(x=>x.id===state.scenario),turn=s.turns[state.turn],feedback=document.getElementById('conversationFeedback');if(feedback)feedback.innerHTML='<strong>English:</strong> '+escapeHtml(turn.english);return}
     const suggest=e.target.closest('[data-conversation-suggest]');if(suggest){const s=SCENARIOS.find(x=>x.id===state.scenario),turn=s.turns[state.turn],input=document.getElementById('conversationInput');if(input){input.value=turn.replies[0];input.focus()}return}
