@@ -206,7 +206,7 @@
       state.messages.push({who:'learner',text:answer});
       state.messages.push({who:'coach',text:'Good — '+turn.explain});
       state.turn+=1;
-      if(state.turn<s.turns.length){const next=s.turns[state.turn];state.messages.push({who:'tutor',text:next.npc,english:next.english})}
+      if(state.turn<s.turns.length){const next=s.turns[state.turn];state.messages.push({who:'tutor',text:next.npc,english:next.english})}else{markDailyStep('scenario')}
       renderConversation()
     }else{
       if(feedback)feedback.innerHTML='<strong>Almost.</strong> Keep it short. Try something close to: <em>'+escapeHtml(turn.replies[0])+'</em>'
@@ -230,7 +230,7 @@
     const open=e.target.closest('[data-tutor-open]');if(open){state.tab=open.dataset.tutorOpen||'daily';renderTabs();if(state.tab==='daily')renderDaily();return}
     const tab=e.target.closest('[data-tutor-tab]');if(tab){state.tab=tab.dataset.tutorTab;renderTabs();if(state.tab==='daily')renderDaily();if(state.tab==='conversation'){if(!state.messages.length)resetConversation(state.scenario);else renderConversation()}if(state.tab==='scenarios')renderScenarios();return}
     const done=e.target.closest('[data-daily-done]');if(done){markDailyStep(done.dataset.dailyDone);return}
-    const action=e.target.closest('[data-daily-action]');if(action){const plan=dailyPlan(),a=action.dataset.dailyAction;if(a==='review'){markDailyStep('review');openSmartReview()}if(a==='hear1'){speak(plan.first.spanish);markFamiliar(plan.first.rank);markDailyStep('word1')}if(a==='hear2'){speak(plan.second.spanish);markFamiliar(plan.second.rank);markDailyStep('word2')}if(a==='speak'){startSpeechCheck(plan.first.spanish)}if(a==='scenario'){markDailyStep('scenario');state.scenario=plan.scenario.id;state.tab='conversation';resetConversation(state.scenario);renderTabs()}return}
+    const action=e.target.closest('[data-daily-action]');if(action){const plan=dailyPlan(),a=action.dataset.dailyAction;if(a==='review'){markDailyStep('review');openSmartReview()}if(a==='hear1'){speak(plan.first.spanish);markFamiliar(plan.first.rank);markDailyStep('word1')}if(a==='hear2'){speak(plan.second.spanish);markFamiliar(plan.second.rank);markDailyStep('word2')}if(a==='speak'){startSpeechCheck(plan.first.spanish)}if(a==='scenario'){state.scenario=plan.scenario.id;state.tab='conversation';resetConversation(state.scenario);renderTabs()}return}
     const scenario=e.target.closest('[data-scenario-start]');if(scenario){state.scenario=scenario.dataset.scenarioStart;state.tab='conversation';resetConversation(state.scenario);renderTabs();return}
     const restart=e.target.closest('[data-conversation-restart]');if(restart){resetConversation(state.scenario);return}
     const help=e.target.closest('[data-conversation-help]');if(help){const s=SCENARIOS.find(x=>x.id===state.scenario),turn=s.turns[state.turn],feedback=document.getElementById('conversationFeedback');if(feedback)feedback.innerHTML='<strong>English:</strong> '+escapeHtml(turn.english);return}
