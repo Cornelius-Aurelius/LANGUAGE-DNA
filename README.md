@@ -85,3 +85,17 @@ The Everyday 100 ordering is a LanguageDNA teaching priority for day-to-day usef
 A dedicated **40-question Game Mode** now provides five increasing difficulty levels. Every question has four choices and no right/wrong answer is revealed while the test is in progress. After all 40 are answered, the learner receives a full colour-coded review. A pass requires **37/40 (92.5%)**; passing unlocks the next level, while a failed attempt keeps the learner at the same level and offers a missed-concepts review.
 
 See `EVERYDAY_100_GAME.md` for the full behaviour and difficulty ladder.
+
+
+## Tutor + Daily Learning + Vocabulary Expansion v7
+
+LanguageDNA now adds four beginner-first upgrades while deliberately leaving the 40-question Game Mode rules and progression unchanged.
+
+- **Daily 5:** a five-step lesson of roughly five minutes built from reviews due, unfamiliar Everyday vocabulary, recurring speech-focus data and a short real-life scenario. It is designed to add very little new information at once.
+- **Conversation Tutor:** a local constrained conversation coach for short Spanish replies. It uses starter essentials plus vocabulary the learner marked Familiar, provides English help only when requested, and keeps conversations to three short turns rather than open-ended chat. It does not claim to be an unrestricted cloud LLM.
+- **Real-life scenarios:** café, hotel, airport, taxi, shopping, directions, doctor, emergency and meeting-people practice, each with readiness based on familiar vocabulary and supported mode when some words are still new.
+- **Vocabulary 100 → 500 → 1,000:** the first 100 remain hand-curated day-to-day essentials. Ranks 101–1,000 are drawn from the existing quality-gated production Pattern Dictionaries and retain English/Spanish links, pattern family, teaching-level heuristic, usefulness band, morphology/pattern information and simple example frames. The expansion labels are teaching heuristics, not official CEFR certification or exact corpus-frequency ranks.
+
+The vocabulary browser still shows only 20 items per page and defaults to the core 100, so expanding the underlying data does not make the beginner screen more overwhelming.
+
+See `TUTOR_DAILY_VOCAB_V7.md` for the learner-state logic, scenario design, static-site tutor boundary and vocabulary-tier provenance.

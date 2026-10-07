@@ -337,7 +337,7 @@
 
   const FULL_PATTERN_DICTIONARIES=new Set(["tion-cion","sion-sion","ity-idad","ous-oso","ly-mente","ic-ico","ive-ivo","ist-ista","ance-encia","ism-ismo","able-ible","ant-ent","ize-izar","fy-ficar","al-al","ment-mento","ment-miento","ary-ario","ory-orio","ture-tura","tude-tud","logy-logia","graphy-grafia","cracy-cracia","nomy-nomia","metry-metria","scope-scopio","ct-cto","id-ido","ate-ar","ph-f"]);
   function openPattern(id){if(FULL_PATTERN_DICTIONARIES.has(id)){window.location.href='pattern.html?id='+encodeURIComponent(id);return}const p=getPattern(id);const examples=p.examples.map(function(pair){const hi=highlightWordPair(String(pair[0]),String(pair[1]));return'<div class="transform-example"><div class="transform-word">'+hi.en+'</div><div class="arrow">→</div><div class="transform-word">'+hi.es+'</div><button type="button" class="small-audio" data-speak="'+escapeHtml(String(pair[1]))+'" aria-label="Hear '+escapeHtml(String(pair[1]))+'">🔊</button></div>'}).join('');const row=state.skills[p.id]||{};const skills=SKILLS.map(function(s){return'<button type="button" class="skill-button '+(row[s.key]?'done':'')+'" data-skill-practice="'+s.mode+'" data-id="'+p.id+'"><span>'+(row[s.key]?'✓':s.icon)+'</span><strong>'+s.label+'</strong></button>'}).join('');const related=relatedPatterns(p).map(function(x){return'<button type="button" class="related-card" data-open="'+x.id+'"><strong>'+escapeHtml(x.title)+'</strong><small>'+escapeHtml(x.scoreLabel||'Connected pattern')+'</small></button>'}).join('');els.dialogContent.innerHTML='<div class="dialog-hero"><span class="mini-badge '+p.type+'">'+typeLabel(p.type)+'</span><h2 id="dialogTitle">'+escapeHtml(p.title)+'</h2><p>'+escapeHtml(p.rule)+'</p><div class="lens-tags">'+p.lenses.map(function(x){return'<span class="lens-tag">'+x+'</span>'}).join('')+'</div></div><div class="pattern-transform"><div class="pattern-transform-label">SEE THE LINK</div>'+examples+'</div><div class="unlock-panel"><h3>🔓 This pattern unlocks more Spanish</h3><p>'+escapeHtml(p.scoreLabel||'Use the same connection when you meet similar words or sentences.')+'</p></div><h3>Build it in five skills</h3><div class="skill-strip">'+skills+'</div><div class="related-section"><h3>🔗 Connected next</h3><div class="related-grid">'+related+'</div></div>';els.dialog.showModal()}
-  function goView(name){state.view=name;document.querySelectorAll('.view').forEach(function(v){v.classList.toggle('active',v.dataset.viewPanel===name)});document.querySelectorAll('.nav-item').forEach(function(b){b.classList.toggle('active',b.dataset.view===name)});if(name==='home')renderSentenceDNA();if(name==='course')renderCourse();if(name==='library'){renderFamilies();renderLibrary()}if(name==='practice'){renderReviewBar();renderSessionPanel();renderPractice()}if(name==='dna')renderDNA();window.scrollTo({top:0,behavior:'smooth'})}
+  function goView(name){state.view=name;document.querySelectorAll('.view').forEach(function(v){v.classList.toggle('active',v.dataset.viewPanel===name)});document.querySelectorAll('.nav-item').forEach(function(b){b.classList.toggle('active',b.dataset.view===name)});if(name==='home')renderSentenceDNA();if(name==='course')renderCourse();if(name==='library'){renderFamilies();renderLibrary()}if(name==='practice'){renderReviewBar();renderSessionPanel();renderPractice()}if(name==='tutor'&&window.LanguageDNATutor)window.LanguageDNATutor.render();if(name==='dna')renderDNA();window.scrollTo({top:0,behavior:'smooth'})}
   function populatePracticeSelect(){els.practiceSelect.innerHTML=patterns.slice().sort(function(a,b){return a.rank-b.rank}).map(function(p){return'<option value="'+p.id+'">#'+p.rank+' · '+escapeHtml(p.title)+'</option>'}).join('');els.practiceSelect.value=state.currentId}
   function startPractice(id,mode){
     state.session=null;state.currentId=id;state.mode=mode||state.mode||'write';els.practiceSelect.value=id;
@@ -706,12 +706,22 @@
   els.practiceSelect.addEventListener('change',function(){state.session=null;renderSessionPanel();state.currentId=els.practiceSelect.value;renderPractice()});
   document.getElementById('nextBestButton').addEventListener('click',function(e){const p=getPattern(e.currentTarget.dataset.pattern||patterns[0].id);startPractice(p.id,recommendedMode(p))});
   document.getElementById('themeButton').addEventListener('click',function(){document.body.classList.toggle('dark');state.theme=document.body.classList.contains('dark')?'dark':'light';localStorage.setItem('ldna-theme',state.theme)});
-  function loadEverydayGame(){
-    const dataScript=document.createElement('script');dataScript.src='everyday-data.js?v=1';dataScript.async=false;
-    dataScript.onload=function(){const gameScript=document.createElement('script');gameScript.src='everyday-game.js?v=1';gameScript.async=false;document.body.appendChild(gameScript)};
-    document.body.appendChild(dataScript)
+  window.LanguageDNACore={
+    reviewOne:function(){const due=duePatterns(),p=due[0]||nextBestPattern();startPractice(p.id,recommendedMode(p))},
+    openPractice:function(id,mode){const p=getPattern(id);if(p)startPractice(p.id,mode||recommendedMode(p))},
+    reviewDueCount:function(){return reviewSummary().due}
+  };
+  function loadLearningExtras(){
+    const load=function(src,onload){const s=document.createElement('script');s.src=src;s.async=false;s.onload=onload||null;document.body.appendChild(s)};
+    load('everyday-data.js?v=1',function(){
+      load('everyday-expanded-data.js?v=1',function(){
+        load('everyday-game.js?v=2',function(){
+          load('tutor-tools.js?v=1')
+        })
+      })
+    })
   }
-  initTranslator();populatePracticeSelect();renderFamilies();renderStarters();renderSentenceDNA();renderCourse();renderLibrary();renderReviewBar();renderSessionPanel();renderPractice();renderAllProgress();loadEverydayGame();
-  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=7').catch(function(){});
+  initTranslator();populatePracticeSelect();renderFamilies();renderStarters();renderSentenceDNA();renderCourse();renderLibrary();renderReviewBar();renderSessionPanel();renderPractice();renderAllProgress();loadLearningExtras();
+  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=8').catch(function(){});
 
 })();

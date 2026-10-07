@@ -7,7 +7,7 @@
   <meta name="description" content="LanguageDNA — learn Spanish through links between English and Spanish words, sounds and sentence patterns." />
   <title>LanguageDNA — Learn Spanish Through Patterns</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css?v=6" />
+  <link rel="stylesheet" href="styles.css?v=7" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -29,6 +29,7 @@
       <button class="nav-item" type="button" data-view="course"><span>◫</span><b>Course</b></button>
       <button class="nav-item" type="button" data-view="library"><span>⌕</span><b>Patterns</b></button>
       <button class="nav-item" type="button" data-view="practice"><span>◎</span><b>Practice</b></button>
+      <button class="nav-item" type="button" data-view="tutor"><span>💬</span><b>Tutor</b></button>
       <button class="nav-item" type="button" data-view="game"><span>◆</span><b>Game</b></button>
       <button class="nav-item" type="button" data-view="dna"><span>🧬</span><b>My DNA</b></button>
     </nav>
@@ -93,6 +94,13 @@
           </div>
           <div class="everyday-preview-status"><strong id="everydayKnownPreview">0 / 100 familiar</strong><small>Curated for day-to-day usefulness, not a strict corpus-frequency ranking.</small></div>
           <div class="everyday-preview-grid" id="everydayPreview"></div>
+        </section>
+
+        <section class="home-section daily-five-home">
+          <div class="daily-five-card" id="dailyFiveHome">
+            <div><span class="eyebrow">TODAY · ABOUT 5 MINUTES</span><h2>Your easiest next Spanish.</h2><p id="dailyFiveHomeText">LanguageDNA is building a tiny lesson from your reviews, Everyday vocabulary and speaking history.</p></div>
+            <button type="button" class="primary-btn" data-view="tutor" data-tutor-open="daily">Start today's 5-minute lesson</button>
+          </div>
         </section>
 
         <section class="home-section sentence-dna-home" id="sentenceDnaHome">
@@ -203,15 +211,33 @@
         <section class="practice-stage" id="practiceStage" aria-live="polite"></section>
       </section>
 
+      <section class="view" data-view-panel="tutor">
+        <div class="page-intro tutor-intro">
+          <span class="eyebrow">PERSONALISED SPANISH COACH</span>
+          <h1>Use the Spanish you already know.</h1>
+          <p>Keep it simple: a five-minute daily lesson, short real-life scenarios, and a conversation coach that stays close to your unlocked vocabulary instead of overwhelming you.</p>
+        </div>
+
+        <div class="tutor-tabs" aria-label="Tutor modes">
+          <button type="button" class="active" data-tutor-tab="daily">Daily 5</button>
+          <button type="button" data-tutor-tab="conversation">Conversation</button>
+          <button type="button" data-tutor-tab="scenarios">Real-life scenarios</button>
+        </div>
+
+        <section id="dailyTutorPanel"></section>
+        <section id="conversationTutorPanel" hidden></section>
+        <section id="scenarioTutorPanel" hidden></section>
+      </section>
+
       <section class="view" data-view-panel="game">
         <div class="page-intro game-intro">
           <span class="eyebrow">EVERYDAY SPANISH + GAME MODE</span>
           <h1>Learn simply. Then prove what you know.</h1>
-          <p>Use the Everyday 100 for calm, English-first learning. Switch to Game Mode for a 40-question test with four choices and no answers revealed until the end.</p>
+          <p>Start with 100 calm English-first essentials, then expand to 500 and 1,000 pattern-linked words when you are ready. Game Mode stays separate and unchanged.</p>
         </div>
 
         <div class="everyday-game-tabs" aria-label="Everyday learning and game mode">
-          <button type="button" class="active" data-everyday-tab="learn">Everyday 100</button>
+          <button type="button" class="active" data-everyday-tab="learn">Vocabulary 100 / 500 / 1,000</button>
           <button type="button" data-everyday-tab="game">40-question Game</button>
         </div>
 
@@ -277,6 +303,6 @@
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=10"></script>
+  <script src="app.js?v=11"></script>
 </body>
 </html>
