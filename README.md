@@ -49,7 +49,7 @@ The home translator now lazy-loads the production Pattern Dictionary lexicon on 
 
 ## Learning Engine v4
 
-LanguageDNA now combines five learner-facing upgrades while keeping the existing four-tab structure:
+LanguageDNA now combines five learner-facing upgrades while preserving the core product structure:
 
 - **Translator DNA:** exact dictionary matches and live translations can reveal the reusable pattern, a stress clue, related same-pattern words, slow audio and a direct practice action.
 - **Pronunciation coach:** Speak practice uses browser speech recognition, normal/slow model audio, Spanish stress cues, transcript comparison and a recognition-match score. This score measures how closely the browser recognised the intended phrase; it is not a laboratory phoneme/accent score.
