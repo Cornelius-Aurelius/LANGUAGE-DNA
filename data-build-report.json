@@ -1,0 +1,145 @@
+{
+  "generated_on": "2026-10-07",
+  "layout_changed": false,
+  "dictionary_count": 31,
+  "total_rows": 9507,
+  "omw_rows_added": 8561,
+  "sources": {
+    "english": {
+      "name": "Princeton WordNet via Open Multilingual Wordnet",
+      "blob": "4ddc0bdeba3323afc6e264243a17bba7bbf0b07a",
+      "license": "WordNet License"
+    },
+    "spanish": {
+      "name": "Multilingual Central Repository Spanish via Open Multilingual Wordnet",
+      "blob": "86c9e367d64a794300b414e55c78b54dbb07eb27",
+      "license": "CC BY 3.0"
+    }
+  },
+  "patterns": {
+    "tion-cion": {
+      "total": 1391,
+      "omwAdded": 1158
+    },
+    "sion-sion": {
+      "total": 141,
+      "omwAdded": 133
+    },
+    "ity-idad": {
+      "total": 561,
+      "omwAdded": 481
+    },
+    "ous-oso": {
+      "total": 189,
+      "omwAdded": 158
+    },
+    "ly-mente": {
+      "total": 787,
+      "omwAdded": 730
+    },
+    "ic-ico": {
+      "total": 1111,
+      "omwAdded": 1042
+    },
+    "ive-ivo": {
+      "total": 281,
+      "omwAdded": 235
+    },
+    "ist-ista": {
+      "total": 250,
+      "omwAdded": 218
+    },
+    "ance-encia": {
+      "total": 238,
+      "omwAdded": 200
+    },
+    "ism-ismo": {
+      "total": 381,
+      "omwAdded": 334
+    },
+    "able-ible": {
+      "total": 414,
+      "omwAdded": 383
+    },
+    "ant-ent": {
+      "total": 373,
+      "omwAdded": 347
+    },
+    "ize-izar": {
+      "total": 239,
+      "omwAdded": 204
+    },
+    "fy-ficar": {
+      "total": 69,
+      "omwAdded": 40
+    },
+    "al-al": {
+      "total": 814,
+      "omwAdded": 761
+    },
+    "ment-mento": {
+      "total": 48,
+      "omwAdded": 42
+    },
+    "ment-miento": {
+      "total": 32,
+      "omwAdded": 26
+    },
+    "ary-ario": {
+      "total": 136,
+      "omwAdded": 130
+    },
+    "ory-orio": {
+      "total": 102,
+      "omwAdded": 96
+    },
+    "ture-tura": {
+      "total": 64,
+      "omwAdded": 58
+    },
+    "tude-tud": {
+      "total": 34,
+      "omwAdded": 28
+    },
+    "logy-logia": {
+      "total": 167,
+      "omwAdded": 160
+    },
+    "graphy-grafia": {
+      "total": 68,
+      "omwAdded": 63
+    },
+    "cracy-cracia": {
+      "total": 14,
+      "omwAdded": 10
+    },
+    "nomy-nomia": {
+      "total": 7,
+      "omwAdded": 2
+    },
+    "metry-metria": {
+      "total": 29,
+      "omwAdded": 24
+    },
+    "scope-scopio": {
+      "total": 30,
+      "omwAdded": 25
+    },
+    "ct-cto": {
+      "total": 19,
+      "omwAdded": 12
+    },
+    "id-ido": {
+      "total": 48,
+      "omwAdded": 41
+    },
+    "ate-ar": {
+      "total": 468,
+      "omwAdded": 461
+    },
+    "ph-f": {
+      "total": 1002,
+      "omwAdded": 959
+    }
+  }
+}
