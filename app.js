@@ -722,14 +722,14 @@
   function loadLearningExtras(){
     const load=function(src,onload){const s=document.createElement('script');s.src=src;s.async=false;s.onload=onload||null;document.body.appendChild(s)};
     load('everyday-data.js?v=1',function(){
-      load('everyday-expanded-data.js?v=1',function(){
-        load('everyday-game.js?v=2',function(){
-          load('tutor-tools.js?v=1')
+      load('everyday-expanded-data.js?v=2',function(){
+        load('everyday-game.js?v=3',function(){
+          load('tutor-tools.js?v=2')
         })
       })
     })
   }
   initTranslator();populatePracticeSelect();renderFamilies();renderStarters();renderSentenceDNA();renderCourse();renderLibrary();renderReviewBar();renderSessionPanel();renderPractice();renderAllProgress();loadLearningExtras();
-  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=8').catch(function(){});
+  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=9').catch(function(){});
 
 })();
