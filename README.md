@@ -5,7 +5,7 @@ LanguageDNA teaches Spanish through reusable links between English and Spanish r
 ## Current experience
 
 - Beginner-first home screen
-- English ↔ Spanish live word translator with subtle pattern detection
+- English ↔ Spanish translator with offline-first exact lookup across all 8,264 production dictionary rows, then live translation fallback
 - Visual, sound, sentence, verb and question pattern families
 - WHO / WHAT / WHERE / WHY / WHEN meaning lenses
 - Connected next-pattern links
@@ -40,3 +40,7 @@ See `DATA_SOURCES.md` and `data-build-report.json` for provenance, licenses, bui
 The production dictionaries now pass an additional corroboration gate using Spanish Wiktionary-derived lexical data, Spanish UniMorph, and English/Spanish frequency lists. Automated OMW rows with no support from any of those layers are moved to a review queue rather than shown to learners. This reduces the learner-facing set from 9,507 aligned candidates to 8,264 stronger production rows while preserving all 850 hand-curated pairs.
 
 The learner-facing layout is unchanged. See `DATA_QUALITY.md`, `data-quality-report.json`, and `data-review-queue.json` for the audit rules and counts.
+
+### Translator intelligence upgrade
+
+The home translator now lazy-loads the production Pattern Dictionary lexicon on first use. Exact English or Spanish matches are resolved locally against all 31 full dictionaries before the app calls the live translation service. The local index covers 8,126 unique English lemmas and 7,664 unique Spanish lemmas across the 8,264 production rows. When multiple local reverse matches exist, LanguageDNA keeps the dictionary candidates as alternatives and can fall back to them if the live service is unavailable. This exposes the Data Quality v2 corpus directly through the existing learner-facing translator without redesigning the page.
