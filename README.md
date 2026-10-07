@@ -99,3 +99,16 @@ LanguageDNA now adds four beginner-first upgrades while deliberately leaving the
 The vocabulary browser still shows only 20 items per page and defaults to the core 100, so expanding the underlying data does not make the beginner screen more overwhelming.
 
 See `TUTOR_DAILY_VOCAB_V7.md` for the learner-state logic, scenario design, static-site tutor boundary and vocabulary-tier provenance.
+
+
+## Mobile + Daily + Tutor Intelligence v8
+
+The learner experience now prioritises the smallest useful next action.
+
+- **Game auto-advance:** choosing one of the four answers saves the selection and moves directly to the next question. Correctness remains hidden until the end, and the 37/40 pass rule is unchanged.
+- **Simpler mobile navigation:** phones show five bottom actions — Home, Practice, Tutor, Game and More. Course, Patterns and My DNA remain available inside More, reducing crowding without removing features.
+- **Daily 5 first:** the home page's primary CTA now starts the personalised five-minute lesson, and the Daily 5 card appears before secondary exploration sections.
+- **Conversation corrections:** the constrained tutor accepts close natural variants, distinguishes learner vs coach messages, shows “you wrote / better reply / why” corrections, and keeps its own prompts close to familiar vocabulary.
+- **Frequency-ranked Vocabulary 500/1,000:** ranks 101–1,000 are now re-ranked using both English and Spanish FrequencyWords 2018 50k lists on top of the existing Data Quality v2 production lexicon. Known high-risk false-friend mappings are excluded from the expansion. Cards can show source ranks, CEFR-estimate confidence, pattern family, regular conjugation families where safe, and curated natural examples for high-priority entries.
+
+The first 100 remain hand-curated for everyday usefulness; corpus ranks are used only to improve the expansion order, not to replace beginner-first teaching judgment.
