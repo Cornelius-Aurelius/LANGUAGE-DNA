@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#163d33" />
-  <meta name="description" content="LanguageDNA — English to Spanish through high-leverage visual, sound and writing patterns." />
-  <title>LanguageDNA — English → Spanish Pattern Library</title>
+  <meta name="description" content="LanguageDNA — learn Spanish through high-leverage visual, sound and writing patterns." />
+  <title>LanguageDNA — English → Spanish</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -13,7 +13,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="app-shell">
     <header class="topbar">
-      <a class="brand" href="#" data-nav="library" aria-label="LanguageDNA home">
+      <a class="brand" href="#" data-view="library" aria-label="LanguageDNA home">
         <span class="brand-mark" aria-hidden="true">🧬</span>
         <span><strong>LanguageDNA</strong><small>English → Spanish</small></span>
       </a>
@@ -26,36 +26,57 @@
 
     <nav class="primary-nav" aria-label="Primary navigation">
       <button class="nav-item active" type="button" data-view="library"><span>⌕</span>Library</button>
-      <button class="nav-item" type="button" data-view="pareto"><span>⚡</span>Pareto 20</button>
+      <button class="nav-item" type="button" data-view="pareto"><span>⚡</span>Essentials</button>
       <button class="nav-item" type="button" data-view="practice"><span>◎</span>Practice</button>
       <button class="nav-item" type="button" data-view="dna"><span>🧬</span>My DNA</button>
     </nav>
 
     <main id="main">
       <section class="view active" id="view-library" data-view-panel="library">
-        <div class="hero">
-          <div class="hero-copy">
-            <span class="eyebrow">PATTERNS FIRST · PARETO POWERED</span>
-            <h1>See the pattern.<br><em>Unlock the Spanish.</em></h1>
-            <p>Search, see, hear and practise the highest-leverage English → Spanish patterns. Learn the small set that gives you the biggest return.</p>
+        <section class="home-hero">
+          <div class="home-hero-copy">
+            <span class="eyebrow">ENGLISH → SPANISH · PATTERNS FIRST</span>
+            <h1>Find the word.<br><em>See the pattern.</em><br>Use the Spanish.</h1>
+            <p>Translate any word, discover the hidden English → Spanish connection when one exists, then practise the patterns that unlock the most language.</p>
             <div class="hero-actions">
-              <button class="primary-btn" type="button" id="startTopPattern">Start with #1 pattern</button>
-              <button class="secondary-btn" type="button" data-view="pareto">See the Pareto 20</button>
+              <button class="primary-btn" type="button" data-view="practice">Start practising</button>
+              <button class="secondary-btn" type="button" data-view="pareto">See essential patterns</button>
             </div>
           </div>
-          <div class="hero-visual" aria-label="Pattern transformation example">
-            <div class="transformation-card">
-              <div class="transform-head"><span class="mini-badge visual">VISUAL</span><span class="power">⚡ 98</span></div>
-              <div class="transform-rule"><span>-tion</span><b>→</b><span>-ción</span></div>
-              <div class="transform-examples">
-                <span>information → <strong>información</strong></span>
-                <span>nation → <strong>nación</strong></span>
-                <span>celebration → <strong>celebración</strong></span>
+
+          <section class="translator-panel" aria-labelledby="translatorTitle">
+            <div class="translator-heading">
+              <div>
+                <span class="eyebrow">WORD TRANSLATOR</span>
+                <h2 id="translatorTitle">English ↔ Spanish</h2>
               </div>
-              <button type="button" class="listen-btn" data-speak="información, nación, celebración">🔊 Hear it</button>
+              <span class="translator-badge">Live lookup</span>
             </div>
-          </div>
-        </div>
+            <form id="translationForm" class="translation-form">
+              <label class="translator-input-wrap">
+                <span class="sr-only">Word to translate</span>
+                <span aria-hidden="true">⌕</span>
+                <input id="translationInput" type="search" placeholder="Type any English or Spanish word…" autocomplete="off" spellcheck="false" />
+              </label>
+              <div class="translation-controls">
+                <select id="translationDirection" aria-label="Translation direction">
+                  <option value="auto">Auto detect</option>
+                  <option value="en-es">English → Spanish</option>
+                  <option value="es-en">Spanish → English</option>
+                </select>
+                <button id="translationSwap" class="swap-btn" type="button" aria-label="Swap translation direction" title="Swap direction">⇄</button>
+                <button id="translationButton" class="primary-btn translate-btn" type="submit">Translate</button>
+              </div>
+            </form>
+            <div id="translationResult" class="translation-result" aria-live="polite">
+              <div class="translation-empty">
+                <span>🧬</span>
+                <p>Search a word. If LanguageDNA recognises a useful pattern, it will quietly show you the connection.</p>
+              </div>
+            </div>
+            <small class="translator-note">Translations can change with context. Pattern hints only appear when there is a useful connection.</small>
+          </section>
+        </section>
 
         <section class="lens-section" aria-labelledby="lensTitle">
           <div class="section-heading compact">
@@ -72,11 +93,12 @@
         </section>
 
         <section class="library-section" aria-labelledby="libraryTitle">
-          <div class="section-heading">
-            <div><span class="eyebrow">THE PATTERN LIBRARY</span><h2 id="libraryTitle">Find a pattern</h2><p id="resultsSummary">Loading patterns…</p></div>
+          <div class="section-heading library-heading">
+            <div><span class="eyebrow">PATTERN LIBRARY</span><h2 id="libraryTitle">Explore the connections</h2><p id="resultsSummary">Loading patterns…</p></div>
+            <button class="secondary-btn compact-action" id="startTopPattern" type="button">Open a high-impact pattern</button>
           </div>
           <div class="search-bar">
-            <label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search: -ción, sound, questions, past tense…" autocomplete="off" /></label>
+            <label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search patterns: -ción, pronunciation, questions…" autocomplete="off" /></label>
             <select id="typeFilter" aria-label="Filter by pattern type">
               <option value="all">All pattern types</option>
               <option value="visual">👁 Visual</option>
@@ -107,12 +129,12 @@
       </section>
 
       <section class="view" id="view-pareto" data-view-panel="pareto">
-        <div class="page-intro">
-          <span class="eyebrow">THE 80/20 ROUTE</span>
-          <h1>Your first 20 high-leverage patterns</h1>
-          <p>Not every rule deserves equal attention. This route prioritizes patterns that unlock frequent words, useful sentences and fast recognition.</p>
+        <div class="page-intro essentials-intro">
+          <span class="eyebrow">START HERE</span>
+          <h1>Essential patterns that unlock more Spanish.</h1>
+          <p>Start with the connections that give you the biggest practical return in recognition, pronunciation and sentence building.</p>
           <div class="progress-panel">
-            <div><strong id="paretoProgressText">0 / 20 mastered</strong><small>Complete the core set, then expand.</small></div>
+            <div><strong id="paretoProgressText">0 / 20 mastered</strong><small>Build the core, then expand your pattern map.</small></div>
             <div class="progress-track"><span id="paretoProgressBar" style="width:0%"></span></div>
           </div>
         </div>
@@ -123,7 +145,7 @@
         <div class="page-intro practice-intro">
           <span class="eyebrow">PRACTISE YOUR WAY</span>
           <h1>One pattern. Five ways to make it stick.</h1>
-          <p>Pick a pattern, then train it through writing, speaking, hearing, contrast or rapid recognition.</p>
+          <p>Choose a pattern and train it through writing, speaking, hearing, contrast or rapid recognition. Skip anything you do not want to answer.</p>
         </div>
         <div class="practice-picker">
           <label for="practicePatternSelect">Pattern</label>
