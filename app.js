@@ -257,7 +257,7 @@
     else if(s.scheduled){text.textContent='Nothing is due. Next scheduled review is '+formatDue(s.next&&s.next.due)+'.';button.textContent='Smart practice'}
     else{text.textContent='Complete a practice item and LanguageDNA will start scheduling memory reviews automatically.';button.textContent='Start smart practice'}
   }
-  function startSmartReview(){const p=nextBestPattern();startPractice(p.id,recommendedMode(p));toast(reviewRecord(p.id)&&reviewRecord(p.id).due<=Date.now()?'Reviewing a link that is due now.':'Starting your highest-value next link.')}
+  function startSmartReview(){const due=duePatterns(),title=due.length?'Smart Review · '+due.length+' due':'Smart Practice · mixed skills';startLessonSession(title,patterns.map(function(p){return p.id}),null)}
 
   function editDistance(a,b){
     a=normalize(a);b=normalize(b);const m=a.length,n=b.length,prev=Array(n+1).fill(0).map(function(_,i){return i});
@@ -707,6 +707,6 @@
   document.getElementById('nextBestButton').addEventListener('click',function(e){const p=getPattern(e.currentTarget.dataset.pattern||patterns[0].id);startPractice(p.id,recommendedMode(p))});
   document.getElementById('themeButton').addEventListener('click',function(){document.body.classList.toggle('dark');state.theme=document.body.classList.contains('dark')?'dark':'light';localStorage.setItem('ldna-theme',state.theme)});
   initTranslator();populatePracticeSelect();renderFamilies();renderStarters();renderSentenceDNA();renderCourse();renderLibrary();renderReviewBar();renderSessionPanel();renderPractice();renderAllProgress();
-  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=5').catch(function(){});
+  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=6').catch(function(){});
 
 })();
