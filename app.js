@@ -706,6 +706,11 @@
   els.practiceSelect.addEventListener('change',function(){state.session=null;renderSessionPanel();state.currentId=els.practiceSelect.value;renderPractice()});
   document.getElementById('nextBestButton').addEventListener('click',function(e){const p=getPattern(e.currentTarget.dataset.pattern||patterns[0].id);startPractice(p.id,recommendedMode(p))});
   document.getElementById('themeButton').addEventListener('click',function(){document.body.classList.toggle('dark');state.theme=document.body.classList.contains('dark')?'dark':'light';localStorage.setItem('ldna-theme',state.theme)});
+  window.LanguageDNACore={
+    reviewOne:function(){const due=duePatterns(),p=due[0]||nextBestPattern();startPractice(p.id,recommendedMode(p))},
+    openPractice:function(id,mode){const p=getPattern(id);if(p)startPractice(p.id,mode||recommendedMode(p))},
+    reviewDueCount:function(){return reviewSummary().due}
+  };
   function loadLearningExtras(){
     const load=function(src,onload){const s=document.createElement('script');s.src=src;s.async=false;s.onload=onload||null;document.body.appendChild(s)};
     load('everyday-data.js?v=1',function(){
