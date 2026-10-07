@@ -724,7 +724,7 @@
     load('everyday-data.js?v=1',function(){
       load('everyday-expanded-data.js?v=2',function(){
         load('everyday-game.js?v=3',function(){
-          load('tutor-tools.js?v=2')
+          load('tutor-tools.js?v=3')
         })
       })
     })

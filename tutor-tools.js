@@ -140,13 +140,28 @@
     const missing=normalize(canonical).split(' ').filter(function(w){return w.length>2&&!answerWords.has(w)}).slice(0,3);
     return{canonical:canonical,score:score,missing:missing,unfamiliar:unfamiliarReplyWords(answer)}
   }
+  function correctionMarkup(answer,canonical){
+    const answerWords=normalize(answer).split(' ').filter(Boolean);
+    const parts=String(canonical||'').split(/([A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)/);
+    const canonicalWords=parts.filter(function(part){return /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+$/.test(part)});
+    let changeIndex=canonicalWords.findIndex(function(word,i){return normalize(word)!==(answerWords[i]||'')});
+    if(changeIndex<0)changeIndex=0;
+    let wordIndex=0;
+    return parts.map(function(part){
+      if(!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+$/.test(part))return escapeHtml(part);
+      const html=escapeHtml(part),index=wordIndex++;
+      return index===changeIndex?'<strong class="tutor-change">'+html+'</strong>':html
+    }).join('')
+  }
   function coachLabel(who){return who==='tutor'?'Spanish coach':who==='coach'?'LanguageDNA coach':'You'}
   function advanceConversation(answer,analysis){
     const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turn=s.turns[state.turn];
     state.messages.push({who:'learner',text:answer});
-    let response=analysis.score>=.86?'That works naturally.':analysis.score>=.56?'That works. A more natural model is: “'+analysis.canonical+'”.':'Use this corrected reply: “'+analysis.canonical+'”.';
-    if(analysis.unfamiliar.length)response+=' You used extra Spanish too; I’ll keep my next prompt inside your familiar vocabulary.';
-    state.messages.push({who:'coach',text:response,english:'English link: '+turn.explain});
+    if(analysis.score>=.86){
+      state.messages.push({who:'coach',text:'That works naturally.'});
+    }else{
+      state.messages.push({who:'coach',html:'<p>That makes sense.</p><p>A more natural way: '+correctionMarkup(answer,analysis.canonical)+'</p>'});
+    }
     state.turn+=1;
     if(state.turn<s.turns.length){const next=s.turns[state.turn];state.messages.push({who:'tutor',text:next.npc,english:next.english})}else{markDailyStep('scenario')}
     renderConversation()
@@ -217,7 +232,7 @@
     const s=SCENARIOS.find(x=>x.id===state.scenario)||SCENARIOS[0],ready=scenarioReadiness(s),turn=s.turns[Math.min(state.turn,s.turns.length-1)];
     const boundary=unlockedRanks().size;
     root.innerHTML='<div class="conversation-layout"><aside class="conversation-side"><span class="eyebrow">CONVERSATION TUTOR</span><h2>'+s.icon+' '+escapeHtml(s.title)+'</h2><p>'+escapeHtml(s.aim)+'</p><div class="conversation-boundary"><strong>'+boundary+'</strong><small>starter + familiar words available</small></div><div class="readiness-bar"><span style="width:'+ready.pct+'%"></span></div><small>'+ready.have+'/'+ready.total+' scenario essentials already familiar. Missing words stay supported with hints.</small><button type="button" class="secondary-btn" data-tutor-tab="scenarios">Choose another scenario</button></aside>'+
-      '<section class="conversation-main"><div class="conversation-note">Beginner-safe coach · accepts close natural replies, corrects mistakes gently, and keeps its own prompts close to vocabulary you have unlocked.</div><div class="chat-stream">'+state.messages.map(m=>'<div class="chat-bubble '+m.who+'"><strong>'+(m.who==='tutor'?'Spanish coach':'You')+'</strong><p>'+escapeHtml(m.text)+'</p>'+(m.english?'<small>'+escapeHtml(m.english)+'</small>':'')+'</div>').join('')+'</div>'+
+      '<section class="conversation-main"><div class="conversation-note">Beginner-safe coach · accepts close natural replies, corrects mistakes gently, and keeps its own prompts close to vocabulary you have unlocked.</div><div class="chat-stream">'+state.messages.map(m=>'<div class="chat-bubble '+m.who+'"><strong>'+escapeHtml(coachLabel(m.who))+'</strong>'+(m.html?m.html:'<p>'+escapeHtml(m.text)+'</p>')+(m.english?'<small>'+escapeHtml(m.english)+'</small>':'')+'</div>').join('')+'</div>'+
       (state.turn>=s.turns.length?'<div class="conversation-complete"><strong>✓ Scenario complete</strong><p>You handled '+s.turns.length+' short turns without needing a long lesson.</p><button type="button" class="primary-btn" data-conversation-restart>Try again</button></div>':
       '<form id="conversationForm" class="conversation-form"><label><span class="sr-only">Reply in Spanish</span><input id="conversationInput" autocomplete="off" placeholder="Reply in Spanish…"></label><button type="submit" class="primary-btn">Send</button></form><div class="conversation-support"><button type="button" data-conversation-help>Show English help</button><button type="button" data-conversation-suggest>Show a reply I can use</button><button type="button" data-tutor-speak="'+escapeHtml(turn.npc)+'">🔊 Hear question</button></div><div id="conversationFeedback" class="conversation-feedback" aria-live="polite"></div>')+
       '</section></div>';
@@ -230,8 +245,7 @@
     const contains=turn.replies.some(function(r){return normalize(answer).includes(normalize(r))||normalize(r).includes(normalize(answer))});
     if(analysis.score>=.56||contains){advanceConversation(answer,analysis);return}
     if(feedback){
-      const missing=analysis.missing.length?' Focus on: <b>'+escapeHtml(analysis.missing.join(' · '))+'</b>.':'';
-      feedback.innerHTML='<div class="tutor-correction"><strong>Good attempt — change it slightly.</strong><p>You wrote: <em>'+escapeHtml(answer)+'</em></p><p>Better: <b>'+escapeHtml(analysis.canonical)+'</b></p><p>'+escapeHtml(turn.explain)+'</p>'+missing+'<button type="button" class="secondary-btn" data-conversation-use-correction>Use corrected reply</button></div>'
+      feedback.innerHTML='<div class="tutor-correction"><p>That makes sense.</p><p>A more natural way: '+correctionMarkup(answer,analysis.canonical)+'</p><button type="button" class="secondary-btn" data-conversation-use-correction>Use this reply</button></div>'
     }
   }
 
