@@ -214,11 +214,14 @@
       html += `<div class="prompt-box"><span class="prompt-label">TICK EVERY EXAMPLE THAT FITS</span><strong>${p.title}</strong></div>
       <div class="tick-list"><label class="tick-item"><input type="checkbox" data-tick="good"><span>${good1}</span></label><label class="tick-item"><input type="checkbox" data-tick="bad"><span>${p.practice.wrong}</span></label><label class="tick-item"><input type="checkbox" data-tick="good"><span>${good2}</span></label></div><button type="button" class="primary-btn" id="checkTicks">Check ticks</button><div class="feedback" id="practiceFeedback">Fast recognition builds automaticity.</div>`;
     }
+    html += `<div class="practice-skip-row"><span>Not feeling this one?</span><button type="button" class="skip-btn" id="skipPractice">Skip for now →</button></div>`;
     els.practiceStage.innerHTML = html;
     bindPracticeInteractions(p);
   }
 
   function bindPracticeInteractions(p) {
+    const skip = document.getElementById('skipPractice');
+    if (skip) skip.addEventListener('click', skipCurrentPractice);
     const form = document.getElementById('writingForm');
     if (form) form.addEventListener('submit', e => {
       e.preventDefault(); const ans = normalize(document.getElementById('writingAnswer').value);
@@ -229,6 +232,21 @@
       const boxes = [...els.practiceStage.querySelectorAll('[data-tick]')]; const ok = boxes.every(b => (b.dataset.tick==='good')===b.checked);
       setFeedback(ok, ok ? '✓ Exactly. You spotted the pattern.' : 'Check again: tick examples that follow the target pattern, and leave the distractor unticked.'); if(ok) celebrate(p);
     });
+  }
+
+  function skipCurrentPractice() {
+    const ordered = [...patterns].sort((a,b) => a.rank - b.rank);
+    const currentIndex = ordered.findIndex(p => p.id === state.currentPracticeId);
+    let next = null;
+    for (let step = 1; step <= ordered.length; step++) {
+      const candidate = ordered[(currentIndex + step + ordered.length) % ordered.length];
+      if (!state.mastered.has(candidate.id)) { next = candidate; break; }
+    }
+    next = next || ordered[(currentIndex + 1 + ordered.length) % ordered.length];
+    state.currentPracticeId = next.id;
+    els.practiceSelect.value = next.id;
+    toast('Skipped — here’s another pattern.');
+    renderPractice();
   }
 
   function setFeedback(ok, text) {
@@ -280,6 +298,160 @@
     els.practiceSelect.value=state.currentPracticeId;
   }
 
+  function speakLang(text, lang) {
+    if (!('speechSynthesis' in window)) { toast('Speech playback is not supported in this browser.'); return; }
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang;
+    u.rate = lang.startsWith('es') ? 0.82 : 0.9;
+    const voices = window.speechSynthesis.getVoices();
+    const voice = voices.find(v => v.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
+    if (voice) u.voice = voice;
+    window.speechSynthesis.speak(u);
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+
+  function guessTranslationDirection(text) {
+    const raw = (text || '').trim().toLowerCase();
+    if (/[ñáéíóúü¿¡]/i.test(raw)) return ['es','en'];
+    const commonSpanish = new Set(['el','la','los','las','un','una','unos','unas','de','del','que','qué','y','en','a','al','por','para','con','sin','es','soy','eres','está','estoy','tengo','tienes','quiero','quieres','hola','gracias','casa','comer','hablar','vivir','donde','dónde','cuando','cuándo','porque','porqué','quien','quién']);
+    const words = normalize(raw).split(' ');
+    return words.some(w => commonSpanish.has(w)) ? ['es','en'] : ['en','es'];
+  }
+
+  function inferPatternConnection(sourceText, translatedText, sourceLang) {
+    const s = normalize(sourceText);
+    const t = normalize(translatedText);
+    const en = sourceLang === 'en' ? s : t;
+    const es = sourceLang === 'en' ? t : s;
+
+    const direct = patterns.find(p => p.examples.some(([english, spanish]) => {
+      const e = normalize(english), sp = normalize(spanish);
+      return (e === en && sp === es) || (e === en) || (sp === es);
+    }));
+    if (direct) return direct;
+
+    const questionMap = {who:'question-words', what:'question-words', where:'question-words', why:'question-words', when:'question-words'};
+    if (questionMap[en]) return getPattern(questionMap[en]);
+
+    const rules = [
+      [() => /tion$/.test(en) && /cion$/.test(es), 'tion-cion'],
+      [() => /ity$/.test(en) && /idad$/.test(es), 'ity-idad'],
+      [() => /ous$/.test(en) && /os[oa]$/.test(es), 'ous-oso'],
+      [() => /ly$/.test(en) && /mente$/.test(es), 'ly-mente'],
+      [() => en.includes('ph') && es.includes('f'), 'ph-f'],
+      [() => /ic$/.test(en) && /ic[oa]$/.test(es), 'ic-ico'],
+      [() => /ist$/.test(en) && /ista$/.test(es), 'ist-ista'],
+      [() => /(ance|ence)$/.test(en) && /(ancia|encia)$/.test(es), 'ance-encia'],
+      [() => /ive$/.test(en) && /iv[oa]$/.test(es), 'ive-ivo']
+    ];
+    const found = rules.find(([test]) => test());
+    return found ? getPattern(found[1]) : null;
+  }
+
+  function initTranslator() {
+    const form = document.getElementById('translationForm');
+    const input = document.getElementById('translationInput');
+    const direction = document.getElementById('translationDirection');
+    const swap = document.getElementById('translationSwap');
+    const button = document.getElementById('translationButton');
+    const result = document.getElementById('translationResult');
+    if (!form || !input || !direction || !swap || !button || !result) return;
+
+    let lastPair = ['en','es'];
+
+    async function translate() {
+      const query = input.value.trim();
+      if (!query) {
+        input.focus();
+        result.innerHTML = '<div class="translation-empty"><span>⌕</span><p>Type a word first.</p></div>';
+        return;
+      }
+
+      let pair;
+      if (direction.value === 'en-es') pair = ['en','es'];
+      else if (direction.value === 'es-en') pair = ['es','en'];
+      else pair = guessTranslationDirection(query);
+      lastPair = pair;
+
+      const [source, target] = pair;
+      const sourceName = source === 'en' ? 'English' : 'Spanish';
+      const targetName = target === 'es' ? 'Spanish' : 'English';
+      button.disabled = true;
+      button.textContent = 'Translating…';
+      result.classList.add('loading');
+      result.innerHTML = `<div class="translation-loading"><span></span><p>Looking up <strong>${escapeHtml(query)}</strong>…</p></div>`;
+
+      try {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 9000);
+        const url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(query) + '&langpair=' + encodeURIComponent(source + '|' + target);
+        const response = await fetch(url, {signal: controller.signal});
+        clearTimeout(timer);
+        if (!response.ok) throw new Error('Lookup failed');
+        const data = await response.json();
+        const translated = String(data?.responseData?.translatedText || '').trim();
+        if (!translated) throw new Error('No translation returned');
+
+        const pattern = inferPatternConnection(query, translated, source);
+        const alternatives = [...new Set((data.matches || []).map(m => String(m.translation || '').trim()).filter(Boolean))]
+          .filter(x => normalize(x) !== normalize(translated))
+          .slice(0,3);
+
+        const sourceLangCode = source === 'es' ? 'es-ES' : 'en-GB';
+        const targetLangCode = target === 'es' ? 'es-ES' : 'en-GB';
+        const patternHtml = pattern ? `
+          <button type="button" class="translation-pattern-hint" data-open="${pattern.id}">
+            <span>🧬</span>
+            <span><small>Pattern connection</small><strong>${escapeHtml(pattern.title)}</strong></span>
+            <span aria-hidden="true">→</span>
+          </button>` : '';
+        const altHtml = alternatives.length ? `
+          <div class="translation-alternatives"><small>Other possible matches</small><div>${alternatives.map(a => `<span>${escapeHtml(a)}</span>`).join('')}</div></div>` : '';
+
+        result.innerHTML = `
+          <div class="translation-meta">${sourceName} → ${targetName}</div>
+          <div class="translation-pair">
+            <div class="translation-side">
+              <small>${sourceName}</small>
+              <strong>${escapeHtml(query)}</strong>
+              <button type="button" class="audio-dot" data-translator-speak="${escapeHtml(query)}" data-lang="${sourceLangCode}" aria-label="Hear ${escapeHtml(query)}">🔊</button>
+            </div>
+            <div class="translation-arrow">→</div>
+            <div class="translation-side target">
+              <small>${targetName}</small>
+              <strong>${escapeHtml(translated)}</strong>
+              <button type="button" class="audio-dot" data-translator-speak="${escapeHtml(translated)}" data-lang="${targetLangCode}" aria-label="Hear ${escapeHtml(translated)}">🔊</button>
+            </div>
+          </div>
+          ${patternHtml}
+          ${altHtml}`;
+      } catch (err) {
+        const message = err?.name === 'AbortError' ? 'The lookup took too long.' : 'The live dictionary could not be reached.';
+        result.innerHTML = `<div class="translation-error"><strong>${message}</strong><p>Check your connection and try again.</p></div>`;
+      } finally {
+        result.classList.remove('loading');
+        button.disabled = false;
+        button.textContent = 'Translate';
+      }
+    }
+
+    form.addEventListener('submit', e => { e.preventDefault(); translate(); });
+    swap.addEventListener('click', () => {
+      const pair = direction.value === 'auto' ? lastPair : (direction.value === 'en-es' ? ['en','es'] : ['es','en']);
+      direction.value = pair[0] === 'en' ? 'es-en' : 'en-es';
+      if (input.value.trim()) translate();
+      else input.focus();
+    });
+    result.addEventListener('click', e => {
+      const audio = e.target.closest('[data-translator-speak]');
+      if (audio) speakLang(audio.dataset.translatorSpeak, audio.dataset.lang || 'es-ES');
+    });
+  }
+
   document.addEventListener('click', e => {
     const nav=e.target.closest('[data-view]'); if(nav) { goToView(nav.dataset.view); return; }
     const open=e.target.closest('[data-open]'); if(open) { openPattern(open.dataset.open); return; }
@@ -304,6 +476,7 @@
   document.getElementById('nextBestButton').addEventListener('click',e=>startPractice(e.currentTarget.dataset.pattern||patterns[0].id));
   document.getElementById('themeButton').addEventListener('click',()=>{document.body.classList.toggle('dark');state.theme=document.body.classList.contains('dark')?'dark':'light';localStorage.setItem('ldna-theme',state.theme);});
 
+  initTranslator();
   populatePracticeSelect(); renderLibrary(); renderPareto(); renderPractice(); renderDNA(); updateStats();
 
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
