@@ -515,6 +515,11 @@
     const totalSkills=patterns.length*SKILLS.length;let built=0;patterns.forEach(function(p){built+=progressFor(p.id)});const pct=Math.round(built/totalSkills*100),strongPatterns=patterns.filter(function(p){return isStrong(p.id)}).length;
     document.getElementById('dnaPercent').textContent=pct+'%';document.getElementById('dnaRing').style.background='conic-gradient(var(--green) '+(pct*3.6)+'deg, var(--surface-2) 0deg)';document.getElementById('skillSummary').innerHTML=SKILLS.map(function(s){const count=patterns.filter(function(p){return!!(state.skills[p.id]||{})[s.key]}).length;return'<article class="skill-stat"><span>'+s.icon+'</span><strong>'+count+'</strong><small>'+s.label+' links</small></article>'}).join('');
     const review=reviewSummary(),pron=pronunciationSummary(),sentenceStrong=SENTENCE_DNA.filter(function(fr){return isStrong(fr.id)}).length;document.getElementById('dnaPatternStrong').textContent=strongPatterns;document.getElementById('dnaReviewDue').textContent=review.due;document.getElementById('dnaPronunciation').textContent=pron.average==null?'—':pron.average+'%';document.getElementById('dnaSentenceStrong').textContent=sentenceStrong+'/'+SENTENCE_DNA.length;
+    const tutorSummary=window.LanguageDNATutor&&typeof window.LanguageDNATutor.summary==='function'?window.LanguageDNATutor.summary():null,knownFallback=safeParse(localStorage.getItem('ldna-everyday-known-v1')||'[]',[]).length;
+    const wordsKnown=document.getElementById('dnaWordsKnown'),situations=document.getElementById('dnaSituationsReady'),dailyWeek=document.getElementById('dnaDailyWeek');
+    if(wordsKnown)wordsKnown.textContent=tutorSummary?tutorSummary.knownWords:knownFallback;
+    if(situations)situations.textContent=tutorSummary?tutorSummary.scenariosReady:'—';
+    if(dailyWeek)dailyWeek.textContent=tutorSummary?tutorSummary.dailyCompleted7:'—';
     document.getElementById('memoryHealth').innerHTML='<span class="eyebrow">MEMORY HEALTH</span><h3>'+review.due+(review.due===1?' review':' reviews')+' due</h3><p>'+(review.scheduled?'LanguageDNA is spacing '+review.scheduled+' practiced pattern'+(review.scheduled===1?'':'s')+'. '+(review.next?'Next future review '+formatDue(review.next.due)+'.':''):'Complete practice items to build your personal review schedule.')+'</p><div class="health-stat-row"><div class="health-stat"><strong>'+review.scheduled+'</strong><small>scheduled</small></div><div class="health-stat"><strong>'+review.strong+'</strong><small>14+ day intervals</small></div></div>';
     const weakSounds=pronunciationWeaknessSummary().slice(0,3);document.getElementById('pronunciationHealth').innerHTML='<span class="eyebrow">SPEAKING PROFILE</span><h3>'+(pron.average==null?'No scored attempts yet':pron.average+'% average match')+'</h3><p>'+(pron.attempts?'Across '+pron.attempts+' microphone attempt'+(pron.attempts===1?'':'s')+' on '+pron.patterns+' pattern'+(pron.patterns===1?'':'s')+'. Best match: '+pron.best+'%.':'Use Speak practice with the microphone to build a pronunciation profile.')+'</p>'+(weakSounds.length?'<div class="weak-sound-list"><small>Recurring focus</small>'+weakSounds.map(function(w){return'<span>'+escapeHtml(w.label)+' · '+w.average+'%</span>'}).join('')+'</div>':'')+'<div class="health-stat-row"><div class="health-stat"><strong>'+pron.attempts+'</strong><small>attempts</small></div><div class="health-stat"><strong>'+(pron.best==null?'—':pron.best+'%')+'</strong><small>best match</small></div></div>';
     document.getElementById('dnaMap').innerHTML=FAMILY_META.map(function(f){const list=patterns.filter(function(p){return patternFamilies(p).includes(f.key)}).sort(function(a,b){return progressFor(b.id)-progressFor(a.id)||a.rank-b.rank}).slice(0,6);return'<section class="dna-family"><h3>'+f.icon+' '+f.title+'</h3><div class="dna-nodes">'+list.map(function(p){const r=reviewRecord(p.id);return'<button type="button" class="dna-node" data-open="'+p.id+'"><strong>'+escapeHtml(p.title)+'</strong><small>'+progressFor(p.id)+'/5 skills'+(r&&r.due<=Date.now()?' · review due':'')+'</small></button>'}).join('')+'</div></section>'}).join('');
@@ -717,19 +722,29 @@
   window.LanguageDNACore={
     reviewOne:function(){const due=duePatterns(),p=due[0]||nextBestPattern();startPractice(p.id,recommendedMode(p))},
     openPractice:function(id,mode){const p=getPattern(id);if(p)startPractice(p.id,mode||recommendedMode(p))},
-    reviewDueCount:function(){return reviewSummary().due}
+    reviewDueCount:function(){return reviewSummary().due},
+    getReviewSnapshot:function(){
+      const p=duePatterns()[0]||nextBestPattern(),answer=String((p.practice.answers&&p.practice.answers[0])||'').trim();
+      const distractors=patterns.filter(function(x){return x.id!==p.id&&x.practice&&x.practice.answers&&x.practice.answers[0]}).sort(function(a,b){return Math.abs(a.rank-p.rank)-Math.abs(b.rank-p.rank)}).map(function(x){return String(x.practice.answers[0])}).filter(function(v,i,arr){return normalize(v)!==normalize(answer)&&arr.findIndex(function(x){return normalize(x)===normalize(v)})===i}).slice(0,3);
+      const choices=[answer].concat(distractors),shift=p.rank%choices.length;
+      return{id:p.id,title:p.title,prompt:p.practice.prompt,answer:answer,choices:choices.slice(shift).concat(choices.slice(0,shift))}
+    },
+    completeReview:function(id,quality){
+      const p=getPattern(id);if(!p)return false;scheduleReview(id,quality==null?4:quality);markSkill(id,'write',true);logActivity('daily_review',{pattern:id,quality:quality==null?4:quality});return true
+    },
+    trackEvent:function(type,data){logActivity(type,data||{})}
   };
   function loadLearningExtras(){
     const load=function(src,onload){const s=document.createElement('script');s.src=src;s.async=false;s.onload=onload||null;document.body.appendChild(s)};
     load('everyday-data.js?v=1',function(){
       load('everyday-expanded-data.js?v=2',function(){
-        load('everyday-game.js?v=3',function(){
-          load('tutor-tools.js?v=3')
+        load('everyday-game.js?v=4',function(){
+          load('tutor-tools.js?v=4',function(){if(state.view==='dna')renderDNA();if(window.LanguageDNATutor)window.LanguageDNATutor.render()})
         })
       })
     })
   }
   initTranslator();populatePracticeSelect();renderFamilies();renderStarters();renderSentenceDNA();renderCourse();renderLibrary();renderReviewBar();renderSessionPanel();renderPractice();renderAllProgress();loadLearningExtras();
-  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=9').catch(function(){});
+  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=10').catch(function(){});
 
 })();

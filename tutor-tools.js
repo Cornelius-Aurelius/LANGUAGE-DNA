@@ -90,194 +90,245 @@
     }
   ];
 
-  const state = {
-    tab:'daily',
-    scenario:'meeting',
-    turn:0,
-    messages:[],
-    dailyStep:0
+
+  const EXTRA_TURNS = {
+    cafe:[
+      {npc:'¿Para aquí o para llevar?',english:'For here or to take away?',replies:['Para aquí, por favor.','Para llevar, por favor.'],explain:'Para aquí means “for here”; para llevar means “to take away”.'},
+      {npc:'¿Quiere agua?',english:'Would you like water?',replies:['Sí, agua, por favor.','No, gracias.'],explain:'A short sí/no answer plus the item is enough.'}
+    ],
+    hotel:[
+      {npc:'¿Necesita wifi?',english:'Do you need Wi-Fi?',replies:['Sí, por favor.','No, gracias.'],explain:'Keep the answer small: sí/no + por favor/gracias.'},
+      {npc:'¿A qué hora sale?',english:'What time are you leaving?',replies:['Por la mañana.','A las diez.'],explain:'Use a simple time phrase; perfect detail is not required.'}
+    ],
+    airport:[
+      {npc:'¿Tiene su pasaporte?',english:'Do you have your passport?',replies:['Sí, aquí está.','Sí.'],explain:'Aquí está means “here it is”.'},
+      {npc:'La puerta está a la izquierda.',english:'The gate is on the left.',replies:['Gracias.','De acuerdo, gracias.'],explain:'Izquierda means left.'}
+    ],
+    taxi:[
+      {npc:'¿Aquí?',english:'Here?',replies:['Sí, aquí, por favor.','No, más adelante.'],explain:'Aquí is “here”; más adelante is “further ahead”.'},
+      {npc:'¿Necesita recibo?',english:'Do you need a receipt?',replies:['Sí, por favor.','No, gracias.'],explain:'Short polite replies work well in real life.'}
+    ],
+    shopping:[
+      {npc:'¿Algo más?',english:'Anything else?',replies:['No, gracias.','Sí, esto también.'],explain:'Esto también means “this too”.'},
+      {npc:'¿Bolsa?',english:'A bag?',replies:['Sí, por favor.','No, gracias.'],explain:'You can answer with only the words you need.'}
+    ],
+    directions:[
+      {npc:'Después, a la derecha.',english:'Then, to the right.',replies:['De acuerdo.','Gracias.'],explain:'Derecha means right.'},
+      {npc:'Está muy cerca.',english:'It is very near.',replies:['Muchas gracias.','Gracias.'],explain:'Muy makes the description stronger: very near.'}
+    ],
+    doctor:[
+      {npc:'¿Le duele aquí?',english:'Does it hurt here?',replies:['Sí, aquí.','No.'],explain:'A short location answer is enough when you need help.'},
+      {npc:'Espere aquí, por favor.',english:'Wait here, please.',replies:['De acuerdo.','Gracias.'],explain:'De acuerdo is a useful “okay / understood”.'}
+    ],
+    emergency:[
+      {npc:'¿Dónde está?',english:'Where are you?',replies:['Estoy aquí.','Estoy en el hotel.'],explain:'Estoy… is the useful location frame.'},
+      {npc:'La ayuda viene ahora.',english:'Help is coming now.',replies:['Gracias.','De acuerdo.'],explain:'Keep emergency replies short and clear.'}
+    ],
+    meeting:[
+      {npc:'¿De dónde es?',english:'Where are you from?',replies:['Soy de Inglaterra.','Soy de Reino Unido.'],explain:'Soy de… means “I am from…”.'},
+      {npc:'¿Le gusta España?',english:'Do you like Spain?',replies:['Sí, me gusta.','Sí, mucho.'],explain:'Me gusta is the reusable “I like it” frame.'}
+    ]
   };
 
+  const RISKY_EXPANSION = new Set(['actually','realize','realise','eventually','sensible','actualize','actualise','embarrassed','assist']);
+  const DAILY_STEPS=['review','link','use','speak','real-life'];
+  const state={tab:'daily',scenario:'meeting',turn:0,messages:[],dailyFeedback:'',dailyCarry:''};
+
   function safeParse(v,f){try{return JSON.parse(v)}catch(e){return f}}
-  function escapeHtml(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  function escapeHtml(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
   function normalize(v){return String(v||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9ñ ]/g,'').replace(/\s+/g,' ')}
-  function dateKey(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
-  function item(rank){return ALL.find(x=>x.rank===Number(rank))||CORE[0]}
+  function dateKey(offset){const d=new Date();if(offset)d.setDate(d.getDate()+offset);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
   function knownSet(){return new Set(safeParse(localStorage.getItem('ldna-everyday-known-v1')||'[]',[]).map(String))}
   function reviewData(){return safeParse(localStorage.getItem('ldna-reviews-v1')||'{}',{})}
   function speechWeaknesses(){return safeParse(localStorage.getItem('ldna-pronunciation-weaknesses-v1')||'{}',{})}
   function dailyData(){return safeParse(localStorage.getItem('ldna-daily5-v1')||'{}',{})}
   function saveDaily(v){localStorage.setItem('ldna-daily5-v1',JSON.stringify(v))}
-  function speak(text,rate){if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='es-ES';u.rate=rate||.82;const voices=window.speechSynthesis.getVoices();const voice=voices.find(v=>v.lang.toLowerCase().startsWith('es'));if(voice)u.voice=voice;window.speechSynthesis.speak(u)}
-  function similarity(a,b){
-    a=normalize(a);b=normalize(b);if(!a||!b)return 0;
-    const m=a.length,n=b.length,prev=Array.from({length:n+1},(_,i)=>i);
-    for(let i=1;i<=m;i++){let diag=i-1;prev[0]=i;for(let j=1;j<=n;j++){const up=prev[j],left=prev[j-1],cost=a[i-1]===b[j-1]?0:1,val=Math.min(up+1,left+1,diag+cost);diag=up;prev[j]=val}}
-    return Math.max(0,1-prev[n]/Math.max(m,n))
-  }
-  function bestSimilarity(answer,replies){return Math.max.apply(null,replies.map(r=>similarity(answer,r)))}
+  function signalData(){return safeParse(localStorage.getItem('ldna-learning-signals-v1')||'[]',[])}
+  function saveSignals(rows){localStorage.setItem('ldna-learning-signals-v1',JSON.stringify(rows.slice(-300)))}
+  function gameProgress(){return safeParse(localStorage.getItem('ldna-game-progress-v1')||'{"unlocked":1,"best":{},"attempts":[]}',{unlocked:1,best:{},attempts:[]})}
+  function appActivity(){return safeParse(localStorage.getItem('ldna-activity-v1')||'[]',[])}
+  function speak(text,rate){if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='es-ES';u.rate=rate||.82;const voices=window.speechSynthesis.getVoices(),voice=voices.find(function(v){return v.lang.toLowerCase().startsWith('es')});if(voice)u.voice=voice;window.speechSynthesis.speak(u)}
+  function similarity(a,b){a=normalize(a);b=normalize(b);if(!a||!b)return 0;const m=a.length,n=b.length,prev=Array.from({length:n+1},function(_,i){return i});for(let i=1;i<=m;i++){let diag=i-1;prev[0]=i;for(let j=1;j<=n;j++){const up=prev[j],left=prev[j-1],cost=a[i-1]===b[j-1]?0:1,val=Math.min(up+1,left+1,diag+cost);diag=up;prev[j]=val}}return Math.max(0,1-prev[n]/Math.max(m,n))}
+  function bestSimilarity(answer,replies){return Math.max.apply(null,replies.map(function(r){return similarity(answer,r)}))}
+  function recordSignal(type,data){const rows=signalData();rows.push(Object.assign({at:Date.now(),day:dateKey(),type:type},data||{}));saveSignals(rows);if(window.LanguageDNACore&&typeof window.LanguageDNACore.trackEvent==='function')window.LanguageDNACore.trackEvent('tutor_'+type,data||{})}
+  function coreFamiliarCount(){return Array.from(knownSet()).filter(function(k){return Number(k)<=100}).length}
   function familiarCount(){return knownSet().size}
-  function coreFamiliarCount(){return Array.from(knownSet()).filter(k=>Number(k)<=100).length}
   function markFamiliar(rank){const set=knownSet();set.add(String(rank));localStorage.setItem('ldna-everyday-known-v1',JSON.stringify(Array.from(set)))}
-  function dueCount(){const now=Date.now();return Object.values(reviewData()).filter(r=>r&&r.due<=now).length}
-  function weakSpeech(){
-    return Object.entries(speechWeaknesses()).map(([id,r])=>({id,avg:r.attempts?Math.round((r.total||0)/r.attempts):100,attempts:r.attempts||0})).filter(x=>x.attempts).sort((a,b)=>a.avg-b.avg)[0]||null
-  }
-  function unlockedRanks(){
-    const set=knownSet();for(let i=1;i<=12;i++)set.add(String(i));return set
-  }
-  function familiarSpanishWords(){
-    const ranks=unlockedRanks(),words=new Set(['si','no','por','favor','gracias','de','la','el','un','una','a','al','en','y','que','me','mi','es','esta','está','son','muy','lo']);
-    ALL.forEach(function(x){if(ranks.has(String(x.rank)))String(x.spanish||'').toLowerCase().split(/[^a-záéíóúüñ]+/i).filter(Boolean).forEach(function(w){words.add(normalize(w))})});
-    return words
-  }
-  function unfamiliarReplyWords(answer){
-    const allowed=familiarSpanishWords();
-    return normalize(answer).split(' ').filter(Boolean).filter(function(w){return w.length>2&&!allowed.has(w)})
-  }
-  function replyAnalysis(answer,turn){
-    const canonical=turn.replies[0],score=bestSimilarity(answer,turn.replies),answerWords=new Set(normalize(answer).split(' ').filter(Boolean));
-    const missing=normalize(canonical).split(' ').filter(function(w){return w.length>2&&!answerWords.has(w)}).slice(0,3);
-    return{canonical:canonical,score:score,missing:missing,unfamiliar:unfamiliarReplyWords(answer)}
-  }
-  function correctionMarkup(answer,canonical){
-    const answerWords=normalize(answer).split(' ').filter(Boolean);
-    const parts=String(canonical||'').split(/([A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)/);
-    const canonicalWords=parts.filter(function(part){return /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+$/.test(part)});
-    let changeIndex=canonicalWords.findIndex(function(word,i){return normalize(word)!==(answerWords[i]||'')});
-    if(changeIndex<0)changeIndex=0;
-    let wordIndex=0;
-    return parts.map(function(part){
-      if(!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+$/.test(part))return escapeHtml(part);
-      const html=escapeHtml(part),index=wordIndex++;
-      return index===changeIndex?'<strong class="tutor-change">'+html+'</strong>':html
-    }).join('')
-  }
+  function dueCount(){const now=Date.now();return Object.values(reviewData()).filter(function(r){return r&&r.due<=now}).length}
+  function weakSpeech(){return Object.entries(speechWeaknesses()).map(function(entry){const id=entry[0],r=entry[1];return{id:id,avg:r.attempts?Math.round((r.total||0)/r.attempts):100,attempts:r.attempts||0}}).filter(function(x){return x.attempts}).sort(function(a,b){return a.avg-b.avg})[0]||null}
+  function unlockedRanks(){const set=knownSet();for(let i=1;i<=12;i++)set.add(String(i));return set}
+  function familiarSpanishWords(){const ranks=unlockedRanks(),words=new Set(['si','no','por','favor','gracias','de','la','el','un','una','a','al','en','y','que','me','mi','es','esta','son','muy','lo']);ALL.forEach(function(x){if(ranks.has(String(x.rank)))String(x.spanish||'').toLowerCase().split(/[^a-záéíóúüñ]+/i).filter(Boolean).forEach(function(w){words.add(normalize(w))})});return words}
+  function unfamiliarReplyWords(answer){const allowed=familiarSpanishWords();return normalize(answer).split(' ').filter(Boolean).filter(function(w){return w.length>2&&!allowed.has(w)})}
+  function replyAnalysis(answer,turn){const canonical=turn.replies[0],score=bestSimilarity(answer,turn.replies),answerWords=new Set(normalize(answer).split(' ').filter(Boolean));const missing=normalize(canonical).split(' ').filter(function(w){return w.length>2&&!answerWords.has(w)}).slice(0,3);return{canonical:canonical,score:score,missing:missing,unfamiliar:unfamiliarReplyWords(answer)}}
+  function correctionMarkup(answer,canonical){const answerWords=normalize(answer).split(' ').filter(Boolean),parts=String(canonical||'').split(/([A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)/),canonicalWords=parts.filter(function(part){return/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+$/.test(part)});let changeIndex=canonicalWords.findIndex(function(word,i){return normalize(word)!==(answerWords[i]||'')});if(changeIndex<0)changeIndex=0;let wordIndex=0;return parts.map(function(part){if(!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+$/.test(part))return escapeHtml(part);const html=escapeHtml(part),index=wordIndex++;return index===changeIndex?'<strong class="tutor-change">'+html+'</strong>':html}).join('')}
   function coachLabel(who){return who==='tutor'?'Spanish coach':who==='coach'?'LanguageDNA coach':'You'}
-  function advanceConversation(answer,analysis){
-    const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turn=s.turns[state.turn];
-    state.messages.push({who:'learner',text:answer});
-    if(analysis.score>=.86){
-      state.messages.push({who:'coach',text:'That works naturally.'});
-    }else{
-      state.messages.push({who:'coach',html:'<p>That makes sense.</p><p>A more natural way: '+correctionMarkup(answer,analysis.canonical)+'</p>'});
-    }
-    state.turn+=1;
-    if(state.turn<s.turns.length){const next=s.turns[state.turn];state.messages.push({who:'tutor',text:next.npc,english:next.english})}else{markDailyStep('scenario')}
-    renderConversation()
+
+  function ensureDailyRecord(){
+    const all=dailyData(),key=dateKey(),record=all[key]||{done:[],wrong:0,attempts:0};
+    if(!Array.isArray(record.done))record.done=[];
+    if(!record.startedAt){record.startedAt=Date.now();recordSignal('daily_start',{day:key})}
+    all[key]=record;saveDaily(all);return{all:all,key:key,record:record}
+  }
+  function dailyDone(){const r=dailyData()[dateKey()];return r&&Array.isArray(r.done)?r.done:[]}
+  function incompleteDailyDays(){const all=dailyData(),today=dateKey();return Object.keys(all).filter(function(k){const r=all[k];return k!==today&&r&&r.startedAt&&!r.completedAt&&(r.done||[]).length<5}).length}
+  function completedLast7(){const all=dailyData();let n=0;for(let i=0;i<7;i++){const r=all[dateKey(-i)];if(r&&r.completedAt)n++}return n}
+
+  function adaptiveProfile(){
+    const known=coreFamiliarCount(),game=gameProgress(),activity=appActivity().filter(function(e){return e&&e.type==='answer'}).slice(-30);
+    const correct=activity.filter(function(e){return e.correct}).length,accuracy=activity.length?correct/activity.length:null,weak=weakSpeech();
+    let score=0;
+    if(known>=20)score++;if(known>=60)score++;
+    if((game.unlocked||1)>=2)score++;if((game.unlocked||1)>=4)score++;
+    if(activity.length>=8&&accuracy>=.82)score++;if(activity.length>=8&&accuracy<.6)score--;
+    if(dueCount()>=8)score--;if(weak&&weak.avg<58)score--;
+    const band=Math.max(0,Math.min(3,score));
+    const labels=['Starter','Growing','Ready','Stretch'];
+    return{band:band,label:labels[band],choiceCount:Math.min(4,2+band),conversationTurns:Math.min(5,3+band),accuracy:accuracy,known:known}
   }
 
-  function scenarioReadiness(s){
-    const unlocked=unlockedRanks(),have=s.required.filter(r=>unlocked.has(String(r))).length;
-    return {have,total:s.required.length,pct:Math.round(have/s.required.length*100)}
+  function qualityExpansion(){
+    return EXPANDED.filter(function(x){
+      const en=normalize(x.english);
+      return !RISKY_EXPANSION.has(en)&&Number(x.usefulness||0)>=70&&Number(x.frequencyRankEn||999999)<=8000&&Number(x.frequencyRankEs||999999)<=8000&&String(x.cefrConfidence||'').toLowerCase()!=='low'
+    })
   }
+  function learnerPool(){return coreFamiliarCount()<100?CORE:qualityExpansion()}
+  function seedNumber(text){return Array.from(String(text||'')).reduce(function(n,c){return(n*31+c.charCodeAt(0))>>>0},17)}
+  function rotate(values,seed){if(!values.length)return values;const n=seed%values.length;return values.slice(n).concat(values.slice(0,n))}
+  function choiceValues(correct,count,values,seed){const seen=new Set([normalize(correct)]),out=[correct];rotate(values.slice(),seed).forEach(function(v){const key=normalize(v);if(out.length<count&&key&&!seen.has(key)){seen.add(key);out.push(v)}});return rotate(out,seed+3)}
+  function dailyChoices(item,count){const source=CORE.concat(qualityExpansion()).filter(function(x){return x.rank!==item.rank}).map(function(x){return x.spanish});return choiceValues(item.spanish,count,source,seedNumber(dateKey()+item.rank))}
+  function scenarioChoices(s,count){const correct=s.turns[0].replies[0],others=[];SCENARIOS.forEach(function(x){if(x.id!==s.id&&x.turns[0]&&x.turns[0].replies[0])others.push(x.turns[0].replies[0])});return choiceValues(correct,count,others,seedNumber(dateKey()+s.id))}
+  function reviewSnapshot(){if(window.LanguageDNACore&&typeof window.LanguageDNACore.getReviewSnapshot==='function')return window.LanguageDNACore.getReviewSnapshot();return null}
+
+  function scenarioReadiness(s){const unlocked=unlockedRanks(),have=s.required.filter(function(r){return unlocked.has(String(r))}).length;return{have:have,total:s.required.length,pct:Math.round(have/s.required.length*100)}}
   function dailyPlan(){
-    const known=knownSet(),unfamiliar=CORE.filter(x=>!known.has(String(x.rank)));
-    const seed=Array.from(dateKey()).reduce((n,c)=>n+c.charCodeAt(0),0);
-    const first=unfamiliar.length?unfamiliar[seed%unfamiliar.length]:CORE[seed%CORE.length];
-    const second=unfamiliar.length>1?unfamiliar[(seed+7)%unfamiliar.length]:CORE[(seed+7)%CORE.length];
-    const weak=weakSpeech();
-    const scenarios=SCENARIOS.slice().sort((a,b)=>scenarioReadiness(b).pct-scenarioReadiness(a).pct);
-    return {first,second,weak,scenario:scenarios[seed%Math.min(3,scenarios.length)],due:dueCount()}
+    const known=knownSet(),pool=learnerPool(),unfamiliar=pool.filter(function(x){return!known.has(String(x.rank))}),seed=seedNumber(dateKey()),focus=unfamiliar.length?unfamiliar[Math.min(unfamiliar.length-1,seed%Math.min(12,unfamiliar.length))]:pool[seed%pool.length]||CORE[0],profile=adaptiveProfile();
+    const scenarios=SCENARIOS.slice().sort(function(a,b){return scenarioReadiness(b).pct-scenarioReadiness(a).pct});
+    return{focus:focus,weak:weakSpeech(),scenario:scenarios[seed%Math.min(3,scenarios.length)],due:dueCount(),profile:profile,review:reviewSnapshot()}
   }
-  function markDailyStep(step){
-    const all=dailyData(),key=dateKey(),record=all[key]||{done:[]};
-    if(!record.done.includes(step))record.done.push(step);
-    record.updatedAt=Date.now();all[key]=record;saveDaily(all);renderDaily();renderHomeSummary()
+  function nextDailyStep(done){for(let i=0;i<DAILY_STEPS.length;i++)if(!done.includes(DAILY_STEPS[i]))return DAILY_STEPS[i];return null}
+  function markDailyStep(step,meta){
+    const ctx=ensureDailyRecord(),r=ctx.record;
+    if(!r.done.includes(step)){r.done.push(step);r.attempts=(r.attempts||0)+1;recordSignal('daily_step',{step:step})}
+    if(meta&&meta.carry)state.dailyCarry=meta.carry;state.dailyFeedback='';
+    if(r.done.length>=5&&!r.completedAt){r.completedAt=Date.now();recordSignal('daily_complete',{seconds:Math.round((r.completedAt-r.startedAt)/1000),wrong:r.wrong||0})}
+    r.updatedAt=Date.now();ctx.all[ctx.key]=r;saveDaily(ctx.all);renderDaily();renderHomeSummary()
   }
-  function dailyDone(){const all=dailyData(),r=all[dateKey()];return r&&Array.isArray(r.done)?r.done:[]}
-  function openSmartReview(){
-    if(window.LanguageDNACore&&typeof window.LanguageDNACore.reviewOne==='function'){window.LanguageDNACore.reviewOne();return}
-    const practice=document.querySelector('[data-view="practice"]');if(practice)practice.click()
-  }
-
+  function dailyWrong(step){const ctx=ensureDailyRecord();ctx.record.wrong=(ctx.record.wrong||0)+1;ctx.record.attempts=(ctx.record.attempts||0)+1;ctx.all[ctx.key]=ctx.record;saveDaily(ctx.all);recordSignal('daily_wrong',{step:step})}
   function renderHomeSummary(){
     const el=document.getElementById('dailyFiveHomeText');if(!el)return;
-    const plan=dailyPlan(),done=dailyDone().length;
-    const parts=[];
-    if(plan.due)parts.push(plan.due+' review'+(plan.due===1?'':'s')+' due');
-    parts.push(Math.max(0,100-coreFamiliarCount())+' Everyday core items still to discover');
-    if(plan.weak)parts.push('speech focus: '+plan.weak.id);
-    el.textContent=done>=5?'Today’s Daily 5 is complete. Come back tomorrow for a fresh tiny lesson.':parts.join(' · ')+'.'
+    const plan=dailyPlan(),done=dailyDone(),next=nextDailyStep(done),names={review:'one quick memory check',link:'one English → Spanish link',use:'one useful choice',speak:'one short speaking turn','real-life':'one real-life choice'};
+    if(!next){el.textContent='Today’s Daily 5 is complete. You can stop here — your next review will be chosen automatically.';return}
+    el.textContent=done.length+'/5 complete · Next: '+names[next]+'. One thing at a time.'
   }
 
-  function renderTabs(){
-    document.querySelectorAll('[data-tutor-tab]').forEach(btn=>btn.classList.toggle('active',btn.dataset.tutorTab===state.tab));
-    const daily=document.getElementById('dailyTutorPanel'),conv=document.getElementById('conversationTutorPanel'),scenarios=document.getElementById('scenarioTutorPanel');
-    if(daily)daily.hidden=state.tab!=='daily';if(conv)conv.hidden=state.tab!=='conversation';if(scenarios)scenarios.hidden=state.tab!=='scenarios'
+  function dailyStepHtml(plan,step){
+    const item=plan.focus,profile=plan.profile;
+    if(step==='review'){
+      const r=plan.review;
+      if(r){
+        const choices=choiceValues(r.answer,profile.choiceCount,(r.choices||[]).filter(function(v){return normalize(v)!==normalize(r.answer)}),seedNumber(dateKey()+r.id));
+        return '<span class="eyebrow">STEP 1 · REMEMBER</span><h2>'+escapeHtml(r.prompt)+'</h2><p>Choose the Spanish you remember. If it is difficult, that simply tells LanguageDNA to bring it back sooner.</p><div class="daily-choice-grid">'+choices.map(function(v){return'<button type="button" data-daily-review-choice="'+escapeHtml(v)+'">'+escapeHtml(v)+'</button>'}).join('')+'</div>'
+      }
+      const choices=dailyChoices(item,profile.choiceCount);
+      return '<span class="eyebrow">STEP 1 · WARM UP</span><h2>'+escapeHtml(item.english)+'</h2><p>Which Spanish matches the English you already know?</p><div class="daily-choice-grid">'+choices.map(function(v){return'<button type="button" data-daily-review-choice="'+escapeHtml(v)+'" data-daily-fallback-answer="'+escapeHtml(item.spanish)+'">'+escapeHtml(v)+'</button>'}).join('')+'</div>'
+    }
+    if(step==='link'){
+      const link=item.family||item.morphology||item.note||'English meaning first, then the Spanish form.';
+      return '<span class="eyebrow">STEP 2 · SEE THE LINK</span><div class="daily-link-pair"><strong>'+escapeHtml(item.english)+'</strong><span>→</span><strong>'+escapeHtml(item.spanish)+'</strong></div><p><b>Why it sticks:</b> '+escapeHtml(link)+'</p><div class="daily-actions"><button type="button" class="secondary-btn" data-tutor-speak="'+escapeHtml(item.spanish)+'">🔊 Hear Spanish</button><button type="button" class="primary-btn" data-daily-link-done>Got it</button></div>'
+    }
+    if(step==='use'){
+      const choices=dailyChoices(item,profile.choiceCount);
+      return '<span class="eyebrow">STEP 3 · USE IT</span><h2>'+escapeHtml(item.english)+'</h2><p>Pick the Spanish. Then LanguageDNA will show the same word in a real sentence.</p><div class="daily-choice-grid">'+choices.map(function(v){return'<button type="button" data-daily-use-choice="'+escapeHtml(v)+'">'+escapeHtml(v)+'</button>'}).join('')+'</div><div class="daily-example-line"><small>REAL USE</small><span>'+escapeHtml(item.exampleEn||item.english)+' → '+escapeHtml(item.exampleEs||item.spanish)+'</span></div>'
+    }
+    if(step==='speak'){
+      const weak=plan.weak?plan.weak.id.replace(/-/g,' / '):'clear Spanish vowels';
+      return '<span class="eyebrow">STEP 4 · SAY IT</span><h2>“'+escapeHtml(item.spanish)+'”</h2><p>Keep it short. Your current speech focus is '+escapeHtml(weak)+'.</p><div class="daily-actions"><button type="button" class="secondary-btn" data-tutor-speak="'+escapeHtml(item.spanish)+'">🔊 Hear first</button><button type="button" class="primary-btn" data-daily-speak>🎙 Say it</button><button type="button" class="text-btn" data-daily-self-speak>I said it aloud</button></div>'
+    }
+    const s=plan.scenario,turn=s.turns[0],choices=scenarioChoices(s,profile.choiceCount);
+    return '<span class="eyebrow">STEP 5 · REAL LIFE</span><h2>'+s.icon+' '+escapeHtml(s.title)+'</h2><div class="daily-scenario-prompt"><strong>'+escapeHtml(turn.npc)+'</strong><small>'+escapeHtml(turn.english)+'</small></div><p>Choose a simple reply. You do not need a perfect long sentence.</p><div class="daily-choice-grid">'+choices.map(function(v){return'<button type="button" data-daily-scenario-choice="'+escapeHtml(v)+'">'+escapeHtml(v)+'</button>'}).join('')+'</div>'
   }
-
+  function renderDailyComplete(plan){
+    const item=plan.focus,s=plan.scenario,review=plan.review,reviewText=review?'a memory link':'a quick recall';
+    return '<section class="daily-complete-card"><span class="eyebrow">DAILY 5 COMPLETE</span><h2>Nice work today.</h2><p>You strengthened '+escapeHtml(reviewText)+', <strong>'+escapeHtml(item.english)+' → '+escapeHtml(item.spanish)+'</strong>, speaking aloud, and '+escapeHtml(s.title.toLowerCase())+'.</p><p>LanguageDNA will quietly use today’s answers to choose what comes back next. You are done for today.</p></section>'
+  }
   function renderDaily(){
     const root=document.getElementById('dailyTutorPanel');if(!root)return;
-    const plan=dailyPlan(),done=dailyDone(),completed=done.length;
-    const weakLabel=plan.weak?plan.weak.id.replace(/-/g,' / '):'clear Spanish vowels';
-    const steps=[
-      {id:'review',title:'1. Memory first',body:plan.due?plan.due+' review'+(plan.due===1?' is':'s are')+' due now. Do one due link, then come straight back.':'Nothing is due. Do one tiny review link.',action:'review',label:'Review one link'},
-      {id:'word1',title:'2. One useful word or phrase',body:plan.first.english+' → '+plan.first.spanish+'. '+plan.first.exampleEn+' → '+plan.first.exampleEs+'.',action:'hear1',label:'Hear Spanish'},
-      {id:'word2',title:'3. Add one more',body:plan.second.english+' → '+plan.second.spanish+'. '+plan.second.exampleEn+' → '+plan.second.exampleEs+'.',action:'hear2',label:'Hear Spanish'},
-      {id:'speak',title:'4. Say one thing aloud',body:'Speech focus: '+weakLabel+'. Say: “'+plan.first.spanish+'”. Keep it short and clear.',action:'speak',label:'Check my speech'},
-      {id:'scenario',title:'5. Use it in real life',body:plan.scenario.icon+' '+plan.scenario.title+': '+plan.scenario.aim,action:'scenario',label:'Try this scenario'}
-    ];
-    root.innerHTML='<section class="daily-hero"><div><span class="eyebrow">TODAY · ABOUT 5 MINUTES</span><h2>'+completed+' / 5 tiny steps complete</h2><p>No long lesson. No flood of new grammar. Finish five small useful actions.</p></div><div class="daily-progress-ring"><strong>'+Math.round(completed/5*100)+'%</strong><small>today</small></div></section>'+
-      '<div class="daily-step-list">'+steps.map((s,i)=>'<article class="daily-step '+(done.includes(s.id)?'done':'')+'"><div class="daily-check">'+(done.includes(s.id)?'✓':i+1)+'</div><div><h3>'+escapeHtml(s.title)+'</h3><p>'+escapeHtml(s.body)+'</p><div class="daily-actions">'+(s.id==='speak'?'<button type="button" class="secondary-btn" data-tutor-speak="'+escapeHtml(plan.first.spanish)+'">🔊 Hear first</button>':'')+'<button type="button" class="secondary-btn" data-daily-action="'+s.action+'">'+escapeHtml(s.label)+'</button><button type="button" class="text-btn" data-daily-done="'+s.id+'">'+(done.includes(s.id)?'Done ✓':'Mark done')+'</button></div></div></article>').join('')+'</div>'
+    const plan=dailyPlan(),done=dailyDone(),step=nextDailyStep(done),completed=done.length;
+    root.innerHTML='<section class="daily-focus-hero"><div><span class="eyebrow">TODAY · ABOUT 5 MINUTES</span><h2>'+completed+' / 5 complete</h2><p>One small action at a time. Difficulty changes automatically from your recent learning.</p></div><div class="daily-progress-mini"><span style="width:'+Math.round(completed/5*100)+'%"></span></div></section>'+
+      (state.dailyCarry?'<div class="daily-carry">✓ '+escapeHtml(state.dailyCarry)+'</div>':'')+
+      (step?'<article class="daily-focus-card">'+dailyStepHtml(plan,step)+(state.dailyFeedback?'<div class="daily-feedback">'+state.dailyFeedback+'</div>':'')+'</article>':renderDailyComplete(plan))
   }
 
-  function resetConversation(id){
-    state.scenario=id||state.scenario;state.turn=0;state.messages=[];
-    const s=SCENARIOS.find(x=>x.id===state.scenario)||SCENARIOS[0];
-    state.messages.push({who:'tutor',text:s.turns[0].npc,english:s.turns[0].english});renderConversation()
+  function renderTabs(){document.querySelectorAll('[data-tutor-tab]').forEach(function(btn){btn.classList.toggle('active',btn.dataset.tutorTab===state.tab)});const daily=document.getElementById('dailyTutorPanel'),conv=document.getElementById('conversationTutorPanel'),scenarios=document.getElementById('scenarioTutorPanel');if(daily)daily.hidden=state.tab!=='daily';if(conv)conv.hidden=state.tab!=='conversation';if(scenarios)scenarios.hidden=state.tab!=='scenarios'}
+
+  function conversationTurns(s){const extra=EXTRA_TURNS[s.id]||[],count=adaptiveProfile().conversationTurns;return s.turns.concat(extra).slice(0,count)}
+  function resetConversation(id){state.scenario=id||state.scenario;state.turn=0;state.messages=[];const s=SCENARIOS.find(function(x){return x.id===state.scenario})||SCENARIOS[0],turns=conversationTurns(s);state.messages.push({who:'tutor',text:turns[0].npc,english:turns[0].english});recordSignal('conversation_start',{scenario:s.id,turns:turns.length});renderConversation()}
+  function advanceConversation(answer,analysis){
+    const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turns=conversationTurns(s),turn=turns[state.turn];
+    state.messages.push({who:'learner',text:answer});
+    if(analysis.score>=.86)state.messages.push({who:'coach',text:'That works naturally.'});
+    else{state.messages.push({who:'coach',html:'<p>That makes sense.</p><p>A more natural way: '+correctionMarkup(answer,analysis.canonical)+'</p>'});recordSignal('conversation_correction',{scenario:s.id,turn:state.turn})}
+    state.turn+=1;
+    if(state.turn<turns.length){const next=turns[state.turn];state.messages.push({who:'tutor',text:next.npc,english:next.english})}
+    else recordSignal('conversation_complete',{scenario:s.id,turns:turns.length});
+    renderConversation()
   }
   function renderConversation(){
     const root=document.getElementById('conversationTutorPanel');if(!root)return;
-    const s=SCENARIOS.find(x=>x.id===state.scenario)||SCENARIOS[0],ready=scenarioReadiness(s),turn=s.turns[Math.min(state.turn,s.turns.length-1)];
-    const boundary=unlockedRanks().size;
-    root.innerHTML='<div class="conversation-layout"><aside class="conversation-side"><span class="eyebrow">CONVERSATION TUTOR</span><h2>'+s.icon+' '+escapeHtml(s.title)+'</h2><p>'+escapeHtml(s.aim)+'</p><div class="conversation-boundary"><strong>'+boundary+'</strong><small>starter + familiar words available</small></div><div class="readiness-bar"><span style="width:'+ready.pct+'%"></span></div><small>'+ready.have+'/'+ready.total+' scenario essentials already familiar. Missing words stay supported with hints.</small><button type="button" class="secondary-btn" data-tutor-tab="scenarios">Choose another scenario</button></aside>'+
-      '<section class="conversation-main"><div class="conversation-note">Beginner-safe coach · accepts close natural replies, corrects mistakes gently, and keeps its own prompts close to vocabulary you have unlocked.</div><div class="chat-stream">'+state.messages.map(m=>'<div class="chat-bubble '+m.who+'"><strong>'+escapeHtml(coachLabel(m.who))+'</strong>'+(m.html?m.html:'<p>'+escapeHtml(m.text)+'</p>')+(m.english?'<small>'+escapeHtml(m.english)+'</small>':'')+'</div>').join('')+'</div>'+
-      (state.turn>=s.turns.length?'<div class="conversation-complete"><strong>✓ Scenario complete</strong><p>You handled '+s.turns.length+' short turns without needing a long lesson.</p><button type="button" class="primary-btn" data-conversation-restart>Try again</button></div>':
+    const s=SCENARIOS.find(function(x){return x.id===state.scenario})||SCENARIOS[0],ready=scenarioReadiness(s),turns=conversationTurns(s),turn=turns[Math.min(state.turn,turns.length-1)],boundary=unlockedRanks().size;
+    root.innerHTML='<div class="conversation-layout"><aside class="conversation-side"><span class="eyebrow">CONVERSATION TUTOR</span><h2>'+s.icon+' '+escapeHtml(s.title)+'</h2><p>'+escapeHtml(s.aim)+'</p><div class="conversation-boundary"><strong>'+boundary+'</strong><small>starter + familiar words available</small></div><div class="readiness-bar"><span style="width:'+ready.pct+'%"></span></div><small>'+ready.have+'/'+ready.total+' essentials familiar · '+turns.length+' short turns chosen automatically.</small><button type="button" class="secondary-btn" data-tutor-tab="scenarios">Choose another scenario</button></aside>'+
+      '<section class="conversation-main"><div class="conversation-note">The coach grows from 3 to 5 turns only when your recent learning suggests you are ready. English help stays available on demand.</div><div class="chat-stream">'+state.messages.map(function(m){return'<div class="chat-bubble '+m.who+'"><strong>'+escapeHtml(coachLabel(m.who))+'</strong>'+(m.html?m.html:'<p>'+escapeHtml(m.text)+'</p>')+(m.english?'<small>'+escapeHtml(m.english)+'</small>':'')+'</div>'}).join('')+'</div>'+
+      (state.turn>=turns.length?'<div class="conversation-complete"><strong>✓ Conversation complete</strong><p>You handled '+turns.length+' short turns. LanguageDNA will adjust the next conversation automatically.</p><button type="button" class="primary-btn" data-conversation-restart>Try again</button></div>':
       '<form id="conversationForm" class="conversation-form"><label><span class="sr-only">Reply in Spanish</span><input id="conversationInput" autocomplete="off" placeholder="Reply in Spanish…"></label><button type="submit" class="primary-btn">Send</button></form><div class="conversation-support"><button type="button" data-conversation-help>Show English help</button><button type="button" data-conversation-suggest>Show a reply I can use</button><button type="button" data-tutor-speak="'+escapeHtml(turn.npc)+'">🔊 Hear question</button></div><div id="conversationFeedback" class="conversation-feedback" aria-live="polite"></div>')+
       '</section></div>';
     const form=document.getElementById('conversationForm');if(form)form.addEventListener('submit',submitConversation)
   }
   function submitConversation(e){
-    e.preventDefault();const input=document.getElementById('conversationInput');if(!input)return;
-    const answer=input.value.trim();if(!answer)return;
-    const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turn=s.turns[state.turn],analysis=replyAnalysis(answer,turn),feedback=document.getElementById('conversationFeedback');
+    e.preventDefault();const input=document.getElementById('conversationInput');if(!input)return;const answer=input.value.trim();if(!answer)return;
+    const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turn=conversationTurns(s)[state.turn],analysis=replyAnalysis(answer,turn),feedback=document.getElementById('conversationFeedback');
     const contains=turn.replies.some(function(r){return normalize(answer).includes(normalize(r))||normalize(r).includes(normalize(answer))});
     if(analysis.score>=.56||contains){advanceConversation(answer,analysis);return}
-    if(feedback){
-      feedback.innerHTML='<div class="tutor-correction"><p>That makes sense.</p><p>A more natural way: '+correctionMarkup(answer,analysis.canonical)+'</p><button type="button" class="secondary-btn" data-conversation-use-correction>Use this reply</button></div>'
-    }
+    recordSignal('conversation_wrong',{scenario:s.id,turn:state.turn});
+    if(feedback)feedback.innerHTML='<div class="tutor-correction"><p>That makes sense.</p><p>A more natural way: '+correctionMarkup(answer,analysis.canonical)+'</p><button type="button" class="secondary-btn" data-conversation-use-correction>Use this reply</button></div>'
   }
-
   function renderScenarios(){
-    const root=document.getElementById('scenarioTutorPanel');if(!root)return;
-    root.innerHTML='<div class="scenario-heading"><div><span class="eyebrow">REAL-LIFE SPANISH</span><h2>Practise situations you may actually face.</h2><p>Each scenario is only three short turns. Readiness is based on starter essentials plus vocabulary you marked Familiar.</p></div></div><div class="scenario-grid">'+SCENARIOS.map(s=>{const r=scenarioReadiness(s);return '<article class="scenario-card"><div class="scenario-icon">'+s.icon+'</div><div><span class="scenario-level">'+escapeHtml(s.level)+'</span><h3>'+escapeHtml(s.title)+'</h3><p>'+escapeHtml(s.aim)+'</p><div class="readiness-bar"><span style="width:'+r.pct+'%"></span></div><small>'+r.have+'/'+r.total+' essential items familiar</small><button type="button" class="primary-btn" data-scenario-start="'+s.id+'">'+(r.pct>=70?'Start conversation':'Start with support')+'</button></div></article>'}).join('')+'</div>'
+    const root=document.getElementById('scenarioTutorPanel');if(!root)return;const turns=adaptiveProfile().conversationTurns;
+    root.innerHTML='<div class="scenario-heading"><div><span class="eyebrow">REAL-LIFE SPANISH</span><h2>Practise situations you may actually face.</h2><p>LanguageDNA keeps each conversation short and quietly grows it from 3 to 5 turns as you get stronger.</p></div></div><div class="scenario-grid">'+SCENARIOS.map(function(s){const r=scenarioReadiness(s);return'<article class="scenario-card"><div class="scenario-icon">'+s.icon+'</div><div><span class="scenario-level">'+escapeHtml(s.level)+'</span><h3>'+escapeHtml(s.title)+'</h3><p>'+escapeHtml(s.aim)+'</p><div class="readiness-bar"><span style="width:'+r.pct+'%"></span></div><small>'+r.have+'/'+r.total+' essentials familiar · '+turns+' turns today</small><button type="button" class="primary-btn" data-scenario-start="'+s.id+'">'+(r.pct>=70?'Start conversation':'Start with support')+'</button></div></article>'}).join('')+'</div>'
   }
 
   function startSpeechCheck(text){
-    const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;if(!Recognition){speak(text,.62);return}
-    const rec=new Recognition();rec.lang='es-ES';rec.interimResults=false;rec.maxAlternatives=3;
-    const box=document.querySelector('[data-daily-action="speak"]');if(box)box.textContent='Listening…';
-    rec.onresult=e=>{const heard=e.results[0][0].transcript,score=Math.round(similarity(text,heard)*100);if(box)box.textContent=score>=65?'✓ '+score+'% match':'Try again · '+score+'%';if(score>=65)markDailyStep('speak')};
-    rec.onend=()=>{if(box&&box.textContent==='Listening…')box.textContent='Hear slowly'};rec.start()
+    const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(!Recognition){speak(text,.62);state.dailyFeedback='Speech recognition is unavailable here. Listen once, say it aloud, then tap “I said it aloud”.';renderDaily();return}
+    const rec=new Recognition();rec.lang='es-ES';rec.interimResults=false;rec.maxAlternatives=3;state.dailyFeedback='Listening…';renderDaily();
+    rec.onresult=function(e){const heard=e.results[0][0].transcript,score=Math.round(similarity(text,heard)*100);recordSignal('daily_speech',{score:score});if(score>=62){markDailyStep('speak',{carry:'Your Spanish was recognised at '+score+'%.'})}else{dailyWrong('speak');state.dailyFeedback='Close. I heard “'+escapeHtml(heard)+'”. Hear it once more and try again.';renderDaily()}};
+    rec.onerror=function(){state.dailyFeedback='I could not capture that clearly. You can try again or use the self-check.';renderDaily()};rec.start()
   }
 
-  document.addEventListener('click',e=>{
-    const open=e.target.closest('[data-tutor-open]');if(open){state.tab=open.dataset.tutorOpen||'daily';renderTabs();if(state.tab==='daily')renderDaily();return}
-    const tab=e.target.closest('[data-tutor-tab]');if(tab){state.tab=tab.dataset.tutorTab;renderTabs();if(state.tab==='daily')renderDaily();if(state.tab==='conversation'){if(!state.messages.length)resetConversation(state.scenario);else renderConversation()}if(state.tab==='scenarios')renderScenarios();return}
-    const done=e.target.closest('[data-daily-done]');if(done){markDailyStep(done.dataset.dailyDone);return}
-    const action=e.target.closest('[data-daily-action]');if(action){const plan=dailyPlan(),a=action.dataset.dailyAction;if(a==='review'){markDailyStep('review');openSmartReview()}if(a==='hear1'){speak(plan.first.spanish);markFamiliar(plan.first.rank);markDailyStep('word1')}if(a==='hear2'){speak(plan.second.spanish);markFamiliar(plan.second.rank);markDailyStep('word2')}if(a==='speak'){startSpeechCheck(plan.first.spanish)}if(a==='scenario'){state.scenario=plan.scenario.id;state.tab='conversation';resetConversation(state.scenario);renderTabs()}return}
+  function signalSummary(){const rows=signalData(),week=Date.now()-7*86400000,recent=rows.filter(function(r){return r.at>=week});return{events:rows.length,wrong:recent.filter(function(r){return r.type==='daily_wrong'||r.type==='conversation_wrong'}).length,dailyCompleted:recent.filter(function(r){return r.type==='daily_complete'}).length,incompleteDays:incompleteDailyDays()}}
+  function tutorSummary(){const p=adaptiveProfile(),signals=signalSummary();return{knownWords:familiarCount(),coreKnown:coreFamiliarCount(),scenariosReady:SCENARIOS.filter(function(s){return scenarioReadiness(s).pct>=70}).length,dailyCompleted7:completedLast7(),adaptiveLabel:p.label,weakSpeech:weakSpeech(),signals:signals}}
+
+  document.addEventListener('click',function(e){
+    const open=e.target.closest('[data-tutor-open]');if(open){state.tab=open.dataset.tutorOpen||'daily';renderTabs();if(state.tab==='daily'){ensureDailyRecord();renderDaily()}return}
+    const tab=e.target.closest('[data-tutor-tab]');if(tab){state.tab=tab.dataset.tutorTab;renderTabs();if(state.tab==='daily'){ensureDailyRecord();renderDaily()}if(state.tab==='conversation'){if(!state.messages.length)resetConversation(state.scenario);else renderConversation()}if(state.tab==='scenarios')renderScenarios();return}
+    const reviewChoice=e.target.closest('[data-daily-review-choice]');if(reviewChoice){const plan=dailyPlan(),answer=plan.review?plan.review.answer:(reviewChoice.dataset.dailyFallbackAnswer||plan.focus.spanish),chosen=reviewChoice.dataset.dailyReviewChoice;if(normalize(chosen)===normalize(answer)){if(plan.review&&window.LanguageDNACore&&typeof window.LanguageDNACore.completeReview==='function')window.LanguageDNACore.completeReview(plan.review.id,4);markDailyStep('review',{carry:'Memory strengthened.'})}else{dailyWrong('review');state.dailyFeedback='Not quite. Try once more — no penalty.';renderDaily()}return}
+    const linkDone=e.target.closest('[data-daily-link-done]');if(linkDone){const plan=dailyPlan();markFamiliar(plan.focus.rank);markDailyStep('link',{carry:plan.focus.english+' → '+plan.focus.spanish}) ;return}
+    const useChoice=e.target.closest('[data-daily-use-choice]');if(useChoice){const plan=dailyPlan(),chosen=useChoice.dataset.dailyUseChoice;if(normalize(chosen)===normalize(plan.focus.spanish)){markFamiliar(plan.focus.rank);markDailyStep('use',{carry:(plan.focus.exampleEn||plan.focus.english)+' → '+(plan.focus.exampleEs||plan.focus.spanish)})}else{dailyWrong('use');state.dailyFeedback='Nearly. Look back at the English link and try again.';renderDaily()}return}
+    const dailySpeak=e.target.closest('[data-daily-speak]');if(dailySpeak){startSpeechCheck(dailyPlan().focus.spanish);return}
+    const selfSpeak=e.target.closest('[data-daily-self-speak]');if(selfSpeak){recordSignal('daily_speech_selfcheck',{});markDailyStep('speak',{carry:'You said it aloud.'});return}
+    const scenarioChoice=e.target.closest('[data-daily-scenario-choice]');if(scenarioChoice){const plan=dailyPlan(),correct=plan.scenario.turns[0].replies[0],chosen=scenarioChoice.dataset.dailyScenarioChoice;if(normalize(chosen)===normalize(correct)){markDailyStep('real-life',{carry:'Real-life reply handled.'})}else{dailyWrong('real-life');state.dailyFeedback='That reply belongs in a different situation. Try the simplest answer that fits this prompt.';renderDaily()}return}
     const scenario=e.target.closest('[data-scenario-start]');if(scenario){state.scenario=scenario.dataset.scenarioStart;state.tab='conversation';resetConversation(state.scenario);renderTabs();return}
-    const correction=e.target.closest('[data-conversation-use-correction]');if(correction){const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turn=s.turns[state.turn],canonical=turn.replies[0];advanceConversation(canonical,replyAnalysis(canonical,turn));return}
+    const correction=e.target.closest('[data-conversation-use-correction]');if(correction){const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turn=conversationTurns(s)[state.turn],canonical=turn.replies[0];advanceConversation(canonical,replyAnalysis(canonical,turn));return}
     const restart=e.target.closest('[data-conversation-restart]');if(restart){resetConversation(state.scenario);return}
-    const help=e.target.closest('[data-conversation-help]');if(help){const s=SCENARIOS.find(x=>x.id===state.scenario),turn=s.turns[state.turn],feedback=document.getElementById('conversationFeedback');if(feedback)feedback.innerHTML='<strong>English:</strong> '+escapeHtml(turn.english);return}
-    const suggest=e.target.closest('[data-conversation-suggest]');if(suggest){const s=SCENARIOS.find(x=>x.id===state.scenario),turn=s.turns[state.turn],input=document.getElementById('conversationInput');if(input){input.value=turn.replies[0];input.focus()}return}
+    const help=e.target.closest('[data-conversation-help]');if(help){const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turn=conversationTurns(s)[state.turn],feedback=document.getElementById('conversationFeedback');if(feedback)feedback.innerHTML='<strong>English:</strong> '+escapeHtml(turn.english);return}
+    const suggest=e.target.closest('[data-conversation-suggest]');if(suggest){const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turn=conversationTurns(s)[state.turn],input=document.getElementById('conversationInput');if(input){input.value=turn.replies[0];input.focus()}return}
     const audio=e.target.closest('[data-tutor-speak]');if(audio){speak(audio.dataset.tutorSpeak);return}
   });
 
   window.LanguageDNATutor={
     render:function(){renderHomeSummary();renderDaily();renderScenarios();renderTabs()},
-    open:function(tab){state.tab=tab||'daily';renderTabs();if(state.tab==='daily')renderDaily();if(state.tab==='scenarios')renderScenarios();if(state.tab==='conversation')resetConversation(state.scenario)}
+    open:function(tab){state.tab=tab||'daily';renderTabs();if(state.tab==='daily'){ensureDailyRecord();renderDaily()}if(state.tab==='scenarios')renderScenarios();if(state.tab==='conversation')resetConversation(state.scenario)},
+    summary:tutorSummary
   };
 
   renderHomeSummary();renderDaily();renderScenarios();renderTabs();
