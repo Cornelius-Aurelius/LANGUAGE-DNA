@@ -27,3 +27,9 @@ Selected high-leverage word-link patterns now open dedicated A–Z dictionary pa
 ### Dictionary expansion
 
 LanguageDNA now includes 15 dedicated full Pattern Dictionaries containing 850 curated English ↔ Spanish word pairs. New pattern families include `-ism → -ismo`, `-able/-ible`, `-ant/-ent → -ante/-ente`, `-ize → -izar`, `-fy → -ficar`, and `-al → -al`.
+
+## Lexical data pipeline
+
+The Pattern Dictionary data now uses English/Spanish lemmas aligned through Open Multilingual Wordnet: Princeton WordNet on the English side and Multilingual Central Repository Spanish on the Spanish side. Automated candidates are accepted only when they share a synset, match the required part of speech, match an explicit LanguageDNA transformation rule, and pass an orthographic stem-similarity threshold. Hand-curated pairs take priority.
+
+See `DATA_SOURCES.md` and `data-build-report.json` for provenance, licenses, build rules, and per-pattern counts.
