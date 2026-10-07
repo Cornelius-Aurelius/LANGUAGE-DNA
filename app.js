@@ -492,7 +492,7 @@
     return FAMILY_META.map(function(f){const list=patterns.filter(function(p){return patternFamilies(p).includes(f.key)}),score=list.length?Math.round(list.reduce(function(n,p){return n+progressFor(p.id)},0)/(list.length*5)*100):0;return{key:f.key,title:f.title,icon:f.icon,score:score}}).sort(function(a,b){return b.score-a.score})
   }
   function reviewCalendar(days){
-    const out=[];for(let i=0;i<days;i++){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+i);const start=d.getTime(),end=start+86400000,count=Object.values(state.reviews).filter(function(r){return r&&r.due>=start&&r.due<end}).length;out.push({label:i===0?'Today':d.toLocaleDateString(undefined,{weekday:'short'}),count:count})}return out
+    const out=[];for(let i=0;i<days;i++){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+i);const start=d.getTime(),end=start+86400000,count=Object.values(state.reviews).filter(function(r){return r&&(i===0?r.due<end:r.due>=start&&r.due<end)}).length;out.push({label:i===0?'Today':d.toLocaleDateString(undefined,{weekday:'short'}),count:count})}return out
   }
   function renderCommandCenter(){
     const recommendation=document.getElementById('dnaRecommendation'),weekly=document.getElementById('weeklyProgress'),strength=document.getElementById('strengthProfile'),calendar=document.getElementById('reviewCalendar');if(!recommendation||!weekly||!strength||!calendar)return;
