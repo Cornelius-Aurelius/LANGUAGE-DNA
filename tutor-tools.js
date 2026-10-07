@@ -144,8 +144,8 @@
   }
   function dailyDone(){const all=dailyData(),r=all[dateKey()];return r&&Array.isArray(r.done)?r.done:[]}
   function openSmartReview(){
-    const practice=document.querySelector('[data-view="practice"]');if(practice)practice.click();
-    setTimeout(()=>{const smart=document.querySelector('[data-smart-review]');if(smart)smart.click()},50)
+    if(window.LanguageDNACore&&typeof window.LanguageDNACore.reviewOne==='function'){window.LanguageDNACore.reviewOne();return}
+    const practice=document.querySelector('[data-view="practice"]');if(practice)practice.click()
   }
 
   function renderHomeSummary(){
@@ -169,14 +169,14 @@
     const plan=dailyPlan(),done=dailyDone(),completed=done.length;
     const weakLabel=plan.weak?plan.weak.id.replace(/-/g,' / '):'clear Spanish vowels';
     const steps=[
-      {id:'review',title:'1. Memory first',body:plan.due?plan.due+' review'+(plan.due===1?' is':'s are')+' due now. Clear the memory queue before adding much new material.':'Nothing is due. Do one tiny Smart Practice refresh.',action:'review',label:'Open Smart Review'},
+      {id:'review',title:'1. Memory first',body:plan.due?plan.due+' review'+(plan.due===1?' is':'s are')+' due now. Do one due link, then come straight back.':'Nothing is due. Do one tiny review link.',action:'review',label:'Review one link'},
       {id:'word1',title:'2. One useful word or phrase',body:plan.first.english+' → '+plan.first.spanish+'. '+plan.first.exampleEn+' → '+plan.first.exampleEs+'.',action:'hear1',label:'Hear Spanish'},
       {id:'word2',title:'3. Add one more',body:plan.second.english+' → '+plan.second.spanish+'. '+plan.second.exampleEn+' → '+plan.second.exampleEs+'.',action:'hear2',label:'Hear Spanish'},
-      {id:'speak',title:'4. Say one thing aloud',body:'Speech focus: '+weakLabel+'. Say: “'+plan.first.spanish+'”. Keep it short and clear.',action:'speak',label:'Hear slowly'},
+      {id:'speak',title:'4. Say one thing aloud',body:'Speech focus: '+weakLabel+'. Say: “'+plan.first.spanish+'”. Keep it short and clear.',action:'speak',label:'Check my speech'},
       {id:'scenario',title:'5. Use it in real life',body:plan.scenario.icon+' '+plan.scenario.title+': '+plan.scenario.aim,action:'scenario',label:'Try this scenario'}
     ];
     root.innerHTML='<section class="daily-hero"><div><span class="eyebrow">TODAY · ABOUT 5 MINUTES</span><h2>'+completed+' / 5 tiny steps complete</h2><p>No long lesson. No flood of new grammar. Finish five small useful actions.</p></div><div class="daily-progress-ring"><strong>'+Math.round(completed/5*100)+'%</strong><small>today</small></div></section>'+
-      '<div class="daily-step-list">'+steps.map((s,i)=>'<article class="daily-step '+(done.includes(s.id)?'done':'')+'"><div class="daily-check">'+(done.includes(s.id)?'✓':i+1)+'</div><div><h3>'+escapeHtml(s.title)+'</h3><p>'+escapeHtml(s.body)+'</p><div class="daily-actions"><button type="button" class="secondary-btn" data-daily-action="'+s.action+'">'+escapeHtml(s.label)+'</button><button type="button" class="text-btn" data-daily-done="'+s.id+'">'+(done.includes(s.id)?'Done ✓':'Mark done')+'</button></div></div></article>').join('')+'</div>'
+      '<div class="daily-step-list">'+steps.map((s,i)=>'<article class="daily-step '+(done.includes(s.id)?'done':'')+'"><div class="daily-check">'+(done.includes(s.id)?'✓':i+1)+'</div><div><h3>'+escapeHtml(s.title)+'</h3><p>'+escapeHtml(s.body)+'</p><div class="daily-actions">'+(s.id==='speak'?'<button type="button" class="secondary-btn" data-tutor-speak="'+escapeHtml(plan.first.spanish)+'">🔊 Hear first</button>':'')+'<button type="button" class="secondary-btn" data-daily-action="'+s.action+'">'+escapeHtml(s.label)+'</button><button type="button" class="text-btn" data-daily-done="'+s.id+'">'+(done.includes(s.id)?'Done ✓':'Mark done')+'</button></div></div></article>').join('')+'</div>'
   }
 
   function resetConversation(id){
@@ -228,7 +228,7 @@
     const open=e.target.closest('[data-tutor-open]');if(open){state.tab=open.dataset.tutorOpen||'daily';renderTabs();if(state.tab==='daily')renderDaily();return}
     const tab=e.target.closest('[data-tutor-tab]');if(tab){state.tab=tab.dataset.tutorTab;renderTabs();if(state.tab==='daily')renderDaily();if(state.tab==='conversation'){if(!state.messages.length)resetConversation(state.scenario);else renderConversation()}if(state.tab==='scenarios')renderScenarios();return}
     const done=e.target.closest('[data-daily-done]');if(done){markDailyStep(done.dataset.dailyDone);return}
-    const action=e.target.closest('[data-daily-action]');if(action){const plan=dailyPlan(),a=action.dataset.dailyAction;if(a==='review'){markDailyStep('review');openSmartReview()}if(a==='hear1'){speak(plan.first.spanish);markDailyStep('word1')}if(a==='hear2'){speak(plan.second.spanish);markDailyStep('word2')}if(a==='speak'){speak(plan.first.spanish,.62);setTimeout(()=>startSpeechCheck(plan.first.spanish),800)}if(a==='scenario'){markDailyStep('scenario');state.scenario=plan.scenario.id;state.tab='conversation';resetConversation(state.scenario);renderTabs()}return}
+    const action=e.target.closest('[data-daily-action]');if(action){const plan=dailyPlan(),a=action.dataset.dailyAction;if(a==='review'){markDailyStep('review');openSmartReview()}if(a==='hear1'){speak(plan.first.spanish);markDailyStep('word1')}if(a==='hear2'){speak(plan.second.spanish);markDailyStep('word2')}if(a==='speak'){startSpeechCheck(plan.first.spanish)}if(a==='scenario'){markDailyStep('scenario');state.scenario=plan.scenario.id;state.tab='conversation';resetConversation(state.scenario);renderTabs()}return}
     const scenario=e.target.closest('[data-scenario-start]');if(scenario){state.scenario=scenario.dataset.scenarioStart;state.tab='conversation';resetConversation(state.scenario);renderTabs();return}
     const restart=e.target.closest('[data-conversation-restart]');if(restart){resetConversation(state.scenario);return}
     const help=e.target.closest('[data-conversation-help]');if(help){const s=SCENARIOS.find(x=>x.id===state.scenario),turn=s.turns[state.turn],feedback=document.getElementById('conversationFeedback');if(feedback)feedback.innerHTML='<strong>English:</strong> '+escapeHtml(turn.english);return}
