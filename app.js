@@ -136,10 +136,136 @@
   function renderDNA(){const totalSkills=patterns.length*SKILLS.length;let built=0;patterns.forEach(function(p){built+=progressFor(p.id)});const pct=Math.round(built/totalSkills*100);document.getElementById('dnaPercent').textContent=pct+'%';document.getElementById('dnaRing').style.background='conic-gradient(var(--green) '+(pct*3.6)+'deg, var(--surface-2) 0deg)';document.getElementById('skillSummary').innerHTML=SKILLS.map(function(s){const count=patterns.filter(function(p){return!!(state.skills[p.id]||{})[s.key]}).length;return'<article class="skill-stat"><span>'+s.icon+'</span><strong>'+count+'</strong><small>'+s.label+' links</small></article>'}).join('');document.getElementById('dnaMap').innerHTML=FAMILY_META.map(function(f){const list=patterns.filter(function(p){return patternFamilies(p).includes(f.key)}).sort(function(a,b){return progressFor(b.id)-progressFor(a.id)||a.rank-b.rank}).slice(0,6);return'<section class="dna-family"><h3>'+f.icon+' '+f.title+'</h3><div class="dna-nodes">'+list.map(function(p){return'<button type="button" class="dna-node" data-open="'+p.id+'"><strong>'+escapeHtml(p.title)+'</strong><small>'+progressFor(p.id)+'/5 skills</small></button>'}).join('')+'</div></section>'}).join('');const lenses=['WHO','WHAT','WHERE','WHY','WHEN'];document.getElementById('coverageGrid').innerHTML=lenses.map(function(l){const all=patterns.filter(function(p){return p.lenses.includes(l)});const points=all.reduce(function(n,p){return n+progressFor(p.id)},0);const max=all.length*5;const q=max?Math.round(points/max*100):0;return'<article class="coverage-card"><strong>'+l+'</strong><div class="coverage-bar"><span style="width:'+q+'%"></span></div><small>'+q+'% skill coverage</small></article>'}).join('');const next=patterns.slice().sort(function(a,b){return a.rank-b.rank}).find(function(p){return progressFor(p.id)<4})||patterns[0];document.getElementById('nextBestTitle').textContent=next.title;document.getElementById('nextBestText').textContent=progressFor(next.id)===0?'A high-value connection you have not started yet.':'You already know part of this link. Strengthen the missing skills next.';document.getElementById('nextBestButton').dataset.pattern=next.id}
   function renderAllProgress(){document.getElementById('headerMastered').textContent=patterns.filter(function(p){return isStrong(p.id)}).length;renderStarters();if(state.view==='library')renderLibrary();if(state.view==='dna')renderDNA();if(state.view==='practice')renderPractice()}
 
-  function internalTranslation(query,source,target){const q=normalize(query);for(let i=0;i<patterns.length;i++){const p=patterns[i];for(let j=0;j<p.examples.length;j++){const en=String(p.examples[j][0]);const es=String(p.examples[j][1]);if(source==='en'&&normalize(en)===q)return{text:es,pattern:p};if(source==='es'&&normalize(es)===q)return{text:en,pattern:p}}}return null}
+  let dictionaryPromise=null,dictionaryIndex=null;
+  function dictionaryPatternRef(dictionary){return getPattern(dictionary.id)||{id:dictionary.id,title:dictionary.title||dictionary.id}}
+  function buildDictionaryIndex(){
+    if(dictionaryIndex)return dictionaryIndex;
+    const db=window.LANGUAGE_DNA_PATTERN_DICTIONARIES||{},en=new Map(),es=new Map();
+    Object.keys(db).forEach(function(id){
+      const dictionary=db[id],pattern=dictionaryPatternRef(dictionary);
+      (dictionary.words||[]).forEach(function(pair){
+        const item={english:String(pair[0]||''),spanish:String(pair[1]||''),pattern:pattern};
+        const enKey=normalize(item.english),esKey=normalize(item.spanish);
+        if(!enKey||!esKey)return;
+        if(!en.has(enKey))en.set(enKey,[]);
+        if(!es.has(esKey))es.set(esKey,[]);
+        en.get(enKey).push(item);es.get(esKey).push(item);
+      });
+    });
+    dictionaryIndex={en:en,es:es,patterns:Object.keys(db).length};
+    return dictionaryIndex;
+  }
+  function loadDictionaryIndex(){
+    if(window.LANGUAGE_DNA_PATTERN_DICTIONARIES)return Promise.resolve(buildDictionaryIndex());
+    if(dictionaryPromise)return dictionaryPromise;
+    dictionaryPromise=new Promise(function(resolve){
+      const existing=document.querySelector('script[data-language-dna-lexicon]');
+      if(existing){
+        existing.addEventListener('load',function(){resolve(buildDictionaryIndex())},{once:true});
+        existing.addEventListener('error',function(){resolve(null)},{once:true});
+        return;
+      }
+      const script=document.createElement('script');
+      script.src='pattern-data.js?v=5';
+      script.async=true;
+      script.dataset.languageDnaLexicon='true';
+      script.onload=function(){resolve(buildDictionaryIndex())};
+      script.onerror=function(){resolve(null)};
+      document.head.appendChild(script);
+    });
+    return dictionaryPromise;
+  }
+  function uniqueTexts(values,exclude){
+    const seen=new Set(),out=[],blocked=normalize(exclude||'');
+    values.forEach(function(value){
+      const text=String(value||'').trim(),key=normalize(text);
+      if(!text||!key||key===blocked||seen.has(key))return;
+      seen.add(key);out.push(text);
+    });
+    return out;
+  }
+  async function internalTranslation(query,source,target){
+    const q=normalize(query);
+    for(let i=0;i<patterns.length;i++){
+      const p=patterns[i];
+      for(let j=0;j<p.examples.length;j++){
+        const en=String(p.examples[j][0]),es=String(p.examples[j][1]);
+        if(source==='en'&&normalize(en)===q)return{text:es,pattern:p,alternatives:[],source:'core'};
+        if(source==='es'&&normalize(es)===q)return{text:en,pattern:p,alternatives:[],source:'core'};
+      }
+    }
+    const index=await loadDictionaryIndex();
+    if(!index)return null;
+    const matches=(source==='en'?index.en:index.es).get(q)||[];
+    if(!matches.length)return null;
+    const values=matches.map(function(item){return source==='en'?item.spanish:item.english});
+    const primary=values[0];
+    return{
+      text:matches.length===1||source==='en'?primary:'',
+      fallbackText:primary,
+      alternatives:uniqueTexts(values.slice(1),primary).slice(0,3),
+      pattern:matches[0].pattern,
+      source:'dictionary',
+      matchCount:matches.length
+    };
+  }
   function guessDirection(text){const raw=String(text||'').trim().toLowerCase();if(/[ñáéíóúü¿¡]/i.test(raw))return['es','en'];const spanish=new Set(['el','la','los','las','un','una','de','del','que','qué','y','en','a','al','por','para','con','sin','es','soy','eres','esta','está','estoy','tengo','hola','gracias','casa','comer','hablar','vivir','donde','dónde','cuando','cuándo','porque','quien','quién']);const words=normalize(raw).split(' ');return words.some(function(w){return spanish.has(w)})?['es','en']:['en','es']}
-  function inferPattern(sourceText,translatedText,sourceLang){const s=normalize(sourceText),t=normalize(translatedText),en=sourceLang==='en'?s:t,es=sourceLang==='en'?t:s;for(let i=0;i<patterns.length;i++){const p=patterns[i];for(let j=0;j<p.examples.length;j++){const e=normalize(p.examples[j][0]),sp=normalize(p.examples[j][1]);if((e===en&&sp===es)||e===en||sp===es)return p}}const question={who:'question-words',what:'question-words',where:'question-words',why:'question-words',when:'question-words'};if(question[en])return getPattern(question[en]);const rules=[[function(){return/tion$/.test(en)&&/cion$/.test(es)},'tion-cion'],[function(){return/ity$/.test(en)&&/idad$/.test(es)},'ity-idad'],[function(){return/ous$/.test(en)&&/os[oa]$/.test(es)},'ous-oso'],[function(){return/ly$/.test(en)&&/mente$/.test(es)},'ly-mente'],[function(){return en.indexOf('ph')>=0&&es.indexOf('f')>=0},'ph-f'],[function(){return/ic$/.test(en)&&/ic[oa]$/.test(es)},'ic-ico'],[function(){return/ist$/.test(en)&&/ista$/.test(es)},'ist-ista'],[function(){return/(ance|ence)$/.test(en)&&/(ancia|encia)$/.test(es)},'ance-encia'],[function(){return/ive$/.test(en)&&/iv[oa]$/.test(es)},'ive-ivo']];for(let k=0;k<rules.length;k++)if(rules[k][0]())return getPattern(rules[k][1]);return null}
-  function initTranslator(){const form=document.getElementById('translationForm'),input=document.getElementById('translationInput'),direction=document.getElementById('translationDirection'),swap=document.getElementById('translationSwap'),button=document.getElementById('translationButton'),result=document.getElementById('translationResult');let lastPair=['en','es'];async function translate(){const query=input.value.trim();if(!query){result.innerHTML='<div class="translation-empty"><span>⌕</span><p>Type a word first.</p></div>';input.focus();return}const pair=direction.value==='en-es'?['en','es']:direction.value==='es-en'?['es','en']:guessDirection(query);lastPair=pair;const source=pair[0],target=pair[1],sourceName=source==='en'?'English':'Spanish',targetName=target==='es'?'Spanish':'English',local=internalTranslation(query,source,target);button.disabled=true;button.textContent='Translating…';result.innerHTML='<div class="translation-loading"><span></span><p>Looking up <strong>'+escapeHtml(query)+'</strong>…</p></div>';try{let translated=local?local.text:'',alternatives=[];if(!translated){const controller=new AbortController();const timer=setTimeout(function(){controller.abort()},9000);const url='https://api.mymemory.translated.net/get?q='+encodeURIComponent(query)+'&langpair='+encodeURIComponent(source+'|'+target);const response=await fetch(url,{signal:controller.signal});clearTimeout(timer);if(!response.ok)throw new Error('Lookup failed');const data=await response.json();translated=String(data&&data.responseData&&data.responseData.translatedText||'').trim();alternatives=Array.from(new Set((data.matches||[]).map(function(m){return String(m.translation||'').trim()}).filter(Boolean))).filter(function(x){return normalize(x)!==normalize(translated)}).slice(0,3)}if(!translated)throw new Error('No translation');const pattern=local&&local.pattern?local.pattern:inferPattern(query,translated,source);const sourceCode=source==='es'?'es-ES':'en-GB',targetCode=target==='es'?'es-ES':'en-GB';const hint=pattern?'<button type="button" class="translation-pattern-hint" data-open="'+pattern.id+'"><span>🧬</span><span><small>LanguageDNA link found</small><strong>'+escapeHtml(pattern.title)+'</strong></span><span>→</span></button>':'';const alt=alternatives.length?'<div class="translation-alternatives"><small>Other possible matches</small><div>'+alternatives.map(function(a){return'<span>'+escapeHtml(a)+'</span>'}).join('')+'</div></div>':'';result.innerHTML='<div class="translation-meta">'+sourceName+' → '+targetName+'</div><div class="translation-pair"><div class="translation-side"><small>'+sourceName+'</small><strong>'+escapeHtml(query)+'</strong><button class="audio-dot" type="button" data-speak-lang="'+sourceCode+'" data-speak="'+escapeHtml(query)+'">🔊</button></div><div class="translation-arrow">→</div><div class="translation-side target"><small>'+targetName+'</small><strong>'+escapeHtml(translated)+'</strong><button class="audio-dot" type="button" data-speak-lang="'+targetCode+'" data-speak="'+escapeHtml(translated)+'">🔊</button></div></div>'+hint+alt}catch(err){result.innerHTML='<div class="translation-error"><strong>Live translation is unavailable right now.</strong><p>You can still browse and practise every pattern offline.</p></div>'}finally{button.disabled=false;button.textContent='Translate'}}form.addEventListener('submit',function(e){e.preventDefault();translate()});swap.addEventListener('click',function(){const pair=direction.value==='auto'?lastPair:direction.value==='en-es'?['en','es']:['es','en'];direction.value=pair[0]==='en'?'es-en':'en-es';if(input.value.trim())translate()})}
+  function inferPattern(sourceText,translatedText,sourceLang){
+    const s=normalize(sourceText),t=normalize(translatedText),en=sourceLang==='en'?s:t,es=sourceLang==='en'?t:s;
+    if(dictionaryIndex){
+      const exact=(dictionaryIndex.en.get(en)||[]).find(function(item){return normalize(item.spanish)===es});
+      if(exact)return exact.pattern;
+      const byEnglish=(dictionaryIndex.en.get(en)||[])[0];if(byEnglish)return byEnglish.pattern;
+      const bySpanish=(dictionaryIndex.es.get(es)||[])[0];if(bySpanish)return bySpanish.pattern;
+    }
+    for(let i=0;i<patterns.length;i++){const p=patterns[i];for(let j=0;j<p.examples.length;j++){const e=normalize(p.examples[j][0]),sp=normalize(p.examples[j][1]);if((e===en&&sp===es)||e===en||sp===es)return p}}
+    const question={who:'question-words',what:'question-words',where:'question-words',why:'question-words',when:'question-words'};if(question[en])return getPattern(question[en]);
+    const rules=[[function(){return/tion$/.test(en)&&/cion$/.test(es)},'tion-cion'],[function(){return/ity$/.test(en)&&/idad$/.test(es)},'ity-idad'],[function(){return/ous$/.test(en)&&/os[oa]$/.test(es)},'ous-oso'],[function(){return/ly$/.test(en)&&/mente$/.test(es)},'ly-mente'],[function(){return en.indexOf('ph')>=0&&es.indexOf('f')>=0},'ph-f'],[function(){return/ic$/.test(en)&&/ic[oa]$/.test(es)},'ic-ico'],[function(){return/ist$/.test(en)&&/ista$/.test(es)},'ist-ista'],[function(){return/(ance|ence)$/.test(en)&&/(ancia|encia)$/.test(es)},'ance-encia'],[function(){return/ive$/.test(en)&&/iv[oa]$/.test(es)},'ive-ivo']];
+    for(let k=0;k<rules.length;k++)if(rules[k][0]())return getPattern(rules[k][1]);return null;
+  }
+  function initTranslator(){
+    const form=document.getElementById('translationForm'),input=document.getElementById('translationInput'),direction=document.getElementById('translationDirection'),swap=document.getElementById('translationSwap'),button=document.getElementById('translationButton'),result=document.getElementById('translationResult');
+    let lastPair=['en','es'];
+    input.addEventListener('focus',function(){loadDictionaryIndex()},{once:true});
+    async function translate(){
+      const query=input.value.trim();
+      if(!query){result.innerHTML='<div class="translation-empty"><span>⌕</span><p>Type a word first.</p></div>';input.focus();return}
+      const pair=direction.value==='en-es'?['en','es']:direction.value==='es-en'?['es','en']:guessDirection(query);
+      lastPair=pair;
+      const source=pair[0],target=pair[1],sourceName=source==='en'?'English':'Spanish',targetName=target==='es'?'Spanish':'English';
+      button.disabled=true;button.textContent='Translating…';
+      result.innerHTML='<div class="translation-loading"><span></span><p>Looking up <strong>'+escapeHtml(query)+'</strong>…</p></div>';
+      try{
+        const local=await internalTranslation(query,source,target);
+        let translated=local&&local.text?local.text:'',alternatives=local&&local.alternatives?local.alternatives.slice():[];
+        if(!translated){
+          try{
+            const controller=new AbortController(),timer=setTimeout(function(){controller.abort()},9000);
+            const url='https://api.mymemory.translated.net/get?q='+encodeURIComponent(query)+'&langpair='+encodeURIComponent(source+'|'+target);
+            const response=await fetch(url,{signal:controller.signal});clearTimeout(timer);
+            if(!response.ok)throw new Error('Lookup failed');
+            const data=await response.json();
+            translated=String(data&&data.responseData&&data.responseData.translatedText||'').trim();
+            const liveAlternatives=Array.from(new Set((data.matches||[]).map(function(m){return String(m.translation||'').trim()}).filter(Boolean))).filter(function(x){return normalize(x)!==normalize(translated)});
+            alternatives=uniqueTexts(alternatives.concat(liveAlternatives),translated).slice(0,3);
+          }catch(apiError){
+            if(local&&local.fallbackText)translated=local.fallbackText;else throw apiError;
+          }
+        }
+        if(!translated)throw new Error('No translation');
+        const pattern=local&&local.pattern?local.pattern:inferPattern(query,translated,source);
+        const sourceCode=source==='es'?'es-ES':'en-GB',targetCode=target==='es'?'es-ES':'en-GB';
+        const hintLabel=local&&local.source==='dictionary'?'LanguageDNA dictionary match':'LanguageDNA link found';
+        const hint=pattern?'<button type="button" class="translation-pattern-hint" data-open="'+pattern.id+'"><span>🧬</span><span><small>'+hintLabel+'</small><strong>'+escapeHtml(pattern.title)+'</strong></span><span>→</span></button>':'';
+        const alt=alternatives.length?'<div class="translation-alternatives"><small>Other possible matches</small><div>'+alternatives.map(function(a){return'<span>'+escapeHtml(a)+'</span>'}).join('')+'</div></div>':'';
+        result.innerHTML='<div class="translation-meta">'+sourceName+' → '+targetName+'</div><div class="translation-pair"><div class="translation-side"><small>'+sourceName+'</small><strong>'+escapeHtml(query)+'</strong><button class="audio-dot" type="button" data-speak-lang="'+sourceCode+'" data-speak="'+escapeHtml(query)+'">🔊</button></div><div class="translation-arrow">→</div><div class="translation-side target"><small>'+targetName+'</small><strong>'+escapeHtml(translated)+'</strong><button class="audio-dot" type="button" data-speak-lang="'+targetCode+'" data-speak="'+escapeHtml(translated)+'">🔊</button></div></div>'+hint+alt;
+      }catch(err){
+        result.innerHTML='<div class="translation-error"><strong>Live translation is unavailable right now.</strong><p>You can still browse and practise every pattern offline.</p></div>';
+      }finally{button.disabled=false;button.textContent='Translate'}
+    }
+    form.addEventListener('submit',function(e){e.preventDefault();translate()});
+    swap.addEventListener('click',function(){const pair=direction.value==='auto'?lastPair:direction.value==='en-es'?['en','es']:['es','en'];direction.value=pair[0]==='en'?'es-en':'en-es';if(input.value.trim())translate()});
+  }
 
   document.addEventListener('click',function(e){const view=e.target.closest('[data-view]');if(view){goView(view.dataset.view);return}const open=e.target.closest('[data-open]');if(open){openPattern(open.dataset.open);return}const practice=e.target.closest('[data-practice]');if(practice){startPractice(practice.dataset.practice,'write');return}const familyJump=e.target.closest('[data-family-jump]');if(familyJump){state.family=familyJump.dataset.familyJump;state.lens=null;goView('library');renderFamilies();renderLibrary();return}const family=e.target.closest('[data-family]');if(family){state.family=family.dataset.family;renderFamilies();renderLibrary();return}const lens=e.target.closest('[data-lens]');if(lens){state.lens=state.lens===lens.dataset.lens?null:lens.dataset.lens;document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.toggle('active',x.dataset.lens===state.lens)});renderLibrary();return}const homeLens=e.target.closest('[data-home-lens]');if(homeLens){state.lens=homeLens.dataset.homeLens;state.family='all';goView('library');document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.toggle('active',x.dataset.lens===state.lens)});renderLibrary();return}const mode=e.target.closest('[data-mode]');if(mode){state.mode=mode.dataset.mode;document.querySelectorAll('.mode-card').forEach(function(x){x.classList.toggle('active',x===mode)});renderPractice();return}const reveal=e.target.closest('[data-reveal]');if(reveal){feedback(true,'Answer: '+reveal.dataset.reveal);return}const choice=e.target.closest('[data-choice]');if(choice){const ok=choice.dataset.choice==='true';els.practiceStage.querySelectorAll('.choice-btn').forEach(function(b){b.disabled=true});choice.classList.add(ok?'correct':'incorrect');feedback(ok,ok?'✓ Correct. You recognised the link.':'Not this one. Compare the pattern and try the other option.');if(ok)successForCurrent();return}const speech=e.target.closest('[data-speak]');if(speech){speakText(speech.dataset.speak,speech.dataset.speakLang||'es-ES');return}const skillPractice=e.target.closest('[data-skill-practice]');if(skillPractice){startPractice(skillPractice.dataset.id,skillPractice.dataset.skillPractice);return}});
   els.dialog.querySelector('.dialog-close').addEventListener('click',function(){els.dialog.close()});els.dialog.addEventListener('click',function(e){if(e.target===els.dialog)els.dialog.close()});
@@ -152,6 +278,6 @@
   document.getElementById('nextBestButton').addEventListener('click',function(e){startPractice(e.currentTarget.dataset.pattern||patterns[0].id,'write')});
   document.getElementById('themeButton').addEventListener('click',function(){document.body.classList.toggle('dark');state.theme=document.body.classList.contains('dark')?'dark':'light';localStorage.setItem('ldna-theme',state.theme)});
   initTranslator();populatePracticeSelect();renderFamilies();renderStarters();renderLibrary();renderPractice();renderDNA();renderAllProgress();
-  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=3').catch(function(){});
+  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=4').catch(function(){});
 
 })();
