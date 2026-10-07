@@ -9,7 +9,7 @@
     {id:2,title:'Useful Phrases & Actions',subtitle:'Questions, needs and verbs you can use immediately.',mode:'direct',pick:function(){return DATA.slice(25,65)}},
     {id:3,title:'Real-life Sentences',subtitle:'Choose the Spanish sentence that matches familiar English.',mode:'example',pick:function(){return DATA.slice(40,80)}},
     {id:4,title:'Spanish → English',subtitle:'Recognise familiar Spanish without leaning on the English first.',mode:'reverse',pick:function(){return DATA.slice(60,100)}},
-    {id:5,title:'Mixed Real-life Challenge',subtitle:'A mixed test of words, phrases, sentences and reverse recognition.',mode:'mixed',pick:function(){const out=[];for(let i=0;i<DATA.length&&out.length<40;i+=2)out.push(DATA[i]);return out.slice(0,40)}}
+    {id:5,title:'Mixed Real-life Challenge',subtitle:'A mixed test of words, phrases, sentences and reverse recognition.',mode:'mixed',pick:function(){const out=[];for(let i=0;i<40;i++)out.push(DATA[Math.min(DATA.length-1,Math.floor(i*DATA.length/40))]);return out}}
   ];
   const FALSE_FRIENDS=[
     ['actual','actual','current / present','Spanish actual usually means current or present — not English “actual”.'],
