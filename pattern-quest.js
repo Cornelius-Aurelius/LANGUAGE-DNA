@@ -139,7 +139,7 @@
       '<div class="quest-tiles">'+deck.map((word,i)=>'<button type="button" data-quest-tile="'+i+'" '+(placed.includes(i)?'disabled':'')+'>'+esc(word)+'</button>').join('')+'</div>'+
       '<div class="quest-builder-tools"><button type="button" class="secondary-btn" data-quest-undo '+(placed.length?'':'disabled')+'>↶ Undo</button><button type="button" class="primary-btn" data-quest-check-tiles '+(placed.length?'':'disabled')+'>Check my sentence ✓</button></div></div>';
     return '<div class="quest-play quest-play-'+w.type+'">'+
-      (p.answered?'<div class="quest-answer-flash success" role="status" aria-live="assertive">✓ Correct! ⭐ Next question coming…</div>':
+      (p.answered?'<div class="quest-answer-flash success" role="status" aria-live="assertive">✓ Correct! ⭐ '+esc(connection)+' · Next…</div>':
        wrong?'<div class="quest-answer-flash retry" role="status" aria-live="polite">↶ Not quite — have another try!</div>':'')+
       '<div class="quest-play-header">'+
       '<button type="button" class="quest-back" data-quest-back aria-label="Back to adventures">← Adventures</button>'+
@@ -159,7 +159,7 @@
         '<div class="quest-bottom-actions"><button type="button" class="secondary-btn" data-quest-next>'+(p.index===4?'See my stars now →':'Next now →')+'</button></div>':
        '<div class="quest-hint-actions"><button type="button" class="secondary-btn" data-quest-clue>💡 Show the secret</button>'+
          '<button type="button" class="quest-pattern-link" data-open="'+esc(q.pattern)+'">Learn this pattern ↗</button></div>'+
-         (clue||wrong?'<div class="quest-feedback" role="status"><strong>'+(wrong?'Nice try! You can try again.':'Here is the secret:')+'</strong><span>'+(wrong==='tiles'?'Remember: the word no comes before the verb. ':'' )+esc(kind==='sounds'?worlds[1].secret:kind==='sentences'?worlds[2].secret:worlds[0].secret)+'</span></div>':'')+
+         (clue||wrong?'<div class="quest-feedback" role="status"><strong>'+(wrong?'Nice try! Try another answer.':'Here is the secret:')+'</strong>'+(clue?'<span>'+(wrong==='tiles'?'Remember: no goes before the verb. ':'')+esc(kind==='sounds'?worlds[1].secret:kind==='sentences'?worlds[2].secret:worlds[0].secret)+'</span>':'')+'</div>':'')+
          '<p class="quest-no-pressure">No hurry and no penalty for trying again.</p>')+'</div>';
   }
   function renderComplete(){
