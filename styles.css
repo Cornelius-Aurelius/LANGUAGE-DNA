@@ -1552,3 +1552,20 @@ body.dark .translator-input-wrap,body.dark .pattern-search-simple{background:var
   box-shadow:0 5px 0 var(--ld-card-floor)
 }
 body.dark .pattern-next-card{border-color:#508276;background:linear-gradient(125deg,#254d42,var(--surface) 80%)}
+
+
+/* Responsive Practice width fix: dropdown option text must not dictate page width. */
+.practice-toolbar{min-width:0;max-width:100%}
+.practice-toolbar select,#practicePatternSelect{
+  display:block;width:100%;min-width:0;max-width:100%;box-sizing:border-box;
+  text-overflow:ellipsis
+}
+.practice-mode-grid{min-width:0;max-width:100%}
+@media(max-width:680px){
+  .practice-toolbar{display:grid;grid-template-columns:minmax(0,1fr)}
+  .practice-mode-grid{
+    width:100%;max-width:100%;min-width:0;
+    overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin
+  }
+  .practice-mode-grid .mode-card{flex:0 0 auto}
+}
