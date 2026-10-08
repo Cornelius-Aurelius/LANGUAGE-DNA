@@ -339,7 +339,7 @@
     return'<article class="pattern-card learner-pattern-card">'+
       '<div class="learner-pattern-top"><span class="pattern-kind">'+escapeHtml(libraryPatternType(p))+'</span><span class="pattern-status">'+escapeHtml(status.label)+'</span></div>'+
       '<h3>'+escapeHtml(p.title)+'</h3>'+
-      '<p class="pattern-card-teaching">'+escapeHtml(teaching.heading)+'</p>'+
+      '<p class="pattern-card-teaching">'+escapeHtml(teaching.meaning||teaching.heading)+'</p>'+
       (teaching.example?'<div class="pattern-card-example"><small>EXAMPLE</small><strong>'+escapeHtml(teaching.example)+'</strong></div>':'')+
       (count?'<div class="pattern-card-progress" aria-label="'+status.pct+' percent practised"><span style="width:'+status.pct+'%"></span></div>':'')+
       '<div class="pattern-card-actions learner-actions"><button class="card-btn primary" type="button" data-open="'+p.id+'">Learn pattern</button><button class="card-btn" type="button" data-practice="'+p.id+'">Practise</button></div>'+
@@ -348,7 +348,7 @@
   function renderPatternNext(){
     const root=document.getElementById('patternNextCard');if(!root)return;
     const p=nextBestPattern(),teaching=patternTeachingSummary(p),status=learnerPatternStatus(p);
-    root.innerHTML='<div class="pattern-next-copy"><span class="eyebrow">RECOMMENDED NEXT</span><span class="pattern-kind">'+escapeHtml(libraryPatternType(p))+'</span><h2>'+escapeHtml(p.title)+'</h2><p>'+escapeHtml(teaching.heading)+'</p>'+
+    root.innerHTML='<div class="pattern-next-copy"><span class="eyebrow">RECOMMENDED NEXT</span><span class="pattern-kind">'+escapeHtml(libraryPatternType(p))+'</span><h2>'+escapeHtml(p.title)+'</h2><p>'+escapeHtml(teaching.meaning||teaching.heading)+'</p>'+
       (teaching.example?'<div class="pattern-next-example"><small>EXAMPLE</small><strong>'+escapeHtml(teaching.example)+'</strong></div>':'')+
       '<small class="pattern-next-status">'+escapeHtml(status.label)+'</small></div>'+
       '<div class="pattern-next-actions"><button type="button" class="primary-btn" data-open="'+p.id+'">Learn this pattern</button><button type="button" class="secondary-btn" data-practice="'+p.id+'">Practise now</button></div>'
