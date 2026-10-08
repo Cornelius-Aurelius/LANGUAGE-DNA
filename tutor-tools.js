@@ -234,7 +234,7 @@
   function gameProgress(){return safeParse(localStorage.getItem('ldna-game-progress-v1')||'{"unlocked":1,"best":{},"attempts":[]}',{unlocked:1,best:{},attempts:[]})}
   function appActivity(){return safeParse(localStorage.getItem('ldna-activity-v1')||'[]',[])}
   function speak(text,rate,button){
-    if(!('speechSynthesis' in window))return;
+    if(!('speechSynthesis' in window)){state.dailyFeedback='Audio is not available in this browser. You can read the Spanish and continue learning.';renderDaily();return}
     if(button&&!button.dataset.audioOriginal)button.dataset.audioOriginal=button.innerHTML;
     if(button){button.disabled=true;button.classList.add('audio-playing');button.textContent='🔊 Loading…'}
     window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='es-ES';u.rate=rate||.82;const voices=window.speechSynthesis.getVoices(),voice=voices.find(function(v){return v.lang.toLowerCase().startsWith('es')});if(voice)u.voice=voice;
