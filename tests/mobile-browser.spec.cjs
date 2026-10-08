@@ -69,3 +69,50 @@ test('Expandable guide and theme toggle keep controls accessible', async ({page}
   await expect(page.locator('body')).toHaveClass(/dark/);
   await expect(page.locator('.home-pattern-card.sounds')).toBeVisible();
 });
+
+
+test('Daily 5 renders a real first task without sign-up', async ({page}) => {
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.locator('#startBeginner').click();
+  await expect(page.locator('#dailyTutorPanel')).toBeVisible();
+  await expect(page.locator('#dailyTutorPanel .daily-focus-card')).toBeVisible();
+  await expect(page.locator('#dailyTutorPanel [data-daily-review-choice]').first()).toBeVisible();
+  const choice=page.locator('#dailyTutorPanel [data-daily-review-choice]').first();
+  await choice.click();
+  await expect(page.locator('#dailyTutorPanel')).toBeVisible();
+});
+
+test('Practice choice mode renders options and accepts an answer', async ({page}) => {
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.locator('.primary-nav [data-view="practice"]').click();
+  await page.locator('[data-mode="choice"]').click();
+  await expect(page.locator('#practiceStage')).toBeVisible();
+  await expect(page.locator('#practiceStage .choice-btn').first()).toBeVisible();
+  await page.locator('#practiceStage .choice-btn').first().click();
+  await expect(page.locator('#practiceStage')).toBeVisible();
+});
+
+test('40-question Game starts and records an answer without showing early marking', async ({page}) => {
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.locator('[data-mobile-more]').click();
+  await page.locator('#mobileMoreMenu [data-view="game"]').click();
+  await page.locator('[data-everyday-tab="game"]').click();
+  await expect(page.locator('#gameModePanel [data-game-start="1"]').first()).toBeVisible();
+  await page.locator('#gameModePanel [data-game-start="1"]').first().click();
+  await expect(page.locator('#gameModePanel [data-game-answer]').first()).toBeVisible();
+  await page.locator('#gameModePanel [data-game-answer]').first().click();
+  await expect(page.locator('#gameModePanel .game-question-card')).toBeVisible();
+});
+
+test('Offline app shell still opens after installation', async ({page}) => {
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.waitForFunction(() => navigator.serviceWorker && navigator.serviceWorker.controller, {timeout:15000});
+  await page.context().setOffline(true);
+  await page.reload();
+  await expect(page.locator('#startBeginner')).toBeVisible();
+  await expect(page.locator('.home-pattern-card.sounds')).toBeVisible();
+});
