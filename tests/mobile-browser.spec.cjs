@@ -613,3 +613,120 @@ test('Dark-mode sound choices and sentence tiles fit above mobile nav',async ({p
   }));
   expect(tiles.bottom,'Word tiles above nav').toBeLessThan(tiles.nav-4);
 });
+
+
+test('First-visit homepage keeps two obvious paths and additional tools optional',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await expect(page.locator('.home-two-paths button')).toHaveCount(2);
+  await expect(page.locator('.home-more-tools')).not.toHaveAttribute('open','');
+  await expect(page.locator('.home-more-tools summary')).toBeVisible();
+  await page.locator('.home-more-tools summary').click();
+  await expect(page.locator('.simple-path-card')).toHaveCount(4);
+  await expect(page.locator('.simple-path-grid')).toBeVisible();
+  await page.locator('.home-more-tools summary').click();
+  await page.locator('.primary-nav [data-view="library"]').click();
+  await expect(page.locator('.library-beginner-start')).toContainText('Start here');
+  await page.locator('.library-beginner-start [data-open="h-silent"]').click();
+  await expect(page.locator('#patternDialog')).toHaveAttribute('open','');
+});
+
+test('Opening a pattern no longer awards understanding without learner action',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.locator('.home-pattern-card.sounds').click();
+  const initial=await page.evaluate(()=>JSON.parse(localStorage.getItem('ldna-pattern-journey-v1')||'{}')['h-silent']||{});
+  expect(initial.understand).toBeFalsy();
+  expect(initial.examples).toBeFalsy();
+  await expect(page.locator('[data-pattern-read="h-silent"]')).toBeVisible();
+  await page.locator('[data-pattern-read="h-silent"]').click();
+  let record=await page.evaluate(()=>JSON.parse(localStorage.getItem('ldna-pattern-journey-v1')||'{}')['h-silent']||{});
+  expect(record.understand).toBeTruthy();
+  expect(record.examples).toBeFalsy();
+  await page.locator('.pattern-more-examples summary').click();
+  await expect(page.locator('.pattern-more-examples')).toHaveAttribute('open','');
+  await expect.poll(async()=>page.evaluate(()=>Boolean((JSON.parse(localStorage.getItem('ldna-pattern-journey-v1')||'{}')['h-silent']||{}).examples))).toBe(true);
+});
+
+test('Checking the -IR example earns understanding without pre-crediting examples',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.locator('.primary-nav [data-view="library"]').click();
+  await page.locator('#searchInput').fill('Present -IR verb endings');
+  await page.locator('[data-open="regular-ir"]').first().click();
+  let initial=await page.evaluate(()=>JSON.parse(localStorage.getItem('ldna-pattern-journey-v1')||'{}')['regular-ir']||{});
+  expect(initial.understand).toBeFalsy();
+  await page.locator('[data-mini-answer="vivimos"]').click();
+  await expect(page.locator('.pattern-mini-feedback.is-correct')).toContainText('You got it');
+  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('ldna-pattern-journey-v1')||'{}')['regular-ir']||{});
+  expect(saved.understand).toBeTruthy();
+  expect(saved.examples).toBeFalsy();
+});
+
+test('Beginners enter Practice with simple multiple choice instead of typing',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.locator('[data-mobile-more]').click();
+  await page.locator('#mobileMoreMenu [data-view="practice"]').click();
+  await expect(page.locator('[data-mode="choice"]')).toHaveClass(/active/);
+  await expect(page.locator('#practiceStage .choice-btn').first()).toBeVisible();
+  await expect(page.locator('#writingAnswer')).toHaveCount(0);
+});
+
+test('Manual pacing preserves full explanation and does not advance on its own',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.locator('.home-play-button').click();
+  await page.locator('[data-quest-world="words"]').click();
+  await page.locator('[data-quest-pacing]').click();
+  await expect(page.locator('[data-quest-pacing]')).toHaveAttribute('aria-pressed','true');
+  await page.locator('[data-quest-answer="información"]').click();
+  await expect(page.locator('.quest-feedback-win')).toBeVisible();
+  await expect(page.locator('.quest-feedback-win')).toContainText('-tion ending becomes -ción');
+  await page.waitForTimeout(3500);
+  await expect(page.locator('.quest-prompt')).toHaveText('information');
+  await page.locator('[data-quest-next]').click();
+  await expect(page.locator('.quest-prompt')).toHaveText('nation');
+  await expect(page.locator('#questQuestionTitle')).toBeFocused();
+  await page.reload();
+  await page.locator('.primary-nav [data-view="game"]').click();
+  await expect(page.locator('[data-quest-pacing]')).toHaveAttribute('aria-pressed','true');
+});
+
+test('Shuffled game answers stay stable after reloading the same question',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.locator('.home-play-button').click();
+  await page.locator('[data-quest-world="words"]').click();
+  const before=await page.locator('[data-quest-answer]').evaluateAll(btns=>btns.map(b=>b.dataset.questAnswer));
+  expect(new Set(before).size).toBe(4);
+  await page.reload();
+  await page.locator('.primary-nav [data-view="game"]').click();
+  const after=await page.locator('[data-quest-answer]').evaluateAll(btns=>btns.map(b=>b.dataset.questAnswer));
+  expect(after).toEqual(before);
+  await page.locator('[data-quest-answer="nación"]').click();
+  await expect(page.locator('.quest-prompt')).toHaveText('information');
+  await expect(page.locator('.quest-answer-flash.retry')).toBeVisible();
+});
+
+test('Readable navigation and game choices at 320px in light and dark modes',async ({page})=>{
+  await page.setViewportSize({width:320,height:720});
+  await page.goto(base);
+  const navText=await page.locator('.primary-nav .nav-item').first().evaluate(e=>parseFloat(getComputedStyle(e).fontSize));
+  expect(navText).toBeGreaterThanOrEqual(12);
+  await page.locator('.home-play-button').click();
+  await page.locator('[data-quest-world="words"]').click();
+  const font=await page.locator('.quest-answer strong').first().evaluate(e=>parseFloat(getComputedStyle(e).fontSize));
+  expect(font).toBeGreaterThanOrEqual(14);
+  const measure=async()=>page.evaluate(()=>({
+    last:document.querySelector('.quest-answer:last-child').getBoundingClientRect().bottom,
+    bottom:document.querySelector('.primary-nav').getBoundingClientRect().top,
+    overflow:document.documentElement.scrollWidth-innerWidth
+  }));
+  for(const theme of ['light','dark']){
+    const m=await measure();
+    expect(m.last,theme+' answer area').toBeLessThan(m.bottom-4);
+    expect(m.overflow,theme+' no page overflow').toBeLessThanOrEqual(2);
+    if(theme==='light')await page.locator('#themeButton').click();
+  }
+});

@@ -171,7 +171,7 @@
 
   function safeParse(value,fallback){try{return JSON.parse(value)}catch(e){return fallback}}
   const state={
-    view:'home',lens:null,family:'all',quick:'all',mode:'write',currentId:patterns[0].id,
+    view:'home',lens:null,family:'all',quick:'all',mode:'choice',currentId:patterns[0].id,
     skills:safeParse(localStorage.getItem('ldna-skills-v3')||'{}',{}),
     reviews:safeParse(localStorage.getItem('ldna-reviews-v1')||'{}',{}),
     pronunciation:safeParse(localStorage.getItem('ldna-pronunciation-v1')||'{}',{}),
@@ -226,8 +226,8 @@
   function patternJourney(p){
     const saved=journeyData()[p.id]||{},row=state.skills[p.id]||{},review=reviewRecord(p.id);
     const stages=[
-      {key:'understand',label:'Understand',done:!!saved.understand},
-      {key:'examples',label:'See examples',done:!!saved.examples},
+      {key:'understand',label:'Follow the idea',done:!!saved.understand},
+      {key:'examples',label:'Explore examples',done:!!saved.examples},
       {key:'hear',label:'Hear it',done:!!row.hear||!!saved.hear},
       {key:'practice',label:'Practise',done:!!row.see||!!row.write||!!row.speak},
       {key:'sentence',label:'Use it',done:!!row.use},
@@ -477,7 +477,7 @@
 
   const FULL_PATTERN_DICTIONARIES=new Set(["tion-cion","sion-sion","ity-idad","ous-oso","ly-mente","ic-ico","ive-ivo","ist-ista","ance-encia","ism-ismo","able-ible","ant-ent","ize-izar","fy-ficar","al-al","ment-mento","ment-miento","ary-ario","ory-orio","ture-tura","tude-tud","logy-logia","graphy-grafia","cracy-cracia","nomy-nomia","metry-metria","scope-scopio","ct-cto","id-ido","ate-ar","ph-f"]);
   function openPattern(id){
-    const p=getPattern(id);markJourney(p.id,'understand');markJourney(p.id,'examples');logActivity('pattern_open',{pattern:p.id});
+    const p=getPattern(id);logActivity('pattern_open',{pattern:p.id});
     if(FULL_PATTERN_DICTIONARIES.has(id)){window.location.href='pattern.html?id='+encodeURIComponent(id);return}
     const teaching=window.LanguageDNATeaching?window.LanguageDNATeaching.build(p):{heading:'What you are learning',meaning:p.rule,example:'',notice:'',why:p.scoreLabel||''},journey=patternJourney(p),next=patternNextStep(p);
     const examples=p.examples.map(function(pair){
@@ -489,7 +489,7 @@
     const journeyLabels=journey.stages.map(function(stage){return'<span class="'+(stage.done?'done':journey.next&&journey.next.key===stage.key?'current':'')+'">'+(stage.done?'✓ ':journey.next&&journey.next.key===stage.key?'→ ':'')+escapeHtml(stage.label)+'</span>'}).join('');
     const buildSteps=Array.isArray(teaching.steps)&&teaching.steps.length?'<div class="pattern-teaching-steps"><h4>Build it together</h4><ol>'+teaching.steps.map(function(step){return'<li>'+escapeHtml(step)+'</li>'}).join('')+'</ol></div>':'';
     const check=teaching.check,miniCheck=check&&Array.isArray(check.choices)?
-      '<section class="pattern-mini-check"><span class="eyebrow">YOUR TURN · ONE QUICK TRY</span><h4>'+escapeHtml(check.question)+'</h4><div class="pattern-mini-choices">'+check.choices.map(function(choice){
+      '<section class="pattern-mini-check" data-mini-pattern-id="'+escapeHtml(p.id)+'"><span class="eyebrow">YOUR TURN · ONE QUICK TRY</span><h4>'+escapeHtml(check.question)+'</h4><div class="pattern-mini-choices">'+check.choices.map(function(choice){
         return'<button type="button" data-mini-answer="'+escapeHtml(choice)+'" data-mini-correct="'+(choice===check.answer?'true':'false')+'" data-mini-reason="'+escapeHtml(check.why)+'">'+escapeHtml(choice)+'</button>'
       }).join('')+'</div><p class="pattern-mini-feedback" role="status" aria-live="polite"></p></section>':'';
     els.dialogContent.innerHTML=
@@ -502,11 +502,12 @@
         (teaching.why?'<details class="pattern-why-details"><summary>Why is this useful?</summary><p>'+escapeHtml(teaching.why)+'</p></details>':'')+
       '</section>'+
       miniCheck+
+      (!miniCheck?'<button type="button" class="secondary-btn pattern-read-check" data-pattern-read="'+escapeHtml(p.id)+'">✓ I followed this example</button>':'')+
       '<div class="pattern-easy-actions"><button type="button" class="primary-btn" data-practice="'+p.id+'">Try this pattern →</button></div>'+
       '<details class="pattern-journey-details"><summary><span><span class="eyebrow">YOUR PATTERN PROGRESS</span><strong>'+journey.complete+' of '+journey.total+' steps complete</strong></span><span aria-hidden="true">⌄</span></summary>'+
         '<section class="pattern-journey-card"><div class="pattern-journey-head"><div><span class="eyebrow">LEARNING JOURNEY</span><h3>'+journey.complete+' of '+journey.total+' steps</h3></div><strong>'+journey.pct+'%</strong></div><div class="pattern-journey-progress"><span style="width:'+journey.pct+'%"></span></div><div class="pattern-journey-steps">'+journeyLabels+'</div><div class="pattern-next-step"><p><b>Next:</b> '+escapeHtml(next.label)+'. '+escapeHtml(next.reason)+'</p><button type="button" class="primary-btn" data-pattern-next="'+p.id+'">'+escapeHtml(next.button)+'</button></div></section>'+
       '</details>'+
-      '<section class="pattern-example-section"><h3>More examples</h3><p>Look for the same idea in each example.</p><div class="pattern-example-list">'+examples+'</div></section>';
+      '<details class="pattern-example-section pattern-more-examples" data-pattern-examples="'+escapeHtml(p.id)+'"><summary><strong>Explore more examples</strong><span>Open when you’re ready ↘</span></summary><p>Look for the same idea in each example.</p><div class="pattern-example-list">'+examples+'</div></details>';
     els.dialog.showModal()
   }
   function closeMobileMore(){const menu=document.getElementById('mobileMoreMenu'),button=document.querySelector('[data-mobile-more]');if(menu)menu.hidden=true;if(button)button.setAttribute('aria-expanded','false')}
@@ -521,7 +522,7 @@
   }
   function populatePracticeSelect(){els.practiceSelect.innerHTML=patterns.slice().sort(function(a,b){return a.rank-b.rank}).map(function(p){return'<option value="'+p.id+'">#'+p.rank+' · '+escapeHtml(p.title)+'</option>'}).join('');els.practiceSelect.value=state.currentId}
   function startPractice(id,mode){
-    state.session=null;state.currentId=id;state.mode=mode||state.mode||'write';els.practiceSelect.value=id;
+    state.session=null;state.currentId=id;state.mode=mode||state.mode||'choice';els.practiceSelect.value=id;
     document.querySelectorAll('.mode-card').forEach(function(b){b.classList.toggle('active',b.dataset.mode===state.mode)});
     if(els.dialog.open)els.dialog.close();renderSessionPanel();goView('practice')
   }
@@ -1072,6 +1073,7 @@
         panel.querySelectorAll('[data-mini-answer]').forEach(function(btn){btn.disabled=true;btn.classList.toggle('correct',btn===tinyAnswer)});
         result.textContent='🌟 You got it! '+tinyAnswer.dataset.miniReason;
         result.className='pattern-mini-feedback is-correct';
+        markJourney(panel.dataset.miniPatternId,'understand');
       }else{
         tinyAnswer.disabled=true;tinyAnswer.classList.add('incorrect');
         result.textContent='Good try! Look at the example above, then try another answer.';
@@ -1079,10 +1081,16 @@
       }
       return;
     }
+    const patternRead=e.target.closest('[data-pattern-read]');if(patternRead){
+      markJourney(patternRead.dataset.patternRead,'understand');
+      patternRead.textContent='✓ Example read · now try it';
+      patternRead.disabled=true;
+      return;
+    }
     const mobileMore=e.target.closest('[data-mobile-more]');if(mobileMore){const menu=document.getElementById('mobileMoreMenu'),open=menu&&menu.hidden;if(menu)menu.hidden=!open;mobileMore.setAttribute('aria-expanded',open?'true':'false');return}
     const view=e.target.closest('[data-view]');if(view){goView(view.dataset.view);return}
     const open=e.target.closest('[data-open]');if(open){openPattern(open.dataset.open);return}
-    const practice=e.target.closest('[data-practice]');if(practice){startPractice(practice.dataset.practice,'write');return}
+    const practice=e.target.closest('[data-practice]');if(practice){startPractice(practice.dataset.practice,'choice');return}
     const patternNext=e.target.closest('[data-pattern-next]');if(patternNext){const p=getPattern(patternNext.dataset.patternNext),action=Object.assign({pattern:p},patternNextStep(p));performNextLearningAction(action);return}
     const nextLearning=e.target.closest('[data-next-learning]');if(nextLearning){performNextLearningAction();return}
     const smart=e.target.closest('[data-smart-review]');if(smart){startSmartReview();return}
@@ -1106,6 +1114,11 @@
     const speech=e.target.closest('[data-speak]');if(speech){if(speech.dataset.patternAudio){markJourney(speech.dataset.patternAudio,'hear');logActivity('pattern_audio',{pattern:speech.dataset.patternAudio})}speakText(speech.dataset.speak,speech.dataset.speakLang||'es-ES',undefined,speech);return}
     const skillPractice=e.target.closest('[data-skill-practice]');if(skillPractice){startPractice(skillPractice.dataset.id,skillPractice.dataset.skillPractice);return}
   });
+  document.addEventListener('toggle',function(e){
+    if(e.target.matches&&e.target.matches('.pattern-more-examples')&&e.target.open){
+      markJourney(e.target.dataset.patternExamples,'examples');
+    }
+  },true);
   els.dialog.querySelector('.dialog-close').addEventListener('click',function(){els.dialog.close()});els.dialog.addEventListener('click',function(e){if(e.target===els.dialog)els.dialog.close()});
   [els.search,els.type,els.level].filter(Boolean).forEach(function(el){el.addEventListener(el===els.search?'input':'change',renderLibrary)});
   const quickFilters=document.getElementById('quickFilters');if(quickFilters)quickFilters.addEventListener('click',function(e){const b=e.target.closest('[data-quick]');if(!b)return;state.quick=b.dataset.quick;state.lens=null;state.family='all';document.querySelectorAll('[data-quick]').forEach(function(x){x.classList.toggle('active',x===b)});renderLibrary()});
@@ -1143,6 +1156,6 @@
   if(launchPractice&&patterns.some(function(p){return p.id===launchPractice})){history.replaceState({},'',location.pathname);startPractice(launchPractice,recommendedMode(getPattern(launchPractice)))}
   else if(['home','course','library','practice','tutor','game','dna'].includes(launchView)){history.replaceState({},'',location.pathname);goView(launchView)}
 
-  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=23').catch(function(){});
+  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=24').catch(function(){});
 
 })();
