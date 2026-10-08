@@ -499,6 +499,7 @@
         buildSteps+
         '<div class="pattern-teaching-actions">'+primaryAudio+'</div>'+
         (teaching.caution?'<p class="pattern-caution"><strong>Good to know:</strong> '+escapeHtml(teaching.caution)+'</p>':'')+
+        (teaching.why?'<details class="pattern-why-details"><summary>Why is this useful?</summary><p>'+escapeHtml(teaching.why)+'</p></details>':'')+
       '</section>'+
       miniCheck+
       '<div class="pattern-easy-actions"><button type="button" class="primary-btn" data-practice="'+p.id+'">Try this pattern →</button></div>'+
