@@ -192,3 +192,17 @@ Patterns are the core teaching unit, so every pattern now explains itself before
 - Generic English → Spanish ending patterns explain the ending change in normal language and explicitly say the pattern is a useful clue, not a guarantee for every word.
 
 Product rule: a learner should be able to answer **What is this pattern teaching me?** after reading one short paragraph and one example.
+
+## Learner-first Pattern Library v14
+
+The Patterns screen now prioritises understanding the pattern instead of exposing internal scoring metadata.
+
+- Removed learner-facing rank numbers, CEFR-style level badges, usefulness scores, confidence labels, WHO/WHAT/WHERE/WHY/WHEN chips and five tiny skill icons from pattern cards.
+- Added one adaptive **Recommended next** pattern above the library so learners can continue without browsing.
+- Each card now shows only: pattern type, pattern name, plain-English meaning, one worked example, simple learning status, Learn pattern and Practise.
+- Search is one full-width field with simple category chips for Word patterns, Sounds, Sentences, Verbs and Questions.
+- Removed the separate family tabs, meaning-lens panel and technical type/priority dropdowns from the learner interface.
+- Progress remains visible only when it is useful: New pattern, Learning, or Strong.
+- Mobile collapses to one clear card per row with the same two actions.
+
+Product rule: the pattern itself must be visually more important than the metadata used to rank or schedule it.
