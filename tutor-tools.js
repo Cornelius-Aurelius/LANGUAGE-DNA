@@ -147,7 +147,16 @@
   function saveSignals(rows){localStorage.setItem('ldna-learning-signals-v1',JSON.stringify(rows.slice(-300)))}
   function gameProgress(){return safeParse(localStorage.getItem('ldna-game-progress-v1')||'{"unlocked":1,"best":{},"attempts":[]}',{unlocked:1,best:{},attempts:[]})}
   function appActivity(){return safeParse(localStorage.getItem('ldna-activity-v1')||'[]',[])}
-  function speak(text,rate){if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='es-ES';u.rate=rate||.82;const voices=window.speechSynthesis.getVoices(),voice=voices.find(function(v){return v.lang.toLowerCase().startsWith('es')});if(voice)u.voice=voice;window.speechSynthesis.speak(u)}
+  function speak(text,rate,button){
+    if(!('speechSynthesis' in window))return;
+    if(button&&!button.dataset.audioOriginal)button.dataset.audioOriginal=button.innerHTML;
+    if(button){button.disabled=true;button.classList.add('audio-playing');button.textContent='🔊 Loading…'}
+    window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='es-ES';u.rate=rate||.82;const voices=window.speechSynthesis.getVoices(),voice=voices.find(function(v){return v.lang.toLowerCase().startsWith('es')});if(voice)u.voice=voice;
+    u.onstart=function(){if(button)button.textContent='🔊 Playing…'};
+    u.onend=function(){if(button){button.disabled=false;button.classList.remove('audio-playing');button.textContent='✓ Played';setTimeout(function(){if(button&&button.dataset.audioOriginal)button.innerHTML=button.dataset.audioOriginal},850)}};
+    u.onerror=function(){if(button){button.disabled=false;button.classList.remove('audio-playing');if(button.dataset.audioOriginal)button.innerHTML=button.dataset.audioOriginal}};
+    window.speechSynthesis.speak(u)
+  }
   function similarity(a,b){a=normalize(a);b=normalize(b);if(!a||!b)return 0;const m=a.length,n=b.length,prev=Array.from({length:n+1},function(_,i){return i});for(let i=1;i<=m;i++){let diag=i-1;prev[0]=i;for(let j=1;j<=n;j++){const up=prev[j],left=prev[j-1],cost=a[i-1]===b[j-1]?0:1,val=Math.min(up+1,left+1,diag+cost);diag=up;prev[j]=val}}return Math.max(0,1-prev[n]/Math.max(m,n))}
   function bestSimilarity(answer,replies){return Math.max.apply(null,replies.map(function(r){return similarity(answer,r)}))}
   function recordSignal(type,data){const rows=signalData();rows.push(Object.assign({at:Date.now(),day:dateKey(),type:type},data||{}));saveSignals(rows);if(window.LanguageDNACore&&typeof window.LanguageDNACore.trackEvent==='function')window.LanguageDNACore.trackEvent('tutor_'+type,data||{})}
@@ -322,7 +331,7 @@
     const restart=e.target.closest('[data-conversation-restart]');if(restart){resetConversation(state.scenario);return}
     const help=e.target.closest('[data-conversation-help]');if(help){const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turn=conversationTurns(s)[state.turn],feedback=document.getElementById('conversationFeedback');if(feedback)feedback.innerHTML='<strong>English:</strong> '+escapeHtml(turn.english);return}
     const suggest=e.target.closest('[data-conversation-suggest]');if(suggest){const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turn=conversationTurns(s)[state.turn],input=document.getElementById('conversationInput');if(input){input.value=turn.replies[0];input.focus()}return}
-    const audio=e.target.closest('[data-tutor-speak]');if(audio){speak(audio.dataset.tutorSpeak);return}
+    const audio=e.target.closest('[data-tutor-speak]');if(audio){speak(audio.dataset.tutorSpeak,undefined,audio);return}
   });
 
   window.LanguageDNATutor={

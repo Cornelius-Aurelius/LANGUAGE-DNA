@@ -159,3 +159,20 @@ Practice questions now prioritise learner understanding over system metadata.
 - The learning engine still keeps difficulty, scheduling and skill state internally; those details no longer compete with the question itself.
 
 The product rule is: if information does not help the learner understand the current question or decide what to do next, it should not be prominent in the learning flow.
+
+
+## Translation Trust + One-Screen Practice v12
+
+This release focuses on correctness, low-friction practice and immediate interaction feedback.
+
+- The curated Everyday 100 is preloaded and checked before any live translation fallback is used.
+- A checked common-word layer covers additional high-frequency basics such as man → hombre, woman → mujer, person → persona and family terms.
+- Live MyMemory results are no longer accepted blindly. Candidate matches are ranked using exact-source match, service match/quality signals and usage evidence; the raw response is given very low priority.
+- Live results are clearly labelled as context-dependent. Trusted Everyday/common matches can show their usage note.
+- The Everyday 100 audit contains exactly 100 non-empty unique English entries and unique ranks. Context-sensitive items already carry notes for formality, gender, region or meaning where needed.
+- The 31 production pattern dictionaries contain 8,264 rows with no empty pairs, duplicate pairs or stray terminal punctuation. Their existing Data Quality v2 gate remains the production lexical safeguard.
+- Practice now jumps directly to the current question when opened.
+- When there are no due reviews, the empty Quick Review banner is hidden.
+- Practice intro, pattern selector and mode controls are compressed so the question and answer controls fit in one viewport much more often.
+- Help opens as an overlay rather than pushing the answer field down the page.
+- Audio buttons immediately show Loading… → Playing… → Played ✓ in Practice, translation, Tutor and vocabulary/Game areas.
