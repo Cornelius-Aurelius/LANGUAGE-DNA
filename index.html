@@ -7,7 +7,7 @@
   <meta name="description" content="LanguageDNA — learn Spanish through links between English and Spanish words, sounds and sentence patterns." />
   <title>LanguageDNA — Learn Spanish Through Patterns</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css?v=13" />
+  <link rel="stylesheet" href="styles.css?v=14" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -135,48 +135,44 @@
       </section>
 
       <section class="view" data-view-panel="library">
-        <div class="page-intro library-intro">
-          <span class="eyebrow">PATTERN LIBRARY</span>
-          <h1>Every useful link in one place.</h1>
-          <p>Search, filter, listen and practise. Start with the easiest connections, or jump straight to the pattern you need.</p>
+        <div class="page-intro library-intro library-intro-simple">
+          <span class="eyebrow">PATTERNS</span>
+          <h1>Learn one useful pattern at a time.</h1>
+          <p>A pattern is a shortcut that helps English speakers understand, pronounce or build Spanish. Open one, understand the idea, then practise it.</p>
         </div>
 
-        <div class="family-tabs" id="familyTabs" aria-label="Pattern families"></div>
+        <section class="pattern-next-card" id="patternNextCard" aria-live="polite"></section>
 
-        <section class="meaning-filter" aria-labelledby="meaningTitle">
-          <div class="section-heading compact">
-            <div><span class="eyebrow">MEANING</span><h2 id="meaningTitle">WHO · WHAT · WHERE · WHY · WHEN</h2></div>
-            <button class="text-btn" id="clearLens" type="button">Clear</button>
+        <section class="library-section library-section-simple" aria-labelledby="libraryTitle">
+          <div class="library-simple-heading">
+            <div>
+              <span class="eyebrow">BROWSE PATTERNS</span>
+              <h2 id="libraryTitle">Choose what you want to learn.</h2>
+              <p id="resultsSummary">Loading patterns…</p>
+            </div>
           </div>
-          <div class="lens-row compact-lenses" id="lensRow">
-            <button class="lens-card" type="button" data-lens="WHO"><span>👤</span><strong>WHO</strong></button>
-            <button class="lens-card" type="button" data-lens="WHAT"><span>◆</span><strong>WHAT</strong></button>
-            <button class="lens-card" type="button" data-lens="WHERE"><span>⌖</span><strong>WHERE</strong></button>
-            <button class="lens-card" type="button" data-lens="WHY"><span>?</span><strong>WHY</strong></button>
-            <button class="lens-card" type="button" data-lens="WHEN"><span>◷</span><strong>WHEN</strong></button>
-          </div>
-        </section>
 
-        <section class="library-section" aria-labelledby="libraryTitle">
-          <div class="section-heading library-heading">
-            <div><span class="eyebrow">FIND A PATTERN</span><h2 id="libraryTitle">Search the library</h2><p id="resultsSummary">Loading patterns…</p></div>
+          <label class="pattern-search-simple">
+            <span aria-hidden="true">⌕</span>
+            <span class="sr-only">Search patterns</span>
+            <input id="searchInput" type="search" placeholder="Search a pattern or example…" autocomplete="off" />
+          </label>
+
+          <div class="quick-filter-row library-filter-row" id="quickFilters" aria-label="Filter patterns">
+            <button type="button" class="chip active" data-quick="all">All</button>
+            <button type="button" class="chip" data-quick="cognates">Word patterns</button>
+            <button type="button" class="chip" data-quick="pronunciation">Sounds</button>
+            <button type="button" class="chip" data-quick="sentence">Sentences</button>
+            <button type="button" class="chip" data-quick="verbs">Verbs</button>
+            <button type="button" class="chip" data-quick="questions">Questions</button>
           </div>
-          <div class="search-bar">
-            <label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search: -ción, silent h, questions, verbs…" autocomplete="off" /></label>
-            <select id="typeFilter" aria-label="Filter by pattern type">
-              <option value="all">All types</option><option value="visual">👁 Visual</option><option value="sound">🔊 Sound</option><option value="writing">✍ Writing / structure</option>
-            </select>
-            <select id="levelFilter" aria-label="Filter by importance">
-              <option value="all">All priorities</option><option value="essential">Start here</option><option value="high">High value</option><option value="useful">More links</option>
-            </select>
-          </div>
-          <div class="quick-filter-row" id="quickFilters" aria-label="Quick filters">
-            <button type="button" class="chip active" data-quick="all">All</button><button type="button" class="chip" data-quick="cognates">Word links</button>
-            <button type="button" class="chip" data-quick="pronunciation">Sounds</button><button type="button" class="chip" data-quick="verbs">Verbs</button>
-            <button type="button" class="chip" data-quick="questions">Questions</button><button type="button" class="chip" data-quick="sentence">Sentence frames</button>
-          </div>
+
           <div class="pattern-grid" id="patternGrid" aria-live="polite"></div>
-          <div class="empty-state" id="emptyState" hidden><strong>No patterns found.</strong><p>Try another search or clear one of the filters.</p><button type="button" class="secondary-btn" id="resetFilters">Reset filters</button></div>
+          <div class="empty-state" id="emptyState" hidden>
+            <strong>No patterns found.</strong>
+            <p>Try another word or show all patterns.</p>
+            <button type="button" class="secondary-btn" id="resetFilters">Show all patterns</button>
+          </div>
         </section>
       </section>
 
@@ -298,6 +294,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="everyday-data.js?v=1"></script>
   <script src="pattern-teaching.js?v=1"></script>
-  <script src="app.js?v=18"></script>
+  <script src="app.js?v=19"></script>
 </body>
 </html>
