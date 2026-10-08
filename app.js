@@ -209,7 +209,27 @@
   }
   function markSkill(id,skill,silent){if(!state.skills[id])state.skills[id]={};state.skills[id][skill]=true;persistSkills();if(!silent)toast('Nice — one more link strengthened.');renderAllProgress()}
   function toast(message){els.toast.textContent=message;els.toast.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(function(){els.toast.classList.remove('show')},1800)}
-  function speakText(text,lang,rate){if(!('speechSynthesis'in window)){toast('Audio playback is not supported in this browser.');return}window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=lang||'es-ES';u.rate=rate||((u.lang.indexOf('es')===0)?.82:.9);const voices=window.speechSynthesis.getVoices();const target=u.lang.slice(0,2).toLowerCase();const voice=voices.find(function(v){return v.lang.toLowerCase().indexOf(target)===0});if(voice)u.voice=voice;window.speechSynthesis.speak(u)}
+  function audioButtonState(button,state){
+    if(!button)return;
+    if(!button.dataset.audioOriginal)button.dataset.audioOriginal=button.innerHTML;
+    clearTimeout(button._audioResetTimer);
+    button.classList.toggle('audio-playing',state==='loading'||state==='playing');
+    button.disabled=state==='loading'||state==='playing';
+    if(state==='loading')button.textContent='🔊 Loading…';
+    else if(state==='playing')button.textContent='🔊 Playing…';
+    else if(state==='done'){
+      button.textContent='✓ Played';button.disabled=false;button.classList.remove('audio-playing');
+      button._audioResetTimer=setTimeout(function(){if(button&&button.dataset.audioOriginal)button.innerHTML=button.dataset.audioOriginal},850)
+    }else{button.disabled=false;button.classList.remove('audio-playing');if(button.dataset.audioOriginal)button.innerHTML=button.dataset.audioOriginal}
+  }
+  function speakText(text,lang,rate,button){
+    if(!('speechSynthesis'in window)){audioButtonState(button,'idle');toast('Audio playback is not supported in this browser.');return}
+    audioButtonState(button,'loading');window.speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);u.lang=lang||'es-ES';u.rate=rate||((u.lang.indexOf('es')===0)?.82:.9);
+    const voices=window.speechSynthesis.getVoices(),target=u.lang.slice(0,2).toLowerCase(),voice=voices.find(function(v){return v.lang.toLowerCase().indexOf(target)===0});if(voice)u.voice=voice;
+    u.onstart=function(){audioButtonState(button,'playing')};u.onend=function(){audioButtonState(button,'done')};u.onerror=function(){audioButtonState(button,'idle');toast('Audio did not play. Try again.')};
+    window.speechSynthesis.speak(u)
+  }
 
   function reviewRecord(id){return state.reviews[id]||null}
   function scheduleReview(id,quality){
@@ -251,11 +271,9 @@
     const r=reviewRecord(p.id);return r&&r.lastQuality<4?'write':'choice';
   }
   function renderReviewBar(){
-    const count=document.getElementById('reviewDueCount'),text=document.getElementById('reviewDueText'),button=document.getElementById('reviewStartButton');if(!count||!text||!button)return;
-    const s=reviewSummary();count.textContent=s.due;
+    const bar=document.getElementById('smartReviewBar'),count=document.getElementById('reviewDueCount'),text=document.getElementById('reviewDueText'),button=document.getElementById('reviewStartButton');if(!count||!text||!button)return;
+    const s=reviewSummary();count.textContent=s.due;if(bar)bar.hidden=s.due===0;
     if(s.due){text.textContent='These are the things most worth practising now.';button.textContent='Start review'}
-    else if(s.scheduled){text.textContent='You are caught up. We can still choose something useful to practise.';button.textContent='Practise now'}
-    else{text.textContent='Start with one question. LanguageDNA will quietly learn what to bring back later.';button.textContent='Start practising'}
   }
   function startSmartReview(){const due=duePatterns(),title=due.length?'Smart Review · '+due.length+' due':'Smart Practice · mixed skills';startLessonSession(title,patterns.map(function(p){return p.id}),null)}
 
@@ -343,7 +361,8 @@
     document.querySelectorAll('.view').forEach(function(v){v.classList.toggle('active',v.dataset.viewPanel===name)});
     document.querySelectorAll('.nav-item').forEach(function(b){b.classList.toggle('active',b.dataset.view===name)});
     const moreButton=document.querySelector('[data-mobile-more]');if(moreButton)moreButton.classList.toggle('active',['course','library','dna'].includes(name));
-    if(name==='home')renderSentenceDNA();if(name==='course')renderCourse();if(name==='library'){renderFamilies();renderLibrary()}if(name==='practice'){renderReviewBar();renderSessionPanel();renderPractice()}if(name==='tutor'&&window.LanguageDNATutor)window.LanguageDNATutor.render();if(name==='dna')renderDNA();window.scrollTo({top:0,behavior:'smooth'})
+    if(name==='home')renderSentenceDNA();if(name==='course')renderCourse();if(name==='library'){renderFamilies();renderLibrary()}if(name==='practice'){renderReviewBar();renderSessionPanel();renderPractice()}if(name==='tutor'&&window.LanguageDNATutor)window.LanguageDNATutor.render();if(name==='dna')renderDNA();
+    if(name==='practice')requestAnimationFrame(function(){if(els.practiceStage)els.practiceStage.scrollIntoView({block:'start',behavior:'auto'})});else window.scrollTo({top:0,behavior:'smooth'})
   }
   function populatePracticeSelect(){els.practiceSelect.innerHTML=patterns.slice().sort(function(a,b){return a.rank-b.rank}).map(function(p){return'<option value="'+p.id+'">#'+p.rank+' · '+escapeHtml(p.title)+'</option>'}).join('');els.practiceSelect.value=state.currentId}
   function startPractice(id,mode){
@@ -601,8 +620,51 @@
     });
     return out;
   }
+  const COMMON_TRANSLATIONS={
+    man:'hombre',men:'hombres',woman:'mujer',women:'mujeres',boy:'niño',girl:'niña',child:'niño / niña',children:'niños / niñas',
+    person:'persona',people:'gente',name:'nombre',family:'familia',mother:'madre',father:'padre',brother:'hermano',sister:'hermana',
+    son:'hijo',daughter:'hija',husband:'esposo / marido',wife:'esposa / mujer',day:'día',week:'semana',month:'mes',year:'año',
+    car:'coche / carro',train:'tren',bus:'autobús',ticket:'billete / boleto',street:'calle',city:'ciudad',country:'país',
+    room:'habitación',key:'llave',door:'puerta',table:'mesa',chair:'silla',book:'libro',phone:'teléfono',dog:'perro',cat:'gato'
+  };
+  function splitTranslationVariants(value){return String(value||'').split('/').map(function(x){return x.trim()}).filter(Boolean)}
+  function trustedCommonTranslation(query,source){
+    const q=normalize(query),everyday=Array.isArray(window.LANGUAGE_DNA_EVERYDAY_100)?window.LANGUAGE_DNA_EVERYDAY_100:[];
+    if(source==='en'){
+      const item=everyday.find(function(x){return normalize(x.english)===q});
+      if(item)return{text:String(item.spanish),alternatives:[],source:'trusted',note:item.note||'',trustedLabel:'Everyday 100 checked match'};
+      if(COMMON_TRANSLATIONS[q])return{text:COMMON_TRANSLATIONS[q],alternatives:[],source:'trusted',note:'Common everyday vocabulary checked locally.',trustedLabel:'Checked common-word match'}
+    }else{
+      for(let i=0;i<everyday.length;i++){const variants=splitTranslationVariants(everyday[i].spanish);if(variants.some(function(v){return normalize(v)===q}))return{text:String(everyday[i].english),alternatives:[],source:'trusted',note:everyday[i].note||'',trustedLabel:'Everyday 100 checked match'}}
+      const entries=Object.entries(COMMON_TRANSLATIONS);
+      for(let i=0;i<entries.length;i++){const variants=splitTranslationVariants(entries[i][1]);if(variants.some(function(v){return normalize(v)===q}))return{text:entries[i][0],alternatives:[],source:'trusted',note:'Common everyday vocabulary checked locally.',trustedLabel:'Checked common-word match'}}
+    }
+    return null
+  }
+  function liveCandidateScore(query,m){
+    let score=.1;
+    const quality=Math.min(1,Math.max(0,(Number(m&&m.quality)||0)/100)),match=Math.min(1,Math.max(0,Number(m&&m.match)||0)),segment=String(m&&m.segment||m&&m.source||'');
+    if(normalize(segment)===normalize(query))score+=.85;
+    score+=quality*.25+match*.45;
+    const usage=Number(m&&m['usage-count'])||0;if(usage>0)score+=Math.min(.18,Math.log10(usage+1)*.05);
+    return score
+  }
+  function rankLiveTranslations(data,query){
+    const scores=new Map(),original=new Map();
+    function add(text,score){text=String(text||'').trim();const key=normalize(text);if(!key)return;if(!original.has(key))original.set(key,text);scores.set(key,(scores.get(key)||0)+score)}
+    const responseText=String(data&&data.responseData&&data.responseData.translatedText||'').trim();if(responseText)add(responseText,.12);
+    (data&&data.matches||[]).forEach(function(m){
+      const translated=String(m&&m.translation||'').trim();if(!translated)return;
+      let score=liveCandidateScore(query,m);
+      if(normalize(translated)===normalize(query))score-=.15;
+      if(String(query).trim().indexOf(' ')<0&&translated.trim().split(' ').filter(Boolean).length>4)score-=.2;
+      if(!/[.!?…]$/.test(String(query).trim())&&/[.!?…]$/.test(translated))score-=.12;
+      add(translated,Math.max(.01,score))
+    });
+    return Array.from(scores.entries()).map(function(entry){return{text:original.get(entry[0]),score:entry[1]}}).sort(function(a,b){return b.score-a.score})
+  }
   async function internalTranslation(query,source,target){
-    const q=normalize(query);
+    const q=normalize(query),trusted=trustedCommonTranslation(query,source);if(trusted)return trusted;
     for(let i=0;i<patterns.length;i++){
       const p=patterns[i];
       for(let j=0;j<p.examples.length;j++){
@@ -611,20 +673,10 @@
         if(source==='es'&&normalize(es)===q)return{text:en,pattern:p,alternatives:[],source:'core'};
       }
     }
-    const index=await loadDictionaryIndex();
-    if(!index)return null;
-    const matches=(source==='en'?index.en:index.es).get(q)||[];
-    if(!matches.length)return null;
-    const values=matches.map(function(item){return source==='en'?item.spanish:item.english});
-    const primary=values[0];
-    return{
-      text:matches.length===1||source==='en'?primary:'',
-      fallbackText:primary,
-      alternatives:uniqueTexts(values.slice(1),primary).slice(0,3),
-      pattern:matches[0].pattern,
-      source:'dictionary',
-      matchCount:matches.length
-    };
+    const index=await loadDictionaryIndex();if(!index)return null;
+    const matches=(source==='en'?index.en:index.es).get(q)||[];if(!matches.length)return null;
+    const values=matches.map(function(item){return source==='en'?item.spanish:item.english}),primary=values[0];
+    return{text:matches.length===1||source==='en'?primary:'',fallbackText:primary,alternatives:uniqueTexts(values.slice(1),primary).slice(0,3),pattern:matches[0].pattern,source:'dictionary',matchCount:matches.length}
   }
   function guessDirection(text){const raw=String(text||'').trim().toLowerCase();if(/[ñáéíóúü¿¡]/i.test(raw))return['es','en'];const spanish=new Set(['el','la','los','las','un','una','de','del','que','qué','y','en','a','al','por','para','con','sin','es','soy','eres','esta','está','estoy','tengo','hola','gracias','casa','comer','hablar','vivir','donde','dónde','cuando','cuándo','porque','quien','quién']);const words=normalize(raw).split(' ');return words.some(function(w){return spanish.has(w)})?['es','en']:['en','es']}
   function inferPattern(sourceText,translatedText,sourceLang){
@@ -662,6 +714,7 @@
   function initTranslator(){
     const form=document.getElementById('translationForm'),input=document.getElementById('translationInput'),direction=document.getElementById('translationDirection'),swap=document.getElementById('translationSwap'),button=document.getElementById('translationButton'),result=document.getElementById('translationResult');
     let lastPair=['en','es'];
+    const idleButtonText=(button.textContent||'Find it').trim();
     input.addEventListener('focus',function(){loadDictionaryIndex()},{once:true});
     async function translate(){
       const query=input.value.trim();
@@ -669,7 +722,7 @@
       const pair=direction.value==='en-es'?['en','es']:direction.value==='es-en'?['es','en']:guessDirection(query);
       lastPair=pair;
       const source=pair[0],target=pair[1],sourceName=source==='en'?'English':'Spanish',targetName=target==='es'?'Spanish':'English';
-      button.disabled=true;button.textContent='Translating…';
+      button.disabled=true;button.textContent='Finding…';
       result.innerHTML='<div class="translation-loading"><span></span><p>Looking up <strong>'+escapeHtml(query)+'</strong>…</p></div>';
       try{
         const local=await internalTranslation(query,source,target);
@@ -680,10 +733,9 @@
             const url='https://api.mymemory.translated.net/get?q='+encodeURIComponent(query)+'&langpair='+encodeURIComponent(source+'|'+target);
             const response=await fetch(url,{signal:controller.signal});clearTimeout(timer);
             if(!response.ok)throw new Error('Lookup failed');
-            const data=await response.json();
-            translated=String(data&&data.responseData&&data.responseData.translatedText||'').trim();
-            const liveAlternatives=Array.from(new Set((data.matches||[]).map(function(m){return String(m.translation||'').trim()}).filter(Boolean))).filter(function(x){return normalize(x)!==normalize(translated)});
-            alternatives=uniqueTexts(alternatives.concat(liveAlternatives),translated).slice(0,3);
+            const data=await response.json(),ranked=rankLiveTranslations(data,query);
+            if(ranked.length){translated=ranked[0].text;alternatives=uniqueTexts(alternatives.concat(ranked.slice(1).map(function(x){return x.text})),translated).slice(0,3)}
+            else translated=String(data&&data.responseData&&data.responseData.translatedText||'').trim();
           }catch(apiError){
             if(local&&local.fallbackText)translated=local.fallbackText;else throw apiError;
           }
@@ -691,13 +743,14 @@
         if(!translated)throw new Error('No translation');
         const pattern=local&&local.pattern?local.pattern:inferPattern(query,translated,source);
         const sourceCode=source==='es'?'es-ES':'en-GB',targetCode=target==='es'?'es-ES':'en-GB';
-        const hintLabel=local&&local.source==='dictionary'?'LanguageDNA dictionary match':'LanguageDNA link found';
+        const hintLabel=local&&local.source==='trusted'?(local.trustedLabel||'Checked match'):local&&local.source==='dictionary'?'LanguageDNA dictionary match':'LanguageDNA link found';
         const hint=pattern?'<button type="button" class="translation-pattern-hint" data-open="'+pattern.id+'"><span>🧬</span><span><small>'+hintLabel+'</small><strong>'+escapeHtml(pattern.title)+'</strong></span><span>→</span></button>':'';
-        const alt=alternatives.length?'<div class="translation-alternatives"><small>Other possible matches</small><div>'+alternatives.map(function(a){return'<span>'+escapeHtml(a)+'</span>'}).join('')+'</div></div>':'';
-        result.innerHTML='<div class="translation-meta">'+sourceName+' → '+targetName+'</div><div class="translation-pair"><div class="translation-side"><small>'+sourceName+'</small><strong>'+escapeHtml(query)+'</strong><button class="audio-dot" type="button" data-speak-lang="'+sourceCode+'" data-speak="'+escapeHtml(query)+'">🔊</button></div><div class="translation-arrow">→</div><div class="translation-side target"><small>'+targetName+'</small><strong>'+escapeHtml(translated)+'</strong><button class="audio-dot" type="button" data-speak-lang="'+targetCode+'" data-speak="'+escapeHtml(translated)+'">🔊</button></div></div>'+hint+alt+lexicalWarningHtml(query,translated)+translatorDnaHtml(query,translated,source,pattern,local);logActivity('lookup',{pattern:pattern&&pattern.id||null,source:source,local:!!local});
+        const alt=alternatives.length?'<div class="translation-alternatives"><small>Other possible matches — meaning can depend on context</small><div>'+alternatives.map(function(a){return'<span>'+escapeHtml(a)+'</span>'}).join('')+'</div></div>':'';
+        const trustNote=local&&local.note?'<div class="translation-context-note">'+escapeHtml(local.note)+'</div>':(!local?'<div class="translation-context-note">Live result — check context if the word has more than one meaning.</div>':'');
+        result.innerHTML='<div class="translation-meta">'+sourceName+' → '+targetName+'</div><div class="translation-pair"><div class="translation-side"><small>'+sourceName+'</small><strong>'+escapeHtml(query)+'</strong><button class="audio-dot" type="button" data-speak-lang="'+sourceCode+'" data-speak="'+escapeHtml(query)+'">🔊</button></div><div class="translation-arrow">→</div><div class="translation-side target"><small>'+targetName+'</small><strong>'+escapeHtml(translated)+'</strong><button class="audio-dot" type="button" data-speak-lang="'+targetCode+'" data-speak="'+escapeHtml(translated)+'">🔊</button></div></div>'+hint+alt+trustNote+lexicalWarningHtml(query,translated)+translatorDnaHtml(query,translated,source,pattern,local);logActivity('lookup',{pattern:pattern&&pattern.id||null,source:source,local:!!local});
       }catch(err){
         result.innerHTML='<div class="translation-error"><strong>Live translation is unavailable right now.</strong><p>You can still browse and practise every pattern offline.</p></div>';
-      }finally{button.disabled=false;button.textContent='Translate'}
+      }finally{button.disabled=false;button.textContent=idleButtonText}
     }
     form.addEventListener('submit',function(e){e.preventDefault();translate()});
     swap.addEventListener('click',function(){const pair=direction.value==='auto'?lastPair:direction.value==='en-es'?['en','es']:['es','en'];direction.value=pair[0]==='en'?'es-en':'en-es';if(input.value.trim())translate()});
@@ -725,8 +778,8 @@
     const retrySession=e.target.closest('[data-session-retry]');if(retrySession&&state.session){const mistakes=Array.from(new Set(state.session.mistakes));startLessonSession('Mistake repair',mistakes.length?mistakes:[state.currentId],null);return}
     const courseReturn=e.target.closest('[data-course-return]');if(courseReturn){state.session=null;renderSessionPanel();goView('course');return}
     const pronounceWord=e.target.closest('[data-pronounce-word]');if(pronounceWord){startWordRecognition(pronounceWord.dataset.pronounceWord,state.currentId);return}
-    const slow=e.target.closest('[data-speak-slow]');if(slow){speakText(slow.dataset.speakSlow,'es-ES',.62);return}
-    const speech=e.target.closest('[data-speak]');if(speech){speakText(speech.dataset.speak,speech.dataset.speakLang||'es-ES');return}
+    const slow=e.target.closest('[data-speak-slow]');if(slow){speakText(slow.dataset.speakSlow,'es-ES',.62,slow);return}
+    const speech=e.target.closest('[data-speak]');if(speech){speakText(speech.dataset.speak,speech.dataset.speakLang||'es-ES',undefined,speech);return}
     const skillPractice=e.target.closest('[data-skill-practice]');if(skillPractice){startPractice(skillPractice.dataset.id,skillPractice.dataset.skillPractice);return}
   });
   els.dialog.querySelector('.dialog-close').addEventListener('click',function(){els.dialog.close()});els.dialog.addEventListener('click',function(e){if(e.target===els.dialog)els.dialog.close()});
@@ -755,13 +808,8 @@
   };
   function loadLearningExtras(){
     const load=function(src,onload){const s=document.createElement('script');s.src=src;s.async=false;s.onload=onload||null;document.body.appendChild(s)};
-    load('everyday-data.js?v=1',function(){
-      load('everyday-expanded-data.js?v=2',function(){
-        load('everyday-game.js?v=4',function(){
-          load('tutor-tools.js?v=4',function(){if(state.view==='dna')renderDNA();if(window.LanguageDNATutor)window.LanguageDNATutor.render()})
-        })
-      })
-    })
+    const afterCore=function(){load('everyday-expanded-data.js?v=2',function(){load('everyday-game.js?v=4',function(){load('tutor-tools.js?v=4',function(){if(state.view==='dna')renderDNA();if(window.LanguageDNATutor)window.LanguageDNATutor.render()})})})};
+    if(Array.isArray(window.LANGUAGE_DNA_EVERYDAY_100))afterCore();else load('everyday-data.js?v=1',afterCore)
   }
   initTranslator();populatePracticeSelect();renderFamilies();renderStarters();renderSentenceDNA();renderCourse();renderLibrary();renderReviewBar();renderSessionPanel();renderPractice();renderAllProgress();loadLearningExtras();
   if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=12').catch(function(){});
