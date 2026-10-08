@@ -66,12 +66,31 @@
       let active=null;
       const a=d.active;
       if (a && (validId(a.world)||(a.world==='mystery'&&unlocked({best}))) && Number.isInteger(a.index) && a.index>=0 && a.index<5)
-        active={world:a.world,index:a.index,answered:Boolean(a.answered)};
+        active={world:a.world,index:a.index,answered:Boolean(a.answered),seed:Number.isInteger(a.seed)?a.seed:0};
       return {best,active,mysteryWins:Math.min(999,Math.max(0,Number.parseInt(d.mysteryWins,10)||0))};
     } catch(_) {return {best:{},active:null,mysteryWins:0};}
   }
   let saved=read(),completed=null,clue=false,wrong=null,listing=false,newBadge=false,tilesMode=false,placed=[],listenFirst=false;
   let autoAdvanceTimer=null;
+  const PACE_KEY='ldna-quest-pacing-v1';
+  let pace=localStorage.getItem(PACE_KEY)==='manual'?'manual':'auto';
+  function orderedChoices(q,p){
+    const shuffled=q.choices.slice();
+    let seed=((p.seed||0)^(Math.imul(p.index+1,2654435761)))>>>0;
+    for(let i=shuffled.length-1;i>0;i--){
+      seed=(Math.imul(seed,1664525)+1013904223)>>>0;
+      const j=seed%(i+1),tmp=shuffled[i];shuffled[i]=shuffled[j];shuffled[j]=tmp;
+    }
+    return shuffled;
+  }
+  function focusQuestion(){
+    const el=document.querySelector('[data-view-panel="game"].active .quest-question h3');
+    if(el)el.focus({preventScroll:true});
+  }
+  function focusRetry(){
+    const el=document.querySelector('[data-view-panel="game"].active .quest-answer:not(:disabled)');
+    if(el)el.focus({preventScroll:true});
+  }
   function cancelAutoAdvance(){
     if(autoAdvanceTimer!==null){clearTimeout(autoAdvanceTimer);autoAdvanceTimer=null;}
   }
@@ -81,14 +100,14 @@
     }
   }
   function queueAutoAdvance(){
-    if(autoAdvanceTimer!==null||!saved.active||!saved.active.answered||listing)return;
+    if(pace==='manual'||autoAdvanceTimer!==null||!saved.active||!saved.active.answered||listing||!document.querySelector('[data-view-panel="game"].active'))return;
     const id=saved.active.world,index=saved.active.index;
     autoAdvanceTimer=setTimeout(function(){
       autoAdvanceTimer=null;
-      if(saved.active&&saved.active.world===id&&saved.active.index===index&&saved.active.answered&&!listing){
+      if(saved.active&&saved.active.world===id&&saved.active.index===index&&saved.active.answered&&!listing&&document.querySelector('[data-view-panel="game"].active')){
         advance();
       }
-    },1050); // Give children time to see their green tick and star.
+    },3000); // Readable pace by default; users may turn off automatic movement.
   }
   function write(){try{localStorage.setItem(STORAGE,JSON.stringify(saved));}catch(_){}renderProgress()}
   function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
@@ -134,20 +153,20 @@
     const connection=kind==='sounds'?'The first sound in '+q.en+' is '+q.answer+'.':q.en+' → '+q.answer;
     const buildAvailable=kind==='sentences',deck=buildAvailable?tileDeck(q):[];
     const heard=kind==='sounds'&&listenFirst&&!p.answered;
-    const choices='<div class="quest-choices">'+q.choices.map((choice,i)=>'<button type="button" data-quest-answer="'+esc(choice)+'" class="quest-answer '+(p.answered&&choice===q.answer?'is-correct':wrong===choice?'is-incorrect':'')+'" '+(p.answered||wrong===choice?'disabled':'')+'><span class="quest-option-letter" aria-hidden="true">'+String.fromCharCode(65+i)+'</span><strong>'+esc(choice)+'</strong></button>').join('')+'</div>';
+    const choices='<div class="quest-choices">'+orderedChoices(q,p).map((choice,i)=>'<button type="button" data-quest-answer="'+esc(choice)+'" class="quest-answer '+(p.answered&&choice===q.answer?'is-correct':wrong===choice?'is-incorrect':'')+'" '+(p.answered||wrong===choice?'disabled':'')+'><span class="quest-option-letter" aria-hidden="true">'+String.fromCharCode(65+i)+'</span><strong>'+esc(choice)+'</strong></button>').join('')+'</div>';
     const tileBuilder='<div class="quest-builder"><div class="quest-built" role="status" aria-live="polite">'+(placed.length?placed.map(i=>'<span>'+esc(deck[i])+'</span>').join(''):'Tap words below to build your answer')+'</div>'+
       '<div class="quest-tiles">'+deck.map((word,i)=>'<button type="button" data-quest-tile="'+i+'" '+(placed.includes(i)?'disabled':'')+'>'+esc(word)+'</button>').join('')+'</div>'+
       '<div class="quest-builder-tools"><button type="button" class="secondary-btn" data-quest-undo '+(placed.length?'':'disabled')+'>↶ Undo</button><button type="button" class="primary-btn" data-quest-check-tiles '+(placed.length?'':'disabled')+'>Check my sentence ✓</button></div></div>';
     return '<div class="quest-play quest-play-'+w.type+'">'+
-      (p.answered?'<div class="quest-answer-flash success" role="status" aria-live="assertive">✓ Correct! ⭐ '+esc(connection)+' · Next…</div>':
+      (p.answered?'<div class="quest-answer-flash success" role="status" aria-live="polite"><strong>✓ Correct! ⭐ '+esc(connection)+'</strong><small>'+esc(q.why)+'</small><em>'+(pace==='auto'?'Next question soon…':'Take your time. Press Next when ready.')+'</em></div>':
        wrong?'<div class="quest-answer-flash retry" role="status" aria-live="polite">↶ Not quite — have another try!</div>':'')+
       '<div class="quest-play-header">'+
       '<button type="button" class="quest-back" data-quest-back aria-label="Back to adventures">← Adventures</button>'+
-      '<span class="quest-count">'+(p.index===4?'🌟 FINAL DISCOVERY':'QUESTION '+(p.index+1)+' OF 5')+'</span>'+
+      '<div class="quest-play-header-controls"><button type="button" class="quest-pace-button" data-quest-pacing aria-pressed="'+(pace==='manual')+'" aria-label="Automatic next question '+(pace==='auto'?'on':'off')+'">'+(pace==='auto'?'⏱ Auto next':'✋ My pace')+'</button><span class="quest-count">'+(p.index===4?'🌟 FINAL DISCOVERY':'QUESTION '+(p.index+1)+' OF 5')+'</span></div>'+
       '</div><div class="quest-stars-earned" aria-label="'+progress+' of 5 stars in this quest">'+Array.from({length:5},(_,i)=>'<span aria-hidden="true">'+(i<progress?'⭐':'☆')+'</span>').join('')+'</div>'+
       '<div class="quest-play-progress" role="progressbar" aria-label="Adventure progress" aria-valuemin="0" aria-valuemax="5" aria-valuenow="'+progress+'"><span style="width:'+(progress*20)+'%"></span></div>'+
       '<div class="quest-question"><span class="quest-eyebrow">'+(w.id==='mystery'?'MYSTERY MIX':kind==='words'?'WORD DETECTIVE':kind==='sounds'?'SOUND DETECTIVE':'SENTENCE BUILDER')+'</span>'+
-      '<h3>'+(kind==='words'?'Which Spanish word means…':kind==='sounds'?'What sound starts this Spanish word?':'How do you say…')+'</h3>'+
+      '<h3 tabindex="-1" id="questQuestionTitle">'+(kind==='words'?'Which Spanish word means…':kind==='sounds'?'What sound starts this Spanish word?':'How do you say…')+'</h3>'+
       '<div class="quest-prompt">'+(heard?'🔊 Listen, then choose':esc(q.en))+'</div>'+
       (kind==='sounds'?'<div class="quest-listen-tools"><button type="button" class="quest-listen secondary-btn" data-quest-listen="'+esc(q.en)+'">🔊 Hear the Spanish</button>'+
          (!p.answered?'<button type="button" class="quest-listen-mode" data-quest-listen-mode>'+(heard?'👀 Show the word':'🎧 Listen without reading')+'</button>':'')+'</div>':'')+
@@ -155,7 +174,7 @@
       '</div>'+
       (buildAvailable&&!p.answered?'<div class="quest-mode-switch"><button type="button" data-quest-build-mode aria-pressed="'+tilesMode+'">'+(tilesMode?'Choose an answer instead':'🧩 Build it with word tiles')+'</button></div>':'')+
       (tilesMode&&buildAvailable&&!p.answered?tileBuilder:choices)+
-      (p.answered?'<div class="quest-feedback quest-feedback-win" role="status"><div class="quest-friend"><span class="quest-friend-face" aria-hidden="true">✦<span class="quest-friend-eyes">••</span></span><span class="quest-friend-speech">Nova says: Great discovery!</span></div><span class="quest-reward-icon" aria-hidden="true">🌟</span><strong>Star earned! Brilliant discovery.</strong><span class="quest-word-connection">'+esc(connection)+'</span><span>'+esc(q.why)+'</span></div>'+
+      (p.answered?'<div class="quest-feedback quest-feedback-win" aria-hidden="'+(pace==='auto'?'true':'false')+'"><div class="quest-friend"><span class="quest-friend-face" aria-hidden="true">✦<span class="quest-friend-eyes">••</span></span><span class="quest-friend-speech">Nova says: Great discovery!</span></div><span class="quest-reward-icon" aria-hidden="true">🌟</span><strong>Star earned! Brilliant discovery.</strong><span class="quest-word-connection">'+esc(connection)+'</span><span>'+esc(q.why)+'</span></div>'+
         '<div class="quest-bottom-actions"><button type="button" class="secondary-btn" data-quest-next>'+(p.index===4?'See my stars now →':'Next now →')+'</button></div>':
        '<div class="quest-hint-actions"><button type="button" class="secondary-btn" data-quest-clue>💡 Show the secret</button>'+
          '<button type="button" class="quest-pattern-link" data-open="'+esc(q.pattern)+'">Learn this pattern ↗</button></div>'+
@@ -196,14 +215,14 @@
     if(!validId(id))return;
     cancelAutoAdvance();
     completed=null;newBadge=false;clue=false;wrong=null;listing=false;tilesMode=false;placed=[];listenFirst=false;
-    if(!saved.active || saved.active.world!==id) saved.active={world:id,index:0,answered:false};
-    write();render();positionGameAtTop();
+    if(!saved.active || saved.active.world!==id) saved.active={world:id,index:0,answered:false,seed:Math.floor(Math.random()*2147483647)};
+    write();render();positionGameAtTop();focusQuestion();
   }
   function answer(value){
     const a=saved.active;
     if(!a||a.answered)return;
     const q=playWorld(a.world).questions[a.index];
-    if(value!==q.answer){wrong=value;clue=false;render();return;}
+    if(value!==q.answer){wrong=value;clue=false;render();focusRetry();return;}
     a.answered=true;wrong=null;clue=false;write();render();
   }
   function advance(){
@@ -220,7 +239,7 @@
       }
       saved.active=null;
     }else{a.index++;a.answered=false;}
-    clue=false;wrong=null;tilesMode=false;placed=[];listenFirst=false;write();render();positionGameAtTop();
+    clue=false;wrong=null;tilesMode=false;placed=[];listenFirst=false;write();render();positionGameAtTop();if(saved.active)focusQuestion();
   }
   function listen(wordText) {
     const root=document.getElementById('patternQuest');
@@ -241,8 +260,15 @@
       if(!unlocked(saved))return;
       cancelAutoAdvance();
       completed=null;newBadge=false;clue=false;wrong=null;listing=false;tilesMode=false;placed=[];listenFirst=false;
-      if(!saved.active||saved.active.world!=='mystery')saved.active={world:'mystery',index:0,answered:false};
-      write();render();positionGameAtTop();return;
+      if(!saved.active||saved.active.world!=='mystery')saved.active={world:'mystery',index:0,answered:false,seed:Math.floor(Math.random()*2147483647)};
+      write();render();positionGameAtTop();focusQuestion();return;
+    }
+    if(e.target.closest('[data-quest-pacing]')){
+      cancelAutoAdvance();
+      pace=pace==='auto'?'manual':'auto';
+      localStorage.setItem(PACE_KEY,pace);
+      render();
+      return;
     }
     if(e.target.closest('[data-quest-build-mode]')){tilesMode=!tilesMode;placed=[];wrong=null;clue=false;render();return;}
     const tile=e.target.closest('[data-quest-tile]');
@@ -264,6 +290,13 @@
     if(e.target.closest('[data-quest-next]')){advance();return;}
     if(e.target.closest('[data-quest-back]')){cancelAutoAdvance();completed=null;listing=true;tilesMode=false;placed=[];listenFirst=false;render();positionGameAtTop();return;}
     const audio=e.target.closest('[data-quest-listen]');if(audio){listen(audio.dataset.questListen);return;}
+  });
+  document.addEventListener('click',function(e){
+    const nav=e.target.closest('[data-view]');
+    if(nav&&nav.dataset.view!=='game')cancelAutoAdvance();
+    if(nav&&nav.dataset.view==='game'&&saved.active&&saved.active.answered&&!listing){
+      requestAnimationFrame(render);
+    }
   });
   window.LanguageDNAQuest={
     open,render,stars,
