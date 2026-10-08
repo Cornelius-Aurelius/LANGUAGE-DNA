@@ -134,6 +134,25 @@
     'sensible':'False-friend alert: Spanish sensible often means “sensitive”, not English “sensible”.',
     'realizar':'Usage note: realizar commonly means “to carry out/perform”; it is not always the same as English “realize”.'
   };
+  const TRANSLATION_SENSES={
+    time:[['duration / time in general','tiempo'],['clock time / what time','hora']],
+    know:[['a fact / know how','saber'],['a person / place / be familiar with','conocer']],
+    right:[['direction: right','derecha'],['correct / not wrong','correcto / correcta'],['a legal or personal right','derecho']],
+    you:[['informal singular','tú'],['polite/formal singular','usted'],['plural in Latin America / formal plural in Spain','ustedes'],['informal plural in much of Spain','vosotros / vosotras']],
+    your:[['informal singular','tu / tus'],['polite or plural','su / sus'],['informal plural in much of Spain','vuestro / vuestra']],
+    me:[['object pronoun before a verb','me'],['after many prepositions','mí']],
+    evening:[['earlier evening / afternoon','tarde'],['night-time evening','noche']],
+    home:[['the home / house','casa'],['at home','en casa'],['go home','ir a casa']],
+    ticket:[['many travel tickets in Spain','billete'],['common in much of Latin America','boleto'],['admission / entry ticket','entrada']],
+    car:[['very common in Spain','coche'],['common in many Latin American countries','carro'],['widely used in several regions','auto']],
+    morning:[['morning','mañana'],['in the morning','por la mañana']],
+    tomorrow:[['tomorrow','mañana'],['tomorrow morning','mañana por la mañana']]
+  };
+  function translationSenseHtml(query,source){
+    if(source!=='en')return'';
+    const senses=TRANSLATION_SENSES[normalize(query)];if(!senses)return'';
+    return'<div class="translation-senses"><small>CHOOSE THE MEANING YOU NEED</small><div>'+senses.map(function(pair){return'<span><b>'+escapeHtml(pair[0])+'</b><strong>'+escapeHtml(pair[1])+'</strong></span>'}).join('')+'</div></div>'
+  }
   const SAFE_REGULAR_VERB_PATTERNS=new Set(['regular-ar','regular-er','regular-ir','ize-izar','fy-ficar','ate-ar']);
   const SOUND_CATEGORIES=[
     {id:'stress',label:'word stress',test:function(w){return/[áéíóú]/i.test(w)}},
@@ -1025,7 +1044,7 @@
         const hint=pattern?'<button type="button" class="translation-pattern-hint" data-open="'+pattern.id+'"><span>🧬</span><span><small>'+hintLabel+'</small><strong>'+escapeHtml(pattern.title)+'</strong></span><span>→</span></button>':'';
         const alt=alternatives.length?'<div class="translation-alternatives"><small>Other possible matches — meaning can depend on context</small><div>'+alternatives.map(function(a){return'<span>'+escapeHtml(a)+'</span>'}).join('')+'</div></div>':'';
         const trustNote=local&&local.note?'<div class="translation-context-note">'+escapeHtml(local.note)+'</div>':(!local?'<div class="translation-context-note">Live result — check context if the word has more than one meaning.</div>':'');
-        result.innerHTML='<div class="translation-meta">'+sourceName+' → '+targetName+'</div><div class="translation-pair"><div class="translation-side"><small>'+sourceName+'</small><strong>'+escapeHtml(query)+'</strong><button class="audio-dot" type="button" data-speak-lang="'+sourceCode+'" data-speak="'+escapeHtml(query)+'">🔊</button></div><div class="translation-arrow">→</div><div class="translation-side target"><small>'+targetName+'</small><strong>'+escapeHtml(translated)+'</strong><button class="audio-dot" type="button" data-speak-lang="'+targetCode+'" data-speak="'+escapeHtml(translated)+'">🔊</button></div></div>'+hint+alt+trustNote+lexicalWarningHtml(query,translated)+translatorDnaHtml(query,translated,source,pattern,local);logActivity('lookup',{pattern:pattern&&pattern.id||null,source:source,local:!!local});
+        result.innerHTML='<div class="translation-meta">'+sourceName+' → '+targetName+'</div><div class="translation-pair"><div class="translation-side"><small>'+sourceName+'</small><strong>'+escapeHtml(query)+'</strong><button class="audio-dot" type="button" data-speak-lang="'+sourceCode+'" data-speak="'+escapeHtml(query)+'">🔊</button></div><div class="translation-arrow">→</div><div class="translation-side target"><small>'+targetName+'</small><strong>'+escapeHtml(translated)+'</strong><button class="audio-dot" type="button" data-speak-lang="'+targetCode+'" data-speak="'+escapeHtml(translated)+'">🔊</button></div></div>'+translationSenseHtml(query,source)+hint+alt+trustNote+lexicalWarningHtml(query,translated)+translatorDnaHtml(query,translated,source,pattern,local);logActivity('lookup',{pattern:pattern&&pattern.id||null,source:source,local:!!local});
       }catch(err){
         result.innerHTML='<div class="translation-error"><strong>Live translation is unavailable right now.</strong><p>You can still browse and practise every pattern offline.</p></div>';
       }finally{button.disabled=false;button.textContent=idleButtonText}
