@@ -505,7 +505,7 @@
     state.view=name;closeMobileMore();
     document.querySelectorAll('.view').forEach(function(v){v.classList.toggle('active',v.dataset.viewPanel===name)});
     document.querySelectorAll('.nav-item').forEach(function(b){b.classList.toggle('active',b.dataset.view===name)});
-    const moreButton=document.querySelector('[data-mobile-more]');if(moreButton)moreButton.classList.toggle('active',['course','game','dna'].includes(name));
+    const moreButton=document.querySelector('[data-mobile-more]');if(moreButton)moreButton.classList.toggle('active',['course','practice','dna'].includes(name));
     if(name==='home')renderSentenceDNA();if(name==='course')renderCourse();if(name==='library'){renderFamilies();renderLibrary()}if(name==='practice'){renderReviewBar();renderSessionPanel();renderPractice()}if(name==='tutor'&&window.LanguageDNATutor)window.LanguageDNATutor.render();if(name==='dna')renderDNA();
     if(name==='practice')focusPracticeStage();else window.scrollTo({top:0,behavior:'smooth'})
   }
@@ -1118,6 +1118,6 @@
   if(launchPractice&&patterns.some(function(p){return p.id===launchPractice})){history.replaceState({},'',location.pathname);startPractice(launchPractice,recommendedMode(getPattern(launchPractice)))}
   else if(['home','course','library','practice','tutor','game','dna'].includes(launchView)){history.replaceState({},'',location.pathname);goView(launchView)}
 
-  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=19').catch(function(){});
+  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=20').catch(function(){});
 
 })();

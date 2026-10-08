@@ -8,7 +8,7 @@
   <title>LanguageDNA — Learn Spanish Through Patterns</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="app-icon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=23" />
+  <link rel="stylesheet" href="styles.css?v=24" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -29,15 +29,15 @@
       <button class="nav-item active" type="button" data-view="home"><span>⌂</span><b>Home</b></button>
       <button class="nav-item mobile-hide" type="button" data-view="course"><span>◫</span><b>Course</b></button>
       <button class="nav-item" type="button" data-view="library"><span>⌕</span><b>Patterns</b></button>
-      <button class="nav-item" type="button" data-view="practice"><span>◎</span><b>Practice</b></button>
+      <button class="nav-item mobile-hide" type="button" data-view="practice"><span>◎</span><b>Practice</b></button>
       <button class="nav-item" type="button" data-view="tutor"><span>▶</span><b>Learn</b></button>
-      <button class="nav-item mobile-hide" type="button" data-view="game"><span>◆</span><b>Game</b></button>
+      <button class="nav-item" type="button" data-view="game"><span>◆</span><b>Play</b></button>
       <button class="nav-item mobile-hide" type="button" data-view="dna"><span>🧬</span><b>My DNA</b></button>
       <button class="nav-item mobile-more-trigger" type="button" data-mobile-more aria-expanded="false"><span>•••</span><b>More</b></button>
     </nav>
     <div class="mobile-more-menu" id="mobileMoreMenu" hidden>
       <button type="button" data-view="course"><span>◫</span><strong>Guided course</strong><small>A1 → A2 → B1 path</small></button>
-      <button type="button" data-view="game"><span>◆</span><strong>Game</strong><small>40-question challenge</small></button>
+      <button type="button" data-view="practice"><span>◎</span><strong>Practice</strong><small>Extra questions and speaking</small></button>
       <button type="button" data-view="dna"><span>🧬</span><strong>My DNA</strong><small>Your progress and reviews</small></button>
     </div>
 
@@ -46,12 +46,13 @@
         <section class="simple-home-hero" aria-labelledby="homeTitle">
           <div class="simple-home-copy">
             <span class="eyebrow">SPANISH, MADE SIMPLE</span>
-            <h1 id="homeTitle">Spanish starts with what you already know<span class="hero-period">.</span></h1>
-            <p>Spot a connection. Hear it. Use it in real life.</p>
-            <div class="simple-home-actions">
-              <button class="primary-btn simple-home-start" type="button" id="startBeginner">Start my 5-minute lesson <span aria-hidden="true">→</span></button>
-              <button class="secondary-btn simple-home-explore" type="button" data-view="library">Explore patterns <span aria-hidden="true">↗</span></button>
+            <h1 id="homeTitle">Discover a secret. Play with Spanish<span class="hero-period">!</span></h1>
+            <p>Spanish has hidden links to English. Find them, play a little game, and surprise yourself.</p>
+            <div class="simple-home-actions home-two-paths" aria-label="Two ways to learn Spanish">
+              <button class="secondary-btn simple-home-explore" type="button" data-view="library"><span aria-hidden="true">🔎</span> Discover Patterns <span aria-hidden="true">→</span></button>
+              <button class="primary-btn home-play-button" type="button" data-quest-open><span aria-hidden="true">🎮</span> Play the Game <span aria-hidden="true">→</span></button>
             </div>
+            <div class="home-small-start"><span>Want a quick lesson?</span> <button type="button" id="startBeginner">Try the Daily 5 →</button></div>
             <small class="simple-start-note">No sign-up needed. <b>Free from start to finish.</b></small>
           </div>
           <div class="simple-dna-example" aria-label="Example: information becomes información">
@@ -253,14 +254,15 @@
 
       <section class="view" data-view-panel="game">
         <div class="page-intro game-intro">
-          <span class="eyebrow">EVERYDAY SPANISH + GAME MODE</span>
-          <h1>Learn simply. Then prove what you know.</h1>
-          <p>Start with 100 calm English-first essentials, then expand to 500 and 1,000 pattern-linked words when you are ready. Game Mode stays separate and unchanged.</p>
+          <span class="eyebrow">PLAY LANGUAGE DNA</span>
+          <h1>Little quests. Big discoveries.</h1>
+          <p>Five fun questions per adventure. Learn the Spanish link, collect stars and try a new world whenever you're ready.</p>
         </div>
 
-        <div class="everyday-game-tabs" aria-label="Everyday learning and game mode">
-          <button type="button" class="active" data-everyday-tab="learn">Vocabulary 100 / 500 / 1,000</button>
-          <button type="button" data-everyday-tab="game">40-question Game</button>
+        <section id="patternQuest" class="pattern-quest" aria-label="Pattern Quest game"></section>
+        <div class="everyday-game-tabs" aria-label="More word challenges">
+          <button type="button" class="active" data-everyday-tab="learn">More words to explore</button>
+          <button type="button" data-everyday-tab="game">40-question challenge</button>
         </div>
 
         <section id="everydayLearnPanel"></section>
@@ -274,6 +276,7 @@
         </div>
 
         <section class="dna-outcome-hero" id="dnaOutcomeHero" aria-live="polite"></section>
+        <section class="quest-progress-summary" id="questProgressSummary" aria-label="Pattern Quest stars"></section>
 
         <section class="dna-capabilities-section" aria-labelledby="dnaCapabilitiesTitle">
           <div class="section-heading compact">
@@ -362,8 +365,9 @@
   <script src="cloud-sync.js?v=2"></script>
   <script src="everyday-data.js?v=1"></script>
   <script src="pattern-teaching.js?v=1"></script>
-  <script src="app.js?v=24"></script>
+  <script src="app.js?v=25"></script>
   <script src="profile-tools.js?v=3"></script>
   <script src="learning-wins.js?v=1"></script>
+  <script src="pattern-quest.js?v=1"></script>
 </body>
 </html>

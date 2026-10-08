@@ -47,12 +47,14 @@ test('First-visit pattern cards lead to actual lessons', async ({page}) => {
   await expect(page.locator('#wordSearch')).toBeVisible();
 });
 
-test('Mobile More retains Game and Home retains lesson + translator', async ({page}) => {
+test('Mobile Play is one tap away, More retains Practice, and Home retains lessons', async ({page}) => {
   await page.setViewportSize({width:375,height:812});
   await page.goto(base);
   await expect(page.locator('#translationForm')).toBeAttached();
   await page.locator('[data-mobile-more]').click();
-  await page.locator('#mobileMoreMenu [data-view="game"]').click();
+  await page.locator('#mobileMoreMenu [data-view="practice"]').click();
+  await expect(page.locator('[data-view-panel="practice"]')).toBeVisible();
+  await page.locator('.primary-nav [data-view="game"]').click();
   await expect(page.locator('[data-view-panel="game"]')).toBeVisible();
   await page.locator('.primary-nav [data-view="home"]').click();
   await page.locator('#startBeginner').click();
@@ -86,7 +88,8 @@ test('Daily 5 renders a real first task without sign-up', async ({page}) => {
 test('Practice choice mode renders options and accepts an answer', async ({page}) => {
   await page.setViewportSize({width:375,height:812});
   await page.goto(base);
-  await page.locator('.primary-nav [data-view="practice"]').click();
+  await page.locator('[data-mobile-more]').click();
+  await page.locator('#mobileMoreMenu [data-view="practice"]').click();
   await page.locator('[data-mode="choice"]').click();
   await expect(page.locator('#practiceStage')).toBeVisible();
   await expect(page.locator('#practiceStage .choice-btn').first()).toBeVisible();
@@ -98,7 +101,7 @@ test('40-question Game starts and records an answer without showing early markin
   await page.setViewportSize({width:375,height:812});
   await page.goto(base);
   await page.locator('[data-mobile-more]').click();
-  await page.locator('#mobileMoreMenu [data-view="game"]').click();
+  await page.locator('.primary-nav [data-view="game"]').click();
   await page.locator('[data-everyday-tab="game"]').click();
   await expect(page.locator('#gameModePanel [data-game-start="1"]').first()).toBeVisible();
   await page.locator('#gameModePanel [data-game-start="1"]').first().click();
@@ -125,9 +128,9 @@ test('Original brand uses distinct friendly colours and tactile primary buttons'
     const selector = s => document.querySelector(s);
     const css = el => getComputedStyle(selector(el));
     return {
-      start: css('#startBeginner').backgroundColor,
+      start: css('.home-play-button').backgroundColor,
       explore: css('.simple-home-explore').backgroundColor,
-      primaryDepth: css('#startBeginner').boxShadow,
+      primaryDepth: css('.home-play-button').boxShadow,
       words: css('.home-pattern-card.words').backgroundImage,
       sounds: css('.home-pattern-card.sounds').backgroundImage,
       sentences: css('.home-pattern-card.sentences').backgroundImage,
@@ -290,6 +293,93 @@ test('Learning milestones reward non-consecutive days without streak penalties',
   await page.locator('#mobileMoreMenu [data-view="dna"]').click();
   await expect(page.locator('#journeyMilestones .journey-milestone.earned')).toHaveCount(2);
   await expect(page.locator('#journeyWinsStatus')).toContainText('3 learning days');
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+  expect(overflow).toBeLessThanOrEqual(2);
+});
+
+
+
+test('Home offers two obvious choices and Play is directly in mobile navigation',async ({page})=>{
+  await page.setViewportSize({width:320,height:720});
+  await page.goto(base);
+  await expect(page.locator('.home-two-paths button')).toHaveCount(2);
+  await expect(page.locator('.simple-home-explore')).toBeVisible();
+  await expect(page.locator('.home-play-button')).toBeVisible();
+  await expect(page.locator('.primary-nav [data-view="library"]')).toBeVisible();
+  await expect(page.locator('.primary-nav [data-view="game"]')).toBeVisible();
+  const width=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+  expect(width).toBeLessThanOrEqual(2);
+  await page.locator('.home-play-button').click();
+  await expect(page.locator('[data-view-panel="game"]')).toBeVisible();
+  await expect(page.locator('#patternQuest .quest-world')).toHaveCount(3);
+});
+
+test('Word Garden teaches a real English-Spanish pattern and rewards completion',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.locator('[data-quest-open]').first().click();
+  await page.locator('[data-quest-world="words"]').click();
+  await expect(page.locator('.quest-prompt')).toHaveText('information');
+  // Wrong answers teach a clue and do not remove a life or advance unfairly.
+  await page.locator('[data-quest-answer="nación"]').click();
+  await expect(page.locator('.quest-feedback')).toContainText('Nice try');
+  await expect(page.locator('.quest-prompt')).toHaveText('information');
+  await page.locator('[data-quest-answer="información"]').click();
+  await expect(page.locator('.quest-feedback-win')).toContainText('Star earned');
+  await page.reload();
+  await page.locator('.primary-nav [data-view="game"]').click();
+  await expect(page.locator('.quest-feedback-win')).toBeVisible();
+  await page.locator('[data-quest-next]').click();
+  const correct=['nación','actividad','celebración','universidad'];
+  for(const answer of correct){
+    await page.locator('[data-quest-answer="'+answer+'"]').click();
+    await expect(page.locator('.quest-feedback-win')).toBeVisible();
+    await page.locator('[data-quest-next]').click();
+  }
+  await expect(page.locator('.quest-victory')).toBeVisible();
+  await expect(page.locator('.quest-victory-stars')).toContainText('⭐⭐⭐⭐⭐');
+  await page.locator('[data-quest-back]').click();
+  await expect(page.locator('.quest-world')).toHaveCount(3);
+  await page.locator('.primary-nav [data-view="dna"]').evaluate(button=>button.click());
+  await expect(page.locator('#questProgressSummary')).toContainText('5 of 15 adventure stars');
+  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('ldna-quest-v1')));
+  expect(saved.best.words).toBe(5);
+});
+
+test('Child-friendly game offers free hints, a back action and sound/sentence worlds',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.locator('.home-play-button').click();
+  await page.locator('[data-quest-world="sounds"]').click();
+  await expect(page.locator('.quest-question h3')).toContainText('sound');
+  await expect(page.locator('[data-quest-listen]')).toBeVisible();
+  await page.locator('[data-quest-clue]').click();
+  await expect(page.locator('.quest-feedback')).toContainText('H is silent');
+  await page.locator('[data-quest-back]').click();
+  await expect(page.locator('.quest-world')).toHaveCount(3);
+  await expect(page.locator('[data-quest-world="sounds"]')).toContainText('Keep playing');
+  await page.locator('[data-quest-world="sounds"]').click();
+  await expect(page.locator('.quest-prompt')).toHaveText('hola');
+  await page.locator('[data-quest-answer="O"]').click();
+  await expect(page.locator('.quest-feedback-win')).toBeVisible();
+  await page.locator('[data-quest-back]').click();
+  await page.locator('[data-quest-world="sentences"]').click();
+  await expect(page.locator('.quest-prompt')).toHaveText("I don't understand");
+  await page.locator('[data-quest-answer="no entiendo"]').click();
+  await expect(page.locator('.quest-feedback-win')).toContainText('no entiendo');
+  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('ldna-quest-v1')));
+  expect(saved.best.words||0).toBe(0);
+});
+
+test('All quests and earned stars work offline and in dark mode',async ({page})=>{
+  await page.setViewportSize({width:320,height:720});
+  await page.goto(base);
+  await page.waitForFunction(()=>navigator.serviceWorker&&navigator.serviceWorker.controller,{timeout:15000});
+  await page.context().setOffline(true);
+  await page.reload();
+  await page.locator('#themeButton').click();
+  await page.locator('.home-play-button').click();
+  await expect(page.locator('#patternQuest .quest-world')).toHaveCount(3);
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
   expect(overflow).toBeLessThanOrEqual(2);
 });
