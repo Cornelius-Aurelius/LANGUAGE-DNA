@@ -2271,3 +2271,84 @@ body.dark .quest-focused .quest-answer.is-incorrect:disabled{
 @media(prefers-reduced-motion:reduce){
   .quest-answer-flash{animation:none}
 }
+
+
+/* v24 — Beginner-first clarity, readable choices and adaptable pace. */
+.home-more-tools{margin:22px 0;border:2px solid var(--ld-card-edge);
+  border-radius:21px;background:var(--surface);box-shadow:0 4px 0 var(--ld-card-floor)}
+.home-more-tools>summary{display:flex;justify-content:space-between;align-items:center;gap:10px;
+  cursor:pointer;list-style:none;min-height:61px;padding:13px 18px;
+  font-size:16px;font-weight:900;color:var(--text)}
+.home-more-tools>summary::-webkit-details-marker{display:none}
+.home-more-tools>summary small{font-size:12px;font-weight:650;color:var(--muted);line-height:1.4}
+.home-more-tools[open]>summary{border-bottom:2px solid var(--border);background:var(--ld-tint-mint)}
+.home-more-tools .simple-next{padding:16px;margin:0}
+.home-more-tools .simple-next .simple-section-heading h2{font-size:22px}
+.library-beginner-start{display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding:13px 15px;margin:15px 0;border:2px solid #b1dcca;border-radius:18px;
+  background:var(--ld-tint-mint)}
+.library-beginner-start>span{font-size:25px}
+.library-beginner-start>div{display:grid;gap:5px;flex:1;min-width:170px}
+.library-beginner-start strong{font-size:15px;font-weight:900}
+.library-beginner-start small{font-size:13px;line-height:1.5;color:var(--muted)}
+.library-beginner-start button{min-height:46px}
+.pattern-more-examples{margin-top:17px;border:2px solid var(--ld-card-edge);border-radius:17px;
+  background:var(--surface);overflow:hidden}
+.pattern-more-examples>summary{display:flex;justify-content:space-between;align-items:center;
+  gap:9px;padding:15px;cursor:pointer;list-style:none;min-height:51px}
+.pattern-more-examples>summary::-webkit-details-marker{display:none}
+.pattern-more-examples>summary strong{font-size:15px;font-weight:900}
+.pattern-more-examples>summary span{font-size:12px;font-weight:700;color:var(--green)}
+.pattern-more-examples[open]>summary{border-bottom:1px solid var(--border)}
+.pattern-more-examples>p,.pattern-more-examples .pattern-example-list{margin:12px}
+.pattern-read-check{margin:14px 0 0;min-height:46px}
+.pattern-read-check:disabled{opacity:.75}
+.quest-play-header-controls{display:flex;gap:10px;align-items:center;justify-content:flex-end;min-width:0}
+.quest-pace-button{min-height:43px;border:2px solid #c4cfe1;border-radius:13px;
+  padding:7px 11px;background:var(--surface);color:var(--text);
+  font-size:13px;font-weight:850;cursor:pointer;white-space:nowrap}
+.quest-pace-button:hover,.quest-pace-button:focus-visible{background:var(--ld-tint-lavender);border-color:#a48bcc}
+.quest-answer-flash{display:flex;flex-direction:column;gap:5px;
+  width:min(490px,calc(100vw - 25px));white-space:normal}
+.quest-answer-flash strong{font-size:15px;line-height:1.25}
+.quest-answer-flash small{font-size:13px;line-height:1.4;font-weight:700}
+.quest-answer-flash em{font-size:12px;font-style:normal;font-weight:800}
+.quest-focused .quest-answer strong{font-size:clamp(14px,1.9vw,17px)}
+.quest-focused .quest-count{font-size:12px;letter-spacing:0}
+.quest-focused .quest-question .quest-eyebrow{font-size:12px}
+.quest-focused.quest-paced-manual .quest-feedback-win{display:grid!important;
+  padding:14px;margin:8px 0 0;font-size:13px}
+.quest-focused.quest-paced-manual .quest-feedback-win .quest-friend{display:none}
+.quest-focused.quest-paced-manual .quest-feedback-win .quest-reward-icon{font-size:20px}
+body.dark .library-beginner-start{border-color:#567c69}
+body.dark .pattern-more-examples{border-color:var(--ld-card-edge)}
+@media(max-width:680px){
+  .home-more-tools>summary{align-items:flex-start;flex-direction:column;gap:4px;padding:12px 14px}
+  .home-more-tools>summary small{font-size:13px}
+  .home-more-tools .simple-next{padding:12px}
+  .library-beginner-start{padding:12px;gap:9px}
+  .library-beginner-start button{width:100%}
+  .pattern-more-examples>summary{padding:12px;flex-wrap:wrap}
+  .pattern-more-examples>summary span{font-size:13px}
+  .quest-focused .quest-play-header{gap:6px}
+  .quest-play-header-controls{gap:6px;min-width:0}
+  .quest-pace-button{min-height:42px;font-size:12px;padding:6px 8px}
+  .quest-focused .quest-count{font-size:11px;white-space:normal}
+  .quest-focused .quest-question .quest-eyebrow{font-size:11px}
+  .quest-focused .quest-answer strong{font-size:14px;line-height:1.2}
+  .quest-answer-flash{top:calc(69px + env(safe-area-inset-top));padding:9px 11px}
+  .quest-answer-flash strong{font-size:14px}
+  .quest-answer-flash small{font-size:13px}
+  .primary-nav .nav-item{font-size:12px;line-height:1.2}
+  .primary-nav .nav-item span{font-size:19px}
+  .quest-focused .quest-hint-actions button{font-size:12px}
+  .quest-focused .quest-no-pressure{font-size:12px}
+  .quest-focused .quest-mode-switch button{font-size:12px}
+}
+@media(max-width:350px){
+  .quest-pace-button{font-size:11px;padding:6px}
+  .quest-focused .quest-count{font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){
+  .quest-answer-flash{animation:none}
+}
