@@ -20,7 +20,7 @@ jobs:
       - name: Install pinned browser test tools
         run: npm install --no-save --no-package-lock --no-audit --no-fund @playwright/test@1.56.1
       - name: Install Chromium
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install chromium
       - name: Serve LanguageDNA locally
         run: python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/languagedna-http.log 2>&1 &
       - name: Test real mobile and desktop layouts

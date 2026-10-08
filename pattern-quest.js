@@ -71,6 +71,25 @@
     } catch(_) {return {best:{},active:null,mysteryWins:0};}
   }
   let saved=read(),completed=null,clue=false,wrong=null,listing=false,newBadge=false,tilesMode=false,placed=[],listenFirst=false;
+  let autoAdvanceTimer=null;
+  function cancelAutoAdvance(){
+    if(autoAdvanceTimer!==null){clearTimeout(autoAdvanceTimer);autoAdvanceTimer=null;}
+  }
+  function positionGameAtTop(){
+    if(document.querySelector('[data-view-panel="game"].active')){
+      window.scrollTo({top:0,left:0,behavior:'instant'});
+    }
+  }
+  function queueAutoAdvance(){
+    if(autoAdvanceTimer!==null||!saved.active||!saved.active.answered||listing)return;
+    const id=saved.active.world,index=saved.active.index;
+    autoAdvanceTimer=setTimeout(function(){
+      autoAdvanceTimer=null;
+      if(saved.active&&saved.active.world===id&&saved.active.index===index&&saved.active.answered&&!listing){
+        advance();
+      }
+    },1050); // Give children time to see their green tick and star.
+  }
   function write(){try{localStorage.setItem(STORAGE,JSON.stringify(saved));}catch(_){}renderProgress()}
   function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
   function world(id){return worlds.find(w=>w.id===id);}
@@ -115,11 +134,14 @@
     const connection=kind==='sounds'?'The first sound in '+q.en+' is '+q.answer+'.':q.en+' → '+q.answer;
     const buildAvailable=kind==='sentences',deck=buildAvailable?tileDeck(q):[];
     const heard=kind==='sounds'&&listenFirst&&!p.answered;
-    const choices='<div class="quest-choices">'+q.choices.map((choice,i)=>'<button type="button" data-quest-answer="'+esc(choice)+'" class="quest-answer '+(p.answered&&choice===q.answer?'is-correct':'')+'" '+(p.answered||wrong===choice?'disabled':'')+'><span class="quest-option-letter" aria-hidden="true">'+String.fromCharCode(65+i)+'</span><strong>'+esc(choice)+'</strong></button>').join('')+'</div>';
+    const choices='<div class="quest-choices">'+q.choices.map((choice,i)=>'<button type="button" data-quest-answer="'+esc(choice)+'" class="quest-answer '+(p.answered&&choice===q.answer?'is-correct':wrong===choice?'is-incorrect':'')+'" '+(p.answered||wrong===choice?'disabled':'')+'><span class="quest-option-letter" aria-hidden="true">'+String.fromCharCode(65+i)+'</span><strong>'+esc(choice)+'</strong></button>').join('')+'</div>';
     const tileBuilder='<div class="quest-builder"><div class="quest-built" role="status" aria-live="polite">'+(placed.length?placed.map(i=>'<span>'+esc(deck[i])+'</span>').join(''):'Tap words below to build your answer')+'</div>'+
       '<div class="quest-tiles">'+deck.map((word,i)=>'<button type="button" data-quest-tile="'+i+'" '+(placed.includes(i)?'disabled':'')+'>'+esc(word)+'</button>').join('')+'</div>'+
       '<div class="quest-builder-tools"><button type="button" class="secondary-btn" data-quest-undo '+(placed.length?'':'disabled')+'>↶ Undo</button><button type="button" class="primary-btn" data-quest-check-tiles '+(placed.length?'':'disabled')+'>Check my sentence ✓</button></div></div>';
-    return '<div class="quest-play quest-play-'+w.type+'"><div class="quest-play-header">'+
+    return '<div class="quest-play quest-play-'+w.type+'">'+
+      (p.answered?'<div class="quest-answer-flash success" role="status" aria-live="assertive">✓ Correct! ⭐ '+esc(connection)+' · Next…</div>':
+       wrong?'<div class="quest-answer-flash retry" role="status" aria-live="polite">↶ Not quite — have another try!</div>':'')+
+      '<div class="quest-play-header">'+
       '<button type="button" class="quest-back" data-quest-back aria-label="Back to adventures">← Adventures</button>'+
       '<span class="quest-count">'+(p.index===4?'🌟 FINAL DISCOVERY':'QUESTION '+(p.index+1)+' OF 5')+'</span>'+
       '</div><div class="quest-stars-earned" aria-label="'+progress+' of 5 stars in this quest">'+Array.from({length:5},(_,i)=>'<span aria-hidden="true">'+(i<progress?'⭐':'☆')+'</span>').join('')+'</div>'+
@@ -134,10 +156,10 @@
       (buildAvailable&&!p.answered?'<div class="quest-mode-switch"><button type="button" data-quest-build-mode aria-pressed="'+tilesMode+'">'+(tilesMode?'Choose an answer instead':'🧩 Build it with word tiles')+'</button></div>':'')+
       (tilesMode&&buildAvailable&&!p.answered?tileBuilder:choices)+
       (p.answered?'<div class="quest-feedback quest-feedback-win" role="status"><div class="quest-friend"><span class="quest-friend-face" aria-hidden="true">✦<span class="quest-friend-eyes">••</span></span><span class="quest-friend-speech">Nova says: Great discovery!</span></div><span class="quest-reward-icon" aria-hidden="true">🌟</span><strong>Star earned! Brilliant discovery.</strong><span class="quest-word-connection">'+esc(connection)+'</span><span>'+esc(q.why)+'</span></div>'+
-        '<div class="quest-bottom-actions"><button type="button" class="primary-btn" data-quest-next>'+(p.index===4?'See my stars ✨':'Next question →')+'</button></div>':
+        '<div class="quest-bottom-actions"><button type="button" class="secondary-btn" data-quest-next>'+(p.index===4?'See my stars now →':'Next now →')+'</button></div>':
        '<div class="quest-hint-actions"><button type="button" class="secondary-btn" data-quest-clue>💡 Show the secret</button>'+
          '<button type="button" class="quest-pattern-link" data-open="'+esc(q.pattern)+'">Learn this pattern ↗</button></div>'+
-         (clue||wrong?'<div class="quest-feedback" role="status"><strong>'+(wrong?'Nice try! You can try again.':'Here is the secret:')+'</strong><span>'+(wrong==='tiles'?'Remember: the word no comes before the verb. ':'' )+esc(kind==='sounds'?worlds[1].secret:kind==='sentences'?worlds[2].secret:worlds[0].secret)+'</span></div>':'')+
+         (clue||wrong?'<div class="quest-feedback" role="status"><strong>'+(wrong?'Nice try! Try another answer.':'Here is the secret:')+'</strong>'+(clue?'<span>'+(wrong==='tiles'?'Remember: no goes before the verb. ':'')+esc(kind==='sounds'?worlds[1].secret:kind==='sentences'?worlds[2].secret:worlds[0].secret)+'</span>':'')+'</div>':'')+
          '<p class="quest-no-pressure">No hurry and no penalty for trying again.</p>')+'</div>';
   }
   function renderComplete(){
@@ -157,29 +179,35 @@
     const root=document.getElementById('patternQuest');
     if(root){
       root.innerHTML=completed?renderComplete():(listing||!saved.active)?renderWorlds():renderQuestion();
+      const screen=root.closest('[data-view-panel="game"]');
+      if(screen)screen.classList.toggle('quest-focused',Boolean(saved.active&&!listing&&!completed));
     }
     renderProgress();
+    if(saved.active&&saved.active.answered&&!listing&&!completed)queueAutoAdvance();
   }
   function open(){
+    cancelAutoAdvance();
     const nav=document.querySelector('.primary-nav [data-view="game"]');
     if(nav)nav.click();
     const section=document.getElementById('patternQuest');
-    if(section){listing=true;render();section.scrollIntoView({block:'start',behavior:'auto'});}
+    if(section){listing=true;render();positionGameAtTop();}
   }
   function selectWorld(id){
     if(!validId(id))return;
+    cancelAutoAdvance();
     completed=null;newBadge=false;clue=false;wrong=null;listing=false;tilesMode=false;placed=[];listenFirst=false;
     if(!saved.active || saved.active.world!==id) saved.active={world:id,index:0,answered:false};
-    write();render();
+    write();render();positionGameAtTop();
   }
   function answer(value){
     const a=saved.active;
     if(!a||a.answered)return;
     const q=playWorld(a.world).questions[a.index];
-    if(value!==q.answer){wrong=value;clue=true;render();return;}
+    if(value!==q.answer){wrong=value;clue=false;render();return;}
     a.answered=true;wrong=null;clue=false;write();render();
   }
   function advance(){
+    cancelAutoAdvance();
     const a=saved.active;if(!a||!a.answered)return;
     if(a.index===4){
       completed=a.world;
@@ -192,7 +220,7 @@
       }
       saved.active=null;
     }else{a.index++;a.answered=false;}
-    clue=false;wrong=null;tilesMode=false;placed=[];listenFirst=false;write();render();
+    clue=false;wrong=null;tilesMode=false;placed=[];listenFirst=false;write();render();positionGameAtTop();
   }
   function listen(wordText) {
     const root=document.getElementById('patternQuest');
@@ -211,9 +239,10 @@
     const start=e.target.closest('[data-quest-world]');if(start){selectWorld(start.dataset.questWorld);return;}
     if(e.target.closest('[data-quest-mystery]')){
       if(!unlocked(saved))return;
+      cancelAutoAdvance();
       completed=null;newBadge=false;clue=false;wrong=null;listing=false;tilesMode=false;placed=[];listenFirst=false;
       if(!saved.active||saved.active.world!=='mystery')saved.active={world:'mystery',index:0,answered:false};
-      write();render();return;
+      write();render();positionGameAtTop();return;
     }
     if(e.target.closest('[data-quest-build-mode]')){tilesMode=!tilesMode;placed=[];wrong=null;clue=false;render();return;}
     const tile=e.target.closest('[data-quest-tile]');
@@ -233,7 +262,7 @@
     const response=e.target.closest('[data-quest-answer]');if(response){answer(response.dataset.questAnswer);return;}
     if(e.target.closest('[data-quest-clue]')){clue=true;render();return;}
     if(e.target.closest('[data-quest-next]')){advance();return;}
-    if(e.target.closest('[data-quest-back]')){completed=null;listing=true;tilesMode=false;placed=[];listenFirst=false;render();return;}
+    if(e.target.closest('[data-quest-back]')){cancelAutoAdvance();completed=null;listing=true;tilesMode=false;placed=[];listenFirst=false;render();positionGameAtTop();return;}
     const audio=e.target.closest('[data-quest-listen]');if(audio){listen(audio.dataset.questListen);return;}
   });
   window.LanguageDNAQuest={
