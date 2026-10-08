@@ -41,15 +41,16 @@
   }
   function render(){
     const root=document.getElementById('appProgressTools');if(!root)return;
-    const done=dailyDone(),standalone=isStandalone();
+    const done=dailyDone(),standalone=isStandalone(),cloud=window.LanguageDNACloud&&window.LanguageDNACloud.status?window.LanguageDNACloud.status():{configured:false,signedIn:false,email:'',message:''};
     root.innerHTML='<div class="profile-tools-copy"><span class="eyebrow">APP & PROGRESS</span><h2>'+(done?'✓ Daily goal complete':'One small goal today')+'</h2><p>'+(done?'You completed today’s Daily 5. You can stop here or keep learning.':'Complete one Daily 5. That is enough for a useful learning day.')+'</p><div class="daily-goal-line"><span class="'+(done?'done':'')+'"></span><strong>'+(done?'1 / 1 complete':'0 / 1 complete')+'</strong></div></div>'+
       '<div class="profile-tool-actions">'+
       (!done?'<button type="button" class="primary-btn" data-profile-start>Start Daily 5</button>':'')+
+      (cloud.configured?'<button type="button" class="'+(cloud.signedIn?'secondary-btn':'primary-btn')+'" data-cloud-open>'+(cloud.signedIn?'✓ Cloud sync':'Protect & sync progress')+'</button>':'')+
       (!standalone?'<button type="button" class="secondary-btn" data-profile-install>'+(deferredInstall?'Install app':'Install / add to home screen')+'</button>':'<span class="installed-note">✓ Installed app mode</span>')+
       '<button type="button" class="secondary-btn" data-profile-export>Backup progress</button>'+
       '<button type="button" class="text-btn" data-profile-import>Restore backup</button>'+
       '<input id="profileImportInput" type="file" accept="application/json,.json" hidden>'+
-      '<small id="profileToolsStatus">Progress is stored on this device. Backup lets you move it safely to another device.</small></div>'
+      '<small id="profileToolsStatus">'+(cloud.configured?(cloud.signedIn?(cloud.message||'Cloud sync is on for '+cloud.email+'.'):'Optional free account: protect progress across devices. Learning never requires sign-in.'):'Progress is stored on this device. Backup lets you move it safely to another device.')+'</small></div>'
   }
   function handleImport(file){
     if(!file)return;const reader=new FileReader();
@@ -67,6 +68,7 @@
   window.addEventListener('appinstalled',function(){deferredInstall=null;render();status('LanguageDNA is installed.')});
   document.addEventListener('visibilitychange',function(){if(!document.hidden)render()});
   window.addEventListener('storage',render);
+  window.addEventListener('ldna-cloud-change',render);
   document.addEventListener('click',function(e){
     const start=e.target.closest('[data-profile-start]');if(start){const learn=document.querySelector('[data-view="tutor"]');if(learn)learn.click();setTimeout(function(){const daily=document.querySelector('[data-tutor-tab="daily"]');if(daily)daily.click()},80);return}
     if(e.target.closest('[data-profile-install]')){installApp();return}
