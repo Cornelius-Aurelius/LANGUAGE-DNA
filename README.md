@@ -176,3 +176,19 @@ This release focuses on correctness, low-friction practice and immediate interac
 - Practice intro, pattern selector and mode controls are compressed so the question and answer controls fit in one viewport much more often.
 - Help opens as an overlay rather than pushing the answer field down the page.
 - Audio buttons immediately show Loading… → Playing… → Played ✓ in Practice, translation, Tutor and vocabulary/Game areas.
+
+## Pattern Teaching v13
+
+Patterns are the core teaching unit, so every pattern now explains itself before asking the learner to memorise or practise it.
+
+- Pattern popups lead with **What you're learning** in plain English.
+- Every pattern shows one worked example plus a short **what to notice** explanation.
+- Sound patterns no longer present cryptic mappings such as casa → a ≈ ah without explanation.
+- The 5 stable vowels lesson now explicitly explains that Spanish a usually has a clear ah-like sound and uses casa as a worked pronunciation example.
+- WHO / WHAT / WHERE / WHY / WHEN tags were removed from the teaching popup because they did not help explain the current pattern.
+- Extra examples remain available but are clearly labelled as examples.
+- Full Pattern Dictionary pages now begin with the same beginner explanation before the large word list.
+- Pattern audio remains one tap away and pattern practice starts directly from the explanation.
+- Generic English → Spanish ending patterns explain the ending change in normal language and explicitly say the pattern is a useful clue, not a guarantee for every word.
+
+Product rule: a learner should be able to answer **What is this pattern teaching me?** after reading one short paragraph and one example.

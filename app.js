@@ -354,7 +354,32 @@
   function relatedPatterns(p){return patterns.filter(function(x){return x.id!==p.id}).map(function(x){let score=0;if(x.type===p.type)score+=3;p.tags.forEach(function(t){if(x.tags.includes(t))score+=3});p.lenses.forEach(function(l){if(x.lenses.includes(l))score+=1});if(patternFamilies(p).some(function(f){return patternFamilies(x).includes(f)}))score+=2;score+=Math.max(0,3-Math.abs(x.rank-p.rank)/10);return{p:x,score:score}}).sort(function(a,b){return b.score-a.score||a.p.rank-b.p.rank}).slice(0,4).map(function(x){return x.p})}
 
   const FULL_PATTERN_DICTIONARIES=new Set(["tion-cion","sion-sion","ity-idad","ous-oso","ly-mente","ic-ico","ive-ivo","ist-ista","ance-encia","ism-ismo","able-ible","ant-ent","ize-izar","fy-ficar","al-al","ment-mento","ment-miento","ary-ario","ory-orio","ture-tura","tude-tud","logy-logia","graphy-grafia","cracy-cracia","nomy-nomia","metry-metria","scope-scopio","ct-cto","id-ido","ate-ar","ph-f"]);
-  function openPattern(id){if(FULL_PATTERN_DICTIONARIES.has(id)){window.location.href='pattern.html?id='+encodeURIComponent(id);return}const p=getPattern(id);const examples=p.examples.map(function(pair){const hi=highlightWordPair(String(pair[0]),String(pair[1]));return'<div class="transform-example"><div class="transform-word">'+hi.en+'</div><div class="arrow">→</div><div class="transform-word">'+hi.es+'</div><button type="button" class="small-audio" data-speak="'+escapeHtml(String(pair[1]))+'" aria-label="Hear '+escapeHtml(String(pair[1]))+'">🔊</button></div>'}).join('');const row=state.skills[p.id]||{};const skills=SKILLS.map(function(s){return'<button type="button" class="skill-button '+(row[s.key]?'done':'')+'" data-skill-practice="'+s.mode+'" data-id="'+p.id+'"><span>'+(row[s.key]?'✓':s.icon)+'</span><strong>'+s.label+'</strong></button>'}).join('');const related=relatedPatterns(p).map(function(x){return'<button type="button" class="related-card" data-open="'+x.id+'"><strong>'+escapeHtml(x.title)+'</strong><small>'+escapeHtml(x.scoreLabel||'Connected pattern')+'</small></button>'}).join('');els.dialogContent.innerHTML='<div class="dialog-hero"><span class="mini-badge '+p.type+'">'+typeLabel(p.type)+'</span><h2 id="dialogTitle">'+escapeHtml(p.title)+'</h2><p>'+escapeHtml(p.rule)+'</p><div class="lens-tags">'+p.lenses.map(function(x){return'<span class="lens-tag">'+x+'</span>'}).join('')+'</div></div><div class="pattern-transform"><div class="pattern-transform-label">SEE THE LINK</div>'+examples+'</div><div class="unlock-panel"><h3>🔓 This pattern unlocks more Spanish</h3><p>'+escapeHtml(p.scoreLabel||'Use the same connection when you meet similar words or sentences.')+'</p></div><h3>Build it in five skills</h3><div class="skill-strip">'+skills+'</div><div class="related-section"><h3>🔗 Connected next</h3><div class="related-grid">'+related+'</div></div>';els.dialog.showModal()}
+  function openPattern(id){
+    if(FULL_PATTERN_DICTIONARIES.has(id)){window.location.href='pattern.html?id='+encodeURIComponent(id);return}
+    const p=getPattern(id),teaching=window.LanguageDNATeaching?window.LanguageDNATeaching.build(p):{heading:'What you are learning',meaning:p.rule,example:'',notice:'',why:p.scoreLabel||''};
+    const examples=p.examples.map(function(pair){
+      const left=String(pair[0]),right=String(pair[1]);
+      if(p.type==='sound'){
+        return'<div class="teaching-example-row sound"><div><small>WORD / EXAMPLE</small><strong>'+escapeHtml(left)+'</strong></div><div><small>WHAT TO NOTICE</small><span>'+escapeHtml(right)+'</span></div><button type="button" class="small-audio" data-speak="'+escapeHtml(left)+'" aria-label="Hear '+escapeHtml(left)+'">🔊 Hear</button></div>'
+      }
+      const hi=highlightWordPair(left,right);
+      return'<div class="teaching-example-row"><div><small>ENGLISH</small><strong>'+hi.en+'</strong></div><span class="arrow">→</span><div><small>SPANISH</small><strong>'+hi.es+'</strong></div><button type="button" class="small-audio" data-speak="'+escapeHtml(right)+'" aria-label="Hear '+escapeHtml(right)+'">🔊 Hear</button></div>'
+    }).join('');
+    const row=state.skills[p.id]||{};
+    const skills=SKILLS.map(function(s){return'<button type="button" class="skill-button '+(row[s.key]?'done':'')+'" data-skill-practice="'+s.mode+'" data-id="'+p.id+'"><span>'+(row[s.key]?'✓':s.icon)+'</span><strong>'+s.label+'</strong></button>'}).join('');
+    const primaryAudio=teaching.audio?'<button type="button" class="secondary-btn pattern-hear-main" data-speak="'+escapeHtml(teaching.audio)+'">🔊 Hear the example</button>':'';
+    els.dialogContent.innerHTML=
+      '<div class="dialog-hero simple-pattern-hero"><span class="mini-badge '+p.type+'">'+typeLabel(p.type)+'</span><h2 id="dialogTitle">'+escapeHtml(p.title)+'</h2></div>'+
+      '<section class="pattern-teaching-card"><span class="eyebrow">WHAT YOU’RE LEARNING</span><h3>'+escapeHtml(teaching.heading)+'</h3><p class="pattern-meaning">'+escapeHtml(teaching.meaning)+'</p>'+
+        (teaching.example?'<div class="worked-example"><small>EXAMPLE</small><strong>'+escapeHtml(teaching.example)+'</strong><p>'+escapeHtml(teaching.notice||'')+'</p></div>':'')+
+        '<div class="pattern-teaching-actions">'+primaryAudio+'<button type="button" class="primary-btn" data-practice="'+p.id+'">Practise this pattern</button></div>'+
+        (teaching.why?'<p class="pattern-why"><b>Why this matters:</b> '+escapeHtml(teaching.why)+'</p>':'')+
+        (teaching.caution?'<p class="pattern-caution">'+escapeHtml(teaching.caution)+'</p>':'')+
+      '</section>'+
+      '<section class="pattern-example-section"><h3>More examples</h3><p>Look for the same idea in each example.</p><div class="pattern-example-list">'+examples+'</div></section>'+
+      '<section class="pattern-skill-section"><h3>Practise it your way</h3><div class="skill-strip">'+skills+'</div></section>';
+    els.dialog.showModal()
+  }
   function closeMobileMore(){const menu=document.getElementById('mobileMoreMenu'),button=document.querySelector('[data-mobile-more]');if(menu)menu.hidden=true;if(button)button.setAttribute('aria-expanded','false')}
   function focusPracticeStage(){requestAnimationFrame(function(){if(els.practiceStage)els.practiceStage.scrollIntoView({block:'start',behavior:'auto'})})}
   function goView(name){
@@ -813,6 +838,6 @@
     if(Array.isArray(window.LANGUAGE_DNA_EVERYDAY_100))afterCore();else load('everyday-data.js?v=1',afterCore)
   }
   initTranslator();populatePracticeSelect();renderFamilies();renderStarters();renderSentenceDNA();renderCourse();renderLibrary();renderReviewBar();renderSessionPanel();renderPractice();renderAllProgress();loadLearningExtras();
-  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=13').catch(function(){});
+  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=14').catch(function(){});
 
 })();
