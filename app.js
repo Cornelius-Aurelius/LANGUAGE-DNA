@@ -960,13 +960,13 @@
   };
   function loadLearningExtras(){
     const load=function(src,onload){const s=document.createElement('script');s.src=src;s.async=false;s.onload=onload||null;document.body.appendChild(s)};
-    const afterCore=function(){load('everyday-expanded-data.js?v=2',function(){load('everyday-game.js?v=5',function(){load('tutor-tools.js?v=5',function(){if(state.view==='dna')renderDNA();if(window.LanguageDNATutor)window.LanguageDNATutor.render()})})})};
+    const afterCore=function(){load('everyday-expanded-data.js?v=2',function(){load('everyday-game.js?v=5',function(){load('tutor-tools.js?v=6',function(){if(state.view==='dna')renderDNA();if(window.LanguageDNATutor)window.LanguageDNATutor.render()})})})};
     if(Array.isArray(window.LANGUAGE_DNA_EVERYDAY_100))afterCore();else load('everyday-data.js?v=1',afterCore)
   }
   initTranslator();populatePracticeSelect();renderFamilies();renderStarters();renderSentenceDNA();renderCourse();renderLibrary();renderReviewBar();renderSessionPanel();renderPractice();renderAllProgress();loadLearningExtras();
   const launchParams=new URLSearchParams(location.search),launchPractice=launchParams.get('practice');
   if(launchPractice&&patterns.some(function(p){return p.id===launchPractice})){history.replaceState({},'',location.pathname);startPractice(launchPractice,recommendedMode(getPattern(launchPractice)))}
 
-  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=15').catch(function(){});
+  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=16').catch(function(){});
 
 })();
