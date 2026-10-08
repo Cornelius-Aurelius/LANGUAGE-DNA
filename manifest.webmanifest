@@ -1,9 +1,66 @@
 {
+  "id": "./",
   "name": "LanguageDNA — English to Spanish",
   "short_name": "LanguageDNA",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
   "background_color": "#f8f7f0",
-  "theme_color": "#163d33",
-  "description": "Learn Spanish through high-leverage visual, sound and writing patterns."
+  "theme_color": "#123c31",
+  "description": "Learn Spanish from English you already know through clear patterns, practice and real-life use.",
+  "lang": "en-GB",
+  "categories": [
+    "education",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Practice now",
+      "short_name": "Practice",
+      "url": "./index.html?view=practice",
+      "icons": [
+        {
+          "src": "app-icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Learn a pattern",
+      "short_name": "Patterns",
+      "url": "./index.html?view=library",
+      "icons": [
+        {
+          "src": "app-icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "40-question Game",
+      "short_name": "Game",
+      "url": "./index.html?view=game",
+      "icons": [
+        {
+          "src": "app-icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
 }
