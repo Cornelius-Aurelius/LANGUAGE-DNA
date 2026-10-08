@@ -160,7 +160,7 @@
     activity:safeParse(localStorage.getItem('ldna-activity-v1')||'[]',[]),
     session:null,
     courseLevel:localStorage.getItem('ldna-course-level')||'A1',
-    sentenceFrame:SENTENCE_DNA[0].id,sentenceExample:0,questionStartedAt:0,
+    sentenceFrame:SENTENCE_DNA[0].id,sentenceExample:0,questionStartedAt:0,currentQuestion:null,
     theme:localStorage.getItem('ldna-theme')||'light'
   };
   const legacyMastered=new Set(safeParse(localStorage.getItem('ldna-mastered')||'[]',[]));
@@ -556,7 +556,8 @@
   }
   function recordIncorrect(p){
     const ms=responseTime();scheduleReview(p.id,2);logActivity('answer',{pattern:p.id,mode:state.mode,correct:false,responseMs:ms});state.questionStartedAt=Date.now();
-    if(state.session&&!state.session.completed&&!state.session.mistakes.includes(p.id))state.session.mistakes.push(p.id)
+    if(state.session&&!state.session.completed&&!state.session.mistakes.includes(p.id))state.session.mistakes.push(p.id);
+    return recentWrongStreak(p.id)
   }
   function successForCurrent(quality){
     const completedId=state.currentId,completedMode=state.mode,skill=practiceSkillForMode(completedMode);
@@ -573,6 +574,59 @@
     const next=nextPracticeQuestion(completedId);state.currentId=next.id;els.practiceSelect.value=next.id;toast('✓ Correct — next question.');renderAllProgress()
   }
 
+  function recentWrongStreak(id){
+    let streak=0;
+    for(let i=state.activity.length-1;i>=0;i--){
+      const e=state.activity[i];if(!e||e.pattern!==id)continue;
+      if(e.type==='answer'){if(e.correct)break;streak+=1}
+      else if(e.type==='reveal')streak+=1
+      if(streak>=3)break
+    }
+    return streak
+  }
+  function answerVariants(value){
+    const raw=String(value||'').trim(),out=[raw];
+    const withoutParen=raw.replace(/\([^)]*\)\s*/g,'').trim();if(withoutParen&&withoutParen!==raw)out.push(withoutParen);
+    const leading=raw.match(/^\(([^)]+)\)\s*(.+)$/);if(leading)out.push((leading[1]+' '+leading[2]).trim());
+    return Array.from(new Set(out.filter(Boolean)))
+  }
+  function practiceQuestion(p){
+    const attempts=state.activity.filter(function(e){return e&&e.pattern===p.id&&e.type==='answer'}).length;
+    if((p.type==='visual'||p.type==='writing')&&p.examples&&p.examples.length){
+      const pair=p.examples[attempts%p.examples.length],spanish=String(pair[1]||''),english=String(pair[0]||'');
+      return{prompt:english,answers:answerVariants(spanish),spanish:spanish,english:english,wrong:p.practice.wrong,variant:attempts%p.examples.length}
+    }
+    return{prompt:p.practice.prompt,answers:(p.practice.answers||[]).slice(),spanish:String((p.practice.hearing&&p.practice.hearing[0])||(p.practice.answers&&p.practice.answers[0])||''),english:String((p.practice.hearing&&p.practice.hearing[1])||p.practice.prompt||''),wrong:p.practice.wrong,variant:0}
+  }
+  function seededShuffle(values,seed){
+    const out=values.slice(),x=Number(seed)||1;
+    for(let i=out.length-1;i>0;i--){const j=(x*(i+7)+i*13)%(i+1),tmp=out[i];out[i]=out[j];out[j]=tmp}
+    return out
+  }
+  function choiceOptions(p,q,target){
+    const correct=target==='english'?q.english:q.answers[0],seen=new Set([normalize(correct)]),pool=[];
+    function add(v){v=String(v||'').trim();const key=normalize(v);if(v&&key&&!seen.has(key)){seen.add(key);pool.push(v)}}
+    if(target==='spanish'){add(q.wrong);(p.examples||[]).forEach(function(pair){add(pair[1])});patterns.forEach(function(other){if(other.id!==p.id&&other.practice&&other.practice.answers)add(other.practice.answers[0])})}
+    else{patterns.forEach(function(other){if(other.id!==p.id&&other.examples&&other.examples[0])add(other.examples[0][0])})}
+    return seededShuffle([correct].concat(pool.slice(0,6)),p.rank*17+q.variant*7+(target==='english'?3:1)).slice(0,4)
+  }
+  function renderChoiceButtons(options,correct){
+    return'<div class="choice-grid four-choice">'+options.map(function(v){return'<button class="choice-btn" type="button" data-choice="'+(normalize(v)===normalize(correct)?'true':'false')+'">'+escapeHtml(v)+'</button>'}).join('')+'</div>'
+  }
+  function openPracticeHelp(){
+    const panel=document.getElementById('practiceHelpPanel'),help=document.getElementById('practiceHelpButton');
+    if(panel)panel.hidden=false;if(help){help.setAttribute('aria-expanded','true');help.textContent='× Hide help'}
+  }
+  function handlePracticeMiss(p){
+    const streak=recordIncorrect(p);
+    if(streak>=2&&state.mode==='write'){
+      state.mode='choice';document.querySelectorAll('.mode-card').forEach(function(b){b.classList.toggle('active',b.dataset.mode==='choice')});
+      renderPractice();openPracticeHelp();feedback(false,'Let’s make this easier for one question. Choose the answer first, then we’ll build back up.');return true
+    }
+    if(streak>=2){openPracticeHelp();feedback(false,'Here’s a clue automatically. Use it, then try again.')}
+    return false
+  }
+
   function practiceHintHtml(p){
     const example=(p.examples&&p.examples[0])||null;
     let advice='Use the rule above, then compare each answer with the same idea.';
@@ -582,34 +636,34 @@
     else if(state.mode==='speak')advice='Listen once, copy the rhythm, then say it naturally. You do not need a perfect accent.';
     else if(state.mode==='tick')advice='Check each option one at a time. Tick it only if it follows the rule shown above.';
     if(p.id==='vowels')advice='Spanish vowels usually keep a clear, steady sound. For example, “a” in casa sounds close to “ah”. Tick only the examples that correctly describe a Spanish vowel sound.';
-    const exampleHtml=example?'<p><b>Example:</b> '+escapeHtml(String(example[0]))+' → '+escapeHtml(String(example[1]))+'</p>':'';
-    return '<div class="practice-help-wrap"><button type="button" class="practice-help-button" id="practiceHelpButton" aria-expanded="false" aria-controls="practiceHelpPanel">? Need help?</button><div class="practice-help-panel" id="practiceHelpPanel" hidden><strong>Hint</strong><p>'+escapeHtml(advice)+'</p>'+exampleHtml+'<small>Take your time. You can also skip the question and come back later.</small></div></div>'
+    const exampleHtml=example?'<p><b>Example:</b> '+escapeHtml(String(example[0]))+' → '+escapeHtml(String(example[1]))+'</p>':'',auto=recentWrongStreak(p.id)>=2;
+    return '<div class="practice-help-wrap"><button type="button" class="practice-help-button" id="practiceHelpButton" aria-expanded="'+(auto?'true':'false')+'" aria-controls="practiceHelpPanel">'+(auto?'× Hide help':'? Need help?')+'</button><div class="practice-help-panel" id="practiceHelpPanel" '+(auto?'':'hidden')+'><strong>Hint</strong><p>'+escapeHtml(advice)+'</p>'+exampleHtml+'<small>Take your time. You can also skip the question and come back later.</small></div></div>'
   }
-  function practiceTaskHtml(p){
-    if(state.mode==='write')return '<div class="practice-task"><span>YOUR QUESTION</span><h3>How do you say this in Spanish?</h3><strong>'+escapeHtml(p.practice.prompt)+'</strong><p>Type your answer below.</p></div>';
+  function practiceTaskHtml(p,q){
+    if(state.mode==='write')return '<div class="practice-task"><span>YOUR QUESTION</span><h3>How do you say this in Spanish?</h3><strong>'+escapeHtml(q.prompt)+'</strong><p>Type your answer below.</p></div>';
     if(state.mode==='speak'){const target=speakTargetForPattern(p);return '<div class="practice-task"><span>YOUR QUESTION</span><h3>Say this aloud in Spanish.</h3><strong>'+escapeHtml(target)+'</strong><p>Listen first if you want, then use the microphone.</p></div>'}
     if(state.mode==='hear')return '<div class="practice-task"><span>YOUR QUESTION</span><h3>Listen, then choose what it means in English.</h3><p>You can replay the Spanish as many times as you need.</p></div>';
-    if(state.mode==='choice')return '<div class="practice-task"><span>YOUR QUESTION</span><h3>Choose the correct Spanish answer.</h3><strong>'+escapeHtml(p.practice.prompt)+'</strong><p>Pick the answer that best matches the English.</p></div>';
+    if(state.mode==='choice')return '<div class="practice-task"><span>YOUR QUESTION</span><h3>Choose the correct Spanish answer.</h3><strong>'+escapeHtml(q.prompt)+'</strong><p>Pick the answer that best matches the English.</p></div>';
     return '<div class="practice-task"><span>YOUR QUESTION</span><h3>Which examples match this rule?</h3><p>Tick every answer you think is correct, then press <b>Check answers</b>.</p></div>'
   }
   function renderPractice(){
     if(state.session&&state.session.completed){renderSessionSummary();return}
-    const p=getPattern(state.currentId);els.practiceSelect.value=p.id;const ex=p.examples[0]||['',p.practice.answers[0]];
-    let body='<div class="practice-simple-head"><h2>'+escapeHtml(p.title)+'</h2><p>'+escapeHtml(p.rule)+'</p></div>'+practiceTaskHtml(p)+practiceHintHtml(p);
-    if(state.mode==='write')body+='<form class="answer-form" id="writingForm"><input id="writingAnswer" autocomplete="off" placeholder="Type your Spanish answer…" aria-label="Your Spanish answer"><button class="primary-btn" type="submit">Check answer</button></form><div class="practice-actions"><button class="secondary-btn" type="button" data-reveal="'+escapeHtml(p.practice.answers[0])+'">Show answer</button><button class="secondary-btn" type="button" data-speak="'+escapeHtml(p.practice.answers[0])+'">🔊 Hear it</button></div>';
-    else if(state.mode==='speak'){const target=speakTargetForPattern(p);body+='<div class="pronunciation-coach simplified"><div class="reading-guide" aria-label="Stress clue">'+stressCueHtml(target)+'</div><p class="speech-tip">'+escapeHtml(pronunciationTip(target))+'</p><div class="practice-actions"><button class="mic-btn" type="button" id="micButton">🎙 Start speaking</button><button class="secondary-btn" type="button" data-speak="'+escapeHtml(target)+'">🔊 Hear it</button><button class="secondary-btn" type="button" data-speak-slow="'+escapeHtml(target)+'">🐢 Hear slowly</button><button class="secondary-btn" type="button" id="selfCheckSpeak">I said it aloud ✓</button></div><div class="pronunciation-result empty" id="pronunciationResult">Your speech feedback will appear here after you try.</div></div>'}
-    else if(state.mode==='hear')body+='<button class="big-listen" type="button" data-speak="'+escapeHtml(p.practice.answers[0])+'">🔊 Play Spanish</button><div class="choice-grid"><button class="choice-btn" type="button" data-choice="true">'+escapeHtml(ex[0])+'</button><button class="choice-btn" type="button" data-choice="false">'+escapeHtml(p.practice.wrong)+'</button></div>';
-    else if(state.mode==='choice')body+='<div class="choice-grid"><button class="choice-btn" type="button" data-choice="true">'+escapeHtml(p.practice.answers[0])+'</button><button class="choice-btn" type="button" data-choice="false">'+escapeHtml(p.practice.wrong)+'</button></div>';
-    else{const good2=p.examples[1]?p.examples[1][1]:p.practice.answers[0];body+='<div class="tick-list"><label class="tick-item"><input type="checkbox" data-tick="good"><span>'+escapeHtml(ex[1])+'</span></label><label class="tick-item"><input type="checkbox" data-tick="bad"><span>'+escapeHtml(p.practice.wrong)+'</span></label><label class="tick-item"><input type="checkbox" data-tick="good"><span>'+escapeHtml(good2)+'</span></label></div><button class="primary-btn" type="button" id="checkTicks">Check answers</button>'}
+    const p=getPattern(state.currentId),q=practiceQuestion(p);state.currentQuestion=q;els.practiceSelect.value=p.id;const ex=p.examples[0]||['',q.answers[0]];
+    let body='<div class="practice-simple-head"><h2>'+escapeHtml(p.title)+'</h2><p>'+escapeHtml(p.rule)+'</p></div>'+practiceTaskHtml(p,q)+practiceHintHtml(p);
+    if(state.mode==='write')body+='<form class="answer-form" id="writingForm"><input id="writingAnswer" autocomplete="off" placeholder="Type your Spanish answer…" aria-label="Your Spanish answer"><button class="primary-btn" type="submit">Check answer</button></form><div class="practice-actions"><button class="secondary-btn" type="button" data-reveal="'+escapeHtml(q.answers[0])+'">Show answer</button><button class="secondary-btn" type="button" data-speak="'+escapeHtml(q.answers[0])+'">🔊 Hear it</button></div>';
+    else if(state.mode==='speak'){const target=speakTargetForPattern(p);body+='<div class="pronunciation-coach simplified"><div class="reading-guide" aria-label="Stress clue">'+stressCueHtml(target)+'</div><p class="speech-tip">'+escapeHtml(pronunciationTip(target))+'</p><div class="practice-actions"><button class="mic-btn" type="button" id="micButton">🎙 Start speaking</button><button class="secondary-btn" type="button" data-speak="'+escapeHtml(target)+'">🔊 Hear it</button><button class="secondary-btn" type="button" data-speak-slow="'+escapeHtml(target)+'">🐢 Hear slowly</button><button class="secondary-btn" type="button" id="selfCheckSpeak">I said it aloud ✓</button></div><div class="pronunciation-result empty" id="pronunciationResult">Try it once. You’ll get one clear suggestion about what to focus on next.</div></div>'}
+    else if(state.mode==='hear'){const correct=q.english,opts=choiceOptions(p,q,'english');body+='<button class="big-listen" type="button" data-speak="'+escapeHtml(q.spanish)+'">🔊 Play Spanish</button>'+renderChoiceButtons(opts,correct)}
+    else if(state.mode==='choice'){const correct=q.answers[0],opts=choiceOptions(p,q,'spanish');body+=renderChoiceButtons(opts,correct)}
+    else{const good2=p.examples[1]?p.examples[1][1]:q.answers[0];body+='<div class="tick-list"><label class="tick-item"><input type="checkbox" data-tick="good"><span>'+escapeHtml(ex[1])+'</span></label><label class="tick-item"><input type="checkbox" data-tick="bad"><span>'+escapeHtml(q.wrong)+'</span></label><label class="tick-item"><input type="checkbox" data-tick="good"><span>'+escapeHtml(good2)+'</span></label></div><button class="primary-btn" type="button" id="checkTicks">Check answers</button>'}
     body+='<div class="feedback" id="practiceFeedback" hidden></div><div class="practice-footer simple"><button class="skip-btn" type="button" id="skipPractice">Skip this question →</button></div>';
-    els.practiceStage.innerHTML=body;state.questionStartedAt=Date.now();bindPractice(p)
+    els.practiceStage.innerHTML=body;state.questionStartedAt=Date.now();bindPractice(p,q)
   }
-  function bindPractice(p){
+  function bindPractice(p,q){
     const help=document.getElementById('practiceHelpButton');if(help)help.addEventListener('click',function(){const panel=document.getElementById('practiceHelpPanel'),open=panel&&panel.hidden;if(panel)panel.hidden=!open;help.setAttribute('aria-expanded',open?'true':'false');help.textContent=open?'× Hide help':'? Need help?'});
-    const form=document.getElementById('writingForm');if(form)form.addEventListener('submit',function(e){e.preventDefault();const ans=normalize(document.getElementById('writingAnswer').value),ok=p.practice.answers.some(function(a){return normalize(a)===ans});feedback(ok,ok?'✓ Correct. Moving to the next question…':'Almost. Try again, use “Need help?”, or tap “Show answer”.');if(ok)successForCurrent(5);else recordIncorrect(p)});
+    const form=document.getElementById('writingForm');if(form)form.addEventListener('submit',function(e){e.preventDefault();const ans=normalize(document.getElementById('writingAnswer').value),ok=q.answers.some(function(a){return normalize(a)===ans});feedback(ok,ok?'✓ Correct. Moving to the next question…':'Almost. Try again — I’ll give you more help if you need it.');if(ok)successForCurrent(5);else handlePracticeMiss(p)});
     const mic=document.getElementById('micButton');if(mic)mic.addEventListener('click',function(){startRecognition(p)});
     const selfSpeak=document.getElementById('selfCheckSpeak');if(selfSpeak)selfSpeak.addEventListener('click',function(){feedback(true,'Self-check saved. Moving on.');successForCurrent(3)});
-    const ticks=document.getElementById('checkTicks');if(ticks)ticks.addEventListener('click',function(){const boxes=Array.from(els.practiceStage.querySelectorAll('[data-tick]')),ok=boxes.every(function(b){return(b.dataset.tick==='good')===b.checked});feedback(ok,ok?'✓ Correct. Moving to the next question…':'Not quite. Open “Need help?” for a clue, then check each option against the rule above.');if(ok)successForCurrent(4);else recordIncorrect(p)});
+    const ticks=document.getElementById('checkTicks');if(ticks)ticks.addEventListener('click',function(){const boxes=Array.from(els.practiceStage.querySelectorAll('[data-tick]')),ok=boxes.every(function(b){return(b.dataset.tick==='good')===b.checked});feedback(ok,ok?'✓ Correct. Moving to the next question…':'Not quite. Check each option against the rule above.');if(ok)successForCurrent(4);else handlePracticeMiss(p)});
     const skip=document.getElementById('skipPractice');if(skip)skip.addEventListener('click',skipPractice)
   }
   function skipPractice(){
@@ -630,11 +684,29 @@
   function pronunciationWeaknessSummary(){
     return Object.keys(state.pronunciationWeaknesses).map(function(id){const row=state.pronunciationWeaknesses[id],meta=SOUND_CATEGORIES.find(function(x){return x.id===id});return{id:id,label:meta?meta.label:id,attempts:row.attempts,average:row.attempts?Math.round(row.total/row.attempts):100,misses:row.misses||0}}).filter(function(x){return x.attempts>=1}).sort(function(a,b){return a.average-b.average||b.misses-a.misses})
   }
+  const PRONUNCIATION_ADVICE={
+    stress:'Stress the accented or naturally stressed syllable a little more clearly; do not make every syllable equally strong.',
+    rr:'For r, aim for a quick tongue tap; for rr, use a stronger repeated tongue vibration if you can.',
+    j:'For j or soft g, use a breathy sound from the back of the mouth rather than an English j.',
+    'll-y':'Ll and y vary by region. Aim for a clear y-like sound unless you are copying a specific accent.',
+    'n-tilde':'For ñ, join the sounds like the “ny” in canyon.',
+    qu:'In que/qui, pronounce qu like k; the u is normally silent.',
+    'c-z':'Before e/i, c is usually s-like in Latin America and th-like in much of Spain. Either regional pattern can be correct.',
+    'b-v':'Do not force a strong English v. Spanish b and v usually share the same sound family.',
+    h:'Keep h silent. Start directly on the following vowel or consonant sound.',
+    vowels:'Keep Spanish vowels short and steady: a-ah, e-eh, i-ee, o-oh, u-oo. Avoid English-style vowel glides.'
+  };
+  function pronunciationAdvice(analysis){
+    const weak=analysis.focus.slice(0,2),tips=weak.map(function(id){return PRONUNCIATION_ADVICE[id]}).filter(Boolean);
+    if(tips.length)return tips;
+    return['The browser recognised the target strongly. Repeat once more at a comfortable natural speed for consistency.']
+  }
   function renderPronunciationResult(analysis,heard,target){
-    const box=document.getElementById('pronunciationResult');if(!box)return;const score=analysis.score,label=score>=90?'Excellent match':score>=75?'Strong match':score>=60?'Close — refine it':'Keep shaping the sound';
-    const wordHtml=analysis.words.map(function(w){const cls=w.score>=85?'good':w.score>=60?'warn':'bad';return'<button type="button" class="speech-word '+cls+'" data-pronounce-word="'+escapeHtml(w.target)+'"><strong>'+escapeHtml(w.target)+'</strong><small>'+w.score+'%'+(w.heard?' · '+escapeHtml(w.heard):' · missed')+'</small></button>'}).join('');
-    const focusLabels=analysis.focus.map(function(id){const x=SOUND_CATEGORIES.find(function(cat){return cat.id===id});return x?x.label:id});
-    box.className='pronunciation-result';box.innerHTML='<div class="pronunciation-score-row"><div><small>SPEECH-RECOGNITION MATCH</small><strong>'+escapeHtml(label)+'</strong></div><strong>'+score+'%</strong></div><div class="pronunciation-meter"><span style="width:'+score+'%"></span></div><div class="speech-word-grid">'+wordHtml+'</div><div class="pronunciation-transcript">You said: <b>'+escapeHtml(heard)+'</b><br>Target: <b>'+escapeHtml(target)+'</b></div>'+(focusLabels.length?'<p class="speech-tip"><b>Focus next:</b> '+escapeHtml(focusLabels.join(' · '))+'. Tap a difficult word above to practise only that word.</p>':'<p class="speech-tip">All target words were recognised strongly. Repeat once more for consistency.</p>')
+    const box=document.getElementById('pronunciationResult');if(!box)return;
+    const score=analysis.score,label=score>=90?'Recognised very clearly':score>=75?'Recognised clearly':score>=60?'Mostly recognised':'Try one small adjustment';
+    const wordHtml=analysis.words.map(function(w){const cls=w.score>=85?'good':w.score>=60?'warn':'bad';return'<button type="button" class="speech-word '+cls+'" data-pronounce-word="'+escapeHtml(w.target)+'"><strong>'+escapeHtml(w.target)+'</strong><small>'+(w.heard?'heard: '+escapeHtml(w.heard):'not recognised')+'</small></button>'}).join('');
+    const advice=pronunciationAdvice(analysis);
+    box.className='pronunciation-result';box.innerHTML='<div class="pronunciation-score-row"><div><small>BROWSER SPEECH CHECK</small><strong>'+escapeHtml(label)+'</strong></div><strong>'+score+'%</strong></div><div class="pronunciation-meter"><span style="width:'+score+'%"></span></div><div class="speech-word-grid">'+wordHtml+'</div><div class="pronunciation-advice"><small>TRY THIS NEXT</small>'+advice.map(function(t){return'<p>'+escapeHtml(t)+'</p>'}).join('')+'</div><div class="pronunciation-transcript">You said: <b>'+escapeHtml(heard)+'</b><br>Target: <b>'+escapeHtml(target)+'</b></div><small class="pronunciation-caveat">This is speech-recognition feedback, not a phonetic or accent grade.</small>'
   }
   function makeRecognition(target,onResult,onEnd){
     const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;if(!Recognition)return null;
@@ -650,7 +722,7 @@
     const target=speakTargetForPattern(p),mic=document.getElementById('micButton'),rec=makeRecognition(target,function(best){
       const analysis=analysePronunciation(target,best.heard);recordPronunciation(p.id,best.score,best.heard,target);recordPronunciationWeaknesses(analysis);logActivity('speech',{pattern:p.id,score:best.score});renderPronunciationResult(analysis,best.heard,target);
       const quality=best.score>=92?5:best.score>=78?4:best.score>=62?3:2;
-      if(best.score>=62){feedback(true,'✓ Speech recognised. '+best.score+'% match — moving on.');successForCurrent(quality)}else{recordIncorrect(p);feedback(false,'I heard “'+best.heard+'”. Tap a difficult word, use slow audio, then try again.')}
+      if(best.score>=78){feedback(true,'✓ Recognised clearly — moving on.');setTimeout(function(){successForCurrent(quality)},650)}else if(best.score>=62){feedback(true,'Good start. Read the suggestion below, then try once more or use self-check.')}else{handlePracticeMiss(p);feedback(false,'Use the one suggestion below, hear it slowly, then try again.')}
     },function(){if(mic){mic.disabled=false;mic.textContent='🎙 Start speaking'}});
     if(!rec){feedback(false,'Speech recognition is unavailable in this browser. Use “Hear slowly”, repeat aloud, then use self-check.');return}mic.disabled=true;mic.textContent='Listening…';rec.start()
   }
@@ -924,7 +996,7 @@
     const homeLens=e.target.closest('[data-home-lens]');if(homeLens){state.lens=homeLens.dataset.homeLens;state.family='all';goView('library');document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.toggle('active',x.dataset.lens===state.lens)});renderLibrary();return}
     const mode=e.target.closest('[data-mode]');if(mode){state.mode=mode.dataset.mode;document.querySelectorAll('.mode-card').forEach(function(x){x.classList.toggle('active',x===mode)});renderPractice();focusPracticeStage();return}
     const reveal=e.target.closest('[data-reveal]');if(reveal){const p=getPattern(state.currentId);scheduleReview(state.currentId,1);logActivity('reveal',{pattern:p.id,mode:state.mode,responseMs:responseTime()});if(state.session&&!state.session.mistakes.includes(p.id))state.session.mistakes.push(p.id);feedback(true,'Answer: '+reveal.dataset.reveal+' · This link will return soon for retrieval.');return}
-    const choice=e.target.closest('[data-choice]');if(choice){const ok=choice.dataset.choice==='true',p=getPattern(state.currentId);choice.classList.add(ok?'correct':'incorrect');if(ok){els.practiceStage.querySelectorAll('.choice-btn').forEach(function(b){b.disabled=true});feedback(true,'✓ Correct. Moving to the next question…');successForCurrent(4)}else{choice.disabled=true;recordIncorrect(p);feedback(false,'Not this one. Open “Need help?” for a clue, then try again.')}return}
+    const choice=e.target.closest('[data-choice]');if(choice){const ok=choice.dataset.choice==='true',p=getPattern(state.currentId);choice.classList.add(ok?'correct':'incorrect');if(ok){els.practiceStage.querySelectorAll('.choice-btn').forEach(function(b){b.disabled=true});feedback(true,'✓ Correct. Moving to the next question…');successForCurrent(4)}else{choice.disabled=true;const shifted=handlePracticeMiss(p);if(!shifted&&recentWrongStreak(p.id)<2)feedback(false,'Not this one. Try another answer — help will appear if you keep getting stuck.')}return}
     const retrySession=e.target.closest('[data-session-retry]');if(retrySession&&state.session){const mistakes=Array.from(new Set(state.session.mistakes));startLessonSession('Mistake repair',mistakes.length?mistakes:[state.currentId],null);return}
     const courseReturn=e.target.closest('[data-course-return]');if(courseReturn){state.session=null;renderSessionPanel();goView('course');return}
     const pronounceWord=e.target.closest('[data-pronounce-word]');if(pronounceWord){startWordRecognition(pronounceWord.dataset.pronounceWord,state.currentId);return}
