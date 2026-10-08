@@ -160,7 +160,7 @@
     activity:safeParse(localStorage.getItem('ldna-activity-v1')||'[]',[]),
     session:null,
     courseLevel:localStorage.getItem('ldna-course-level')||'A1',
-    sentenceFrame:SENTENCE_DNA[0].id,sentenceExample:0,
+    sentenceFrame:SENTENCE_DNA[0].id,sentenceExample:0,questionStartedAt:0,
     theme:localStorage.getItem('ldna-theme')||'light'
   };
   const legacyMastered=new Set(safeParse(localStorage.getItem('ldna-mastered')||'[]',[]));
@@ -180,6 +180,71 @@
   function persistPronunciationWeaknesses(){localStorage.setItem('ldna-pronunciation-weaknesses-v1',JSON.stringify(state.pronunciationWeaknesses))}
   function persistActivity(){localStorage.setItem('ldna-activity-v1',JSON.stringify(state.activity.slice(-500)))}
   function logActivity(type,data){state.activity.push(Object.assign({at:Date.now(),type:type},data||{}));if(state.activity.length>500)state.activity=state.activity.slice(-500);persistActivity()}
+  function journeyData(){return safeParse(localStorage.getItem('ldna-pattern-journey-v1')||'{}',{})}
+  function persistJourney(data){localStorage.setItem('ldna-pattern-journey-v1',JSON.stringify(data))}
+  function markJourney(id,key){
+    const data=journeyData(),row=data[id]||{};row[key]=row[key]||Date.now();data[id]=row;persistJourney(data)
+  }
+  function responseTime(){return state.questionStartedAt?Math.max(0,Date.now()-state.questionStartedAt):null}
+  function recentPatternEvidence(id){
+    const rows=state.activity.filter(function(e){return e&&e.pattern===id}).slice(-18),answers=rows.filter(function(e){return e.type==='answer'});
+    const wrong=answers.filter(function(e){return e.correct===false}).length,reveals=rows.filter(function(e){return e.type==='reveal'}).length;
+    const timed=answers.filter(function(e){return Number.isFinite(e.responseMs)}),avgMs=timed.length?timed.reduce(function(n,e){return n+e.responseMs},0)/timed.length:null;
+    const pron=state.pronunciation[id],pronAvg=pron&&pron.attempts?Math.round((pron.total||0)/pron.attempts):null;
+    return{wrong:wrong,reveals:reveals,avgMs:avgMs,pronAvg:pronAvg,attempts:answers.length}
+  }
+  function patternNeedScore(p){
+    const evidence=recentPatternEvidence(p.id),review=reviewRecord(p.id),now=Date.now();let score=p.power+(5-progressFor(p.id))*24;
+    if(review&&review.due<=now)score+=90;
+    if(review&&review.lastQuality<3)score+=28;
+    score+=Math.min(45,evidence.wrong*13+evidence.reveals*10);
+    if(evidence.avgMs!=null&&evidence.avgMs>16000)score+=12;else if(evidence.avgMs!=null&&evidence.avgMs<5500&&evidence.attempts>=3)score-=8;
+    if(evidence.pronAvg!=null&&evidence.pronAvg<65)score+=14;
+    if(isStrong(p.id))score-=24;
+    return score
+  }
+  function patternJourney(p){
+    const saved=journeyData()[p.id]||{},row=state.skills[p.id]||{},review=reviewRecord(p.id);
+    const stages=[
+      {key:'understand',label:'Understand',done:!!saved.understand},
+      {key:'examples',label:'See examples',done:!!saved.examples},
+      {key:'hear',label:'Hear it',done:!!row.hear||!!saved.hear},
+      {key:'practice',label:'Practise',done:!!row.see||!!row.write||!!row.speak},
+      {key:'sentence',label:'Use it',done:!!row.use},
+      {key:'conversation',label:'Real life',done:!!saved.conversation},
+      {key:'review',label:'Review later',done:!!(review&&review.repetitions>=2)}
+    ];
+    const complete=stages.filter(function(s){return s.done}).length,next=stages.find(function(s){return!s.done})||null;
+    return{stages:stages,complete:complete,total:stages.length,next:next,pct:Math.round(complete/stages.length*100)}
+  }
+  function patternNextStep(p){
+    const j=patternJourney(p),key=j.next&&j.next.key;
+    if(!key)return{kind:'complete',label:'Pattern strong',button:'Choose another pattern',reason:'You have used this pattern across the full learning journey.'};
+    if(key==='understand'||key==='examples')return{kind:'learn',label:'Understand the pattern',button:'Learn this pattern',reason:'Start with one plain-English explanation and example.'};
+    if(key==='hear')return{kind:'hear',label:'Hear the example',button:'Hear and understand',reason:'Connect the written pattern to real Spanish sound.'};
+    if(key==='practice')return{kind:'practice',label:'Practise it',button:'Practise now',reason:'Retrieve the pattern yourself instead of only recognising it.'};
+    if(key==='sentence')return{kind:'sentence',label:'Use it in context',button:'Use it in a sentence',reason:'Move from the rule to useful Spanish.'};
+    if(key==='conversation')return{kind:'conversation',label:'Use it in real life',button:'Try a conversation',reason:'Use what you learned inside a short supported conversation.'};
+    return{kind:'review',label:'Bring it back later',button:'Review this pattern',reason:'A later retrieval makes the pattern easier to remember.'}
+  }
+  function nextLearningAction(){
+    const p=nextBestPattern(),review=reviewRecord(p.id),step=patternNextStep(p);
+    if(review&&review.due<=Date.now())return{kind:'review',pattern:p,label:'Review '+p.title,button:'Review now',reason:'This pattern is ready to be recalled before you learn something new.'};
+    return Object.assign({pattern:p},step)
+  }
+  function startPatternConversation(id){
+    const p=getPattern(id);localStorage.setItem('ldna-tutor-pattern-focus-v1',JSON.stringify({id:p.id,title:p.title,at:Date.now()}));
+    if(els.dialog&&els.dialog.open)els.dialog.close();goView('tutor');
+    if(window.LanguageDNATutor&&typeof window.LanguageDNATutor.openPatternConversation==='function')window.LanguageDNATutor.openPatternConversation(p.id)
+  }
+  function performNextLearningAction(action){
+    action=action||nextLearningAction();const p=action.pattern||nextBestPattern();
+    if(action.kind==='learn'||action.kind==='hear'){openPattern(p.id);return}
+    if(action.kind==='practice'||action.kind==='review'){startPractice(p.id,recommendedMode(p));return}
+    if(action.kind==='sentence'){startPractice(p.id,'choice');return}
+    if(action.kind==='conversation'){startPatternConversation(p.id);return}
+    const next=patterns.filter(function(x){return x.id!==p.id}).sort(function(a,b){return patternNeedScore(b)-patternNeedScore(a)})[0]||p;openPattern(next.id)
+  }
   function courseLevelById(id){return COURSE_LEVELS.find(function(level){return level.id===id})||COURSE_LEVELS[0]}
   function courseUnitById(id){for(let i=0;i<COURSE_LEVELS.length;i++){const unit=COURSE_LEVELS[i].units.find(function(x){return x.id===id});if(unit)return{level:COURSE_LEVELS[i],unit:unit,index:i}}return null}
   function courseLevelForPattern(id){for(let i=0;i<COURSE_LEVELS.length;i++)if(COURSE_LEVELS[i].units.some(function(u){return u.patterns.includes(id)}))return COURSE_LEVELS[i].id;return'B1'}
@@ -259,12 +324,8 @@
   }
   function duePatterns(){const now=Date.now();return patterns.filter(function(p){const r=reviewRecord(p.id);return r&&r.due<=now}).sort(function(a,b){return reviewRecord(a.id).due-reviewRecord(b.id).due||b.power-a.power})}
   function nextBestPattern(){
-    const due=duePatterns();if(due.length)return due[0];
-    return patterns.slice().sort(function(a,b){
-      const aScore=(5-progressFor(a.id))*24+a.power-(reviewRecord(a.id)?8:0);
-      const bScore=(5-progressFor(b.id))*24+b.power-(reviewRecord(b.id)?8:0);
-      return bScore-aScore||a.rank-b.rank
-    })[0]||patterns[0];
+    const due=duePatterns();if(due.length)return due.slice().sort(function(a,b){return patternNeedScore(b)-patternNeedScore(a)||a.rank-b.rank})[0];
+    return patterns.slice().sort(function(a,b){return patternNeedScore(b)-patternNeedScore(a)||a.rank-b.rank})[0]||patterns[0]
   }
   function recommendedMode(p){
     const row=state.skills[p.id]||{};if(!row.see)return'tick';if(!row.hear)return'hear';if(!row.write)return'write';if(!row.speak)return'speak';if(!row.use)return'choice';
@@ -396,29 +457,26 @@
 
   const FULL_PATTERN_DICTIONARIES=new Set(["tion-cion","sion-sion","ity-idad","ous-oso","ly-mente","ic-ico","ive-ivo","ist-ista","ance-encia","ism-ismo","able-ible","ant-ent","ize-izar","fy-ficar","al-al","ment-mento","ment-miento","ary-ario","ory-orio","ture-tura","tude-tud","logy-logia","graphy-grafia","cracy-cracia","nomy-nomia","metry-metria","scope-scopio","ct-cto","id-ido","ate-ar","ph-f"]);
   function openPattern(id){
+    const p=getPattern(id);markJourney(p.id,'understand');markJourney(p.id,'examples');logActivity('pattern_open',{pattern:p.id});
     if(FULL_PATTERN_DICTIONARIES.has(id)){window.location.href='pattern.html?id='+encodeURIComponent(id);return}
-    const p=getPattern(id),teaching=window.LanguageDNATeaching?window.LanguageDNATeaching.build(p):{heading:'What you are learning',meaning:p.rule,example:'',notice:'',why:p.scoreLabel||''};
+    const teaching=window.LanguageDNATeaching?window.LanguageDNATeaching.build(p):{heading:'What you are learning',meaning:p.rule,example:'',notice:'',why:p.scoreLabel||''},journey=patternJourney(p),next=patternNextStep(p);
     const examples=p.examples.map(function(pair){
       const left=String(pair[0]),right=String(pair[1]);
-      if(p.type==='sound'){
-        return'<div class="teaching-example-row sound"><div><small>WORD / EXAMPLE</small><strong>'+escapeHtml(left)+'</strong></div><div><small>WHAT TO NOTICE</small><span>'+escapeHtml(right)+'</span></div><button type="button" class="small-audio" data-speak="'+escapeHtml(left)+'" aria-label="Hear '+escapeHtml(left)+'">🔊 Hear</button></div>'
-      }
-      const hi=highlightWordPair(left,right);
-      return'<div class="teaching-example-row"><div><small>ENGLISH</small><strong>'+hi.en+'</strong></div><span class="arrow">→</span><div><small>SPANISH</small><strong>'+hi.es+'</strong></div><button type="button" class="small-audio" data-speak="'+escapeHtml(right)+'" aria-label="Hear '+escapeHtml(right)+'">🔊 Hear</button></div>'
+      if(p.type==='sound')return'<div class="teaching-example-row sound"><div><small>WORD / EXAMPLE</small><strong>'+escapeHtml(left)+'</strong></div><div><small>WHAT TO NOTICE</small><span>'+escapeHtml(right)+'</span></div><button type="button" class="small-audio" data-speak="'+escapeHtml(left)+'" data-pattern-audio="'+p.id+'" aria-label="Hear '+escapeHtml(left)+'">🔊 Hear</button></div>';
+      const hi=highlightWordPair(left,right);return'<div class="teaching-example-row"><div><small>ENGLISH</small><strong>'+hi.en+'</strong></div><span class="arrow">→</span><div><small>SPANISH</small><strong>'+hi.es+'</strong></div><button type="button" class="small-audio" data-speak="'+escapeHtml(right)+'" data-pattern-audio="'+p.id+'" aria-label="Hear '+escapeHtml(right)+'">🔊 Hear</button></div>'
     }).join('');
-    const row=state.skills[p.id]||{};
-    const skills=SKILLS.map(function(s){return'<button type="button" class="skill-button '+(row[s.key]?'done':'')+'" data-skill-practice="'+s.mode+'" data-id="'+p.id+'"><span>'+(row[s.key]?'✓':s.icon)+'</span><strong>'+s.label+'</strong></button>'}).join('');
-    const primaryAudio=teaching.audio?'<button type="button" class="secondary-btn pattern-hear-main" data-speak="'+escapeHtml(teaching.audio)+'">🔊 Hear the example</button>':'';
+    const primaryAudio=teaching.audio?'<button type="button" class="secondary-btn pattern-hear-main" data-speak="'+escapeHtml(teaching.audio)+'" data-pattern-audio="'+p.id+'">🔊 Hear the example</button>':'';
+    const journeyLabels=journey.stages.map(function(s){return'<span class="'+(s.done?'done':journey.next&&journey.next.key===s.key?'current':'')+'">'+(s.done?'✓ ':journey.next&&journey.next.key===s.key?'→ ':'')+escapeHtml(s.label)+'</span>'}).join('');
     els.dialogContent.innerHTML=
       '<div class="dialog-hero simple-pattern-hero"><span class="mini-badge '+p.type+'">'+typeLabel(p.type)+'</span><h2 id="dialogTitle">'+escapeHtml(p.title)+'</h2></div>'+
       '<section class="pattern-teaching-card"><span class="eyebrow">WHAT YOU’RE LEARNING</span><h3>'+escapeHtml(teaching.heading)+'</h3><p class="pattern-meaning">'+escapeHtml(teaching.meaning)+'</p>'+
         (teaching.example?'<div class="worked-example"><small>EXAMPLE</small><strong>'+escapeHtml(teaching.example)+'</strong><p>'+escapeHtml(teaching.notice||'')+'</p></div>':'')+
-        '<div class="pattern-teaching-actions">'+primaryAudio+'<button type="button" class="primary-btn" data-practice="'+p.id+'">Practise this pattern</button></div>'+
+        '<div class="pattern-teaching-actions">'+primaryAudio+'</div>'+
         (teaching.why?'<p class="pattern-why"><b>Why this matters:</b> '+escapeHtml(teaching.why)+'</p>':'')+
         (teaching.caution?'<p class="pattern-caution">'+escapeHtml(teaching.caution)+'</p>':'')+
       '</section>'+
-      '<section class="pattern-example-section"><h3>More examples</h3><p>Look for the same idea in each example.</p><div class="pattern-example-list">'+examples+'</div></section>'+
-      '<section class="pattern-skill-section"><h3>Practise it your way</h3><div class="skill-strip">'+skills+'</div></section>';
+      '<section class="pattern-journey-card"><div class="pattern-journey-head"><div><span class="eyebrow">YOUR PATTERN JOURNEY</span><h3>'+journey.complete+' of '+journey.total+' steps complete</h3></div><strong>'+journey.pct+'%</strong></div><div class="pattern-journey-progress"><span style="width:'+journey.pct+'%"></span></div><div class="pattern-journey-steps">'+journeyLabels+'</div><div class="pattern-next-step"><p><b>Next:</b> '+escapeHtml(next.label)+'. '+escapeHtml(next.reason)+'</p><button type="button" class="primary-btn" data-pattern-next="'+p.id+'">'+escapeHtml(next.button)+'</button></div></section>'+
+      '<section class="pattern-example-section"><h3>More examples</h3><p>Look for the same idea in each example.</p><div class="pattern-example-list">'+examples+'</div></section>';
     els.dialog.showModal()
   }
   function closeMobileMore(){const menu=document.getElementById('mobileMoreMenu'),button=document.querySelector('[data-mobile-more]');if(menu)menu.hidden=true;if(button)button.setAttribute('aria-expanded','false')}
@@ -496,14 +554,14 @@
     return ordered.find(function(p){return p.id!==currentId})||getPattern(currentId)
   }
   function recordIncorrect(p){
-    scheduleReview(p.id,2);logActivity('answer',{pattern:p.id,mode:state.mode,correct:false});
+    const ms=responseTime();scheduleReview(p.id,2);logActivity('answer',{pattern:p.id,mode:state.mode,correct:false,responseMs:ms});state.questionStartedAt=Date.now();
     if(state.session&&!state.session.completed&&!state.session.mistakes.includes(p.id))state.session.mistakes.push(p.id)
   }
   function successForCurrent(quality){
     const completedId=state.currentId,completedMode=state.mode,skill=practiceSkillForMode(completedMode);
     scheduleReview(completedId,quality==null?4:quality);
     if(!state.skills[completedId])state.skills[completedId]={};state.skills[completedId][skill]=true;persistSkills();
-    logActivity('answer',{pattern:completedId,mode:completedMode,correct:true,quality:quality==null?4:quality});
+    logActivity('answer',{pattern:completedId,mode:completedMode,correct:true,quality:quality==null?4:quality,responseMs:responseTime()});
     if(state.session&&!state.session.completed){
       state.session.correct+=1;state.session.improved.push(completedId);state.session.index+=1;
       if(state.session.index>=state.session.items.length){toast('✓ Lesson complete.');finishSession();return}
@@ -543,7 +601,7 @@
     else if(state.mode==='choice')body+='<div class="choice-grid"><button class="choice-btn" type="button" data-choice="true">'+escapeHtml(p.practice.answers[0])+'</button><button class="choice-btn" type="button" data-choice="false">'+escapeHtml(p.practice.wrong)+'</button></div>';
     else{const good2=p.examples[1]?p.examples[1][1]:p.practice.answers[0];body+='<div class="tick-list"><label class="tick-item"><input type="checkbox" data-tick="good"><span>'+escapeHtml(ex[1])+'</span></label><label class="tick-item"><input type="checkbox" data-tick="bad"><span>'+escapeHtml(p.practice.wrong)+'</span></label><label class="tick-item"><input type="checkbox" data-tick="good"><span>'+escapeHtml(good2)+'</span></label></div><button class="primary-btn" type="button" id="checkTicks">Check answers</button>'}
     body+='<div class="feedback" id="practiceFeedback" hidden></div><div class="practice-footer simple"><button class="skip-btn" type="button" id="skipPractice">Skip this question →</button></div>';
-    els.practiceStage.innerHTML=body;bindPractice(p)
+    els.practiceStage.innerHTML=body;state.questionStartedAt=Date.now();bindPractice(p)
   }
   function bindPractice(p){
     const help=document.getElementById('practiceHelpButton');if(help)help.addEventListener('click',function(){const panel=document.getElementById('practiceHelpPanel'),open=panel&&panel.hidden;if(panel)panel.hidden=!open;help.setAttribute('aria-expanded',open?'true':'false');help.textContent=open?'× Hide help':'? Need help?'});
@@ -828,6 +886,8 @@
     const view=e.target.closest('[data-view]');if(view){goView(view.dataset.view);return}
     const open=e.target.closest('[data-open]');if(open){openPattern(open.dataset.open);return}
     const practice=e.target.closest('[data-practice]');if(practice){startPractice(practice.dataset.practice,'write');return}
+    const patternNext=e.target.closest('[data-pattern-next]');if(patternNext){const p=getPattern(patternNext.dataset.patternNext),action=Object.assign({pattern:p},patternNextStep(p));performNextLearningAction(action);return}
+    const nextLearning=e.target.closest('[data-next-learning]');if(nextLearning){performNextLearningAction();return}
     const smart=e.target.closest('[data-smart-review]');if(smart){startSmartReview();return}
     const courseLevel=e.target.closest('[data-course-level]');if(courseLevel&&!courseLevel.disabled){state.courseLevel=courseLevel.dataset.courseLevel;localStorage.setItem('ldna-course-level',state.courseLevel);renderCourse();return}
     const unitLesson=e.target.closest('[data-unit-lesson]');if(unitLesson&&!unitLesson.disabled){const hit=courseUnitById(unitLesson.dataset.unitLesson);if(hit)startLessonSession(hit.unit.title,hit.unit.patterns,hit.unit.id);return}
@@ -840,13 +900,13 @@
     const lens=e.target.closest('[data-lens]');if(lens){state.lens=state.lens===lens.dataset.lens?null:lens.dataset.lens;document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.toggle('active',x.dataset.lens===state.lens)});renderLibrary();return}
     const homeLens=e.target.closest('[data-home-lens]');if(homeLens){state.lens=homeLens.dataset.homeLens;state.family='all';goView('library');document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.toggle('active',x.dataset.lens===state.lens)});renderLibrary();return}
     const mode=e.target.closest('[data-mode]');if(mode){state.mode=mode.dataset.mode;document.querySelectorAll('.mode-card').forEach(function(x){x.classList.toggle('active',x===mode)});renderPractice();focusPracticeStage();return}
-    const reveal=e.target.closest('[data-reveal]');if(reveal){const p=getPattern(state.currentId);scheduleReview(state.currentId,1);logActivity('reveal',{pattern:p.id,mode:state.mode});if(state.session&&!state.session.mistakes.includes(p.id))state.session.mistakes.push(p.id);feedback(true,'Answer: '+reveal.dataset.reveal+' · This link will return soon for retrieval.');return}
+    const reveal=e.target.closest('[data-reveal]');if(reveal){const p=getPattern(state.currentId);scheduleReview(state.currentId,1);logActivity('reveal',{pattern:p.id,mode:state.mode,responseMs:responseTime()});if(state.session&&!state.session.mistakes.includes(p.id))state.session.mistakes.push(p.id);feedback(true,'Answer: '+reveal.dataset.reveal+' · This link will return soon for retrieval.');return}
     const choice=e.target.closest('[data-choice]');if(choice){const ok=choice.dataset.choice==='true',p=getPattern(state.currentId);choice.classList.add(ok?'correct':'incorrect');if(ok){els.practiceStage.querySelectorAll('.choice-btn').forEach(function(b){b.disabled=true});feedback(true,'✓ Correct. Moving to the next question…');successForCurrent(4)}else{choice.disabled=true;recordIncorrect(p);feedback(false,'Not this one. Open “Need help?” for a clue, then try again.')}return}
     const retrySession=e.target.closest('[data-session-retry]');if(retrySession&&state.session){const mistakes=Array.from(new Set(state.session.mistakes));startLessonSession('Mistake repair',mistakes.length?mistakes:[state.currentId],null);return}
     const courseReturn=e.target.closest('[data-course-return]');if(courseReturn){state.session=null;renderSessionPanel();goView('course');return}
     const pronounceWord=e.target.closest('[data-pronounce-word]');if(pronounceWord){startWordRecognition(pronounceWord.dataset.pronounceWord,state.currentId);return}
     const slow=e.target.closest('[data-speak-slow]');if(slow){speakText(slow.dataset.speakSlow,'es-ES',.62,slow);return}
-    const speech=e.target.closest('[data-speak]');if(speech){speakText(speech.dataset.speak,speech.dataset.speakLang||'es-ES',undefined,speech);return}
+    const speech=e.target.closest('[data-speak]');if(speech){if(speech.dataset.patternAudio){markJourney(speech.dataset.patternAudio,'hear');logActivity('pattern_audio',{pattern:speech.dataset.patternAudio})}speakText(speech.dataset.speak,speech.dataset.speakLang||'es-ES',undefined,speech);return}
     const skillPractice=e.target.closest('[data-skill-practice]');if(skillPractice){startPractice(skillPractice.dataset.id,skillPractice.dataset.skillPractice);return}
   });
   els.dialog.querySelector('.dialog-close').addEventListener('click',function(){els.dialog.close()});els.dialog.addEventListener('click',function(e){if(e.target===els.dialog)els.dialog.close()});
@@ -862,6 +922,9 @@
     reviewOne:function(){const due=duePatterns(),p=due[0]||nextBestPattern();startPractice(p.id,recommendedMode(p))},
     openPractice:function(id,mode){const p=getPattern(id);if(p)startPractice(p.id,mode||recommendedMode(p))},
     reviewDueCount:function(){return reviewSummary().due},
+    nextLearningAction:function(){const a=nextLearningAction();return{kind:a.kind,label:a.label,button:a.button,reason:a.reason,pattern:{id:a.pattern.id,title:a.pattern.title}}},
+    patternInfo:function(id){const p=getPattern(id),teaching=patternTeachingSummary(p);return{id:p.id,title:p.title,type:p.type,tags:p.tags.slice(),example:teaching.example||'',meaning:teaching.meaning||teaching.heading||p.rule}},
+    completePatternConversation:function(id){if(id){markJourney(id,'conversation');logActivity('pattern_conversation',{pattern:id});renderAllProgress()}},
     getReviewSnapshot:function(){
       const p=duePatterns()[0]||nextBestPattern(),answer=String((p.practice.answers&&p.practice.answers[0])||'').trim();
       const distractors=patterns.filter(function(x){return x.id!==p.id&&x.practice&&x.practice.answers&&x.practice.answers[0]}).sort(function(a,b){return Math.abs(a.rank-p.rank)-Math.abs(b.rank-p.rank)}).map(function(x){return String(x.practice.answers[0])}).filter(function(v,i,arr){return normalize(v)!==normalize(answer)&&arr.findIndex(function(x){return normalize(x)===normalize(v)})===i}).slice(0,3);
