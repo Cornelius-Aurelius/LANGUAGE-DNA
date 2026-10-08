@@ -223,3 +223,18 @@ This release joins the app into one simple learner journey instead of exposing s
 - Trusted common vocabulary now includes clear regional notes for words such as car, ticket, computer, mobile phone, apartment, juice and potato.
 
 Product rule: complexity belongs in the engine; the learner should see one useful next step, one clear reason and one obvious action.
+
+## Quality + Mobile Polish v16
+
+This release prioritises reliability, clarity and mobile comfort over adding more learner-facing complexity.
+
+- **Practice intelligence:** visual/writing questions rotate through real examples; recognition questions use four choices; repeated misses automatically switch to an easier recognition step and reveal help without making the learner hunt for it.
+- **Pronunciation coaching:** browser speech recognition now gives one or two concrete sound/stress suggestions, word-level recognition feedback and an explicit reminder that this is not a phonetic/accent grade.
+- **Language quality gate:** CI checks the Everyday 100, required core translations, context-sensitive notes, 31 production dictionaries / 8,264 rows, duplicate/empty rows, translation safety guards and runtime asset alignment.
+- **Mobile ergonomics:** safe-area bottom navigation, smaller mobile header, 44px+ tap targets, 16px form fields to avoid iOS input zoom, reduced-motion support, keyboard-friendly practice scrolling and compact four-choice layouts.
+- **Installable app:** richer manifest, install icon, app shortcuts and a safer service worker that distinguishes navigation fallback from JavaScript/CSS assets.
+- **Daily goal:** one Daily 5 is the simple daily target; no streak pressure is required.
+- **Progress portability:** My Spanish includes Backup progress and Restore backup. The export contains only LanguageDNA local progress keys and can be moved between devices by the learner.
+- **Cloud-ready profile:** window.LanguageDNAProfile exposes a versioned snapshot/restore contract. Secure sign-in and automatic cross-device sync still require an authenticated backend; no secrets or fake account system are embedded in GitHub Pages.
+
+Quality checks: `node tests/quality-check.js`
