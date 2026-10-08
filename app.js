@@ -487,7 +487,7 @@
     }).join('');
     const primaryAudio=teaching.audio?'<button type="button" class="secondary-btn pattern-hear-main" data-speak="'+escapeHtml(teaching.audio)+'" data-pattern-audio="'+p.id+'">🔊 Hear this Spanish</button>':'';
     const journeyLabels=journey.stages.map(function(stage){return'<span class="'+(stage.done?'done':journey.next&&journey.next.key===stage.key?'current':'')+'">'+(stage.done?'✓ ':journey.next&&journey.next.key===stage.key?'→ ':'')+escapeHtml(stage.label)+'</span>'}).join('');
-    const buildSteps=Array.isArray(teaching.steps)&&teaching.steps.length?'<div class="pattern-teaching-steps"><h4>Let's build it together</h4><ol>'+teaching.steps.map(function(step){return'<li>'+escapeHtml(step)+'</li>'}).join('')+'</ol></div>':'';
+    const buildSteps=Array.isArray(teaching.steps)&&teaching.steps.length?'<div class="pattern-teaching-steps"><h4>Build it together</h4><ol>'+teaching.steps.map(function(step){return'<li>'+escapeHtml(step)+'</li>'}).join('')+'</ol></div>':'';
     const check=teaching.check,miniCheck=check&&Array.isArray(check.choices)?
       '<section class="pattern-mini-check"><span class="eyebrow">YOUR TURN · ONE QUICK TRY</span><h4>'+escapeHtml(check.question)+'</h4><div class="pattern-mini-choices">'+check.choices.map(function(choice){
         return'<button type="button" data-mini-answer="'+escapeHtml(choice)+'" data-mini-correct="'+(choice===check.answer?'true':'false')+'" data-mini-reason="'+escapeHtml(check.why)+'">'+escapeHtml(choice)+'</button>'
