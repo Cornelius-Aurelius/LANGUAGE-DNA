@@ -235,58 +235,72 @@
       <section class="view" data-view-panel="dna">
         <div class="page-intro dna-intro">
           <span class="eyebrow">MY SPANISH</span><h1>See what you can actually do.</h1>
-          <p>Focus on useful outcomes, then continue with the single best next step.</p>
+          <p>Useful real-life abilities first. Detailed learning data stays available when you want it.</p>
         </div>
+
         <section class="dna-outcome-hero" id="dnaOutcomeHero" aria-live="polite"></section>
-        <div class="dna-overview dna-detail-progress">
-          <div class="dna-ring" id="dnaRing"><div><strong id="dnaPercent">0%</strong><span>skills built</span></div></div>
-          <div class="skill-summary" id="skillSummary"></div>
-        </div>
 
-        <div class="dna-intelligence-grid" id="dnaIntelligenceGrid">
-          <article class="dna-metric"><span>🧬</span><strong id="dnaPatternStrong">0</strong><small>strong patterns</small></article>
-          <article class="dna-metric"><span>⏱</span><strong id="dnaReviewDue">0</strong><small>reviews due</small></article>
-          <article class="dna-metric"><span>🎙️</span><strong id="dnaPronunciation">—</strong><small>speech match average</small></article>
-          <article class="dna-metric"><span>🧱</span><strong id="dnaSentenceStrong">0</strong><small>sentence frames strong</small></article>
-          <article class="dna-metric"><span>🔗</span><strong id="dnaWordReach">—</strong><small>pattern-linked words in reach</small></article>
-          <article class="dna-metric"><span>💬</span><strong id="dnaWordsKnown">0</strong><small>everyday words familiar</small></article>
-          <article class="dna-metric"><span>🌍</span><strong id="dnaSituationsReady">—</strong><small>real-life situations ready</small></article>
-          <article class="dna-metric"><span>☀️</span><strong id="dnaDailyWeek">—</strong><small>Daily 5s this week</small></article>
-        </div>
-
-        <section class="dna-health-grid">
-          <article class="dna-health-card" id="memoryHealth"></article>
-          <article class="dna-health-card" id="pronunciationHealth"></article>
-        </section>
-
-        <section class="dna-command-center" id="dnaCommandCenter">
-          <div class="section-heading">
-            <div><span class="eyebrow">YOUR LEARNING</span><h2>Keep going without guessing.</h2><p>LanguageDNA quietly uses your practice to choose what is most useful next.</p></div>
+        <section class="dna-capabilities-section" aria-labelledby="dnaCapabilitiesTitle">
+          <div class="section-heading compact">
+            <div><span class="eyebrow">REAL-LIFE ABILITIES</span><h2 id="dnaCapabilitiesTitle">What your Spanish is unlocking.</h2></div>
           </div>
-          <div class="command-grid">
-            <article class="command-primary" id="dnaRecommendation"></article>
-            <article class="command-card" id="weeklyProgress"></article>
-            <article class="command-card" id="strengthProfile"></article>
-            <article class="command-card" id="reviewCalendar"></article>
-          </div>
+          <div class="dna-capability-grid" id="dnaCapabilities"></div>
         </section>
 
         <section class="app-progress-tools" id="appProgressTools" aria-live="polite"></section>
 
-        <section class="dna-section">
-          <div class="section-heading"><div><span class="eyebrow">YOUR PATTERN MAP</span><h2>Connections by family</h2><p>Tap any node to reopen that pattern.</p></div></div>
-          <div class="dna-map" id="dnaMap"></div>
-        </section>
+        <details class="dna-more-details">
+          <summary><span>More progress details</span><small>Memory, pronunciation, patterns and weekly activity</small></summary>
+          <div class="dna-details-inner">
+            <div class="dna-overview dna-detail-progress">
+              <div class="dna-ring" id="dnaRing"><div><strong id="dnaPercent">0%</strong><span>skills built</span></div></div>
+              <div class="skill-summary" id="skillSummary"></div>
+            </div>
 
-        <section class="dna-section">
-          <div class="section-heading"><div><span class="eyebrow">MEANING COVERAGE</span><h2>WHO · WHAT · WHERE · WHY · WHEN</h2></div></div>
-          <div class="coverage-grid" id="coverageGrid"></div>
-        </section>
+            <div class="dna-intelligence-grid" id="dnaIntelligenceGrid">
+              <article class="dna-metric"><span>🧬</span><strong id="dnaPatternStrong">0</strong><small>strong patterns</small></article>
+              <article class="dna-metric"><span>⏱</span><strong id="dnaReviewDue">0</strong><small>reviews due</small></article>
+              <article class="dna-metric"><span>🎙️</span><strong id="dnaPronunciation">—</strong><small>speech recognition average</small></article>
+              <article class="dna-metric"><span>🧱</span><strong id="dnaSentenceStrong">0</strong><small>sentence frames strong</small></article>
+              <article class="dna-metric"><span>🔗</span><strong id="dnaWordReach">—</strong><small>pattern-linked words in reach</small></article>
+              <article class="dna-metric"><span>💬</span><strong id="dnaWordsKnown">0</strong><small>everyday words familiar</small></article>
+              <article class="dna-metric"><span>🌍</span><strong id="dnaSituationsReady">—</strong><small>real-life situations ready</small></article>
+              <article class="dna-metric"><span>☀️</span><strong id="dnaDailyWeek">—</strong><small>Daily 5s this week</small></article>
+            </div>
 
-        <section class="next-best" id="nextBestCard">
-          <div><span class="eyebrow">NEXT BEST LINK</span><h2 id="nextBestTitle">Start your first pattern</h2><p id="nextBestText">Your next useful connection will appear here.</p></div>
-          <button type="button" class="primary-btn" id="nextBestButton">Practise this link</button>
-        </section>
+            <section class="dna-health-grid">
+              <article class="dna-health-card" id="memoryHealth"></article>
+              <article class="dna-health-card" id="pronunciationHealth"></article>
+            </section>
+
+            <section class="dna-command-center" id="dnaCommandCenter">
+              <div class="section-heading">
+                <div><span class="eyebrow">YOUR LEARNING</span><h2>Why LanguageDNA chose your next step.</h2></div>
+              </div>
+              <div class="command-grid">
+                <article class="command-primary" id="dnaRecommendation"></article>
+                <article class="command-card" id="weeklyProgress"></article>
+                <article class="command-card" id="strengthProfile"></article>
+                <article class="command-card" id="reviewCalendar"></article>
+              </div>
+            </section>
+
+            <section class="dna-section">
+              <div class="section-heading"><div><span class="eyebrow">YOUR PATTERN MAP</span><h2>Connections by family</h2><p>Tap any node to reopen that pattern.</p></div></div>
+              <div class="dna-map" id="dnaMap"></div>
+            </section>
+
+            <section class="dna-section">
+              <div class="section-heading"><div><span class="eyebrow">MEANING COVERAGE</span><h2>WHO · WHAT · WHERE · WHY · WHEN</h2></div></div>
+              <div class="coverage-grid" id="coverageGrid"></div>
+            </section>
+
+            <section class="next-best" id="nextBestCard">
+              <div><span class="eyebrow">NEXT BEST LINK</span><h2 id="nextBestTitle">Start your first pattern</h2><p id="nextBestText">Your next useful connection will appear here.</p></div>
+              <button type="button" class="primary-btn" id="nextBestButton">Practise this link</button>
+            </section>
+          </div>
+        </details>
       </section>
     </main>
   </div>
