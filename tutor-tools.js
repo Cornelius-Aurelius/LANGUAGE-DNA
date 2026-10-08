@@ -80,6 +80,15 @@
       ]
     },
     {
+      id:'work', icon:'💼', title:'At work', level:'Starter', aim:'Introduce yourself, ask for something and understand a simple task.',
+      required:[2,7,8,17,37,41,42,49],
+      turns:[
+        {npc:'Hola. ¿Cómo se llama?', english:'Hello. What is your name?', replies:['Me llamo Alex.','Soy Alex.'], explain:'Me llamo… and Soy… are both useful ways to introduce yourself.'},
+        {npc:'¿Necesita algo?', english:'Do you need anything?', replies:['Necesito ayuda, por favor.','No, gracias.'], explain:'Necesito… is a simple reusable work phrase.'},
+        {npc:'Tenemos que empezar ahora.', english:'We have to start now.', replies:['De acuerdo.','Sí, vamos.'], explain:'Tener que + verb expresses “have to”.'}
+      ]
+    },
+    {
       id:'meeting', icon:'👋', title:'Meeting someone', level:'Starter', aim:'Greet someone and exchange a few simple details.',
       required:[1,2,8,16,17,18,24,25,38],
       turns:[
@@ -124,6 +133,11 @@
       {npc:'¿Dónde está?',english:'Where are you?',replies:['Estoy aquí.','Estoy en el hotel.'],explain:'Estoy… is the useful location frame.'},
       {npc:'La ayuda viene ahora.',english:'Help is coming now.',replies:['Gracias.','De acuerdo.'],explain:'Keep emergency replies short and clear.'}
     ],
+    work:[
+      {npc:'¿Va a trabajar aquí mañana?',english:'Are you going to work here tomorrow?',replies:['Sí, voy a trabajar aquí.','No, mañana no.'],explain:'Voy a + verb is the easy “going to” frame.'},
+      {npc:'¿Puede ayudarme?',english:'Can you help me?',replies:['Sí, claro.','Sí, puedo ayudar.'],explain:'Keep useful work replies short and clear.'},
+      {npc:'Perfecto. Gracias.',english:'Perfect. Thank you.',replies:['De nada.','Gracias.'],explain:'De nada is a natural response to thanks.'}
+    ],
     meeting:[
       {npc:'¿De dónde es?',english:'Where are you from?',replies:['Soy de Inglaterra.','Soy de Reino Unido.'],explain:'Soy de… means “I am from…”.'},
       {npc:'¿Le gusta España?',english:'Do you like Spain?',replies:['Sí, me gusta.','Sí, mucho.'],explain:'Me gusta is the reusable “I like it” frame.'}
@@ -132,7 +146,14 @@
 
   const RISKY_EXPANSION = new Set(['actually','realize','realise','eventually','sensible','actualize','actualise','embarrassed','assist']);
   const DAILY_STEPS=['review','link','use','speak','real-life'];
-  const state={tab:'daily',scenario:'meeting',turn:0,messages:[],dailyFeedback:'',dailyCarry:''};
+  const PATTERN_SCENARIOS={
+    'ser-identity':'meeting','gustar':'meeting','subject-drop':'meeting','estar-gerund':'meeting',
+    'question-words':'directions','question-order':'directions','estar-location':'directions','a-en-de':'directions',
+    'hay':'hotel','tener-que':'work','regular-ar':'work','regular-er':'work','regular-ir':'work',
+    'ir-a':'taxi','no-before-verb':'shopping','direct-object':'shopping','personal-a':'shopping',
+    'reflexive':'hotel','hace-weather':'meeting','para-purpose':'work','porque':'work'
+  };
+  const state={tab:'daily',scenario:'meeting',turn:0,messages:[],dailyFeedback:'',dailyCarry:'',patternFocus:null};
 
   function safeParse(v,f){try{return JSON.parse(v)}catch(e){return f}}
   function escapeHtml(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
@@ -168,7 +189,16 @@
   function unlockedRanks(){const set=knownSet();for(let i=1;i<=12;i++)set.add(String(i));return set}
   function familiarSpanishWords(){const ranks=unlockedRanks(),words=new Set(['si','no','por','favor','gracias','de','la','el','un','una','a','al','en','y','que','me','mi','es','esta','son','muy','lo']);ALL.forEach(function(x){if(ranks.has(String(x.rank)))String(x.spanish||'').toLowerCase().split(/[^a-záéíóúüñ]+/i).filter(Boolean).forEach(function(w){words.add(normalize(w))})});return words}
   function unfamiliarReplyWords(answer){const allowed=familiarSpanishWords();return normalize(answer).split(' ').filter(Boolean).filter(function(w){return w.length>2&&!allowed.has(w)})}
-  function replyAnalysis(answer,turn){const canonical=turn.replies[0],score=bestSimilarity(answer,turn.replies),answerWords=new Set(normalize(answer).split(' ').filter(Boolean));const missing=normalize(canonical).split(' ').filter(function(w){return w.length>2&&!answerWords.has(w)}).slice(0,3);return{canonical:canonical,score:score,missing:missing,unfamiliar:unfamiliarReplyWords(answer)}}
+  function replyAnalysis(answer,turn){
+    const canonical=turn.replies[0],answerWords=new Set(normalize(answer).split(' ').filter(Boolean)),stop=new Set(['por','para','con','una','uno','los','las','del','que','muy']);
+    let score=bestSimilarity(answer,turn.replies);
+    turn.replies.forEach(function(reply){
+      const important=normalize(reply).split(' ').filter(function(w){return w.length>2&&!stop.has(w)}),hits=important.filter(function(w){return answerWords.has(w)}).length;
+      const overlap=important.length?hits/important.length:0;if(overlap>=.75)score=Math.max(score,.88);else if(overlap>=.5&&hits>=1)score=Math.max(score,.68)
+    });
+    const missing=normalize(canonical).split(' ').filter(function(w){return w.length>2&&!answerWords.has(w)}).slice(0,3);
+    return{canonical:canonical,score:score,missing:missing,unfamiliar:unfamiliarReplyWords(answer)}
+  }
   function correctionMarkup(answer,canonical){const answerWords=normalize(answer).split(' ').filter(Boolean),parts=String(canonical||'').split(/([A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)/),canonicalWords=parts.filter(function(part){return/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+$/.test(part)});let changeIndex=canonicalWords.findIndex(function(word,i){return normalize(word)!==(answerWords[i]||'')});if(changeIndex<0)changeIndex=0;let wordIndex=0;return parts.map(function(part){if(!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+$/.test(part))return escapeHtml(part);const html=escapeHtml(part),index=wordIndex++;return index===changeIndex?'<strong class="tutor-change">'+html+'</strong>':html}).join('')}
   function coachLabel(who){return who==='tutor'?'Spanish coach':who==='coach'?'LanguageDNA coach':'You'}
 
@@ -192,7 +222,7 @@
     if(dueCount()>=8)score--;if(weak&&weak.avg<58)score--;
     const band=Math.max(0,Math.min(3,score));
     const labels=['Starter','Growing','Ready','Stretch'];
-    return{band:band,label:labels[band],choiceCount:Math.min(4,2+band),conversationTurns:Math.min(5,3+band),accuracy:accuracy,known:known}
+    return{band:band,label:labels[band],choiceCount:Math.min(4,2+band),conversationTurns:Math.min(6,3+band),accuracy:accuracy,known:known}
   }
 
   function qualityExpansion(){
@@ -272,24 +302,43 @@
   function renderTabs(){document.querySelectorAll('[data-tutor-tab]').forEach(function(btn){btn.classList.toggle('active',btn.dataset.tutorTab===state.tab)});const daily=document.getElementById('dailyTutorPanel'),conv=document.getElementById('conversationTutorPanel'),scenarios=document.getElementById('scenarioTutorPanel');if(daily)daily.hidden=state.tab!=='daily';if(conv)conv.hidden=state.tab!=='conversation';if(scenarios)scenarios.hidden=state.tab!=='scenarios'}
 
   function conversationTurns(s){const extra=EXTRA_TURNS[s.id]||[],count=adaptiveProfile().conversationTurns;return s.turns.concat(extra).slice(0,count)}
-  function resetConversation(id){state.scenario=id||state.scenario;state.turn=0;state.messages=[];const s=SCENARIOS.find(function(x){return x.id===state.scenario})||SCENARIOS[0],turns=conversationTurns(s);state.messages.push({who:'tutor',text:turns[0].npc,english:turns[0].english});recordSignal('conversation_start',{scenario:s.id,turns:turns.length});renderConversation()}
+  function patternInfo(id){return window.LanguageDNACore&&typeof window.LanguageDNACore.patternInfo==='function'?window.LanguageDNACore.patternInfo(id):null}
+  function scenarioForPattern(id){
+    if(PATTERN_SCENARIOS[id])return PATTERN_SCENARIOS[id];
+    const info=patternInfo(id);if(!info)return'meeting';
+    if((info.tags||[]).includes('questions'))return'directions';
+    if((info.tags||[]).includes('verbs'))return'work';
+    if((info.tags||[]).includes('sentence'))return'meeting';
+    return'meeting'
+  }
+  function resetConversation(id){
+    state.scenario=id||state.scenario;state.turn=0;state.messages=[];
+    const s=SCENARIOS.find(function(x){return x.id===state.scenario})||SCENARIOS[0],turns=conversationTurns(s);
+    state.messages.push({who:'tutor',text:turns[0].npc,english:turns[0].english});
+    recordSignal('conversation_start',{scenario:s.id,turns:turns.length,pattern:state.patternFocus||null});renderConversation()
+  }
   function advanceConversation(answer,analysis){
-    const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turns=conversationTurns(s),turn=turns[state.turn];
+    const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turns=conversationTurns(s);
     state.messages.push({who:'learner',text:answer});
     if(analysis.score>=.86)state.messages.push({who:'coach',text:'That works naturally.'});
-    else{state.messages.push({who:'coach',html:'<p>That makes sense.</p><p>A more natural way: '+correctionMarkup(answer,analysis.canonical)+'</p>'});recordSignal('conversation_correction',{scenario:s.id,turn:state.turn})}
+    else if(analysis.score>=.68)state.messages.push({who:'coach',html:'<p>Good — that communicates the idea.</p><p>A natural version: '+correctionMarkup(answer,analysis.canonical)+'</p>'});
+    else{state.messages.push({who:'coach',html:'<p>That makes sense.</p><p>A more natural way: '+correctionMarkup(answer,analysis.canonical)+'</p>'});recordSignal('conversation_correction',{scenario:s.id,turn:state.turn,pattern:state.patternFocus||null})}
     state.turn+=1;
     if(state.turn<turns.length){const next=turns[state.turn];state.messages.push({who:'tutor',text:next.npc,english:next.english})}
-    else recordSignal('conversation_complete',{scenario:s.id,turns:turns.length});
+    else{
+      recordSignal('conversation_complete',{scenario:s.id,turns:turns.length,pattern:state.patternFocus||null});
+      if(state.patternFocus&&window.LanguageDNACore&&typeof window.LanguageDNACore.completePatternConversation==='function')window.LanguageDNACore.completePatternConversation(state.patternFocus)
+    }
     renderConversation()
   }
   function renderConversation(){
     const root=document.getElementById('conversationTutorPanel');if(!root)return;
-    const s=SCENARIOS.find(function(x){return x.id===state.scenario})||SCENARIOS[0],ready=scenarioReadiness(s),turns=conversationTurns(s),turn=turns[Math.min(state.turn,turns.length-1)],boundary=unlockedRanks().size;
-    root.innerHTML='<div class="conversation-layout"><aside class="conversation-side"><span class="eyebrow">CONVERSATION TUTOR</span><h2>'+s.icon+' '+escapeHtml(s.title)+'</h2><p>'+escapeHtml(s.aim)+'</p><div class="conversation-boundary"><strong>'+boundary+'</strong><small>starter + familiar words available</small></div><div class="readiness-bar"><span style="width:'+ready.pct+'%"></span></div><small>'+ready.have+'/'+ready.total+' essentials familiar · '+turns.length+' short turns chosen automatically.</small><button type="button" class="secondary-btn" data-tutor-tab="scenarios">Choose another scenario</button></aside>'+
-      '<section class="conversation-main"><div class="conversation-note">The coach grows from 3 to 5 turns only when your recent learning suggests you are ready. English help stays available on demand.</div><div class="chat-stream">'+state.messages.map(function(m){return'<div class="chat-bubble '+m.who+'"><strong>'+escapeHtml(coachLabel(m.who))+'</strong>'+(m.html?m.html:'<p>'+escapeHtml(m.text)+'</p>')+(m.english?'<small>'+escapeHtml(m.english)+'</small>':'')+'</div>'}).join('')+'</div>'+
-      (state.turn>=turns.length?'<div class="conversation-complete"><strong>✓ Conversation complete</strong><p>You handled '+turns.length+' short turns. LanguageDNA will adjust the next conversation automatically.</p><button type="button" class="primary-btn" data-conversation-restart>Try again</button></div>':
-      '<form id="conversationForm" class="conversation-form"><label><span class="sr-only">Reply in Spanish</span><input id="conversationInput" autocomplete="off" placeholder="Reply in Spanish…"></label><button type="submit" class="primary-btn">Send</button></form><div class="conversation-support"><button type="button" data-conversation-help>Show English help</button><button type="button" data-conversation-suggest>Show a reply I can use</button><button type="button" data-tutor-speak="'+escapeHtml(turn.npc)+'">🔊 Hear question</button></div><div id="conversationFeedback" class="conversation-feedback" aria-live="polite"></div>')+
+    const s=SCENARIOS.find(function(x){return x.id===state.scenario})||SCENARIOS[0],turns=conversationTurns(s),turn=turns[Math.min(state.turn,turns.length-1)],focus=state.patternFocus?patternInfo(state.patternFocus):null;
+    const focusHtml=focus?'<div class="conversation-pattern-focus"><small>USING A PATTERN YOU LEARNED</small><strong>'+escapeHtml(focus.title)+'</strong><span>'+escapeHtml(focus.meaning||'Use it naturally where it fits.')+'</span></div>':'';
+    root.innerHTML='<div class="conversation-layout simple-conversation"><aside class="conversation-side"><span class="eyebrow">REAL-LIFE PRACTICE</span><h2>'+s.icon+' '+escapeHtml(s.title)+'</h2><p>'+escapeHtml(s.aim)+'</p>'+focusHtml+'<button type="button" class="secondary-btn" data-tutor-tab="scenarios">Choose another situation</button></aside>'+
+      '<section class="conversation-main"><div class="conversation-note">Reply with the Spanish you know. Short answers are fine. Use English help only when you need it.</div><div class="chat-stream">'+state.messages.map(function(m){return'<div class="chat-bubble '+m.who+'"><strong>'+escapeHtml(coachLabel(m.who))+'</strong>'+(m.html?m.html:'<p>'+escapeHtml(m.text)+'</p>')+(m.english?'<small>'+escapeHtml(m.english)+'</small>':'')+'</div>'}).join('')+'</div>'+
+      (state.turn>=turns.length?'<div class="conversation-complete"><strong>✓ Real-life practice complete</strong><p>You handled '+turns.length+' short turns.'+(focus?' You also moved <b>'+escapeHtml(focus.title)+'</b> one step closer to mastery.':'')+'</p><button type="button" class="primary-btn" data-conversation-restart>Try again</button></div>':
+      '<form id="conversationForm" class="conversation-form"><label><span class="sr-only">Reply in Spanish</span><input id="conversationInput" autocomplete="off" placeholder="Reply in Spanish…"></label><button type="submit" class="primary-btn">Send</button></form><div class="conversation-support"><button type="button" data-conversation-help>English help</button><button type="button" data-conversation-suggest>Show a reply</button><button type="button" data-tutor-speak="'+escapeHtml(turn.npc)+'">🔊 Hear question</button></div><div id="conversationFeedback" class="conversation-feedback" aria-live="polite"></div>')+
       '</section></div>';
     const form=document.getElementById('conversationForm');if(form)form.addEventListener('submit',submitConversation)
   }
@@ -303,7 +352,7 @@
   }
   function renderScenarios(){
     const root=document.getElementById('scenarioTutorPanel');if(!root)return;const turns=adaptiveProfile().conversationTurns;
-    root.innerHTML='<div class="scenario-heading"><div><span class="eyebrow">REAL-LIFE SPANISH</span><h2>Practise situations you may actually face.</h2><p>LanguageDNA keeps each conversation short and quietly grows it from 3 to 5 turns as you get stronger.</p></div></div><div class="scenario-grid">'+SCENARIOS.map(function(s){const r=scenarioReadiness(s);return'<article class="scenario-card"><div class="scenario-icon">'+s.icon+'</div><div><span class="scenario-level">'+escapeHtml(s.level)+'</span><h3>'+escapeHtml(s.title)+'</h3><p>'+escapeHtml(s.aim)+'</p><div class="readiness-bar"><span style="width:'+r.pct+'%"></span></div><small>'+r.have+'/'+r.total+' essentials familiar · '+turns+' turns today</small><button type="button" class="primary-btn" data-scenario-start="'+s.id+'">'+(r.pct>=70?'Start conversation':'Start with support')+'</button></div></article>'}).join('')+'</div>'
+    root.innerHTML='<div class="scenario-heading"><div><span class="eyebrow">REAL-LIFE SPANISH</span><h2>Choose a situation.</h2><p>Start speaking immediately. LanguageDNA keeps the conversation short and adds more turns only when you are ready.</p></div></div><div class="scenario-grid">'+SCENARIOS.map(function(s){const r=scenarioReadiness(s);return'<article class="scenario-card"><div class="scenario-icon">'+s.icon+'</div><div><h3>'+escapeHtml(s.title)+'</h3><p>'+escapeHtml(s.aim)+'</p><small>'+(r.pct>=70?'You know enough to try this now.':'English help will be available.')+'</small><button type="button" class="primary-btn" data-scenario-start="'+s.id+'">Start</button></div></article>'}).join('')+'</div>'
   }
 
   function startSpeechCheck(text){
@@ -315,7 +364,7 @@
   }
 
   function signalSummary(){const rows=signalData(),week=Date.now()-7*86400000,recent=rows.filter(function(r){return r.at>=week});return{events:rows.length,wrong:recent.filter(function(r){return r.type==='daily_wrong'||r.type==='conversation_wrong'}).length,dailyCompleted:recent.filter(function(r){return r.type==='daily_complete'}).length,incompleteDays:incompleteDailyDays()}}
-  function tutorSummary(){const p=adaptiveProfile(),signals=signalSummary();return{knownWords:familiarCount(),coreKnown:coreFamiliarCount(),scenariosReady:SCENARIOS.filter(function(s){return scenarioReadiness(s).pct>=70}).length,dailyCompleted7:completedLast7(),adaptiveLabel:p.label,weakSpeech:weakSpeech(),signals:signals}}
+  function tutorSummary(){const p=adaptiveProfile(),signals=signalSummary(),ready=SCENARIOS.filter(function(s){return scenarioReadiness(s).pct>=70});return{knownWords:familiarCount(),coreKnown:coreFamiliarCount(),scenariosReady:ready.length,readyTitles:ready.map(function(s){return s.title}),dailyCompleted7:completedLast7(),adaptiveLabel:p.label,weakSpeech:weakSpeech(),signals:signals}}
 
   document.addEventListener('click',function(e){
     const open=e.target.closest('[data-tutor-open]');if(open){state.tab=open.dataset.tutorOpen||'daily';renderTabs();if(state.tab==='daily'){ensureDailyRecord();renderDaily()}return}
@@ -326,7 +375,7 @@
     const dailySpeak=e.target.closest('[data-daily-speak]');if(dailySpeak){startSpeechCheck(dailyPlan().focus.spanish);return}
     const selfSpeak=e.target.closest('[data-daily-self-speak]');if(selfSpeak){recordSignal('daily_speech_selfcheck',{});markDailyStep('speak',{carry:'You said it aloud.'});return}
     const scenarioChoice=e.target.closest('[data-daily-scenario-choice]');if(scenarioChoice){const plan=dailyPlan(),correct=plan.scenario.turns[0].replies[0],chosen=scenarioChoice.dataset.dailyScenarioChoice;if(normalize(chosen)===normalize(correct)){markDailyStep('real-life',{carry:'Real-life reply handled.'})}else{dailyWrong('real-life');state.dailyFeedback='That reply belongs in a different situation. Try the simplest answer that fits this prompt.';renderDaily()}return}
-    const scenario=e.target.closest('[data-scenario-start]');if(scenario){state.scenario=scenario.dataset.scenarioStart;state.tab='conversation';resetConversation(state.scenario);renderTabs();return}
+    const scenario=e.target.closest('[data-scenario-start]');if(scenario){state.patternFocus=null;localStorage.removeItem('ldna-tutor-pattern-focus-v1');state.scenario=scenario.dataset.scenarioStart;state.tab='conversation';resetConversation(state.scenario);renderTabs();return}
     const correction=e.target.closest('[data-conversation-use-correction]');if(correction){const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turn=conversationTurns(s)[state.turn],canonical=turn.replies[0];advanceConversation(canonical,replyAnalysis(canonical,turn));return}
     const restart=e.target.closest('[data-conversation-restart]');if(restart){resetConversation(state.scenario);return}
     const help=e.target.closest('[data-conversation-help]');if(help){const s=SCENARIOS.find(function(x){return x.id===state.scenario}),turn=conversationTurns(s)[state.turn],feedback=document.getElementById('conversationFeedback');if(feedback)feedback.innerHTML='<strong>English:</strong> '+escapeHtml(turn.english);return}
@@ -337,7 +386,8 @@
   window.LanguageDNATutor={
     render:function(){renderHomeSummary();renderDaily();renderScenarios();renderTabs()},
     open:function(tab){state.tab=tab||'daily';renderTabs();if(state.tab==='daily'){ensureDailyRecord();renderDaily()}if(state.tab==='scenarios')renderScenarios();if(state.tab==='conversation')resetConversation(state.scenario)},
-    summary:tutorSummary
+    summary:tutorSummary,
+    openPatternConversation:function(id){state.patternFocus=id||null;if(id)localStorage.setItem('ldna-tutor-pattern-focus-v1',JSON.stringify({id:id,at:Date.now()}));state.scenario=scenarioForPattern(id);state.tab='conversation';resetConversation(state.scenario);renderTabs()}
   };
 
   renderHomeSummary();renderDaily();renderScenarios();renderTabs();
