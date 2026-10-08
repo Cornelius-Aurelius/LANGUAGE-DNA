@@ -1,194 +1,384 @@
 (() => {
   'use strict';
 
-  const config=window.LANGUAGE_DNA_SUPABASE_CONFIG||{};
-  const configured=!!(config.url&&config.publishableKey);
-  const META_PREFIX='ldna-cloud-';
-  let client=null,session=null,syncTimer=null,loadingSdk=null,lastStatus='Stored on this device';
+  // Cloud sync is optional. No network connection or login occurs when unconfigured.
+  const config = window.LANGUAGE_DNA_SUPABASE_CONFIG || {};
+  const configured = Boolean(config.url && config.publishableKey);
+  const META = 'ldna-cloud-v2-';
+  let client = null, session = null, loadingSdk = null, syncTimer = null;
+  let syncTask = null, pending = null, recovering = false, suppressTracking = false;
+  let lastStatus = configured ? 'Stored on this device · optional cloud backup' : 'Stored on this device';
 
-  function safeParse(v,f){try{return JSON.parse(v)}catch(e){return f}}
-  function emit(){window.dispatchEvent(new CustomEvent('ldna-cloud-change',{detail:status()}))}
-  function setStatus(message){lastStatus=message;emit()}
-  function now(){return Date.now()}
-  function cloudMeta(key,value){
-    if(value===undefined)return localStorage.getItem(META_PREFIX+key);
-    localStorage.setItem(META_PREFIX+key,String(value))
+  function metadata(key, value) {
+    const full = META + key;
+    if (value === undefined) return localStorage.getItem(full);
+    localStorage.setItem(full, String(value));
   }
-  function learnerKeys(){
-    const out=[];
-    for(let i=0;i<localStorage.length;i++){
-      const key=localStorage.key(i);
-      if(key&&key.indexOf('ldna-')===0&&key.indexOf(META_PREFIX)!==0)out.push(key)
+  function userMeta(uid, key, value) { return metadata('user-' + uid + '-' + key, value); }
+  function isLearnerKey(key) { return typeof key === 'string' && key.startsWith('ldna-') && !key.startsWith('ldna-cloud-'); }
+  function currentCounter() { return Number(metadata('change-counter')) || 0; }
+  function emit() { window.dispatchEvent(new CustomEvent('ldna-cloud-change', {detail: status()})); }
+  function setStatus(text) { lastStatus = text; emit(); }
+  function status() {
+    return {configured, signedIn: Boolean(session && session.user), email: session && session.user && session.user.email || '', message: lastStatus, needsChoice: Boolean(pending)};
+  }
+  function escapeText(value) {
+    return String(value || '').replace(/[&<>"']/g, ch => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[ch]));
+  }
+  function snapshot() {
+    const data = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (isLearnerKey(key)) data[key] = localStorage.getItem(key);
     }
-    return out.sort()
+    return {app: 'LanguageDNA', schemaVersion: 1, exportedAt: new Date().toISOString(), data};
   }
-  function snapshot(){
-    if(window.LanguageDNAProfile&&typeof window.LanguageDNAProfile.getSnapshot==='function')return window.LanguageDNAProfile.getSnapshot();
-    const data={};learnerKeys().forEach(function(key){data[key]=localStorage.getItem(key)});
-    return{app:'LanguageDNA',schemaVersion:1,exportedAt:new Date().toISOString(),data:data}
+  function validSnapshot(s) {
+    return s && s.app === 'LanguageDNA' && Number(s.schemaVersion) === 1 &&
+      s.data && typeof s.data === 'object' && !Array.isArray(s.data);
   }
-  function restore(snap){
-    if(window.LanguageDNAProfile&&typeof window.LanguageDNAProfile.restoreSnapshot==='function')return window.LanguageDNAProfile.restoreSnapshot(snap);
-    if(!snap||snap.app!=='LanguageDNA'||!snap.data)throw new Error('Invalid LanguageDNA cloud snapshot.');
-    Object.keys(snap.data).filter(function(k){return k.indexOf('ldna-')===0&&k.indexOf(META_PREFIX)!==0}).forEach(function(k){localStorage.setItem(k,String(snap.data[k]))})
+  function saveSafetyCopy(label, copy) {
+    if (!validSnapshot(copy)) return;
+    // Backups are intentionally outside the learner snapshot, preventing account-to-account leakage.
+    const key = 'backup-' + Date.now() + '-' + label;
+    metadata(key, JSON.stringify(copy));
   }
-  function markLocalChange(key){
-    if(!key||key.indexOf('ldna-')!==0||key.indexOf(META_PREFIX)===0)return;
-    cloudMeta('local-updated-v1',now());
-    if(session)scheduleSync()
-  }
-
-  const nativeSetItem=Storage.prototype.setItem;
-  Storage.prototype.setItem=function(key,value){
-    nativeSetItem.call(this,key,value);
-    if(this===localStorage)markLocalChange(String(key))
-  };
-
-  function loadSdk(){
-    if(!configured)return Promise.resolve(null);
-    if(window.supabase&&window.supabase.createClient)return Promise.resolve(window.supabase);
-    if(loadingSdk)return loadingSdk;
-    loadingSdk=new Promise(function(resolve,reject){
-      const script=document.createElement('script');
-      script.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
-      script.async=true;
-      script.onload=function(){resolve(window.supabase)};
-      script.onerror=function(){reject(new Error('Could not load secure sync library.'))};
-      document.head.appendChild(script)
-    });
-    return loadingSdk
-  }
-  async function ensureClient(){
-    if(!configured)return null;if(client)return client;
-    const sdk=await loadSdk();if(!sdk||!sdk.createClient)throw new Error('Sync library unavailable.');
-    client=sdk.createClient(config.url,config.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-    const current=await client.auth.getSession();session=current.data&&current.data.session||null;
-    client.auth.onAuthStateChange(function(event,newSession){
-      session=newSession||null;
-      if(event==='PASSWORD_RECOVERY')openAccount('recovery');
-      if(event==='SIGNED_IN'){setStatus('Signed in · syncing progress…');setTimeout(sync,250)}
-      else if(event==='SIGNED_OUT')setStatus('Signed out · progress stays on this device');
-      else emit()
-    });
-    emit();return client
-  }
-  function status(){
-    return{
-      configured:configured,
-      signedIn:!!(session&&session.user),
-      email:session&&session.user&&session.user.email||'',
-      message:lastStatus
-    }
-  }
-  function remoteTime(row){return row&&row.updated_at?Date.parse(row.updated_at)||0:0}
-  async function upload(c,userId){
-    const snap=snapshot(),clientTime=new Date(Number(cloudMeta('local-updated-v1'))||now()).toISOString();
-    const result=await c.from('learner_progress').upsert({user_id:userId,schema_version:Number(snap.schemaVersion)||1,snapshot:snap,client_updated_at:clientTime},{onConflict:'user_id'}).select('updated_at').single();
-    if(result.error)throw result.error;
-    const serverTime=remoteTime(result.data)||now();
-    cloudMeta('last-sync-v1',serverTime);cloudMeta('last-remote-v1',serverTime);
-    setStatus('✓ Progress synced');return result.data
-  }
-  async function sync(){
-    if(!configured||!navigator.onLine)return false;
-    try{
-      const c=await ensureClient();if(!c||!session||!session.user)return false;
-      setStatus('Syncing progress…');
-      const userId=session.user.id,lastSync=Number(cloudMeta('last-sync-v1'))||0,localUpdated=Number(cloudMeta('local-updated-v1'))||0;
-      const result=await c.from('learner_progress').select('snapshot,updated_at,client_updated_at,schema_version').eq('user_id',userId).maybeSingle();
-      if(result.error)throw result.error;
-      const row=result.data;
-      if(!row){await upload(c,userId);return true}
-      const remoteUpdated=remoteTime(row),remoteChanged=remoteUpdated>lastSync+1000,localChanged=localUpdated>lastSync+1000;
-      if(remoteChanged&&!localChanged){
-        restore(row.snapshot);cloudMeta('last-sync-v1',remoteUpdated);cloudMeta('last-remote-v1',remoteUpdated);cloudMeta('local-updated-v1',remoteUpdated);
-        setStatus('✓ Progress restored from cloud');setTimeout(function(){location.reload()},450);return true
+  function replaceLocal(copy) {
+    if (!validSnapshot(copy)) throw new Error('Invalid LanguageDNA cloud backup.');
+    saveSafetyCopy('before-cloud-restore', snapshot());
+    suppressTracking = true;
+    try {
+      const remove = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (isLearnerKey(key)) remove.push(key);
       }
-      if(localChanged&&!remoteChanged){await upload(c,userId);return true}
-      if(remoteChanged&&localChanged){
-        nativeSetItem.call(localStorage,'ldna-cloud-conflict-backup-v1',JSON.stringify(snapshot()));
-        const remoteClient=row.client_updated_at?Date.parse(row.client_updated_at)||0:0;
-        if(remoteClient>localUpdated){
-          restore(row.snapshot);cloudMeta('last-sync-v1',remoteUpdated);cloudMeta('last-remote-v1',remoteUpdated);cloudMeta('local-updated-v1',remoteUpdated);
-          setStatus('Cloud progress was newer. A local safety copy was kept.');setTimeout(function(){location.reload()},650);return true
-        }
-        await upload(c,userId);setStatus('✓ Synced newer progress · safety copy kept');return true
+      remove.forEach(key => localStorage.removeItem(key));
+      Object.keys(copy.data).filter(isLearnerKey).forEach(key => {
+        if (typeof copy.data[key] === 'string') localStorage.setItem(key, copy.data[key]);
+      });
+    } finally { suppressTracking = false; }
+  }
+  function changedKey(key) {
+    if (!configured || suppressTracking || !isLearnerKey(key)) return;
+    metadata('change-counter', currentCounter() + 1);
+    if (session && session.user && !recovering) scheduleSync();
+  }
+  if (configured) {
+    const oldSet = Storage.prototype.setItem;
+    const oldRemove = Storage.prototype.removeItem;
+    Storage.prototype.setItem = function(key, value) {
+      oldSet.call(this, key, value);
+      if (this === localStorage) changedKey(String(key));
+    };
+    Storage.prototype.removeItem = function(key) {
+      oldRemove.call(this, key);
+      if (this === localStorage) changedKey(String(key));
+    };
+  }
+  function baseline(uid, row, counter) {
+    metadata('owner', uid);
+    userMeta(uid, 'revision', Number(row.revision));
+    userMeta(uid, 'local-counter', counter);
+  }
+  function scheduleSync() {
+    clearTimeout(syncTimer);
+    syncTimer = setTimeout(() => { if (navigator.onLine) sync(); }, 2500);
+  }
+  function loadSdk() {
+    if (window.supabase && window.supabase.createClient) return Promise.resolve(window.supabase);
+    if (loadingSdk) return loadingSdk;
+    loadingSdk = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.8/dist/umd/supabase.js';
+      script.async = true;
+      script.onload = () => resolve(window.supabase);
+      script.onerror = () => reject(new Error('Cloud service could not load.'));
+      document.head.appendChild(script);
+    });
+    return loadingSdk;
+  }
+  async function ensureClient() {
+    if (!configured) return null;
+    if (client) return client;
+    const sdk = await loadSdk();
+    if (!sdk || !sdk.createClient) throw new Error('Cloud service unavailable.');
+    client = sdk.createClient(config.url, config.publishableKey, {
+      auth: {persistSession: true, autoRefreshToken: true, detectSessionInUrl: true}
+    });
+    const result = await client.auth.getSession();
+    session = result.data && result.data.session || null;
+    client.auth.onAuthStateChange((event, next) => {
+      const before = session && session.user && session.user.id;
+      session = next || null;
+      if (event === 'PASSWORD_RECOVERY') { recovering = true; openAccount('recovery'); return; }
+      if (event === 'SIGNED_OUT') { pending = null; recovering = false; setStatus('Signed out · progress stays on this device'); return; }
+      if (event === 'SIGNED_IN' && session && session.user) {
+        if (before !== session.user.id) pending = null;
+        setStatus('Signed in · checking saved progress');
+        setTimeout(() => { if (!recovering) sync(); }, 0);
+      } else emit();
+    });
+    emit();
+    return client;
+  }
+  async function readRemote(c, uid) {
+    const {data, error} = await c.from('learner_progress')
+      .select('snapshot,revision,schema_version').eq('user_id', uid).maybeSingle();
+    if (error) throw error;
+    return data;
+  }
+  function requestChoice(uid, row, reason) {
+    pending = {uid, row, reason};
+    setStatus('Choose which progress to keep · nothing has been overwritten');
+    openAccount('choice');
+    return false;
+  }
+  async function saveWithRevision(c, uid, row) {
+    const snap = snapshot();
+    const counter = currentCounter();
+    const payload = {schema_version: 1, snapshot: snap, client_updated_at: new Date().toISOString()};
+    let result;
+    if (row) {
+      // CAS: an out-of-date tab/device cannot overwrite a newer cloud revision.
+      result = await c.from('learner_progress').update(payload)
+        .eq('user_id', uid).eq('revision', Number(row.revision))
+        .select('revision').maybeSingle();
+    } else {
+      result = await c.from('learner_progress').insert({user_id: uid, ...payload})
+        .select('revision').maybeSingle();
+    }
+    if (result.error && result.error.code !== '23505') throw result.error;
+    if (result.error || !result.data) return false; // concurrent update/insert detected
+    if (!session || session.user.id !== uid) return false;
+    baseline(uid, result.data, counter);
+    pending = null;
+    setStatus('✓ Progress synced safely');
+    return true;
+  }
+  async function syncOnce() {
+    if (!configured || !navigator.onLine || recovering) return false;
+    const c = await ensureClient();
+    if (!session || !session.user) return false;
+    const uid = session.user.id;
+    if (pending && pending.uid === uid) return false;
+    const row = await readRemote(c, uid);
+    if (!session || !session.user || session.user.id !== uid) return false;
+    const previousRevision = userMeta(uid, 'revision');
+    const owner = metadata('owner');
+    // A different account on the same device, or an initial sync, always needs a human decision.
+    if (owner !== uid || previousRevision === null) {
+      return requestChoice(uid, row, owner && owner !== uid ?
+        'This device has progress from another account.' :
+        'Choose whether to keep this device or cloud progress.');
+    }
+    if (!row) return requestChoice(uid, row, 'Cloud progress is missing. Nothing will be overwritten automatically.');
+    const cloudChanged = String(row.revision) !== previousRevision;
+    const localChanged = currentCounter() !== Number(userMeta(uid, 'local-counter'));
+    if (cloudChanged && localChanged) return requestChoice(uid, row, 'Both devices changed since the last sync.');
+    if (cloudChanged) {
+      replaceLocal(row.snapshot);
+      baseline(uid, row, currentCounter());
+      setStatus('✓ Newer cloud progress restored · local backup kept');
+      setTimeout(() => location.reload(), 500);
+      return true;
+    }
+    if (localChanged) {
+      const ok = await saveWithRevision(c, uid, row);
+      if (!ok) return requestChoice(uid, await readRemote(c, uid), 'Another device updated progress during this sync.');
+      return true;
+    }
+    setStatus('✓ Progress synced safely');
+    return true;
+  }
+  function sync() {
+    if (syncTask) return syncTask;
+    syncTask = syncOnce().catch(() => {
+      setStatus('Sync paused · your progress remains on this device');
+      return false;
+    }).finally(() => { syncTask = null; });
+    return syncTask;
+  }
+  async function resolveChoice(action) {
+    if (!pending || !session || session.user.id !== pending.uid) return;
+    const uid = pending.uid;
+    if (action === 'later') {
+      pending = null;
+      await signOut();
+      return;
+    }
+    const c = await ensureClient();
+    const fresh = await readRemote(c, uid);
+    const expected = pending.row;
+    if ((fresh && String(fresh.revision)) !== (expected && String(expected.revision))) {
+      requestChoice(uid, fresh, 'Cloud progress changed again. Please choose with the latest version.');
+      return;
+    }
+    if (action === 'cloud') {
+      if (!fresh) return;
+      replaceLocal(fresh.snapshot);
+      baseline(uid, fresh, currentCounter());
+      pending = null;
+      setStatus('✓ Cloud progress restored · previous device backup kept');
+      const d = dialog(); if (d && d.open) d.close();
+      setTimeout(() => location.reload(), 500);
+      return;
+    }
+    if (action === 'device') {
+      if (fresh && validSnapshot(fresh.snapshot)) saveSafetyCopy('before-cloud-replace', fresh.snapshot);
+      const ok = await saveWithRevision(c, uid, fresh);
+      if (!ok) { requestChoice(uid, await readRemote(c, uid), 'Cloud progress changed during save. Review again.'); return; }
+      renderDialog();
+    }
+  }
+
+  async function signUp(email, password) {
+    const c = await ensureClient();
+    if (!c) throw new Error('Cloud sync is not configured.');
+    const result = await c.auth.signUp({
+      email, password, options: {emailRedirectTo: location.origin + location.pathname}
+    });
+    if (result.error) throw result.error;
+    setStatus(result.data && result.data.session ? 'Signed in · choose how to sync' : 'Check your email to finish creating your free account.');
+    return result;
+  }
+  async function signIn(email, password) {
+    const c = await ensureClient();
+    const result = await c.auth.signInWithPassword({email, password});
+    if (result.error) throw result.error;
+    session = result.data.session;
+    await sync();
+    return result;
+  }
+  async function resetPassword(email) {
+    const c = await ensureClient();
+    const result = await c.auth.resetPasswordForEmail(email, {
+      redirectTo: location.origin + location.pathname + '?password-recovery=1'
+    });
+    if (result.error) throw result.error;
+    setStatus('Password reset email requested. Check your inbox.');
+  }
+  async function updatePassword(password) {
+    const c = await ensureClient();
+    const result = await c.auth.updateUser({password});
+    if (result.error) throw result.error;
+    recovering = false;
+    setStatus('Password updated.');
+  }
+  async function signOut() {
+    const c = await ensureClient();
+    clearTimeout(syncTimer);
+    if (c) { const result = await c.auth.signOut(); if (result.error) throw result.error; }
+    pending = null; session = null; recovering = false;
+    setStatus('Signed out · device progress remains here');
+  }
+  async function deleteAccount(password) {
+    const c = await ensureClient();
+    if (!session || !session.user) throw new Error('Sign in first.');
+    const result = await c.functions.invoke('delete-account', {body: {confirm: 'DELETE', password}});
+    if (result.error) throw result.error;
+    if (!result.data || !result.data.deleted) throw new Error('Account deletion could not be verified.');
+    await c.auth.signOut({scope: 'local'});
+    session = null; pending = null;
+    setStatus('Cloud account deleted. Device progress remains on this device.');
+  }
+  function dialog() { return document.getElementById('accountDialog'); }
+  function renderDialog(mode) {
+    const root = document.getElementById('accountDialogContent');
+    if (!root) return;
+    const st = status();
+    if (mode === 'recovery' || recovering) {
+      root.innerHTML = '<div class="account-dialog-head"><h2>Choose a new password</h2><p>Enter at least 8 characters.</p></div><form id="cloudRecoveryForm" class="account-form"><label>New password<input type="password" id="cloudRecoveryPassword" minlength="8" autocomplete="new-password" required></label><button class="primary-btn" type="submit">Update password</button></form><p class="account-message" id="cloudAccountMessage" role="status"></p>';
+      return;
+    }
+    if (mode === 'delete' && st.signedIn) {
+      root.innerHTML = '<div class="account-dialog-head"><h2>Delete cloud account?</h2><p>This permanently deletes your cloud profile and progress. Your current device progress remains here. You can download a backup from My Spanish first.</p></div><form class="account-form" id="cloudDeleteForm"><label>Confirm by typing DELETE<input id="cloudDeleteConfirm" required autocomplete="off" spellcheck="false"></label><label>Your account password<input id="cloudDeletePassword" type="password" required autocomplete="current-password"></label><button class="primary-btn" type="submit">Permanently delete account</button><button class="secondary-btn" type="button" data-cloud-cancel-delete>Cancel</button></form><p id="cloudAccountMessage" class="account-message" role="status"></p>';
+      return;
+    }
+    if (st.signedIn && pending) {
+      const hasCloud = Boolean(pending.row);
+      root.innerHTML = '<div class="account-dialog-head"><span class="eyebrow">PROGRESS SAFETY</span><h2>Choose your progress</h2><p>' + escapeText(pending.reason) + ' Nothing has been replaced.</p></div><div class="account-status-card"><strong>Both copies stay backed up when you choose.</strong><small>Use this device to save its current progress online. Choose cloud to restore the online copy here.</small></div><div class="account-actions"><button class="primary-btn" type="button" data-cloud-choose="device">Use this device</button>' +
+        (hasCloud ? '<button class="secondary-btn" type="button" data-cloud-choose="cloud">Use cloud progress</button>' : '') +
+        '<button class="text-btn" type="button" data-cloud-choose="later">Not now · keep learning offline</button></div><p class="account-message" id="cloudAccountMessage" role="status"></p>';
+      return;
+    }
+    if (st.signedIn) {
+      root.innerHTML = '<div class="account-dialog-head"><span class="eyebrow">OPTIONAL CLOUD SYNC</span><h2>Your learning, your choice</h2><p>' + escapeText(st.email) + '</p></div><div class="account-status-card"><strong>' + escapeText(st.message) + '</strong><small>Learning works without an account. Progress syncs when online.</small></div><div class="account-actions"><button class="primary-btn" type="button" data-cloud-sync>Sync now</button><button class="secondary-btn" type="button" data-cloud-signout>Sign out</button><button class="text-btn danger" type="button" data-cloud-delete>Delete cloud account</button></div>';
+      return;
+    }
+    root.innerHTML = '<div class="account-dialog-head"><span class="eyebrow">FREE OPTIONAL ACCOUNT</span><h2>Back up progress across devices</h2><p>You can learn for free without signing in.</p></div><div class="account-tabs"><button type="button" class="' + (mode === 'signup' ? '' : 'active') + '" data-cloud-mode="signin">Sign in</button><button type="button" class="' + (mode === 'signup' ? 'active' : '') + '" data-cloud-mode="signup">Create free account</button></div><form id="cloudAuthForm" class="account-form" data-mode="' + (mode === 'signup' ? 'signup' : 'signin') + '"><label>Email<input id="cloudEmail" type="email" autocomplete="email" required></label><label>Password<input id="cloudPassword" type="password" minlength="8" autocomplete="' + (mode === 'signup' ? 'new-password' : 'current-password') + '" required></label><button class="primary-btn" type="submit">' + (mode === 'signup' ? 'Create free account' : 'Sign in') + '</button></form><button class="text-btn" type="button" data-cloud-reset>Forgot password?</button><p class="account-message" id="cloudAccountMessage" role="status"></p>';
+  }
+  function openAccount(mode) {
+    if (!configured) return;
+    renderDialog(mode);
+    const d = dialog();
+    if (d && !d.open) d.showModal();
+  }
+  function message(value) {
+    const el = document.getElementById('cloudAccountMessage');
+    if (el) el.textContent = value;
+  }
+  document.addEventListener('click', async e => {
+    if (e.target.closest('[data-cloud-open]')) { openAccount(); return; }
+    const mode = e.target.closest('[data-cloud-mode]');
+    if (mode) { renderDialog(mode.dataset.cloudMode); return; }
+    const choice = e.target.closest('[data-cloud-choose]');
+    if (choice) {
+      try { await resolveChoice(choice.dataset.cloudChoose); }
+      catch (_) { message('Could not apply choice. Device progress is unchanged.'); }
+      return;
+    }
+    if (e.target.closest('[data-cloud-sync]')) { await sync(); renderDialog(); return; }
+    if (e.target.closest('[data-cloud-signout]')) {
+      try { await signOut(); const d = dialog(); if (d) d.close(); }
+      catch (_) { message('Sign-out failed. Please try again.'); }
+      return;
+    }
+    if (e.target.closest('[data-cloud-delete]')) { renderDialog('delete'); return; }
+    if (e.target.closest('[data-cloud-cancel-delete]')) { renderDialog(); return; }
+    if (e.target.closest('[data-cloud-reset]')) {
+      const email = document.getElementById('cloudEmail');
+      if (!email || !email.value) { message('Enter your email first.'); return; }
+      try { await resetPassword(email.value); message('Password reset requested. Check your inbox.'); }
+      catch (_) { message('Could not request reset. Check your email and try again.'); }
+      return;
+    }
+    if (e.target.closest('[data-account-close]')) { const d = dialog(); if (d) d.close(); }
+  });
+  document.addEventListener('submit', async e => {
+    if (e.target.id === 'cloudAuthForm') {
+      e.preventDefault();
+      const email = document.getElementById('cloudEmail').value.trim();
+      const password = document.getElementById('cloudPassword').value;
+      const mode = e.target.dataset.mode;
+      message(mode === 'signup' ? 'Creating account…' : 'Signing in…');
+      try {
+        if (mode === 'signup') await signUp(email, password);
+        else await signIn(email, password);
+        if (pending) renderDialog('choice');
+        else message(lastStatus);
+      } catch (err) { message(err.message || 'Could not sign in.'); }
+      return;
+    }
+    if (e.target.id === 'cloudRecoveryForm') {
+      e.preventDefault();
+      try { await updatePassword(document.getElementById('cloudRecoveryPassword').value); renderDialog(); }
+      catch (_) { message('Could not update password. Please try again.'); }
+      return;
+    }
+    if (e.target.id === 'cloudDeleteForm') {
+      e.preventDefault();
+      if (document.getElementById('cloudDeleteConfirm').value !== 'DELETE') {
+        message('Type DELETE exactly to confirm.'); return;
       }
-      cloudMeta('last-sync-v1',Math.max(lastSync,remoteUpdated));cloudMeta('last-remote-v1',remoteUpdated);setStatus('✓ Progress synced');return true
-    }catch(err){
-      setStatus('Sync paused · your progress is safe on this device');return false
-    }
-  }
-  function scheduleSync(){
-    clearTimeout(syncTimer);syncTimer=setTimeout(function(){if(navigator.onLine)sync()},2200)
-  }
-
-  async function signUp(email,password){
-    const c=await ensureClient();if(!c)throw new Error('Cloud sync is not configured.');
-    const result=await c.auth.signUp({email:email,password:password,options:{emailRedirectTo:location.origin+location.pathname}});
-    if(result.error)throw result.error;setStatus(result.data&&result.data.session?'Signed in · syncing progress…':'Check your email to finish creating your free account.');return result
-  }
-  async function signIn(email,password){
-    const c=await ensureClient();const result=await c.auth.signInWithPassword({email:email,password:password});if(result.error)throw result.error;session=result.data.session;await sync();return result
-  }
-  async function resetPassword(email){
-    const c=await ensureClient();const result=await c.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname+'?password-recovery=1'});if(result.error)throw result.error;setStatus('Password reset email sent.');return result
-  }
-  async function updatePassword(password){
-    const c=await ensureClient();const result=await c.auth.updateUser({password:password});if(result.error)throw result.error;setStatus('Password updated.');return result
-  }
-  async function signOut(){
-    const c=await ensureClient();if(c)await c.auth.signOut();session=null;emit()
-  }
-  async function deleteAccount(){
-    const c=await ensureClient();if(!c||!session)throw new Error('Sign in first.');
-    const result=await c.functions.invoke('delete-account',{body:{confirm:true}});
-    if(result.error)throw result.error;
-    await c.auth.signOut();session=null;setStatus('Account deleted. Local progress remains on this device.');emit()
-  }
-
-  function dialog(){return document.getElementById('accountDialog')}
-  function renderDialog(mode){
-    const root=document.getElementById('accountDialogContent');if(!root)return;
-    const st=status();
-    if(st.signedIn){
-      root.innerHTML='<div class="account-dialog-head"><span class="eyebrow">FREE CLOUD SYNC</span><h2>Your progress is protected.</h2><p>'+escapeText(st.email)+'</p></div><div class="account-status-card"><strong>'+escapeText(st.message)+'</strong><small>Learning still works offline. Changes sync when you are online.</small></div><div class="account-actions"><button type="button" class="primary-btn" data-cloud-sync>Sync now</button><button type="button" class="secondary-btn" data-cloud-signout>Sign out</button><button type="button" class="text-btn danger" data-cloud-delete>Delete account</button></div>';
-      return
-    }
-    if(mode==='recovery'){
-      root.innerHTML='<div class="account-dialog-head"><span class="eyebrow">PASSWORD RECOVERY</span><h2>Choose a new password.</h2></div><form class="account-form" id="cloudRecoveryForm"><label>New password<input type="password" id="cloudRecoveryPassword" minlength="8" required autocomplete="new-password"></label><button class="primary-btn" type="submit">Update password</button></form>';return
-    }
-    root.innerHTML='<div class="account-dialog-head"><span class="eyebrow">OPTIONAL FREE ACCOUNT</span><h2>Protect your progress across devices.</h2><p>You can keep learning without an account. Creating one is free and only adds cloud backup + sync.</p></div><div class="account-tabs"><button type="button" class="'+(mode!=='signup'?'active':'')+'" data-cloud-mode="signin">Sign in</button><button type="button" class="'+(mode==='signup'?'active':'')+'" data-cloud-mode="signup">Create free account</button></div><form class="account-form" id="cloudAuthForm" data-mode="'+(mode==='signup'?'signup':'signin')+'"><label>Email<input type="email" id="cloudEmail" required autocomplete="email"></label><label>Password<input type="password" id="cloudPassword" minlength="8" required autocomplete="'+(mode==='signup'?'new-password':'current-password')+'"></label><button class="primary-btn" type="submit">'+(mode==='signup'?'Create free account':'Sign in')+'</button></form><button type="button" class="text-btn" data-cloud-reset>Forgot password?</button><p class="account-message" id="cloudAccountMessage"></p>'
-  }
-  function escapeText(value){return String(value||'').replace(/[&<>"']/g,function(ch){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]})}
-  function openAccount(mode){
-    if(!configured)return;
-    renderDialog(mode||'signin');const d=dialog();if(d&&!d.open)d.showModal()
-  }
-  function message(text){const el=document.getElementById('cloudAccountMessage');if(el)el.textContent=text}
-
-  document.addEventListener('click',async function(e){
-    if(e.target.closest('[data-cloud-open]')){openAccount();return}
-    const mode=e.target.closest('[data-cloud-mode]');if(mode){renderDialog(mode.dataset.cloudMode);return}
-    if(e.target.closest('[data-cloud-sync]')){await sync();renderDialog();return}
-    if(e.target.closest('[data-cloud-signout]')){await signOut();const d=dialog();if(d)d.close();return}
-    if(e.target.closest('[data-cloud-reset]')){const email=document.getElementById('cloudEmail');if(!email||!email.value){message('Enter your email first.');return}try{await resetPassword(email.value);message('Password reset email sent.')}catch(err){message(err.message||'Could not send reset email.')}return}
-    if(e.target.closest('[data-cloud-delete]')){if(!confirm('Delete your free LanguageDNA cloud account? Your local progress on this device will remain.'))return;try{await deleteAccount();const d=dialog();if(d)d.close()}catch(err){message(err.message||'Could not delete account.')}return}
-    if(e.target.closest('[data-account-close]')){const d=dialog();if(d)d.close();return}
-  });
-  document.addEventListener('submit',async function(e){
-    if(e.target.id==='cloudAuthForm'){
-      e.preventDefault();const email=document.getElementById('cloudEmail').value.trim(),password=document.getElementById('cloudPassword').value,mode=e.target.dataset.mode;
-      message(mode==='signup'?'Creating free account…':'Signing in…');
-      try{if(mode==='signup')await signUp(email,password);else await signIn(email,password);message(lastStatus);if(session){setTimeout(function(){const d=dialog();if(d)d.close()},550)}}catch(err){message(err.message||'Account action failed.')}return
-    }
-    if(e.target.id==='cloudRecoveryForm'){
-      e.preventDefault();try{await updatePassword(document.getElementById('cloudRecoveryPassword').value);const d=dialog();if(d)d.close()}catch(err){message(err.message||'Could not update password.')}
+      try {
+        await deleteAccount(document.getElementById('cloudDeletePassword').value);
+        const d = dialog(); if (d) d.close();
+      } catch (_) { message('Deletion could not be completed. The account remains available.'); }
     }
   });
-  window.addEventListener('online',function(){if(session)sync()});
-  window.addEventListener('focus',function(){if(session&&navigator.onLine)sync()});
-
-  window.LanguageDNACloud={configured:configured,status:status,open:openAccount,sync:sync,signOut:signOut};
-  if(configured)ensureClient().then(function(){if(session&&navigator.onLine)sync();emit()}).catch(function(){setStatus('Cloud sync unavailable · local progress is safe')});
+  window.addEventListener('online', () => { if (session) sync(); });
+  window.addEventListener('focus', () => { if (session && navigator.onLine) sync(); });
+  window.LanguageDNACloud = {configured, status, open: openAccount, sync, signOut};
+  if (configured) ensureClient().then(() => { if (session && navigator.onLine) sync(); }).catch(() => setStatus('Cloud unavailable · progress remains on device'));
 })();
