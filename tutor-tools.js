@@ -89,6 +89,51 @@
       ]
     },
     {
+      id:'restaurant', icon:'🍽️', title:'At a restaurant', level:'Starter', aim:'Order food, ask for water and pay.',
+      required:[7,8,41,42,51,52,86,87,99],
+      turns:[
+        {npc:'Buenas tardes. ¿Qué desea comer?', english:'Good afternoon. What would you like to eat?', replies:['Quiero comida, por favor.','Quiero esto, por favor.'], explain:'Quiero… is the simple “I want…” frame.'},
+        {npc:'¿Quiere agua?', english:'Would you like water?', replies:['Sí, agua, por favor.','No, gracias.'], explain:'Short polite answers are natural.'},
+        {npc:'¿Tarjeta o efectivo?', english:'Card or cash?', replies:['Tarjeta, por favor.','Efectivo, por favor.'], explain:'Use the payment word you need.'}
+      ]
+    },
+    {
+      id:'transport', icon:'🚌', title:'Bus or train', level:'Starter', aim:'Ask where the station is, buy a ticket and understand a direction.',
+      required:[10,27,34,49,74,75,76,77,85],
+      turns:[
+        {npc:'Hola. ¿Adónde va?', english:'Hello. Where are you going?', replies:['Voy a la estación.','A la estación, por favor.'], explain:'Voy a… means “I am going to…”.'},
+        {npc:'¿Necesita un billete?', english:'Do you need a ticket?', replies:['Sí, por favor.','Sí, necesito un billete.'], explain:'Necesito… means “I need…”.'},
+        {npc:'La estación está a la derecha.', english:'The station is on the right.', replies:['Gracias.','De acuerdo, gracias.'], explain:'Derecha means right.'}
+      ]
+    },
+    {
+      id:'pharmacy', icon:'💊', title:'At a pharmacy', level:'Supported', aim:'Say you need help and understand a simple response.',
+      required:[7,11,37,42,57,94,95],
+      turns:[
+        {npc:'Hola. ¿Qué necesita?', english:'Hello. What do you need?', replies:['Necesito ayuda, por favor.','Necesito un médico.'], explain:'Necesito + noun is enough to communicate clearly.'},
+        {npc:'¿Entiende?', english:'Do you understand?', replies:['No entiendo.','Sí.'], explain:'No entiendo is an essential repair phrase.'},
+        {npc:'De acuerdo. Un momento, por favor.', english:'Okay. One moment, please.', replies:['Gracias.','De acuerdo.'], explain:'A simple gracias or de acuerdo is enough.'}
+      ]
+    },
+    {
+      id:'supermarket', icon:'🛒', title:'At a supermarket', level:'Starter', aim:'Find food, ask a price and pay.',
+      required:[7,8,31,32,34,51,52,86,87,98,99,100],
+      turns:[
+        {npc:'Hola. ¿Qué busca?', english:'Hi. What are you looking for?', replies:['Busco agua.','Quiero agua, por favor.'], explain:'Quiero… is a simple option even if you do not know busco yet.'},
+        {npc:'Está allí.', english:'It is over there.', replies:['Gracias.','De acuerdo.'], explain:'Allí means there.'},
+        {npc:'¿Tarjeta o efectivo?', english:'Card or cash?', replies:['Tarjeta, por favor.','Efectivo, por favor.'], explain:'Use the payment word you need.'}
+      ]
+    },
+    {
+      id:'plans', icon:'📅', title:'Making simple plans', level:'Starter', aim:'Say what you want to do and when.',
+      required:[8,28,41,49,61,62,64,65],
+      turns:[
+        {npc:'¿Qué quiere hacer?', english:'What do you want to do?', replies:['Quiero comer.','Quiero ir al restaurante.'], explain:'Quiero + verb is a useful plan-making frame.'},
+        {npc:'¿Hoy o mañana?', english:'Today or tomorrow?', replies:['Hoy.','Mañana.'], explain:'A one-word time answer is completely fine.'},
+        {npc:'Perfecto. Hasta luego.', english:'Perfect. See you later.', replies:['Hasta luego.','Gracias.'], explain:'Finish with a familiar goodbye.'}
+      ]
+    },
+    {
       id:'meeting', icon:'👋', title:'Meeting someone', level:'Starter', aim:'Greet someone and exchange a few simple details.',
       required:[1,2,8,16,17,18,24,25,38],
       turns:[
@@ -138,6 +183,26 @@
       {npc:'¿Puede ayudarme?',english:'Can you help me?',replies:['Sí, claro.','Sí, puedo ayudar.'],explain:'Keep useful work replies short and clear.'},
       {npc:'Perfecto. Gracias.',english:'Perfect. Thank you.',replies:['De nada.','Gracias.'],explain:'De nada is a natural response to thanks.'}
     ],
+    restaurant:[
+      {npc:'¿Algo más?',english:'Anything else?',replies:['No, gracias.','Café, por favor.'],explain:'Keep the reply short and useful.'},
+      {npc:'Son veinte euros.',english:'That is twenty euros.',replies:['Gracias.','¿Puedo pagar con tarjeta?'],explain:'Reuse your payment phrase.'}
+    ],
+    transport:[
+      {npc:'El tren sale ahora.',english:'The train leaves now.',replies:['De acuerdo.','Gracias.'],explain:'Ahora means now.'},
+      {npc:'¿Algo más?',english:'Anything else?',replies:['No, gracias.'],explain:'A short finish is natural.'}
+    ],
+    pharmacy:[
+      {npc:'¿Necesita un médico?',english:'Do you need a doctor?',replies:['Sí, necesito un médico.','No, gracias.'],explain:'Repeat the key need clearly.'},
+      {npc:'El hospital está cerca.',english:'The hospital is nearby.',replies:['Gracias.','De acuerdo.'],explain:'Cerca means near.'}
+    ],
+    supermarket:[
+      {npc:'¿Algo más?',english:'Anything else?',replies:['No, gracias.','Pan, por favor.'],explain:'You can use a single item plus por favor.'},
+      {npc:'Gracias. Hasta luego.',english:'Thank you. See you later.',replies:['Hasta luego.','Gracias.'],explain:'Finish simply.'}
+    ],
+    plans:[
+      {npc:'¿A qué hora?',english:'At what time?',replies:['A las ocho.','Por la tarde.'],explain:'A simple time phrase is enough.'},
+      {npc:'Muy bien. Nos vemos.',english:'Great. See you.',replies:['Hasta luego.','Adiós.'],explain:'Use a goodbye you already know.'}
+    ],
     meeting:[
       {npc:'¿De dónde es?',english:'Where are you from?',replies:['Soy de Inglaterra.','Soy de Reino Unido.'],explain:'Soy de… means “I am from…”.'},
       {npc:'¿Le gusta España?',english:'Do you like Spain?',replies:['Sí, me gusta.','Sí, mucho.'],explain:'Me gusta is the reusable “I like it” frame.'}
@@ -150,8 +215,8 @@
     'ser-identity':'meeting','gustar':'meeting','subject-drop':'meeting','estar-gerund':'meeting',
     'question-words':'directions','question-order':'directions','estar-location':'directions','a-en-de':'directions',
     'hay':'hotel','tener-que':'work','regular-ar':'work','regular-er':'work','regular-ir':'work',
-    'ir-a':'taxi','no-before-verb':'shopping','direct-object':'shopping','personal-a':'shopping',
-    'reflexive':'hotel','hace-weather':'meeting','para-purpose':'work','porque':'work'
+    'ir-a':'plans','no-before-verb':'shopping','direct-object':'shopping','personal-a':'shopping',
+    'reflexive':'hotel','hace-weather':'meeting','para-purpose':'work','porque':'work','regular-ar':'work','regular-er':'restaurant','regular-ir':'plans','tener-que':'work','gustar':'meeting','hay':'hotel'
   };
   const state={tab:'daily',scenario:'meeting',turn:0,messages:[],dailyFeedback:'',dailyCarry:'',patternFocus:null};
 
@@ -364,7 +429,7 @@
   }
 
   function signalSummary(){const rows=signalData(),week=Date.now()-7*86400000,recent=rows.filter(function(r){return r.at>=week});return{events:rows.length,wrong:recent.filter(function(r){return r.type==='daily_wrong'||r.type==='conversation_wrong'}).length,dailyCompleted:recent.filter(function(r){return r.type==='daily_complete'}).length,incompleteDays:incompleteDailyDays()}}
-  function tutorSummary(){const p=adaptiveProfile(),signals=signalSummary(),ready=SCENARIOS.filter(function(s){return scenarioReadiness(s).pct>=70});return{knownWords:familiarCount(),coreKnown:coreFamiliarCount(),scenariosReady:ready.length,readyTitles:ready.map(function(s){return s.title}),dailyCompleted7:completedLast7(),adaptiveLabel:p.label,weakSpeech:weakSpeech(),signals:signals}}
+  function tutorSummary(){const p=adaptiveProfile(),signals=signalSummary(),ready=SCENARIOS.filter(function(s){return scenarioReadiness(s).pct>=70});return{knownWords:familiarCount(),coreKnown:coreFamiliarCount(),scenariosReady:ready.length,readyTitles:ready.map(function(s){return s.title}),allScenarioTitles:SCENARIOS.map(function(s){return s.title}),dailyCompleted7:completedLast7(),adaptiveLabel:p.label,weakSpeech:weakSpeech(),signals:signals}}
 
   document.addEventListener('click',function(e){
     const open=e.target.closest('[data-tutor-open]');if(open){state.tab=open.dataset.tutorOpen||'daily';renderTabs();if(state.tab==='daily'){ensureDailyRecord();renderDaily()}return}
