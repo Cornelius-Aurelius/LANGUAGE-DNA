@@ -338,6 +338,8 @@ test('Word Garden teaches a real English-Spanish pattern and rewards completion'
   }
   await expect(page.locator('.quest-victory')).toBeVisible();
   await expect(page.locator('.quest-victory-stars')).toContainText('⭐⭐⭐⭐⭐');
+  await expect(page.locator('.quest-earned-badge')).toContainText('Word Detective');
+  await expect(page.locator('.quest-earned-badge')).toContainText('New badge unlocked!');
   await page.locator('[data-quest-back]').click();
   await expect(page.locator('.quest-world')).toHaveCount(3);
   await page.locator('.primary-nav [data-view="dna"]').evaluate(button=>button.click());
@@ -382,4 +384,48 @@ test('All quests and earned stars work offline and in dark mode',async ({page})=
   await expect(page.locator('#patternQuest .quest-world')).toHaveCount(3);
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
   expect(overflow).toBeLessThanOrEqual(2);
+});
+
+
+
+test('Difficult -IR pattern is explained as three friendly actions before optional detailed progress',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.locator('.primary-nav [data-view="library"]').click();
+  await page.locator('#searchInput').fill('Present -IR verb endings');
+  await page.locator('[data-open="regular-ir"]').first().click();
+  await expect(page.locator('#patternDialog')).toHaveAttribute('open','');
+  await expect(page.locator('#dialogTitle')).toContainText('Change -ir');
+  await expect(page.locator('.pattern-teaching-steps li')).toHaveCount(3);
+  await expect(page.locator('.pattern-teaching-steps')).toContainText('vivir');
+  await expect(page.locator('.pattern-teaching-steps')).toContainText('vivimos');
+  await expect(page.locator('.pattern-journey-details')).not.toHaveAttribute('open','');
+  await expect(page.locator('.pattern-mini-check')).toContainText('we live');
+  await page.locator('[data-mini-answer="viven"]').click();
+  await expect(page.locator('.pattern-mini-feedback')).toContainText('Good try');
+  await page.locator('[data-mini-answer="vivimos"]').click();
+  await expect(page.locator('.pattern-mini-feedback')).toContainText('You got it');
+  await page.locator('.pattern-journey-details summary').click();
+  await expect(page.locator('.pattern-journey-details')).toHaveAttribute('open','');
+  await expect(page.locator('.pattern-journey-steps')).toBeAttached();
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+  expect(overflow).toBeLessThanOrEqual(2);
+  await page.locator('.pattern-easy-actions [data-practice="regular-ir"]').click();
+  await expect(page.locator('[data-view-panel="practice"]')).toBeVisible();
+});
+
+test('Difficult -AR pattern teaches a real transformation and one-question practice',async ({page})=>{
+  await page.setViewportSize({width:320,height:720});
+  await page.goto(base);
+  await page.locator('.primary-nav [data-view="library"]').click();
+  await page.locator('#searchInput').fill('Present -AR verb endings');
+  await page.locator('[data-open="regular-ar"]').first().click();
+  await expect(page.locator('#dialogTitle')).toContainText('Change the ending');
+  await expect(page.locator('.pattern-teaching-steps')).toContainText('hablamos');
+  await expect(page.locator('.pattern-mini-check')).toContainText('we speak');
+  await page.locator('[data-mini-answer="hablamos"]').click();
+  await expect(page.locator('.pattern-mini-feedback.is-correct')).toContainText('habl- + -amos');
+  await expect(page.locator('.pattern-why-details')).not.toHaveAttribute('open','');
+  await page.locator('.pattern-why-details summary').click();
+  await expect(page.locator('.pattern-why-details')).toHaveAttribute('open','');
 });

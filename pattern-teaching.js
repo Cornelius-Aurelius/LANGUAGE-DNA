@@ -2,6 +2,39 @@
   'use strict';
 
   const CUSTOM={
+    'regular-ar':{
+      heading:'Change the ending to say who!',
+      meaning:'A verb is an action word. In Spanish, its ending helps tell us who does the action. Start with hablar (to speak).',
+      example:'hablar → hablo = I speak',
+      notice:'Take away -ar to leave habl-. Add -o for I: hablo. Add -amos for we: hablamos.',
+      steps:['Start with hablar (to speak).','Remove -ar. Now you have habl-.','Add -o → hablo (I speak). Add -amos → hablamos (we speak).'],
+      audio:'hablo',
+      why:'Learn one verb family and you can begin making lots of sentences.',
+      check:{question:'How would you say “we speak”?',choices:['hablan','hablamos','hablo'],answer:'hablamos',why:'habl- + -amos = hablamos. The ending -amos means “we” for regular -ar verbs.'},
+      caution:'These endings are for regular -ar verbs in the present tense. Some common verbs are irregular.'
+    },
+    'regular-er':{
+      heading:'Change -er to say who is doing it',
+      meaning:'A verb is an action word. Regular -er verbs use a family of endings to show who does the action.',
+      example:'comer → como = I eat',
+      notice:'Take away -er from comer to get com-. Add -o for I: como. Add -emos for we: comemos.',
+      steps:['Start with comer (to eat).','Remove -er. You have com-.','Add -o → como (I eat). Add -emos → comemos (we eat).'],
+      audio:'como',
+      why:'Now you can change lots of regular -er verbs without memorising every sentence separately.',
+      check:{question:'How do you say “we eat”?',choices:['comemos','como','comen'],answer:'comemos',why:'com- + -emos = comemos. -emos means “we” for regular -er verbs.'},
+      caution:'These are present-tense endings for regular -er verbs; some verbs change differently.'
+    },
+    'regular-ir':{
+      heading:'Change -ir to say who is doing it',
+      meaning:'A verb is an action word. In Spanish, its ending can tell us who does it. Start with vivir (to live).',
+      example:'vivir → vivo = I live',
+      notice:'Take off -ir to get viv-. Add -o to say I live: vivo. Add -imos to say we live: vivimos.',
+      steps:['Start with vivir (to live).','Remove -ir. Now you have viv-.','Add -o → vivo (I live). Add -imos → vivimos (we live).'],
+      audio:'vivo',
+      why:'The same endings help with many regular -ir verbs.',
+      check:{question:'How do you say “we live”?',choices:['viven','vivo','vivimos'],answer:'vivimos',why:'viv- + -imos = vivimos. The -imos ending means “we” for regular -ir verbs.'},
+      caution:'This works for regular -ir verbs in the present tense; not every verb is regular.'
+    },
     'vowels':{
       heading:'Spanish vowels keep a clear sound',
       meaning:'In Spanish, each vowel usually keeps one clear, steady sound. The letter a is usually close to the “a” in father — an “ah” sound.',
@@ -11,7 +44,7 @@
       why:'Once you know the five vowel sounds, reading new Spanish words becomes much easier.'
     },
     'h-silent':{
-      heading:'The Spanish h is silent',
+      heading:'The Spanish H is silent',
       meaning:'When you see the letter h in Spanish, you normally do not pronounce it.',
       example:'hello = hola',
       notice:'Hola starts with h, but you begin with the vowel sound: roughly OH-lah.',
@@ -99,12 +132,14 @@
       why:'This helps Spanish sentences feel natural instead of translated word-for-word from English.'
     },
     'no-before-verb':{
-      heading:'Put no directly before the verb',
+      heading:'Make a Spanish sentence negative with one little word',
       meaning:'To make a simple Spanish sentence negative, put no immediately before the conjugated verb.',
       example:'I understand → entiendo · I do not understand → no entiendo',
       notice:'Spanish does not need an extra helper word like English “do”.',
       audio:'no entiendo',
-      why:'One small word lets you turn many positive sentences into negatives.'
+      why:'One small word lets you turn many positive sentences into negatives.',
+      steps:['Start with entiendo (I understand).','Put no right before the action: no entiendo.','Now say: No entiendo (I do not understand).'],
+      check:{question:'How do you say “I do not understand”?',choices:['entiendo no','no entiendo','no entiendo yo no'],answer:'no entiendo',why:'no + entiendo = no entiendo. The word no comes before the verb.'}
     },
     'question-words':{
       heading:'Five question words unlock everyday conversations',
@@ -215,10 +250,10 @@
 
     return{
       id:id,type:'structure',
-      heading:'What you are learning',
+      heading:'One small rule you can reuse',
       meaning:rule||'This is a reusable Spanish pattern.',
       example:en&&es?en+' → '+es:'',
-      notice:en&&es?'The example shows the rule in a real word or sentence.':'Use the rule as a reusable sentence-building clue.',
+      notice:en&&es?'Start with the English meaning. Read the Spanish aloud. See which part does the work.':'Look for the same idea in a new sentence.',
       audio:es,
       why:input.scoreLabel||'Once you understand the pattern, you can reuse it with new words.'
     }

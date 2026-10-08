@@ -42,6 +42,7 @@
       ]
     }
   ];
+  const badges={words:'🌱 Word Detective',sounds:'🎧 Sound Scout',sentences:'🚀 Sentence Builder'};
   const validId = id => worlds.some(w => w.id === id);
   function read() {
     try {
@@ -56,7 +57,7 @@
       return {best,active};
     } catch(_) {return {best:{},active:null};}
   }
-  let saved=read(),completed=null,clue=false,wrong=null,listing=false;
+  let saved=read(),completed=null,clue=false,wrong=null,listing=false,newBadge=false;
   function write(){try{localStorage.setItem(STORAGE,JSON.stringify(saved));}catch(_){}renderProgress()}
   function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
   function world(id){return worlds.find(w=>w.id===id);}
@@ -64,6 +65,8 @@
   function renderProgress(){
     const box=document.getElementById('questProgressSummary');
     if(box)box.innerHTML='<div class="quest-mini-progress"><span aria-hidden="true">⭐</span><div><strong>'+stars()+' of 15 adventure stars</strong><small>From games you have finished. Your stars never disappear.</small></div><button type="button" class="secondary-btn" data-quest-open>Play a quest →</button></div>';
+    const sticker=document.getElementById('questBadgeCount');
+    if(sticker)sticker.textContent=String(worlds.filter(w=>saved.best[w.id]===5).length);
     const badge=document.getElementById('questStarTotal');
     if(badge)badge.textContent=String(stars());
   }
@@ -77,16 +80,17 @@
         const resume=hasProgress && saved.active.world===w.id;
         return '<button type="button" class="quest-world quest-world-'+w.type+'" data-quest-world="'+w.id+'" aria-label="'+esc(w.label)+'. '+(complete?'Five stars earned. ':resume?'Continue where you stopped. ':'')+'Play five questions.">'+
           '<span class="quest-world-icon" aria-hidden="true">'+w.icon+'</span>'+
-          '<span class="quest-world-copy"><span class="quest-world-kicker">ADVENTURE '+(i+1)+'</span><strong>'+esc(w.label)+'</strong><small>'+esc(w.sub)+'</small><span class="quest-world-status">'+(complete?'⭐⭐⭐⭐⭐ Stars earned':resume?'▶ Keep playing':'Play 5 questions →')+'</span></span></button>'
+          '<span class="quest-world-copy"><span class="quest-world-kicker">ADVENTURE '+(i+1)+'</span><strong>'+esc(w.label)+'</strong><small>'+esc(w.sub)+'</small><span class="quest-world-status">'+(complete?'🏅 '+esc(badges[w.id])+' · 5 stars':resume?'▶ Keep playing':'Play 5 questions →')+'</span></span></button>'
       }).join('')+'</div>'+
       '<p class="quest-footer-note">All worlds are open. You can also explore the full Pattern Library anytime.</p>';
   }
   function renderQuestion(){
     const p=saved.active,w=world(p.world),q=w.questions[p.index];
     const progress=p.index+(p.answered?1:0);
+    const connection=w.type==='sounds'?'The first sound in '+q.en+' is '+q.answer+'.':q.en+' → '+q.answer;
     return '<div class="quest-play quest-play-'+w.type+'"><div class="quest-play-header">'+
       '<button type="button" class="quest-back" data-quest-back aria-label="Back to adventures">← Adventures</button>'+
-      '<span class="quest-count">QUESTION '+(p.index+1)+' OF 5</span>'+
+      '<span class="quest-count">'+(p.index===4?'🌟 FINAL DISCOVERY':'QUESTION '+(p.index+1)+' OF 5')+'</span>'+
       '</div><div class="quest-stars-earned" aria-label="'+progress+' of 5 stars in this quest">'+Array.from({length:5},(_,i)=>'<span aria-hidden="true">'+(i<progress?'⭐':'☆')+'</span>').join('')+'</div>'+
       '<div class="quest-play-progress" role="progressbar" aria-label="Adventure progress" aria-valuemin="0" aria-valuemax="5" aria-valuenow="'+progress+'"><span style="width:'+(progress*20)+'%"></span></div>'+
       '<div class="quest-question"><span class="quest-eyebrow">'+(w.type==='words'?'WORD DETECTIVE':w.type==='sounds'?'SOUND DETECTIVE':'SENTENCE BUILDER')+'</span>'+
@@ -96,7 +100,7 @@
       (w.type==='sentences'?'<p class="quest-subprompt">Tip: you can make negatives by adding <strong>no</strong>.</p>':'')+
       '</div>'+
       '<div class="quest-choices">'+q.choices.map((choice,i)=>'<button type="button" data-quest-answer="'+esc(choice)+'" class="quest-answer '+(p.answered&&choice===q.answer?'is-correct':'')+'" '+(p.answered||wrong===choice?'disabled':'')+'><span class="quest-option-letter" aria-hidden="true">'+String.fromCharCode(65+i)+'</span><strong>'+esc(choice)+'</strong></button>').join('')+'</div>'+
-      (p.answered?'<div class="quest-feedback quest-feedback-win" role="status"><strong>⭐ Star earned! You found the link.</strong><span>'+esc(q.why)+'</span></div>'+
+      (p.answered?'<div class="quest-feedback quest-feedback-win" role="status"><span class="quest-reward-icon" aria-hidden="true">🌟</span><strong>Star earned! Brilliant discovery.</strong><span class="quest-word-connection">'+esc(connection)+'</span><span>'+esc(q.why)+'</span></div>'+
         '<div class="quest-bottom-actions"><button type="button" class="primary-btn" data-quest-next>'+(p.index===4?'See my stars ✨':'Next question →')+'</button></div>':
        '<div class="quest-hint-actions"><button type="button" class="secondary-btn" data-quest-clue>💡 Show the secret</button>'+
          '<button type="button" class="quest-pattern-link" data-open="'+esc(q.pattern)+'">Learn this pattern ↗</button></div>'+
@@ -110,6 +114,7 @@
       '<span class="quest-eyebrow">ADVENTURE COMPLETE</span><h2>Hooray! Five stars!</h2>'+
       '<p>You unlocked the secret of <strong>'+esc(w.label)+'</strong>. Every English–Spanish link makes the next one easier to spot.</p>'+
       '<div class="quest-victory-stars" aria-label="Five stars earned">⭐⭐⭐⭐⭐</div>'+
+      '<div class="quest-earned-badge"><span aria-hidden="true">🏅</span><div><strong>'+esc(badges[w.id])+'</strong><small>'+(newBadge?'New badge unlocked!':'Badge already yours. Great replay!')+'</small></div></div>'+
       '<div class="quest-victory-actions"><button type="button" class="primary-btn" data-quest-back>Pick another adventure →</button>'+
       '<button type="button" class="secondary-btn" data-open="'+esc(w.pattern)+'">Explore this pattern</button></div>'+
       '<small>You can stop here and be proud. Your stars stay saved on this device.</small></section>';
@@ -129,7 +134,7 @@
   }
   function selectWorld(id){
     if(!validId(id))return;
-    completed=null;clue=false;wrong=null;listing=false;
+    completed=null;newBadge=false;clue=false;wrong=null;listing=false;
     if(!saved.active || saved.active.world!==id) saved.active={world:id,index:0,answered:false};
     write();render();
   }
@@ -144,6 +149,7 @@
     const a=saved.active;if(!a||!a.answered)return;
     if(a.index===4){
       completed=a.world;
+      newBadge=saved.best[a.world]!==5;
       saved.best[a.world]=5;
       saved.active=null;
     }else{a.index++;a.answered=false;}
