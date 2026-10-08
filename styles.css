@@ -819,3 +819,26 @@ body.dark .pattern-next-card{border-color:var(--border)}
   .home-pattern-card,.nav-item{transition:none}
   .home-pattern-card:hover{transform:none}
 }
+
+/* v17 tablet width guard: retain direct access to Patterns without page overflow. */
+@media (min-width:681px) and (max-width:980px){
+  .primary-nav{
+    max-width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scrollbar-width:none;
+    gap:3px;
+    padding-left:12px;
+    padding-right:12px;
+    justify-content:flex-start;
+    overscroll-behavior-x:contain;
+  }
+  .primary-nav::-webkit-scrollbar{display:none}
+  .primary-nav .nav-item{
+    flex:0 0 auto;
+    padding:0 12px;
+    gap:5px;
+    font-size:12px;
+    white-space:nowrap;
+  }
+}
