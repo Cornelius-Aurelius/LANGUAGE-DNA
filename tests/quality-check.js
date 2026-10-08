@@ -66,7 +66,7 @@ if(!index.includes('data-open="tion-cion"')||!index.includes('data-open="h-silen
 if(!index.includes('class="home-how-disclosure"'))fail('Progressive disclosure for learning explanation is missing.');
 if(!index.includes('data-view="game"><span>◆</span><strong>Game</strong>'))fail('Game must remain accessible from mobile More.');
 if(!app.includes("['course','game','dna'].includes(name)"))fail('Mobile More active state is misaligned with navigation.');
-if(!sw.includes("languagedna-v25")||!sw.includes("'./pattern.css?v=4'"))fail('Offline cache does not contain updated branded assets.');
+if(!sw.includes("languagedna-v26")||!sw.includes("'./pattern.css?v=4'"))fail('Offline cache does not contain updated branded assets.');
 if(!index.includes('Free from start to finish.'))fail('Free learning guarantee must stay visible.');
 if(!index.includes('id="startBeginner"'))fail('First lesson entry was lost.');
 if(!index.includes('id="quickTranslator"'))fail('Translator entry was lost.');
