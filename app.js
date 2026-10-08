@@ -253,9 +253,9 @@
   function renderReviewBar(){
     const count=document.getElementById('reviewDueCount'),text=document.getElementById('reviewDueText'),button=document.getElementById('reviewStartButton');if(!count||!text||!button)return;
     const s=reviewSummary();count.textContent=s.due;
-    if(s.due){text.textContent='Your memory queue has '+s.due+' link'+(s.due===1?'':'s')+' ready for retrieval practice.';button.textContent='Review due links'}
-    else if(s.scheduled){text.textContent='Nothing is due. Next scheduled review is '+formatDue(s.next&&s.next.due)+'.';button.textContent='Smart practice'}
-    else{text.textContent='Complete a practice item and LanguageDNA will start scheduling memory reviews automatically.';button.textContent='Start smart practice'}
+    if(s.due){text.textContent='These are the things most worth practising now.';button.textContent='Start review'}
+    else if(s.scheduled){text.textContent='You are caught up. We can still choose something useful to practise.';button.textContent='Practise now'}
+    else{text.textContent='Start with one question. LanguageDNA will quietly learn what to bring back later.';button.textContent='Start practising'}
   }
   function startSmartReview(){const due=duePatterns(),title=due.length?'Smart Review · '+due.length+' due':'Smart Practice · mixed skills';startLessonSession(title,patterns.map(function(p){return p.id}),null)}
 
