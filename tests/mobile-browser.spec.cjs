@@ -429,3 +429,89 @@ test('Difficult -AR pattern teaches a real transformation and one-question pract
   await page.locator('.pattern-why-details summary').click();
   await expect(page.locator('.pattern-why-details')).toHaveAttribute('open','');
 });
+
+
+test('Adventure map teaches first, shows a connected trail, and keeps the mystery locked',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.locator('.home-play-button').click();
+  await expect(page.locator('#patternQuest .quest-map')).toBeVisible();
+  await expect(page.locator('#patternQuest .quest-map-stop')).toHaveCount(3);
+  await expect(page.locator('#patternQuest .quest-learn-link')).toHaveCount(3);
+  await expect(page.locator('[data-quest-mystery]')).toBeDisabled();
+  await expect(page.locator('.quest-map-mystery')).toContainText('0 / 2 worlds completed');
+  await page.locator('.quest-map-stop-sounds .quest-learn-link').click();
+  await expect(page.locator('#patternDialog')).toHaveAttribute('open','');
+  await expect(page.locator('#dialogTitle')).toContainText('silent');
+  const width=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+  expect(width).toBeLessThanOrEqual(2);
+});
+
+test('Sentence Space lets children build, undo and check Spanish with word tiles',async ({page})=>{
+  await page.setViewportSize({width:320,height:720});
+  await page.goto(base);
+  await page.locator('.home-play-button').click();
+  await page.locator('[data-quest-world="sentences"]').click();
+  await expect(page.locator('[data-quest-build-mode]')).toBeVisible();
+  await page.locator('[data-quest-build-mode]').click();
+  await expect(page.locator('.quest-built')).toContainText('Tap words');
+  await page.locator('[data-quest-tile="0"]').click(); // entiendo
+  await expect(page.locator('.quest-built')).toContainText('entiendo');
+  await page.locator('[data-quest-undo]').click();
+  await expect(page.locator('.quest-built')).toContainText('Tap words');
+  await page.locator('[data-quest-tile="0"]').click();
+  await page.locator('[data-quest-tile="2"]').click(); // wrong order
+  await page.locator('[data-quest-check-tiles]').click();
+  await expect(page.locator('.quest-feedback')).toContainText('Nice try');
+  await page.locator('[data-quest-tile="2"]').click();
+  await page.locator('[data-quest-tile="0"]').click();
+  await page.locator('[data-quest-check-tiles]').click();
+  await expect(page.locator('.quest-feedback-win')).toContainText('no entiendo');
+  await expect(page.locator('.quest-stars-earned')).toContainText('⭐');
+  const width=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+  expect(width).toBeLessThanOrEqual(2);
+});
+
+test('Sound Safari offers a real listen-first challenge without blocking children who prefer reading',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.locator('.home-play-button').click();
+  await page.locator('[data-quest-world="sounds"]').click();
+  await expect(page.locator('.quest-prompt')).toHaveText('hola');
+  await page.locator('[data-quest-listen-mode]').click();
+  await expect(page.locator('.quest-prompt')).toHaveText('🔊 Listen, then choose');
+  await expect(page.locator('[data-quest-listen]')).toBeVisible();
+  await page.locator('[data-quest-listen-mode]').click();
+  await expect(page.locator('.quest-prompt')).toHaveText('hola');
+  await page.locator('[data-quest-answer="O"]').click();
+  await expect(page.locator('.quest-feedback-win')).toContainText('first sound');
+});
+
+test('Mystery Island unlocks after two mastered worlds and awards an honest replayable badge',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.evaluate(()=>localStorage.setItem('ldna-quest-v1',JSON.stringify({best:{words:5,sounds:5,sentences:0},active:null,mysteryWins:0})));
+  await page.reload();
+  await page.locator('.home-play-button').click();
+  await expect(page.locator('.quest-map-mystery')).toContainText('Unlocked!');
+  await expect(page.locator('[data-quest-mystery]')).toBeEnabled();
+  await page.locator('[data-quest-mystery]').click();
+  const correct=['información','O','nación','A','celebración'];
+  for(const answer of correct){
+    await page.locator('[data-quest-answer="'+answer+'"]').click();
+    await expect(page.locator('.quest-feedback-win')).toBeVisible();
+    await page.locator('[data-quest-next]').click();
+  }
+  await expect(page.locator('.quest-victory')).toContainText('cracked the mystery');
+  await expect(page.locator('.quest-earned-badge')).toContainText('Mystery Explorer');
+  await expect(page.locator('.quest-earned-badge')).toContainText('New badge unlocked');
+  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('ldna-quest-v1')));
+  expect(saved.mysteryWins).toBe(1);
+  expect(saved.best.words).toBe(5);
+  await page.locator('[data-quest-back]').click();
+  await expect(page.locator('.quest-map-mystery')).toContainText('Mystery Explorer earned');
+  await page.reload();
+  await page.locator('.primary-nav [data-view="game"]').click();
+  await expect(page.locator('.quest-map-mystery')).toContainText('Mystery Explorer earned');
+  await expect(page.locator('[data-quest-mystery]')).toBeEnabled();
+});
