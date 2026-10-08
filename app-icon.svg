@@ -1,8 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="LanguageDNA">
-  <defs><linearGradient id="sea" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#123d4a"/><stop offset="1" stop-color="#086d77"/></linearGradient></defs>
-  <rect width="512" height="512" rx="112" fill="url(#sea)"/>
-  <circle cx="399" cy="113" r="32" fill="#ed936d" opacity=".95"/>
-  <path d="M154 92c0 92 204 94 204 164S154 326 154 420" fill="none" stroke="#8fe8d1" stroke-width="34" stroke-linecap="round"/>
-  <path d="M358 92c0 92-204 94-204 164s204 70 204 164" fill="none" stroke="#f8fbef" stroke-width="34" stroke-linecap="round"/>
-  <g stroke="#ccece5" stroke-width="18" stroke-linecap="round"><path d="M184 142h144"/><path d="M172 220h168"/><path d="M172 292h168"/><path d="M184 370h144"/></g>
+  <defs>
+    <linearGradient id="ld" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#13a992"/><stop offset="1" stop-color="#155c71"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="url(#ld)"/>
+  <circle cx="400" cy="112" r="38" fill="#ffcf73"/>
+  <circle cx="99" cy="403" r="18" fill="#ffa38b"/>
+  <path d="M152 88c0 95 208 94 208 168s-208 70-208 168" fill="none" stroke="#c8f78d" stroke-width="35" stroke-linecap="round"/>
+  <path d="M360 88c0 95-208 94-208 168s208 70 208 168" fill="none" stroke="#fffef3" stroke-width="35" stroke-linecap="round"/>
+  <g stroke="#d6fae8" stroke-width="18" stroke-linecap="round">
+    <path d="M180 142h152"/><path d="M169 220h174"/><path d="M169 292h174"/><path d="M180 370h152"/>
+  </g>
 </svg>
