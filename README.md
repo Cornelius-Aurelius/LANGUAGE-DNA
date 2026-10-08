@@ -144,3 +144,18 @@ The landing screen is deliberately much smaller and follows a new product rule: 
 - The visible “Tutor” navigation label is renamed **Learn** so the purpose is immediately clear to a beginner.
 
 The design goal is clarity and healthy engagement: immediate usefulness, visible progress and easy return paths without dark patterns or unnecessary setup.
+
+
+## Simple Practice v11
+
+Practice questions now prioritise learner understanding over system metadata.
+
+- Technical badges such as course level, usefulness score, memory due state, review interval and x / 5 skills are removed from the question area.
+- Every mode asks the task in plain English: write it, say it, listen and choose, choose the Spanish, or tick every example that matches.
+- Every question has a **Need help?** control. It reveals one short hint, one example and practical advice without automatically revealing the full answer.
+- Initial memory-system copy is hidden; feedback appears only after the learner answers.
+- Review copy uses plain language such as “ready to review” and “practise now” instead of scheduler terminology.
+- Skip remains available with no penalty.
+- The learning engine still keeps difficulty, scheduling and skill state internally; those details no longer compete with the question itself.
+
+The product rule is: if information does not help the learner understand the current question or decide what to do next, it should not be prominent in the learning flow.
