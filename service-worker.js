@@ -1,5 +1,5 @@
-const CACHE='languagedna-v34';
-const ASSETS=['./','./index.html','./styles.css?v=24','./app.js?v=25','./profile-tools.js?v=3','./learning-wins.js?v=1','./pattern-quest.js?v=1','./supabase-config.js?v=1','./cloud-sync.js?v=2','./app-icon.svg','./everyday-data.js?v=1','./everyday-expanded-data.js?v=2','./tutor-tools.js?v=8','./everyday-game.js?v=5','./manifest.webmanifest','./pattern.html','./pattern.css?v=6','./pattern-data.js?v=5','./pattern-teaching.js?v=1','./pattern-page.js?v=3'];
+const CACHE='languagedna-v35';
+const ASSETS=['./','./index.html','./styles.css?v=25','./app.js?v=26','./profile-tools.js?v=3','./learning-wins.js?v=1','./pattern-quest.js?v=2','./supabase-config.js?v=1','./cloud-sync.js?v=2','./app-icon.svg','./everyday-data.js?v=1','./everyday-expanded-data.js?v=2','./tutor-tools.js?v=8','./everyday-game.js?v=5','./manifest.webmanifest','./pattern.html','./pattern.css?v=6','./pattern-data.js?v=5','./pattern-teaching.js?v=2','./pattern-page.js?v=3'];
 
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()))
