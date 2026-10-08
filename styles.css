@@ -551,3 +551,35 @@ button,a,input,select{touch-action:manipulation}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+
+/* Full-platform learner simplicity v17 */
+.dna-capabilities-section{margin:0 0 20px}
+.section-heading.compact{margin-bottom:10px}.section-heading.compact h2{margin:0;font-size:28px}
+.dna-capability-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.dna-capability{display:grid;grid-template-columns:40px 1fr;gap:10px;min-height:145px;padding:14px;border:1px solid var(--border);border-radius:16px;background:var(--surface)}
+.dna-capability.ready{border-color:#a9cbbb;background:var(--green-soft)}.dna-capability-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--surface);font-size:20px}
+.dna-capability small{font-size:8px;font-weight:900;letter-spacing:.08em;color:var(--green-dark)}.dna-capability h3{margin:3px 0 5px;font-size:16px}.dna-capability p{margin:0;color:var(--muted);font-size:10px;line-height:1.45}
+.dna-capability-progress{height:5px;margin-top:11px;border-radius:999px;background:var(--surface-2);overflow:hidden}.dna-capability-progress span{display:block;height:100%;border-radius:inherit;background:var(--green)}
+.dna-more-details{margin:20px 0 28px;border:1px solid var(--border);border-radius:18px;background:var(--surface);overflow:hidden}
+.dna-more-details>summary{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:58px;padding:0 16px;cursor:pointer;font-weight:900;list-style:none}.dna-more-details>summary::-webkit-details-marker{display:none}
+.dna-more-details>summary::after{content:'＋';font-size:18px;color:var(--green)}.dna-more-details[open]>summary::after{content:'−'}
+.dna-more-details>summary small{margin-left:auto;color:var(--muted);font-size:9px;font-weight:600}.dna-details-inner{padding:0 16px 18px;border-top:1px solid var(--border)}
+.dna-details-inner .dna-detail-progress{margin-top:18px}
+.lesson-session-head small{line-height:1.4}
+
+@media(max-width:980px){
+  .dna-capability-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:680px){
+  .dna-capabilities-section{margin-bottom:15px}.section-heading.compact h2{font-size:24px}
+  .dna-capability-grid{grid-template-columns:1fr 1fr;gap:7px}
+  .dna-capability{grid-template-columns:34px 1fr;gap:8px;min-height:132px;padding:11px}.dna-capability-icon{width:32px;height:32px;font-size:17px}
+  .dna-capability h3{font-size:14px}.dna-capability p{font-size:9px}
+  .dna-more-details>summary{align-items:flex-start;flex-direction:column;justify-content:center;gap:2px;padding:10px 14px;position:relative}.dna-more-details>summary::after{position:absolute;right:14px;top:50%;transform:translateY(-50%)}
+  .dna-more-details>summary small{margin-left:0;padding-right:30px}.dna-details-inner{padding:0 11px 14px}
+}
+@media(max-width:390px){
+  .dna-capability-grid{grid-template-columns:1fr}
+  .dna-capability{min-height:0}
+}
