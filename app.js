@@ -485,17 +485,25 @@
       if(p.type==='sound')return'<div class="teaching-example-row sound"><div><small>WORD / EXAMPLE</small><strong>'+escapeHtml(left)+'</strong></div><div><small>WHAT TO NOTICE</small><span>'+escapeHtml(right)+'</span></div><button type="button" class="small-audio" data-speak="'+escapeHtml(left)+'" data-pattern-audio="'+p.id+'" aria-label="Hear '+escapeHtml(left)+'">🔊 Hear</button></div>';
       const hi=highlightWordPair(left,right);return'<div class="teaching-example-row"><div><small>ENGLISH</small><strong>'+hi.en+'</strong></div><span class="arrow">→</span><div><small>SPANISH</small><strong>'+hi.es+'</strong></div><button type="button" class="small-audio" data-speak="'+escapeHtml(right)+'" data-pattern-audio="'+p.id+'" aria-label="Hear '+escapeHtml(right)+'">🔊 Hear</button></div>'
     }).join('');
-    const primaryAudio=teaching.audio?'<button type="button" class="secondary-btn pattern-hear-main" data-speak="'+escapeHtml(teaching.audio)+'" data-pattern-audio="'+p.id+'">🔊 Hear the example</button>':'';
-    const journeyLabels=journey.stages.map(function(s){return'<span class="'+(s.done?'done':journey.next&&journey.next.key===s.key?'current':'')+'">'+(s.done?'✓ ':journey.next&&journey.next.key===s.key?'→ ':'')+escapeHtml(s.label)+'</span>'}).join('');
+    const primaryAudio=teaching.audio?'<button type="button" class="secondary-btn pattern-hear-main" data-speak="'+escapeHtml(teaching.audio)+'" data-pattern-audio="'+p.id+'">🔊 Hear this Spanish</button>':'';
+    const journeyLabels=journey.stages.map(function(stage){return'<span class="'+(stage.done?'done':journey.next&&journey.next.key===stage.key?'current':'')+'">'+(stage.done?'✓ ':journey.next&&journey.next.key===stage.key?'→ ':'')+escapeHtml(stage.label)+'</span>'}).join('');
+    const buildSteps=Array.isArray(teaching.steps)&&teaching.steps.length?'<div class="pattern-teaching-steps"><h4>Let's build it together</h4><ol>'+teaching.steps.map(function(step){return'<li>'+escapeHtml(step)+'</li>'}).join('')+'</ol></div>':'';
+    const check=teaching.check,miniCheck=check&&Array.isArray(check.choices)?
+      '<section class="pattern-mini-check"><span class="eyebrow">YOUR TURN · ONE QUICK TRY</span><h4>'+escapeHtml(check.question)+'</h4><div class="pattern-mini-choices">'+check.choices.map(function(choice){
+        return'<button type="button" data-mini-answer="'+escapeHtml(choice)+'" data-mini-correct="'+(choice===check.answer?'true':'false')+'" data-mini-reason="'+escapeHtml(check.why)+'">'+escapeHtml(choice)+'</button>'
+      }).join('')+'</div><p class="pattern-mini-feedback" role="status" aria-live="polite"></p></section>':'';
     els.dialogContent.innerHTML=
-      '<div class="dialog-hero simple-pattern-hero"><span class="mini-badge '+p.type+'">'+typeLabel(p.type)+'</span><h2 id="dialogTitle">'+escapeHtml(p.title)+'</h2></div>'+
-      '<section class="pattern-teaching-card"><span class="eyebrow">WHAT YOU’RE LEARNING</span><h3>'+escapeHtml(teaching.heading)+'</h3><p class="pattern-meaning">'+escapeHtml(teaching.meaning)+'</p>'+
-        (teaching.example?'<div class="worked-example"><small>EXAMPLE</small><strong>'+escapeHtml(teaching.example)+'</strong><p>'+escapeHtml(teaching.notice||'')+'</p></div>':'')+
+      '<div class="dialog-hero simple-pattern-hero"><span class="mini-badge '+p.type+'">'+typeLabel(p.type)+'</span><h2 id="dialogTitle">'+escapeHtml(teaching.heading||p.title)+'</h2><p class="pattern-original-name">Pattern name: '+escapeHtml(p.title)+'</p></div>'+
+      '<section class="pattern-teaching-card"><span class="eyebrow">THE SIMPLE IDEA</span><p class="pattern-meaning">'+escapeHtml(teaching.meaning)+'</p>'+
+        (teaching.example?'<div class="worked-example"><small>LOOK AT THIS</small><strong>'+escapeHtml(teaching.example)+'</strong><p>'+escapeHtml(teaching.notice||'')+'</p></div>':'')+
+        buildSteps+
         '<div class="pattern-teaching-actions">'+primaryAudio+'</div>'+
-        (teaching.why?'<p class="pattern-why"><b>Why this matters:</b> '+escapeHtml(teaching.why)+'</p>':'')+
-        (teaching.caution?'<p class="pattern-caution">'+escapeHtml(teaching.caution)+'</p>':'')+
+        (teaching.caution?'<p class="pattern-caution"><strong>Good to know:</strong> '+escapeHtml(teaching.caution)+'</p>':'')+
       '</section>'+
-      '<section class="pattern-journey-card"><div class="pattern-journey-head"><div><span class="eyebrow">YOUR PATTERN JOURNEY</span><h3>'+journey.complete+' of '+journey.total+' steps complete</h3></div><strong>'+journey.pct+'%</strong></div><div class="pattern-journey-progress"><span style="width:'+journey.pct+'%"></span></div><div class="pattern-journey-steps">'+journeyLabels+'</div><div class="pattern-next-step"><p><b>Next:</b> '+escapeHtml(next.label)+'. '+escapeHtml(next.reason)+'</p><button type="button" class="primary-btn" data-pattern-next="'+p.id+'">'+escapeHtml(next.button)+'</button></div></section>'+
+      miniCheck+
+      '<details class="pattern-journey-details"><summary><span><span class="eyebrow">YOUR PATTERN PROGRESS</span><strong>'+journey.complete+' of '+journey.total+' steps complete</strong></span><span aria-hidden="true">⌄</span></summary>'+
+        '<section class="pattern-journey-card"><div class="pattern-journey-head"><div><span class="eyebrow">LEARNING JOURNEY</span><h3>'+journey.complete+' of '+journey.total+' steps</h3></div><strong>'+journey.pct+'%</strong></div><div class="pattern-journey-progress"><span style="width:'+journey.pct+'%"></span></div><div class="pattern-journey-steps">'+journeyLabels+'</div><div class="pattern-next-step"><p><b>Next:</b> '+escapeHtml(next.label)+'. '+escapeHtml(next.reason)+'</p><button type="button" class="primary-btn" data-pattern-next="'+p.id+'">'+escapeHtml(next.button)+'</button></div></section>'+
+      '</details>'+
       '<section class="pattern-example-section"><h3>More examples</h3><p>Look for the same idea in each example.</p><div class="pattern-example-list">'+examples+'</div></section>';
     els.dialog.showModal()
   }
@@ -1054,6 +1062,21 @@
   }
 
   document.addEventListener('click',function(e){
+    const tinyAnswer=e.target.closest('[data-mini-answer]');
+    if(tinyAnswer){
+      const panel=tinyAnswer.closest('.pattern-mini-check'),result=panel&&panel.querySelector('.pattern-mini-feedback');
+      if(!panel||!result)return;
+      if(tinyAnswer.dataset.miniCorrect==='true'){
+        panel.querySelectorAll('[data-mini-answer]').forEach(function(btn){btn.disabled=true;btn.classList.toggle('correct',btn===tinyAnswer)});
+        result.textContent='🌟 You got it! '+tinyAnswer.dataset.miniReason;
+        result.className='pattern-mini-feedback is-correct';
+      }else{
+        tinyAnswer.disabled=true;tinyAnswer.classList.add('incorrect');
+        result.textContent='Good try! Look at the example above, then try another answer.';
+        result.className='pattern-mini-feedback is-try';
+      }
+      return;
+    }
     const mobileMore=e.target.closest('[data-mobile-more]');if(mobileMore){const menu=document.getElementById('mobileMoreMenu'),open=menu&&menu.hidden;if(menu)menu.hidden=!open;mobileMore.setAttribute('aria-expanded',open?'true':'false');return}
     const view=e.target.closest('[data-view]');if(view){goView(view.dataset.view);return}
     const open=e.target.closest('[data-open]');if(open){openPattern(open.dataset.open);return}
