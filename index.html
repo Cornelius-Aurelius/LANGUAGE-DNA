@@ -32,13 +32,13 @@
       <button class="nav-item mobile-hide" type="button" data-view="practice"><span>◎</span><b>Practice</b></button>
       <button class="nav-item" type="button" data-view="tutor"><span>▶</span><b>Learn</b></button>
       <button class="nav-item" type="button" data-view="game"><span>◆</span><b>Play</b></button>
-      <button class="nav-item mobile-hide" type="button" data-view="dna"><span>🧬</span><b>My DNA</b></button>
+      <button class="nav-item mobile-hide" type="button" data-view="dna"><span>🧬</span><b>My Progress</b></button>
       <button class="nav-item mobile-more-trigger" type="button" data-mobile-more aria-expanded="false"><span>•••</span><b>More</b></button>
     </nav>
     <div class="mobile-more-menu" id="mobileMoreMenu" hidden>
       <button type="button" data-view="course"><span>◫</span><strong>Guided course</strong><small>A1 → A2 → B1 path</small></button>
       <button type="button" data-view="practice"><span>◎</span><strong>Practice</strong><small>Extra questions and speaking</small></button>
-      <button type="button" data-view="dna"><span>🧬</span><strong>My DNA</strong><small>Your progress and reviews</small></button>
+      <button type="button" data-view="dna"><span>🧬</span><strong>My Progress</strong><small>Your progress and reviews</small></button>
     </div>
 
     <main id="main">
@@ -46,13 +46,13 @@
         <section class="simple-home-hero" aria-labelledby="homeTitle">
           <div class="simple-home-copy">
             <span class="eyebrow">SPANISH, MADE SIMPLE</span>
-            <h1 id="homeTitle">Discover a secret. Play with Spanish<span class="hero-period">!</span></h1>
-            <p>Spanish has hidden links to English. Find them, play a little game, and surprise yourself.</p>
+            <h1 id="homeTitle">Spot the English link. Learn Spanish<span class="hero-period">!</span></h1>
+            <p>Start with words you already know. Discover a simple pattern, then have fun practising it.</p>
             <div class="simple-home-actions home-two-paths" aria-label="Two ways to learn Spanish">
               <button class="secondary-btn simple-home-explore" type="button" data-view="library"><span aria-hidden="true">🔎</span> Discover Patterns <span aria-hidden="true">→</span></button>
               <button class="primary-btn home-play-button" type="button" data-quest-open><span aria-hidden="true">🎮</span> Play the Game <span aria-hidden="true">→</span></button>
             </div>
-            <div class="home-small-start"><span>Want a quick lesson?</span> <button type="button" id="startBeginner">Try the Daily 5 →</button></div>
+            <div class="home-small-start"><span>Or try a five-minute lesson:</span> <button type="button" id="startBeginner">Try the Daily 5 →</button></div>
             <small class="simple-start-note">No sign-up needed. <b>Free from start to finish.</b></small>
           </div>
           <div class="simple-dna-example" aria-label="Example: information becomes información">
@@ -106,10 +106,10 @@
           </details>
         </section>
 
-        <section class="simple-next" aria-labelledby="simpleNextTitle">
+        <details class="home-more-tools"><summary><span>More ways to learn</span><small>Practice, longer challenges and word search</small></summary><section class="simple-next" aria-labelledby="simpleNextTitle">
           <div class="simple-section-heading">
             <span class="eyebrow">START ANYWHERE</span>
-            <h2 id="simpleNextTitle">What do you want to do?</h2>
+            <h2 id="simpleNextTitle">Choose another activity</h2>
           </div>
           <div class="simple-path-grid">
             <button type="button" class="simple-path-card learn" data-view="tutor" data-tutor-open="daily">
@@ -119,13 +119,13 @@
               <span>◎</span><div><strong>Practise</strong><small>Review what needs strengthening.</small></div>
             </button>
             <button type="button" class="simple-path-card" data-view="game" data-everyday-open="game">
-              <span>◆</span><div><strong>Play the game</strong><small>Take the 40-question challenge.</small></div>
+              <span>◆</span><div><strong>40-question challenge</strong><small>Optional advanced challenge, not for first-time beginners.</small></div>
             </button>
             <a class="simple-path-card" href="#quickTranslator">
-              <span>⌕</span><div><strong>Find a word</strong><small>Research English ↔ Spanish instantly.</small></div>
+              <span>⌕</span><div><strong>Find a word</strong><small>Look up an English or Spanish word.</small></div>
             </a>
           </div>
-        </section>
+        </section></details>
 
         <section class="simple-translator" id="quickTranslator" aria-labelledby="translatorTitle">
           <div class="simple-section-heading">
@@ -137,7 +137,7 @@
             <form id="translationForm" class="translation-form">
               <label class="translator-input-wrap">
                 <span aria-hidden="true">⌕</span><span class="sr-only">Word to translate</span>
-                <input id="translationInput" type="search" placeholder="Try: information, hotel, gracias…" autocomplete="off" spellcheck="false" />
+                <input id="translationInput" type="search" placeholder="Type an English or Spanish word…" autocomplete="off" spellcheck="false" />
               </label>
               <div class="translation-controls">
                 <select id="translationDirection" aria-label="Translation direction">
@@ -184,7 +184,7 @@
           <div class="library-simple-heading">
             <div>
               <span class="eyebrow">BROWSE PATTERNS</span>
-              <h2 id="libraryTitle">Choose what you want to learn.</h2>
+              <h2 id="libraryTitle">Choose a pattern to discover.</h2>
               <p id="resultsSummary">Loading patterns…</p>
             </div>
           </div>
@@ -195,6 +195,7 @@
             <input id="searchInput" type="search" placeholder="Search a pattern or example…" autocomplete="off" />
           </label>
 
+          <div class="library-beginner-start"><span aria-hidden="true">🌱</span><div><strong>New to Spanish? Start here.</strong><small>Try the silent H — one simple idea you can learn in a minute.</small></div><button type="button" class="secondary-btn" data-open="h-silent">Try an easy pattern →</button></div>
           <div class="quick-filter-row library-filter-row" id="quickFilters" aria-label="Filter patterns">
             <button type="button" class="chip active" data-quick="all">All</button>
             <button type="button" class="chip" data-quick="cognates">Word patterns</button>
@@ -223,12 +224,12 @@
           <button type="button" class="primary-btn" id="reviewStartButton" data-smart-review>Start smart review</button>
         </section>
         <section class="lesson-session-panel" id="lessonSessionPanel" hidden aria-live="polite"></section>
-        <div class="practice-toolbar"><label for="practicePatternSelect"><strong>Pattern</strong></label><select id="practicePatternSelect"></select></div>
+        <div class="practice-toolbar"><label for="practicePatternSelect"><strong>Choose a pattern to practise</strong></label><select id="practicePatternSelect"></select></div>
         <div class="practice-mode-grid">
-          <button type="button" class="mode-card active" data-mode="write"><span>✍️</span><strong>Write</strong><small>Produce Spanish</small></button>
+          <button type="button" class="mode-card" data-mode="write"><span>✍️</span><strong>Write</strong><small>Type the Spanish</small></button>
           <button type="button" class="mode-card" data-mode="speak"><span>🎙️</span><strong>Speak</strong><small>Say it aloud</small></button>
           <button type="button" class="mode-card" data-mode="hear"><span>👂</span><strong>Hear</strong><small>Understand the sound</small></button>
-          <button type="button" class="mode-card" data-mode="choice"><span>↔️</span><strong>Choose</strong><small>This or that</small></button>
+          <button type="button" class="mode-card active" data-mode="choice"><span>↔️</span><strong>Choose</strong><small>Best for beginners</small></button>
           <button type="button" class="mode-card" data-mode="tick"><span>✓</span><strong>Spot it</strong><small>Rapid recognition</small></button>
         </div>
         <section class="practice-stage" id="practiceStage" aria-live="polite"></section>
@@ -262,7 +263,7 @@
         <section id="patternQuest" class="pattern-quest" aria-label="Pattern Quest game"></section>
         <div class="everyday-game-tabs" aria-label="More word challenges">
           <button type="button" class="active" data-everyday-tab="learn">More words to explore</button>
-          <button type="button" data-everyday-tab="game">40-question challenge</button>
+          <button type="button" data-everyday-tab="game">Advanced 40-question challenge</button>
         </div>
 
         <section id="everydayLearnPanel"></section>
