@@ -179,7 +179,8 @@ test('Every primary screen uses the shared playful card and button system',async
     expect(parseFloat(css.radius),view+' keeps round friendly cards').toBeGreaterThanOrEqual(15);
     expect(css.shadow,view+' keeps tactile card depth').not.toBe('none');
     const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
-    expect(overflow,view+' cannot overflow the mobile screen').toBeLessThanOrEqual(2);
+    const offenders=overflow>2?await page.evaluate(()=>[...document.querySelectorAll('*')].filter(el=>{const r=el.getBoundingClientRect();return r.width>0&&r.right>innerWidth+3}).slice(0,12).map(el=>({tag:el.tagName,className:String(el.className).slice(0,80),id:el.id,width:Math.round(el.getBoundingClientRect().width),right:Math.round(el.getBoundingClientRect().right)}))):[];
+    expect(overflow,view+' cannot overflow the mobile screen '+JSON.stringify(offenders)).toBeLessThanOrEqual(2);
   }
 });
 
@@ -206,7 +207,8 @@ test('All seven screens stay branded and readable in dark mode',async ({page})=>
     await page.locator('.primary-nav [data-view="'+view+'"]').evaluate(button=>button.click());
     await expect(page.locator('[data-view-panel="'+view+'"]')).toBeVisible();
     const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
-    expect(overflow,view+' dark view should fit mobile').toBeLessThanOrEqual(2);
+    const offenders=overflow>2?await page.evaluate(()=>[...document.querySelectorAll('*')].filter(el=>{const r=el.getBoundingClientRect();return r.width>0&&r.right>innerWidth+3}).slice(0,12).map(el=>({tag:el.tagName,className:String(el.className).slice(0,80),id:el.id,width:Math.round(el.getBoundingClientRect().width),right:Math.round(el.getBoundingClientRect().right)}))):[];
+    expect(overflow,view+' dark view should fit mobile '+JSON.stringify(offenders)).toBeLessThanOrEqual(2);
   }
 });
 
