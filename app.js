@@ -196,6 +196,7 @@
   function patternNeedScore(p){
     const evidence=recentPatternEvidence(p.id),review=reviewRecord(p.id),now=Date.now();let score=p.power+(5-progressFor(p.id))*24;
     if(review&&review.due<=now)score+=90;
+    else if(review&&review.due>now)score-=32;
     if(review&&review.lastQuality<3)score+=28;
     score+=Math.min(45,evidence.wrong*13+evidence.reveals*10);
     if(evidence.avgMs!=null&&evidence.avgMs>16000)score+=12;else if(evidence.avgMs!=null&&evidence.avgMs<5500&&evidence.attempts>=3)score-=8;
