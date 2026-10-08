@@ -583,3 +583,13 @@ button,a,input,select{touch-action:manipulation}
   .dna-capability-grid{grid-template-columns:1fr}
   .dna-capability{min-height:0}
 }
+
+
+.translation-senses{margin-top:9px;padding:11px;border:1px solid var(--border);border-radius:13px;background:var(--surface)}
+.translation-senses>small{display:block;margin-bottom:7px;color:var(--green);font-size:8px;font-weight:900;letter-spacing:.08em}
+.translation-senses>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.translation-senses span{display:grid;gap:2px;padding:8px 9px;border-radius:10px;background:var(--surface-2)}
+.translation-senses b{color:var(--muted);font-size:9px;font-weight:700;line-height:1.35}.translation-senses strong{font-size:13px}
+.simple-start-note b{color:var(--green-dark)}
+body.dark .simple-start-note b{color:var(--green)}
+@media(max-width:680px){.translation-senses>div{grid-template-columns:1fr}}
