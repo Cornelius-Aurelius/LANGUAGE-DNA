@@ -54,9 +54,9 @@ if(!app.includes('rankLiveTranslations'))fail('Live translation ranking guard mi
 if(!app.includes('PRONUNCIATION_ADVICE'))fail('Actionable pronunciation advice missing.');
 if(!app.includes('four-choice'))fail('Four-choice practice rendering missing.');
 if(!app.includes('recentWrongStreak'))fail('Practice scaffolding guard missing.');
-if(!index.includes('profile-tools.js?v=2'))fail('Profile tools are not loaded.');
+if(!index.includes('profile-tools.js?v=3'))fail('Profile tools are not loaded.');
 if(!manifest.icons||!manifest.icons.length)fail('PWA manifest icon missing.');
-if(!sw.includes("'./profile-tools.js?v=2'")||!sw.includes("'./app-icon.svg'"))fail('PWA support assets missing from offline cache.');
+if(!sw.includes("'./profile-tools.js?v=3'")||!sw.includes("'./app-icon.svg'"))fail('PWA support assets missing from offline cache.');
 if(!index.includes('styles.css?v=17')||!index.includes('app.js?v=21'))fail('Index asset versions are not aligned.');
 if(!sw.includes("./styles.css?v=17")||!sw.includes("./app.js?v=21"))fail('Service worker asset versions are not aligned.');
 
@@ -70,6 +70,8 @@ if(!sw.includes("languagedna-v25")||!sw.includes("'./pattern.css?v=4'"))fail('Of
 if(!index.includes('Free from start to finish.'))fail('Free learning guarantee must stay visible.');
 if(!index.includes('id="startBeginner"'))fail('First lesson entry was lost.');
 if(!index.includes('id="quickTranslator"'))fail('Translator entry was lost.');
+
+if(!index.includes('cloud-sync.js?v=2')||!sw.includes("'./cloud-sync.js?v=2'"))fail('Cloud sync safety patch not cache-versioned.');
 
 require('./cloud-sync-check.js');
 
