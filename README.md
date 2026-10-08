@@ -206,3 +206,20 @@ The Patterns screen now prioritises understanding the pattern instead of exposin
 - Mobile collapses to one clear card per row with the same two actions.
 
 Product rule: the pattern itself must be visually more important than the metadata used to rank or schedule it.
+
+## Adaptive Pattern Mastery v15
+
+This release joins the app into one simple learner journey instead of exposing separate systems.
+
+- A hidden next-best engine now weighs review timing, recent mistakes, answer speed, reveals, pronunciation evidence, pattern progress and teaching value.
+- Learners do not see those scores. They see one plain recommendation and one Continue action.
+- Every authored pattern has a mastery journey: Understand → See examples → Hear it → Practise → Use it → Real life → Review later.
+- Word and sound patterns do not force unnecessary conversation; their real-life step is satisfied by successful use practice.
+- Sentence, verb and question patterns can open a short real-life conversation focused on the learned pattern.
+- Full Pattern Dictionary pages share the same journey and can return directly to the correct Practice item.
+- Real-life conversation adds a Work scenario, can grow from 3 to 6 short turns, accepts more natural equivalent short replies, and keeps corrections gentle.
+- My DNA now leads with meaningful outcomes: everyday words familiar, patterns usable, sentence frames strong and real-life situations ready.
+- Patterns and My DNA use the same central recommendation, preventing conflicting next-step advice.
+- Trusted common vocabulary now includes clear regional notes for words such as car, ticket, computer, mobile phone, apartment, juice and potato.
+
+Product rule: complexity belongs in the engine; the learner should see one useful next step, one clear reason and one obvious action.
