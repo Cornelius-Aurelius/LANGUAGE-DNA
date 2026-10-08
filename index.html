@@ -7,7 +7,7 @@
   <meta name="description" content="LanguageDNA — learn Spanish through links between English and Spanish words, sounds and sentence patterns." />
   <title>LanguageDNA — Learn Spanish Through Patterns</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css?v=14" />
+  <link rel="stylesheet" href="styles.css?v=15" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -233,10 +233,11 @@
 
       <section class="view" data-view-panel="dna">
         <div class="page-intro dna-intro">
-          <span class="eyebrow">MY LANGUAGE DNA</span><h1>See the Spanish links growing.</h1>
-          <p>Your map shows what you can recognise, hear, write, say and use — not just which lessons you opened.</p>
+          <span class="eyebrow">MY SPANISH</span><h1>See what you can actually do.</h1>
+          <p>Focus on useful outcomes, then continue with the single best next step.</p>
         </div>
-        <div class="dna-overview">
+        <section class="dna-outcome-hero" id="dnaOutcomeHero" aria-live="polite"></section>
+        <div class="dna-overview dna-detail-progress">
           <div class="dna-ring" id="dnaRing"><div><strong id="dnaPercent">0%</strong><span>skills built</span></div></div>
           <div class="skill-summary" id="skillSummary"></div>
         </div>
@@ -259,7 +260,7 @@
 
         <section class="dna-command-center" id="dnaCommandCenter">
           <div class="section-heading">
-            <div><span class="eyebrow">PERSONALISED COMMAND CENTRE</span><h2>What should I do next?</h2><p>Your course stage, memory schedule, recent work and weak areas are combined into one recommendation.</p></div>
+            <div><span class="eyebrow">YOUR LEARNING</span><h2>Keep going without guessing.</h2><p>LanguageDNA quietly uses your practice to choose what is most useful next.</p></div>
           </div>
           <div class="command-grid">
             <article class="command-primary" id="dnaRecommendation"></article>
@@ -294,6 +295,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="everyday-data.js?v=1"></script>
   <script src="pattern-teaching.js?v=1"></script>
-  <script src="app.js?v=19"></script>
+  <script src="app.js?v=20"></script>
 </body>
 </html>
