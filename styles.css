@@ -2111,3 +2111,27 @@ body.dark .quest-tiles button{background:#483c66;border-color:#806aa6;color:#f4e
 @media(prefers-reduced-motion:reduce){
   .quest-map-stop,.quest-tiles button{animation:none!important;transition:none!important;transform:none!important}
 }
+
+
+/* Nova: original small star companion, not a borrowed brand mascot. */
+.quest-friend{display:flex;align-items:center;gap:12px;margin:0 0 12px;max-width:100%}
+.quest-friend-face{position:relative;display:grid;place-items:center;flex:0 0 58px;width:58px;height:58px;
+  border:3px solid #e3ae51;border-radius:22px 23px 19px 24px;
+  background:linear-gradient(145deg,#ffe88b,#ffbe72);color:#f99735;font-size:30px;
+  box-shadow:0 4px 0 #dfb766;transform:rotate(-6deg)}
+.quest-friend-eyes{position:absolute;top:16px;left:13px;right:12px;
+  color:#5e4c31;font-size:20px;letter-spacing:10px;line-height:1;font-weight:950;transform:rotate(6deg)}
+.quest-friend-speech{display:inline-flex;align-items:center;min-height:45px;padding:10px 13px;
+  border:2px solid #d0e6d2;border-radius:17px 17px 17px 6px;
+  background:var(--surface);color:var(--text);font-size:14px;font-weight:900}
+.quest-friend-victory{justify-content:center}
+.quest-friend-victory .quest-friend-face{width:65px;height:65px;flex-basis:65px}
+body.dark .quest-friend-face{border-color:#dba957;box-shadow:0 4px 0 #9a742e}
+body.dark .quest-friend-speech{background:#29474a;border-color:#52766b;color:#f1fff7}
+@media(max-width:680px){
+  .quest-friend{gap:9px;margin-bottom:10px}
+  .quest-friend-face{width:47px;height:47px;flex-basis:47px;border-radius:17px;font-size:25px}
+  .quest-friend-eyes{top:13px;left:9px;font-size:17px}
+  .quest-friend-speech{font-size:12px;padding:8px 10px}
+}
+@media(prefers-reduced-motion:reduce){.quest-friend-face{transform:none}}
