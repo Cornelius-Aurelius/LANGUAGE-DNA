@@ -325,16 +325,17 @@ test('Word Garden teaches a real English-Spanish pattern and rewards completion'
   await expect(page.locator('.quest-feedback')).toContainText('Nice try');
   await expect(page.locator('.quest-prompt')).toHaveText('information');
   await page.locator('[data-quest-answer="información"]').click();
-  await expect(page.locator('.quest-feedback-win')).toContainText('Star earned');
+  await expect(page.locator('.quest-answer-flash.success')).toContainText('information → información');
   await page.reload();
   await page.locator('.primary-nav [data-view="game"]').click();
-  await expect(page.locator('.quest-feedback-win')).toBeVisible();
-  await page.locator('[data-quest-next]').click();
+  await expect(page.locator('.quest-prompt')).toHaveText('nation',{timeout:5000});
   const correct=['nación','actividad','celebración','universidad'];
-  for(const answer of correct){
-    await page.locator('[data-quest-answer="'+answer+'"]').click();
-    await expect(page.locator('.quest-feedback-win')).toBeVisible();
-    await page.locator('[data-quest-next]').click();
+  const nextPrompts=['activity','celebration','university'];
+  for(let i=0;i<correct.length;i++){
+    await page.locator('[data-quest-answer="'+correct[i]+'"]').click();
+    await expect(page.locator('.quest-answer-flash.success')).toBeVisible();
+    if(i<nextPrompts.length)await expect(page.locator('.quest-prompt')).toHaveText(nextPrompts[i],{timeout:5000});
+    else await expect(page.locator('.quest-victory')).toBeVisible({timeout:5000});
   }
   await expect(page.locator('.quest-victory')).toBeVisible();
   await expect(page.locator('.quest-victory-stars')).toContainText('⭐⭐⭐⭐⭐');
@@ -363,12 +364,12 @@ test('Child-friendly game offers free hints, a back action and sound/sentence wo
   await page.locator('[data-quest-world="sounds"]').click();
   await expect(page.locator('.quest-prompt')).toHaveText('hola');
   await page.locator('[data-quest-answer="O"]').click();
-  await expect(page.locator('.quest-feedback-win')).toBeVisible();
+  await expect(page.locator('.quest-answer-flash.success')).toBeVisible();
   await page.locator('[data-quest-back]').click();
   await page.locator('[data-quest-world="sentences"]').click();
   await expect(page.locator('.quest-prompt')).toHaveText("I don't understand");
   await page.locator('[data-quest-answer="no entiendo"]').click();
-  await expect(page.locator('.quest-feedback-win')).toContainText('no entiendo');
+  await expect(page.locator('.quest-answer-flash.success')).toContainText('no entiendo');
   const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('ldna-quest-v1')));
   expect(saved.best.words||0).toBe(0);
 });
@@ -466,7 +467,7 @@ test('Sentence Space lets children build, undo and check Spanish with word tiles
   await page.locator('[data-quest-tile="2"]').click();
   await page.locator('[data-quest-tile="0"]').click();
   await page.locator('[data-quest-check-tiles]').click();
-  await expect(page.locator('.quest-feedback-win')).toContainText('no entiendo');
+  await expect(page.locator('.quest-answer-flash.success')).toContainText('no entiendo');
   await expect(page.locator('.quest-stars-earned')).toContainText('⭐');
   const width=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
   expect(width).toBeLessThanOrEqual(2);
@@ -484,7 +485,7 @@ test('Sound Safari offers a real listen-first challenge without blocking childre
   await page.locator('[data-quest-listen-mode]').click();
   await expect(page.locator('.quest-prompt')).toHaveText('hola');
   await page.locator('[data-quest-answer="O"]').click();
-  await expect(page.locator('.quest-feedback-win')).toContainText('first sound');
+  await expect(page.locator('.quest-answer-flash.success')).toContainText('first sound');
 });
 
 test('Mystery Island unlocks after two mastered worlds and awards an honest replayable badge',async ({page})=>{
@@ -497,10 +498,12 @@ test('Mystery Island unlocks after two mastered worlds and awards an honest repl
   await expect(page.locator('[data-quest-mystery]')).toBeEnabled();
   await page.locator('[data-quest-mystery]').click();
   const correct=['información','O','nación','A','celebración'];
-  for(const answer of correct){
-    await page.locator('[data-quest-answer="'+answer+'"]').click();
-    await expect(page.locator('.quest-feedback-win')).toBeVisible();
-    await page.locator('[data-quest-next]').click();
+  const following=['hola','nation','hablar','celebration'];
+  for(let i=0;i<correct.length;i++){
+    await page.locator('[data-quest-answer="'+correct[i]+'"]').click();
+    await expect(page.locator('.quest-answer-flash.success')).toBeVisible();
+    if(i<following.length)await expect(page.locator('.quest-prompt')).toHaveText(following[i],{timeout:5000});
+    else await expect(page.locator('.quest-victory')).toBeVisible({timeout:5000});
   }
   await expect(page.locator('.quest-victory')).toContainText('cracked the mystery');
   await expect(page.locator('.quest-earned-badge')).toContainText('Mystery Explorer');
@@ -514,4 +517,99 @@ test('Mystery Island unlocks after two mastered worlds and awards an honest repl
   await page.locator('.primary-nav [data-view="game"]').click();
   await expect(page.locator('.quest-map-mystery')).toContainText('Mystery Explorer earned');
   await expect(page.locator('[data-quest-mystery]')).toBeEnabled();
+});
+
+
+for(const size of [{width:320,height:720},{width:375,height:812},{width:430,height:932}]){
+  test('Pattern Quest fits all four answers without scrolling at '+size.width+'px',async ({page})=>{
+    await page.setViewportSize(size);
+    await page.goto(base);
+    await page.locator('.home-play-button').click();
+    await page.locator('[data-quest-world="words"]').click();
+    await expect(page.locator('[data-view-panel="game"]')).toHaveClass(/quest-focused/);
+    await expect(page.locator('.game-intro')).toBeHidden();
+    await expect(page.locator('.quest-answer')).toHaveCount(4);
+    const info=await page.evaluate(()=>{
+      const rect=selector=>document.querySelector(selector).getBoundingClientRect();
+      return{
+        headerBottom:rect('.topbar').bottom,
+        questionTop:rect('.quest-question').top,
+        lastAnswerBottom:rect('.quest-answer:last-child').bottom,
+        navTop:rect('.primary-nav').top,
+        scroll:scrollY,
+        overflow:document.documentElement.scrollWidth-innerWidth
+      };
+    });
+    expect(info.lastAnswerBottom,'All four answers above bottom nav').toBeLessThan(info.navTop-4);
+    expect(info.questionTop,'Question below header').toBeGreaterThanOrEqual(info.headerBottom-4);
+    expect(info.scroll,'A new quest aligns the viewport').toBeLessThanOrEqual(2);
+    expect(info.overflow).toBeLessThanOrEqual(2);
+  });
+}
+
+test('Right answer auto-advances, wrong answer stays until retry',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.locator('.home-play-button').click();
+  await page.locator('[data-quest-world="words"]').click();
+  await page.locator('[data-quest-answer="nación"]').click();
+  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Not quite');
+  await expect(page.locator('.quest-prompt')).toHaveText('information');
+  await page.waitForTimeout(1450);
+  await expect(page.locator('.quest-prompt')).toHaveText('information');
+  await page.locator('[data-quest-answer="información"]').click();
+  await expect(page.locator('.quest-answer-flash.success')).toContainText('information → información');
+  await expect(page.locator('.quest-prompt')).toHaveText('nation',{timeout:4500});
+  await expect(page.locator('.quest-answer-flash.success')).toHaveCount(0);
+  const after=await page.evaluate(()=>({
+    scroll:scrollY,
+    lastAnswerBottom:document.querySelector('.quest-answer:last-child').getBoundingClientRect().bottom,
+    navTop:document.querySelector('.primary-nav').getBoundingClientRect().top
+  }));
+  expect(after.scroll).toBeLessThanOrEqual(2);
+  expect(after.lastAnswerBottom).toBeLessThan(after.navTop-4);
+});
+
+test('Changing adventure cancels pending auto movement',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.locator('.home-play-button').click();
+  await page.locator('[data-quest-world="words"]').click();
+  await page.locator('[data-quest-answer="información"]').click();
+  await expect(page.locator('.quest-answer-flash.success')).toBeVisible();
+  await page.locator('[data-quest-back]').click();
+  await page.locator('[data-quest-world="sounds"]').click();
+  await page.waitForTimeout(1450);
+  await expect(page.locator('.quest-prompt')).toHaveText('hola');
+  await expect(page.locator('.quest-answer-flash.success')).toHaveCount(0);
+});
+
+test('Dark-mode sound choices and sentence tiles fit above mobile nav',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await page.locator('#themeButton').click();
+  await page.locator('.home-play-button').click();
+  await page.locator('[data-quest-world="sounds"]').click();
+  const check=async()=>{
+    const rect=await page.evaluate(()=>({
+      bottom:document.querySelector('.quest-answer:last-child').getBoundingClientRect().bottom,
+      nav:document.querySelector('.primary-nav').getBoundingClientRect().top,
+      overflow:document.documentElement.scrollWidth-innerWidth
+    }));
+    expect(rect.bottom).toBeLessThan(rect.nav-4);
+    expect(rect.overflow).toBeLessThanOrEqual(2);
+  };
+  await check();
+  await page.locator('[data-quest-listen-mode]').click();
+  await check();
+  await page.locator('[data-quest-back]').click();
+  await page.locator('[data-quest-world="sentences"]').click();
+  await check();
+  await page.locator('[data-quest-build-mode]').click();
+  await expect(page.locator('.quest-tiles button')).toHaveCount(3);
+  const tiles=await page.evaluate(()=>({
+    bottom:document.querySelector('.quest-builder-tools').getBoundingClientRect().bottom,
+    nav:document.querySelector('.primary-nav').getBoundingClientRect().top
+  }));
+  expect(tiles.bottom,'Word tiles above nav').toBeLessThan(tiles.nav-4);
 });
