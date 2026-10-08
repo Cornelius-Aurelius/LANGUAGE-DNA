@@ -199,7 +199,10 @@
     if(root){
       root.innerHTML=completed?renderComplete():(listing||!saved.active)?renderWorlds():renderQuestion();
       const screen=root.closest('[data-view-panel="game"]');
-      if(screen)screen.classList.toggle('quest-focused',Boolean(saved.active&&!listing&&!completed));
+      if(screen){
+        screen.classList.toggle('quest-focused',Boolean(saved.active&&!listing&&!completed));
+        screen.classList.toggle('quest-paced-manual',pace==='manual');
+      }
     }
     renderProgress();
     if(saved.active&&saved.active.answered&&!listing&&!completed)queueAutoAdvance();
