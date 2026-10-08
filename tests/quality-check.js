@@ -57,8 +57,8 @@ if(!app.includes('recentWrongStreak'))fail('Practice scaffolding guard missing.'
 if(!index.includes('profile-tools.js?v=3'))fail('Profile tools are not loaded.');
 if(!manifest.icons||!manifest.icons.length)fail('PWA manifest icon missing.');
 if(!sw.includes("'./profile-tools.js?v=3'")||!sw.includes("'./app-icon.svg'"))fail('PWA support assets missing from offline cache.');
-if(!index.includes('styles.css?v=20')||!index.includes('app.js?v=22'))fail('Index asset versions are not aligned.');
-if(!sw.includes("./styles.css?v=20")||!sw.includes("./app.js?v=22"))fail('Service worker asset versions are not aligned.');
+if(!index.includes('styles.css?v=22')||!index.includes('app.js?v=23'))fail('Index asset versions are not aligned.');
+if(!sw.includes("./styles.css?v=22")||!sw.includes("./app.js?v=23"))fail('Service worker asset versions are not aligned.');
 
 if(!index.includes('data-view="library"><span>⌕</span><b>Patterns</b>'))fail('Patterns must be a direct, visible mobile navigation item.');
 if(!index.includes('class="home-patterns"')||!index.includes('class="home-pattern-card words"')||!index.includes('class="home-pattern-card sounds"')||!index.includes('class="home-pattern-card sentences"'))fail('Pattern discovery cards are missing from Home.');
@@ -66,7 +66,7 @@ if(!index.includes('data-open="tion-cion"')||!index.includes('data-open="h-silen
 if(!index.includes('class="home-how-disclosure"'))fail('Progressive disclosure for learning explanation is missing.');
 if(!index.includes('data-view="game"><span>◆</span><strong>Game</strong>'))fail('Game must remain accessible from mobile More.');
 if(!app.includes("['course','game','dna'].includes(name)"))fail('Mobile More active state is misaligned with navigation.');
-if(!sw.includes("languagedna-v29")||!sw.includes("'./pattern.css?v=5'"))fail('Offline cache does not contain updated branded assets.');
+if(!sw.includes("languagedna-v32")||!sw.includes("'./pattern.css?v=6'"))fail('Offline cache does not contain updated branded assets.');
 if(!index.includes('Free from start to finish.'))fail('Free learning guarantee must stay visible.');
 if(!index.includes('id="startBeginner"'))fail('First lesson entry was lost.');
 if(!index.includes('id="quickTranslator"'))fail('Translator entry was lost.');
@@ -77,11 +77,20 @@ const css=read('styles.css'),dictionaryCss=read('pattern.css');
 if(!css.includes('LanguageDNA Playful Discovery')||!css.includes('--ld-lime:#c1f264')||!css.includes('.simple-home-explore'))fail('Playful original brand tokens or pattern CTA missing.');
 if(!css.includes('.home-pattern-card.words')||!css.includes('.home-pattern-card.sounds')||!css.includes('.home-pattern-card.sentences'))fail('Pattern families lost individual colour coding.');
 if(!dictionaryCss.includes('Playful Discovery design continuity'))fail('Dictionary branding was not updated.');
-if(!index.includes('styles.css?v=20')||!sw.includes("'./styles.css?v=20'")||!sw.includes("'./pattern.css?v=5'"))fail('Branding assets must be PWA cache-versioned.');
+if(!index.includes('styles.css?v=22')||!sw.includes("'./styles.css?v=22'")||!sw.includes("'./pattern.css?v=6'"))fail('Branding assets must be PWA cache-versioned.');
 if(!manifest.theme_color||manifest.theme_color!=='#0b826d')fail('New PWA theme colour missing.');
 
 if(!app.includes('data-pattern-type=')||!read('styles.css').includes('.learner-pattern-card[data-pattern-type="visual"]'))fail('Semantic pattern family colour coding missing.');
 
+
+if(!read('styles.css').includes('Whole-site LanguageDNA Playful Discovery system'))fail('Whole-site branding layer is missing.');
+for(const family of ['course-progress-hero','practice-stage','daily-hero','scenario-card','game-question-card','dna-outcome-copy','translator-panel','account-dialog','pattern-next-card']){
+  if(!read('styles.css').includes('.'+family))fail('Branding missing from '+family);
+}
+if(!read('pattern.css').includes('v18.1 full-site finish'))fail('Dictionary design continuity missing.');
+if(!read('pattern.html').includes('pattern.css?v=6'))fail('Pattern page stylesheet must be versioned.');
+
+if(!app.includes("service-worker.js?v=18"))fail('Updated PWA registration is missing.');
 require('./cloud-sync-check.js');
 
 console.log('LanguageDNA quality checks passed:',{everyday:core.length,dictionaries:ids.length,productionRows:rows});

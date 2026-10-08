@@ -110,3 +110,27 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #ec93
  .letter-button,.page-button,.listen-button{transition:none}
  .letter-button:hover,.page-button:hover,.listen-button:hover{transform:none}
 }
+
+
+
+/* v18.1 full-site finish — matching dictionary controls and feedback */
+.dictionary-journey,.dictionary-table-wrap,.pattern-teaching,.dictionary-search{box-shadow:0 4px 0 #d8ebe4}
+.dictionary-journey{background:linear-gradient(125deg,#effff1,#ffffff 74%);border-radius:21px}
+.dictionary-journey h2{font-weight:950}
+.pattern-teaching .worked-example{border-radius:17px}
+.dictionary-table-wrap{border-radius:19px}
+.dictionary-table th{font-weight:950;letter-spacing:.06em}
+.dictionary-table td{border-color:#e1eee9}
+.dictionary-table tr:focus-within{background:#e9f9ef}
+.letter-button,.page-button{min-height:44px}
+.teaching-listen:hover{background:#e7deff;border-color:#aa92ea}
+.teaching-listen:focus-visible,.listen-button:focus-visible,.journey-practice-link:focus-visible{outline:3px solid #a15cfa;outline-offset:3px}
+.toast{background:#164e4d;border:2px solid #0a7669;border-radius:15px;box-shadow:0 5px 0 #0c3836,0 15px 24px rgba(0,0,0,.16)}
+@media(max-width:640px){
+ .dictionary-table td,.dictionary-table th{overflow-wrap:anywhere}
+ .dictionary-journey{padding:14px}
+ .pattern-teaching .worked-example{padding:12px}
+ .dictionary-search{min-height:54px}
+ .letter-button,.page-button{min-width:42px}
+ .pattern-heading{box-shadow:0 4px 0 #d8ebe4}
+}
