@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#123c31" />
+  <meta name="theme-color" content="#123d4a" />
   <meta name="description" content="LanguageDNA — learn Spanish through links between English and Spanish words, sounds and sentence patterns." />
   <title>LanguageDNA — Learn Spanish Through Patterns</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="app-icon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=16" />
+  <link rel="stylesheet" href="styles.css?v=18" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="app-shell">
     <header class="topbar">
       <button class="brand" type="button" data-view="home" aria-label="LanguageDNA home">
-        <span class="brand-mark" aria-hidden="true">🧬</span>
+        <span class="brand-mark" aria-hidden="true"><img src="app-icon.svg" alt="" width="28" height="28" /></span>
         <span><strong>LanguageDNA</strong><small>English → Spanish</small></span>
       </button>
       <div class="topbar-actions">
@@ -28,37 +28,69 @@
     <nav class="primary-nav" aria-label="Primary navigation">
       <button class="nav-item active" type="button" data-view="home"><span>⌂</span><b>Home</b></button>
       <button class="nav-item mobile-hide" type="button" data-view="course"><span>◫</span><b>Course</b></button>
-      <button class="nav-item mobile-hide" type="button" data-view="library"><span>⌕</span><b>Patterns</b></button>
+      <button class="nav-item" type="button" data-view="library"><span>⌕</span><b>Patterns</b></button>
       <button class="nav-item" type="button" data-view="practice"><span>◎</span><b>Practice</b></button>
       <button class="nav-item" type="button" data-view="tutor"><span>▶</span><b>Learn</b></button>
-      <button class="nav-item" type="button" data-view="game"><span>◆</span><b>Game</b></button>
+      <button class="nav-item mobile-hide" type="button" data-view="game"><span>◆</span><b>Game</b></button>
       <button class="nav-item mobile-hide" type="button" data-view="dna"><span>🧬</span><b>My DNA</b></button>
       <button class="nav-item mobile-more-trigger" type="button" data-mobile-more aria-expanded="false"><span>•••</span><b>More</b></button>
     </nav>
     <div class="mobile-more-menu" id="mobileMoreMenu" hidden>
       <button type="button" data-view="course"><span>◫</span><strong>Guided course</strong><small>A1 → A2 → B1 path</small></button>
-      <button type="button" data-view="library"><span>⌕</span><strong>Patterns</strong><small>Browse every language link</small></button>
+      <button type="button" data-view="game"><span>◆</span><strong>Game</strong><small>40-question challenge</small></button>
       <button type="button" data-view="dna"><span>🧬</span><strong>My DNA</strong><small>Your progress and reviews</small></button>
     </div>
 
     <main id="main">
       <section class="view active" data-view-panel="home">
-        <section class="simple-home-hero">
+        <section class="simple-home-hero" aria-labelledby="homeTitle">
           <div class="simple-home-copy">
             <span class="eyebrow">SPANISH, MADE SIMPLE</span>
-            <h1>Learn Spanish from English you already know.</h1>
-            <p>LanguageDNA shows you one useful English → Spanish connection at a time, then helps you hear it, use it and remember it.</p>
-            <button class="primary-btn simple-home-start" type="button" id="startBeginner">Start my 5-minute lesson</button>
-            <small class="simple-start-note">No setup. No level test. Start immediately.</small>
-
-            <div class="simple-dna-example" aria-label="LanguageDNA example">
-              <span>information</span><b>→</b><strong>información</strong>
-              <small>You already know the idea. We show you the Spanish connection.</small>
+            <h1 id="homeTitle">Spanish starts with what you already know<span class="hero-period">.</span></h1>
+            <p>Spot a connection. Hear it. Use it in real life.</p>
+            <div class="simple-home-actions">
+              <button class="primary-btn simple-home-start" type="button" id="startBeginner">Start my 5-minute lesson <span aria-hidden="true">→</span></button>
+              <button class="secondary-btn simple-home-explore" type="button" data-view="library">Explore patterns <span aria-hidden="true">↗</span></button>
             </div>
+            <small class="simple-start-note">No sign-up needed. <b>Free from start to finish.</b></small>
+          </div>
+          <div class="simple-dna-example" aria-label="Example: information becomes información">
+            <span class="example-kicker">THE LANGUAGE DNA METHOD</span>
+            <div class="example-words"><div><small>ENGLISH</small><span>information</span></div><b aria-hidden="true">→</b><div><small>SPANISH</small><strong>información</strong></div></div>
+            <div class="example-bridge"><span aria-hidden="true">✦</span><span>One familiar ending. A whole family of new words.</span></div>
+          </div>
+        </section>
+
+        <section class="home-patterns" aria-labelledby="homePatternsTitle">
+          <div class="home-patterns-heading">
+            <div><span class="eyebrow">DISCOVER THE CONNECTIONS</span><h2 id="homePatternsTitle">Try your first pattern.</h2></div>
+            <button class="home-patterns-all" type="button" data-view="library">See all patterns <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="home-patterns-grid">
+            <button type="button" class="home-pattern-card words" data-open="tion-cion" aria-label="Learn the tion to ción word pattern">
+              <span class="home-pattern-category"><span class="home-pattern-symbol" aria-hidden="true">Aa</span> WORDS <span class="home-pattern-arrow" aria-hidden="true">↗</span></span>
+              <strong>-tion <span aria-hidden="true">→</span> -ción</strong>
+              <span class="home-pattern-sample">nation <b>→</b> nación</span>
+              <span class="home-pattern-link">Open pattern <span aria-hidden="true">→</span></span>
+            </button>
+            <button type="button" class="home-pattern-card sounds" data-open="h-silent" aria-label="Learn the silent H sound pattern">
+              <span class="home-pattern-category"><span class="home-pattern-symbol" aria-hidden="true">♫</span> SOUNDS <span class="home-pattern-arrow" aria-hidden="true">↗</span></span>
+              <strong>H is silent</strong>
+              <span class="home-pattern-sample">hola <b>→</b> “ola”</span>
+              <span class="home-pattern-link">Open pattern <span aria-hidden="true">→</span></span>
+            </button>
+            <button type="button" class="home-pattern-card sentences" data-open="no-before-verb" aria-label="Learn how to say no plus a verb in Spanish">
+              <span class="home-pattern-category"><span class="home-pattern-symbol" aria-hidden="true">✳</span> SENTENCES <span class="home-pattern-arrow" aria-hidden="true">↗</span></span>
+              <strong>no + verb</strong>
+              <span class="home-pattern-sample">entiendo <b>→</b> no entiendo</span>
+              <span class="home-pattern-link">Open pattern <span aria-hidden="true">→</span></span>
+            </button>
           </div>
         </section>
 
         <section class="simple-how" aria-labelledby="simpleHowTitle">
+          <details class="home-how-disclosure">
+            <summary><span><span class="eyebrow">NEW HERE?</span><strong id="simpleHowTitle">How LanguageDNA works</strong></span><small>Three simple steps</small></summary>
           <div class="simple-section-heading">
             <span class="eyebrow">HOW IT WORKS</span>
             <h2 id="simpleHowTitle">Three simple steps.</h2>
@@ -68,6 +100,7 @@
             <article><span>2</span><div><strong>Spot the Spanish link</strong><small>See and hear the connection without a long grammar lesson.</small></div></article>
             <article><span>3</span><div><strong>Use it straight away</strong><small>Choose it, say it and practise it in a real-life situation.</small></div></article>
           </div>
+          </details>
         </section>
 
         <section class="simple-next" aria-labelledby="simpleNextTitle">
@@ -235,58 +268,72 @@
       <section class="view" data-view-panel="dna">
         <div class="page-intro dna-intro">
           <span class="eyebrow">MY SPANISH</span><h1>See what you can actually do.</h1>
-          <p>Focus on useful outcomes, then continue with the single best next step.</p>
+          <p>Useful real-life abilities first. Detailed learning data stays available when you want it.</p>
         </div>
+
         <section class="dna-outcome-hero" id="dnaOutcomeHero" aria-live="polite"></section>
-        <div class="dna-overview dna-detail-progress">
-          <div class="dna-ring" id="dnaRing"><div><strong id="dnaPercent">0%</strong><span>skills built</span></div></div>
-          <div class="skill-summary" id="skillSummary"></div>
-        </div>
 
-        <div class="dna-intelligence-grid" id="dnaIntelligenceGrid">
-          <article class="dna-metric"><span>🧬</span><strong id="dnaPatternStrong">0</strong><small>strong patterns</small></article>
-          <article class="dna-metric"><span>⏱</span><strong id="dnaReviewDue">0</strong><small>reviews due</small></article>
-          <article class="dna-metric"><span>🎙️</span><strong id="dnaPronunciation">—</strong><small>speech match average</small></article>
-          <article class="dna-metric"><span>🧱</span><strong id="dnaSentenceStrong">0</strong><small>sentence frames strong</small></article>
-          <article class="dna-metric"><span>🔗</span><strong id="dnaWordReach">—</strong><small>pattern-linked words in reach</small></article>
-          <article class="dna-metric"><span>💬</span><strong id="dnaWordsKnown">0</strong><small>everyday words familiar</small></article>
-          <article class="dna-metric"><span>🌍</span><strong id="dnaSituationsReady">—</strong><small>real-life situations ready</small></article>
-          <article class="dna-metric"><span>☀️</span><strong id="dnaDailyWeek">—</strong><small>Daily 5s this week</small></article>
-        </div>
-
-        <section class="dna-health-grid">
-          <article class="dna-health-card" id="memoryHealth"></article>
-          <article class="dna-health-card" id="pronunciationHealth"></article>
-        </section>
-
-        <section class="dna-command-center" id="dnaCommandCenter">
-          <div class="section-heading">
-            <div><span class="eyebrow">YOUR LEARNING</span><h2>Keep going without guessing.</h2><p>LanguageDNA quietly uses your practice to choose what is most useful next.</p></div>
+        <section class="dna-capabilities-section" aria-labelledby="dnaCapabilitiesTitle">
+          <div class="section-heading compact">
+            <div><span class="eyebrow">REAL-LIFE ABILITIES</span><h2 id="dnaCapabilitiesTitle">What your Spanish is unlocking.</h2></div>
           </div>
-          <div class="command-grid">
-            <article class="command-primary" id="dnaRecommendation"></article>
-            <article class="command-card" id="weeklyProgress"></article>
-            <article class="command-card" id="strengthProfile"></article>
-            <article class="command-card" id="reviewCalendar"></article>
-          </div>
+          <div class="dna-capability-grid" id="dnaCapabilities"></div>
         </section>
 
         <section class="app-progress-tools" id="appProgressTools" aria-live="polite"></section>
 
-        <section class="dna-section">
-          <div class="section-heading"><div><span class="eyebrow">YOUR PATTERN MAP</span><h2>Connections by family</h2><p>Tap any node to reopen that pattern.</p></div></div>
-          <div class="dna-map" id="dnaMap"></div>
-        </section>
+        <details class="dna-more-details">
+          <summary><span>More progress details</span><small>Memory, pronunciation, patterns and weekly activity</small></summary>
+          <div class="dna-details-inner">
+            <div class="dna-overview dna-detail-progress">
+              <div class="dna-ring" id="dnaRing"><div><strong id="dnaPercent">0%</strong><span>skills built</span></div></div>
+              <div class="skill-summary" id="skillSummary"></div>
+            </div>
 
-        <section class="dna-section">
-          <div class="section-heading"><div><span class="eyebrow">MEANING COVERAGE</span><h2>WHO · WHAT · WHERE · WHY · WHEN</h2></div></div>
-          <div class="coverage-grid" id="coverageGrid"></div>
-        </section>
+            <div class="dna-intelligence-grid" id="dnaIntelligenceGrid">
+              <article class="dna-metric"><span>🧬</span><strong id="dnaPatternStrong">0</strong><small>strong patterns</small></article>
+              <article class="dna-metric"><span>⏱</span><strong id="dnaReviewDue">0</strong><small>reviews due</small></article>
+              <article class="dna-metric"><span>🎙️</span><strong id="dnaPronunciation">—</strong><small>speech recognition average</small></article>
+              <article class="dna-metric"><span>🧱</span><strong id="dnaSentenceStrong">0</strong><small>sentence frames strong</small></article>
+              <article class="dna-metric"><span>🔗</span><strong id="dnaWordReach">—</strong><small>pattern-linked words in reach</small></article>
+              <article class="dna-metric"><span>💬</span><strong id="dnaWordsKnown">0</strong><small>everyday words familiar</small></article>
+              <article class="dna-metric"><span>🌍</span><strong id="dnaSituationsReady">—</strong><small>real-life situations ready</small></article>
+              <article class="dna-metric"><span>☀️</span><strong id="dnaDailyWeek">—</strong><small>Daily 5s this week</small></article>
+            </div>
 
-        <section class="next-best" id="nextBestCard">
-          <div><span class="eyebrow">NEXT BEST LINK</span><h2 id="nextBestTitle">Start your first pattern</h2><p id="nextBestText">Your next useful connection will appear here.</p></div>
-          <button type="button" class="primary-btn" id="nextBestButton">Practise this link</button>
-        </section>
+            <section class="dna-health-grid">
+              <article class="dna-health-card" id="memoryHealth"></article>
+              <article class="dna-health-card" id="pronunciationHealth"></article>
+            </section>
+
+            <section class="dna-command-center" id="dnaCommandCenter">
+              <div class="section-heading">
+                <div><span class="eyebrow">YOUR LEARNING</span><h2>Why LanguageDNA chose your next step.</h2></div>
+              </div>
+              <div class="command-grid">
+                <article class="command-primary" id="dnaRecommendation"></article>
+                <article class="command-card" id="weeklyProgress"></article>
+                <article class="command-card" id="strengthProfile"></article>
+                <article class="command-card" id="reviewCalendar"></article>
+              </div>
+            </section>
+
+            <section class="dna-section">
+              <div class="section-heading"><div><span class="eyebrow">YOUR PATTERN MAP</span><h2>Connections by family</h2><p>Tap any node to reopen that pattern.</p></div></div>
+              <div class="dna-map" id="dnaMap"></div>
+            </section>
+
+            <section class="dna-section">
+              <div class="section-heading"><div><span class="eyebrow">MEANING COVERAGE</span><h2>WHO · WHAT · WHERE · WHY · WHEN</h2></div></div>
+              <div class="coverage-grid" id="coverageGrid"></div>
+            </section>
+
+            <section class="next-best" id="nextBestCard">
+              <div><span class="eyebrow">NEXT BEST LINK</span><h2 id="nextBestTitle">Start your first pattern</h2><p id="nextBestText">Your next useful connection will appear here.</p></div>
+              <button type="button" class="primary-btn" id="nextBestButton">Practise this link</button>
+            </section>
+          </div>
+        </details>
       </section>
     </main>
   </div>
@@ -295,10 +342,16 @@
     <div class="dialog-inner"><button type="button" class="dialog-close" aria-label="Close">×</button><div id="dialogContent"></div></div>
   </dialog>
 
+  <dialog class="account-dialog" id="accountDialog" aria-label="Free LanguageDNA account">
+    <div class="account-dialog-inner"><button type="button" class="dialog-close" data-account-close aria-label="Close account window">×</button><div id="accountDialogContent"></div></div>
+  </dialog>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="supabase-config.js?v=1"></script>
+  <script src="cloud-sync.js?v=2"></script>
   <script src="everyday-data.js?v=1"></script>
   <script src="pattern-teaching.js?v=1"></script>
   <script src="app.js?v=21"></script>
-  <script src="profile-tools.js?v=1"></script>
+  <script src="profile-tools.js?v=3"></script>
 </body>
 </html>
