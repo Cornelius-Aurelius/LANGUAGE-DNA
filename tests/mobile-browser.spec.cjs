@@ -151,3 +151,78 @@ test('Playful palette remains usable in dark mode at phone width', async ({page}
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
   expect(overflow).toBeLessThanOrEqual(2);
 });
+
+
+
+// v18.1: verify the same visual identity on every learner-facing screen.
+test('Every primary screen uses the shared playful card and button system',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  const cases=[
+    ['course','#courseLevelSummary'],
+    ['library','#patternNextCard'],
+    ['practice','#practiceStage'],
+    ['tutor','#dailyTutorPanel .daily-focus-card'],
+    ['game','#everydayLearnPanel .everyday-card'],
+    ['dna','#dnaOutcomeHero .dna-outcome-copy']
+  ];
+  for(const [view,card] of cases){
+    await page.locator('.primary-nav [data-view="'+view+'"]').evaluate(button=>button.click());
+    await expect(page.locator('[data-view-panel="'+view+'"]')).toBeVisible();
+    const target=page.locator(card).first();
+    await expect(target).toBeVisible();
+    const css=await target.evaluate(el=>{
+      const st=getComputedStyle(el);
+      return {border:st.borderTopWidth,radius:st.borderTopLeftRadius,shadow:st.boxShadow,background:st.backgroundColor};
+    });
+    expect(parseFloat(css.border),view+' keeps the branded 2px card outline').toBeGreaterThanOrEqual(2);
+    expect(parseFloat(css.radius),view+' keeps round friendly cards').toBeGreaterThanOrEqual(15);
+    expect(css.shadow,view+' keeps tactile card depth').not.toBe('none');
+    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+    expect(overflow,view+' cannot overflow the mobile screen').toBeLessThanOrEqual(2);
+  }
+});
+
+test('Translation and Pattern dialog inherit the playful brand',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  const translator=page.locator('#quickTranslator .translator-panel');
+  await expect(translator).toBeVisible();
+  const translatorBorder=await translator.evaluate(el=>getComputedStyle(el).borderTopWidth);
+  expect(parseFloat(translatorBorder)).toBeGreaterThanOrEqual(2);
+  await page.locator('.home-pattern-card.sounds').click();
+  await expect(page.locator('#patternDialog')).toHaveAttribute('open','');
+  const dialog=page.locator('#patternDialog');
+  const dialogRadius=await dialog.evaluate(el=>getComputedStyle(el).borderTopLeftRadius);
+  expect(parseFloat(dialogRadius)).toBeGreaterThanOrEqual(20);
+});
+
+test('All seven screens stay branded and readable in dark mode',async ({page})=>{
+  await page.setViewportSize({width:430,height:932});
+  await page.goto(base);
+  await page.locator('#themeButton').click();
+  await expect(page.locator('body')).toHaveClass(/dark/);
+  for(const view of ['home','course','library','practice','tutor','game','dna']){
+    await page.locator('.primary-nav [data-view="'+view+'"]').evaluate(button=>button.click());
+    await expect(page.locator('[data-view-panel="'+view+'"]')).toBeVisible();
+    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+    expect(overflow,view+' dark view should fit mobile').toBeLessThanOrEqual(2);
+  }
+});
+
+test('Complete pattern dictionary has the branded surfaces on mobile',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto('http://127.0.0.1:4173/pattern.html?id=tion-cion');
+  await expect(page.locator('.pattern-heading')).toBeVisible();
+  await expect(page.locator('.pattern-teaching')).toBeVisible();
+  await expect(page.locator('.dictionary-table-wrap')).toBeVisible();
+  const palette=await page.evaluate(()=>{
+    const h=getComputedStyle(document.querySelector('.pattern-heading'));
+    const b=getComputedStyle(document.querySelector('.dictionary-table-wrap'));
+    return {headerRadius:h.borderRadius,tableBorder:b.borderTopWidth}
+  });
+  expect(parseFloat(palette.headerRadius)).toBeGreaterThan(18);
+  expect(parseFloat(palette.tableBorder)).toBeGreaterThanOrEqual(2);
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+  expect(overflow).toBeLessThanOrEqual(2);
+});
