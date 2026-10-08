@@ -501,6 +501,7 @@
         (teaching.caution?'<p class="pattern-caution"><strong>Good to know:</strong> '+escapeHtml(teaching.caution)+'</p>':'')+
       '</section>'+
       miniCheck+
+      '<div class="pattern-easy-actions"><button type="button" class="primary-btn" data-practice="'+p.id+'">Try this pattern →</button></div>'+
       '<details class="pattern-journey-details"><summary><span><span class="eyebrow">YOUR PATTERN PROGRESS</span><strong>'+journey.complete+' of '+journey.total+' steps complete</strong></span><span aria-hidden="true">⌄</span></summary>'+
         '<section class="pattern-journey-card"><div class="pattern-journey-head"><div><span class="eyebrow">LEARNING JOURNEY</span><h3>'+journey.complete+' of '+journey.total+' steps</h3></div><strong>'+journey.pct+'%</strong></div><div class="pattern-journey-progress"><span style="width:'+journey.pct+'%"></span></div><div class="pattern-journey-steps">'+journeyLabels+'</div><div class="pattern-next-step"><p><b>Next:</b> '+escapeHtml(next.label)+'. '+escapeHtml(next.reason)+'</p><button type="button" class="primary-btn" data-pattern-next="'+p.id+'">'+escapeHtml(next.button)+'</button></div></section>'+
       '</details>'+
