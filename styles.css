@@ -1154,3 +1154,23 @@ body.dark .simple-dna-example:before{color:#642f2c}
   button,.nav-item,.home-pattern-card,.simple-path-card{transition:none!important}
   button:hover,.nav-item:hover,.home-pattern-card:hover,.simple-path-card:hover{transform:none!important}
 }
+
+
+/* Colour code the real pattern families, not arbitrary card position. */
+.learner-pattern-card[data-pattern-type]{position:relative;overflow:hidden}
+.learner-pattern-card[data-pattern-type]::before{content:"";position:absolute;inset:0 0 auto;height:6px;pointer-events:none}
+.learner-pattern-card[data-pattern-type="visual"]::before{background:#91da75}
+.learner-pattern-card[data-pattern-type="sound"]::before{background:#a892f1}
+.learner-pattern-card[data-pattern-type="writing"]::before{background:#ffc46c}
+.learner-pattern-card[data-pattern-type="visual"]{border-color:#cee8c5}
+.learner-pattern-card[data-pattern-type="sound"]{border-color:#dacff2}
+.learner-pattern-card[data-pattern-type="writing"]{border-color:#eedcbd}
+.learner-pattern-card[data-pattern-type="visual"] .pattern-kind{background:#e0f8d8;border-color:#bee5b2;color:#27682f}
+.learner-pattern-card[data-pattern-type="sound"] .pattern-kind{background:#eee7ff;border-color:#d5c8fc;color:#5840a2}
+.learner-pattern-card[data-pattern-type="writing"] .pattern-kind{background:#fff0d7;border-color:#f3d8a7;color:#81501e}
+body.dark .learner-pattern-card[data-pattern-type="visual"],
+body.dark .learner-pattern-card[data-pattern-type="sound"],
+body.dark .learner-pattern-card[data-pattern-type="writing"]{border-color:var(--border)}
+body.dark .learner-pattern-card[data-pattern-type="visual"] .pattern-kind{background:#345d41;color:#e6ffe1;border-color:#457e53}
+body.dark .learner-pattern-card[data-pattern-type="sound"] .pattern-kind{background:#483c6a;color:#f1e9ff;border-color:#706293}
+body.dark .learner-pattern-card[data-pattern-type="writing"] .pattern-kind{background:#665134;color:#fff0d5;border-color:#91704d}
