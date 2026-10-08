@@ -251,7 +251,7 @@
     if(!r.done.includes(step)){r.done.push(step);r.attempts=(r.attempts||0)+1;recordSignal('daily_step',{step:step})}
     if(meta&&meta.carry)state.dailyCarry=meta.carry;state.dailyFeedback='';
     if(r.done.length>=5&&!r.completedAt){r.completedAt=Date.now();recordSignal('daily_complete',{seconds:Math.round((r.completedAt-r.startedAt)/1000),wrong:r.wrong||0})}
-    r.updatedAt=Date.now();ctx.all[ctx.key]=r;saveDaily(ctx.all);renderDaily();renderHomeSummary()
+    r.updatedAt=Date.now();ctx.all[ctx.key]=r;saveDaily(ctx.all);renderDaily();renderHomeSummary();if(window.LanguageDNAProfile&&typeof window.LanguageDNAProfile.refresh==='function')window.LanguageDNAProfile.refresh()
   }
   function dailyWrong(step){const ctx=ensureDailyRecord();ctx.record.wrong=(ctx.record.wrong||0)+1;ctx.record.attempts=(ctx.record.attempts||0)+1;ctx.all[ctx.key]=ctx.record;saveDaily(ctx.all);recordSignal('daily_wrong',{step:step})}
   function renderHomeSummary(){
