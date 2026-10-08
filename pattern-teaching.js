@@ -44,7 +44,7 @@
       why:'Once you know the five vowel sounds, reading new Spanish words becomes much easier.'
     },
     'h-silent':{
-      heading:'The Spanish h is silent',
+      heading:'The Spanish H is silent',
       meaning:'When you see the letter h in Spanish, you normally do not pronounce it.',
       example:'hello = hola',
       notice:'Hola starts with h, but you begin with the vowel sound: roughly OH-lah.',
