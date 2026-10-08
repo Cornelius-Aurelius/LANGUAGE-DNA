@@ -56,7 +56,7 @@ if(!app.includes('four-choice'))fail('Four-choice practice rendering missing.');
 if(!app.includes('recentWrongStreak'))fail('Practice scaffolding guard missing.');
 if(!index.includes('profile-tools.js?v=2'))fail('Profile tools are not loaded.');
 if(!manifest.icons||!manifest.icons.length)fail('PWA manifest icon missing.');
-if(!sw.includes("'./profile-tools.js?v=1'")||!sw.includes("'./app-icon.svg'"))fail('PWA support assets missing from offline cache.');
+if(!sw.includes("'./profile-tools.js?v=2'")||!sw.includes("'./app-icon.svg'"))fail('PWA support assets missing from offline cache.');
 if(!index.includes('styles.css?v=17')||!index.includes('app.js?v=21'))fail('Index asset versions are not aligned.');
 if(!sw.includes("./styles.css?v=17")||!sw.includes("./app.js?v=21"))fail('Service worker asset versions are not aligned.');
 
