@@ -953,6 +953,9 @@
     if(Array.isArray(window.LANGUAGE_DNA_EVERYDAY_100))afterCore();else load('everyday-data.js?v=1',afterCore)
   }
   initTranslator();populatePracticeSelect();renderFamilies();renderStarters();renderSentenceDNA();renderCourse();renderLibrary();renderReviewBar();renderSessionPanel();renderPractice();renderAllProgress();loadLearningExtras();
+  const launchParams=new URLSearchParams(location.search),launchPractice=launchParams.get('practice');
+  if(launchPractice&&patterns.some(function(p){return p.id===launchPractice})){history.replaceState({},'',location.pathname);startPractice(launchPractice,recommendedMode(getPattern(launchPractice)))}
+
   if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=15').catch(function(){});
 
 })();
