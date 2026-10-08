@@ -228,3 +228,68 @@ test('Complete pattern dictionary has the branded surfaces on mobile',async ({pa
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
   expect(overflow).toBeLessThanOrEqual(2);
 });
+
+
+test('First Daily 5 is help-friendly and stays on the same word throughout',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  await expect(page.locator('#homeLearningJourney')).toBeHidden();
+  await page.locator('#startBeginner').click();
+  const panel=page.locator('#dailyTutorPanel');
+  await expect(panel.locator('.daily-journey-steps li')).toHaveCount(5);
+  await expect(panel.locator('[data-daily-help]')).toBeVisible();
+  await panel.locator('[data-daily-help]').click();
+  await expect(panel.locator('.daily-link-pair')).toBeVisible();
+  const firstEnglish=(await panel.locator('.daily-link-pair strong').first().textContent()).trim();
+  const firstSpanish=(await panel.locator('.daily-link-pair strong').last().textContent()).trim();
+  const record=await page.evaluate(()=>{
+    const d=Object.values(JSON.parse(localStorage.getItem('ldna-daily5-v1')||'{}'))[0];
+    return {focusRank:d.focusRank,scenarioId:d.scenarioId,done:d.done};
+  });
+  expect(record.focusRank).toBeTruthy();
+  expect(record.scenarioId).toBeTruthy();
+  expect(record.done).toContain('review');
+  await expect(panel.locator('[data-tutor-speak-slow]')).toBeVisible();
+  await panel.locator('[data-daily-link-done]').click();
+  await expect(panel.locator('.daily-focus-card h2')).toHaveText(firstEnglish);
+  // The focus word must not change even after being marked familiar at the link step.
+  await page.reload();
+  await page.locator('.primary-nav [data-view="tutor"]').click();
+  await expect(panel.locator('.daily-focus-card h2')).toHaveText(firstEnglish);
+  await panel.locator('[data-daily-use-choice]').filter({hasText:firstSpanish}).first().click();
+  await expect(panel.locator('[data-daily-speak]')).toBeVisible();
+  await panel.locator('[data-daily-self-speak]').click();
+  await expect(panel.locator('[data-daily-scenario-choice]').first()).toBeVisible();
+  // Try available replies; a wrong first choice is safe to retry.
+  const options=await panel.locator('[data-daily-scenario-choice]').allTextContents();
+  for(const answer of options){
+    if(await panel.locator('.daily-celebration').count())break;
+    await panel.locator('[data-daily-scenario-choice]').filter({hasText:answer}).first().click();
+  }
+  await expect(panel.locator('.daily-celebration')).toBeVisible();
+  await expect(panel.locator('.daily-won-word')).toContainText(firstSpanish);
+  await expect(panel.locator('[data-view="library"]')).toBeVisible();
+  await panel.locator('[data-view="dna"]').click();
+  await expect(page.locator('#journeyMilestones .journey-milestone.earned')).toHaveCount(1);
+  await expect(page.locator('#journeyWinsStatus')).toContainText('1 learning day');
+});
+
+test('Learning milestones reward non-consecutive days without streak penalties',async ({page})=>{
+  await page.setViewportSize({width:320,height:720});
+  await page.goto(base);
+  await page.evaluate(()=>{
+    localStorage.setItem('ldna-daily5-v1',JSON.stringify({
+      '2026-01-01':{done:['review','link','use','speak','real-life'],completedAt:1},
+      '2026-03-05':{done:['review','link','use','speak','real-life'],completedAt:2},
+      '2026-09-20':{done:['review','link','use','speak','real-life'],completedAt:3}
+    }));
+  });
+  await page.reload();
+  await expect(page.locator('#homeLearningJourney')).toBeVisible();
+  await page.locator('.primary-nav [data-mobile-more]').click();
+  await page.locator('#mobileMoreMenu [data-view="dna"]').click();
+  await expect(page.locator('#journeyMilestones .journey-milestone.earned')).toHaveCount(2);
+  await expect(page.locator('#journeyWinsStatus')).toContainText('3 learning days');
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+  expect(overflow).toBeLessThanOrEqual(2);
+});
