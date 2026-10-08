@@ -1118,6 +1118,6 @@
   if(launchPractice&&patterns.some(function(p){return p.id===launchPractice})){history.replaceState({},'',location.pathname);startPractice(launchPractice,recommendedMode(getPattern(launchPractice)))}
   else if(['home','course','library','practice','tutor','game','dna'].includes(launchView)){history.replaceState({},'',location.pathname);goView(launchView)}
 
-  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=19').catch(function(){});
+  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=20').catch(function(){});
 
 })();
