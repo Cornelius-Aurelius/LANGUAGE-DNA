@@ -248,8 +248,8 @@ window.LANGUAGE_DNA_EVERYDAY_100 = [
     "exampleEn": "Can you help me?",
     "exampleEs": "¿Me puede ayudar?",
     "family": "object pronouns",
-    "morphology": "me",
-    "note": "",
+    "morphology": "me / mí",
+    "note": "Use me as an object pronoun before a verb; after many prepositions, English me is Spanish mí.",
     "cefr": "A1",
     "usefulness": 84,
     "band": "Essential"
