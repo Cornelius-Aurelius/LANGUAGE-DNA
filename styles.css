@@ -338,3 +338,28 @@ body.dark .tutor-change{background:#6a5a24;color:#fff4c7}
   .simple-home-copy h1{font-size:38px}
   .simple-path-grid{grid-template-columns:1fr}.simple-path-card{min-height:82px}
 }
+
+
+/* Simple, learner-first practice v11 */
+.practice-simple-head{margin-bottom:14px}.practice-simple-head h2{font-size:30px;margin:0 0 6px}.practice-simple-head p{max-width:820px;margin:0;color:var(--muted);font-size:15px;line-height:1.55}
+.practice-task{margin:18px 0 12px;padding:20px;border-radius:18px;background:var(--surface-2)}
+.practice-task>span{display:block;margin-bottom:6px;color:var(--green);font-size:10px;font-weight:900;letter-spacing:.1em}
+.practice-task h3{margin:0 0 8px;font-size:clamp(24px,4vw,36px);letter-spacing:-.035em;line-height:1.08}
+.practice-task>strong{display:block;margin-top:10px;font-size:clamp(25px,4vw,38px);letter-spacing:-.03em}
+.practice-task p{margin:7px 0 0;color:var(--muted);line-height:1.5}
+.practice-help-wrap{margin:10px 0 16px}
+.practice-help-button{min-height:40px;padding:0 13px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--green-dark);font-weight:850;cursor:pointer}
+.practice-help-panel{margin-top:8px;padding:13px 14px;border:1px solid #b9cdbf;border-radius:13px;background:var(--green-soft);color:var(--green-dark)}
+.practice-help-panel strong{display:block;font-size:14px}.practice-help-panel p{margin:5px 0;line-height:1.5}.practice-help-panel small{display:block;margin-top:7px;color:var(--muted)}
+.practice-footer.simple{justify-content:flex-end;border-top:0;padding-top:4px;margin-top:12px}
+.pronunciation-coach.simplified{margin-top:10px}.pronunciation-coach.simplified .reading-guide{font-size:20px;margin-bottom:8px}
+.practice-stage .feedback[hidden]{display:none}
+@media(max-width:680px){
+  .practice-simple-head h2{font-size:25px}
+  .practice-task{padding:15px;margin-top:14px}
+  .practice-task h3{font-size:25px}
+  .practice-task>strong{font-size:27px}
+  .practice-help-button{width:100%;text-align:left}
+  .answer-form{flex-direction:column}.answer-form .primary-btn{width:100%}
+  .practice-footer.simple .skip-btn{width:100%}
+}
