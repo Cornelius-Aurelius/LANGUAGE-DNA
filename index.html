@@ -7,7 +7,7 @@
   <meta name="description" content="LanguageDNA — learn Spanish through links between English and Spanish words, sounds and sentence patterns." />
   <title>LanguageDNA — Learn Spanish Through Patterns</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css?v=9" />
+  <link rel="stylesheet" href="styles.css?v=10" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -29,7 +29,7 @@
       <button class="nav-item mobile-hide" type="button" data-view="course"><span>◫</span><b>Course</b></button>
       <button class="nav-item mobile-hide" type="button" data-view="library"><span>⌕</span><b>Patterns</b></button>
       <button class="nav-item" type="button" data-view="practice"><span>◎</span><b>Practice</b></button>
-      <button class="nav-item" type="button" data-view="tutor"><span>💬</span><b>Tutor</b></button>
+      <button class="nav-item" type="button" data-view="tutor"><span>▶</span><b>Learn</b></button>
       <button class="nav-item" type="button" data-view="game"><span>◆</span><b>Game</b></button>
       <button class="nav-item mobile-hide" type="button" data-view="dna"><span>🧬</span><b>My DNA</b></button>
       <button class="nav-item mobile-more-trigger" type="button" data-mobile-more aria-expanded="false"><span>•••</span><b>More</b></button>
@@ -42,31 +42,65 @@
 
     <main id="main">
       <section class="view active" data-view-panel="home">
-        <section class="welcome-grid">
-          <div class="welcome-copy">
-            <span class="eyebrow">SPANISH FOR COMPLETE BEGINNERS</span>
-            <h1>Start with English.<br><em>Spot the link.</em><br>Build Spanish.</h1>
-            <p>You do not need to memorise hundreds of isolated rules. LanguageDNA shows you useful links between English and Spanish, then lets you see, hear, write and say them.</p>
-            <div class="welcome-actions">
-              <button class="primary-btn" type="button" id="startBeginner">Start today’s 5-minute lesson</button>
-              <button class="secondary-btn" type="button" data-view="course">Guided course</button>
-            </div>
-            <div class="beginner-steps" aria-label="How LanguageDNA works">
-              <div><span>1</span><p><strong>Find</strong><small>Start with a word or idea you know.</small></p></div>
-              <div><span>2</span><p><strong>Link</strong><small>See the reusable English → Spanish pattern.</small></p></div>
-              <div><span>3</span><p><strong>Use</strong><small>Practise it by sight, sound, writing and speech.</small></p></div>
+        <section class="simple-home-hero">
+          <div class="simple-home-copy">
+            <span class="eyebrow">SPANISH, MADE SIMPLE</span>
+            <h1>Learn Spanish from English you already know.</h1>
+            <p>LanguageDNA shows you one useful English → Spanish connection at a time, then helps you hear it, use it and remember it.</p>
+            <button class="primary-btn simple-home-start" type="button" id="startBeginner">Start my 5-minute lesson</button>
+            <small class="simple-start-note">No setup. No level test. Start immediately.</small>
+
+            <div class="simple-dna-example" aria-label="LanguageDNA example">
+              <span>information</span><b>→</b><strong>información</strong>
+              <small>You already know the idea. We show you the Spanish connection.</small>
             </div>
           </div>
+        </section>
 
-          <section class="translator-panel" aria-labelledby="translatorTitle">
-            <div class="translator-heading">
-              <div><span class="eyebrow">TRANSLATE + DISCOVER</span><h2 id="translatorTitle">Find any word</h2></div>
-              <span class="translator-badge">English ↔ Spanish</span>
-            </div>
+        <section class="simple-how" aria-labelledby="simpleHowTitle">
+          <div class="simple-section-heading">
+            <span class="eyebrow">HOW IT WORKS</span>
+            <h2 id="simpleHowTitle">Three simple steps.</h2>
+          </div>
+          <div class="simple-how-grid">
+            <article><span>1</span><div><strong>Start with English</strong><small>Begin with a word, phrase or idea you already understand.</small></div></article>
+            <article><span>2</span><div><strong>Spot the Spanish link</strong><small>See and hear the connection without a long grammar lesson.</small></div></article>
+            <article><span>3</span><div><strong>Use it straight away</strong><small>Choose it, say it and practise it in a real-life situation.</small></div></article>
+          </div>
+        </section>
+
+        <section class="simple-next" aria-labelledby="simpleNextTitle">
+          <div class="simple-section-heading">
+            <span class="eyebrow">START ANYWHERE</span>
+            <h2 id="simpleNextTitle">What do you want to do?</h2>
+          </div>
+          <div class="simple-path-grid">
+            <button type="button" class="simple-path-card learn" data-view="tutor" data-tutor-open="daily">
+              <span>▶</span><div><strong>Learn now</strong><small>Continue your 5-minute lesson.</small></div>
+            </button>
+            <button type="button" class="simple-path-card" data-smart-review>
+              <span>◎</span><div><strong>Practise</strong><small>Review what needs strengthening.</small></div>
+            </button>
+            <button type="button" class="simple-path-card" data-view="game" data-everyday-open="game">
+              <span>◆</span><div><strong>Play the game</strong><small>Take the 40-question challenge.</small></div>
+            </button>
+            <a class="simple-path-card" href="#quickTranslator">
+              <span>⌕</span><div><strong>Find a word</strong><small>Research English ↔ Spanish instantly.</small></div>
+            </a>
+          </div>
+        </section>
+
+        <section class="simple-translator" id="quickTranslator" aria-labelledby="translatorTitle">
+          <div class="simple-section-heading">
+            <span class="eyebrow">QUICK WORD SEARCH</span>
+            <h2 id="translatorTitle">Need a word? Type it here.</h2>
+            <p>Search English or Spanish. If there is a useful LanguageDNA connection, we will show it too.</p>
+          </div>
+          <div class="translator-panel simple-translator-panel">
             <form id="translationForm" class="translation-form">
               <label class="translator-input-wrap">
                 <span aria-hidden="true">⌕</span><span class="sr-only">Word to translate</span>
-                <input id="translationInput" type="search" placeholder="Try: information, famous, casa…" autocomplete="off" spellcheck="false" />
+                <input id="translationInput" type="search" placeholder="Try: information, hotel, gracias…" autocomplete="off" spellcheck="false" />
               </label>
               <div class="translation-controls">
                 <select id="translationDirection" aria-label="Translation direction">
@@ -75,63 +109,13 @@
                   <option value="es-en">Spanish → English</option>
                 </select>
                 <button id="translationSwap" class="swap-btn" type="button" aria-label="Swap translation direction" title="Swap direction">⇄</button>
-                <button id="translationButton" class="primary-btn translate-btn" type="submit">Translate</button>
+                <button id="translationButton" class="primary-btn translate-btn" type="submit">Find it</button>
               </div>
             </form>
             <div id="translationResult" class="translation-result" aria-live="polite">
-              <div class="translation-empty"><span>🧬</span><p>Search a word. If it belongs to a useful LanguageDNA pattern, the link will appear here.</p></div>
+              <div class="translation-empty"><span>🧬</span><p>Your word and its useful Spanish connection will appear here.</p></div>
             </div>
-            <small class="translator-note">Translations can depend on context. Pattern links are shown only when LanguageDNA has a useful connection to teach.</small>
-          </section>
-        </section>
-
-        <section class="home-section daily-five-home">
-          <div class="daily-five-card" id="dailyFiveHome">
-            <div><span class="eyebrow">TODAY · ABOUT 5 MINUTES</span><h2>Your easiest next Spanish.</h2><p id="dailyFiveHomeText">LanguageDNA is building a tiny lesson from your reviews, Everyday vocabulary and speaking history.</p></div>
-            <button type="button" class="primary-btn" data-view="tutor" data-tutor-open="daily">Start today's 5-minute lesson</button>
-          </div>
-        </section>
-
-        <section class="home-section">
-          <div class="section-heading">
-            <div><span class="eyebrow">YOUR FIRST LINKS</span><h2>Small patterns. Big payoff.</h2><p>These are good places to begin if you know little or no Spanish.</p></div>
-            <button class="text-btn" type="button" data-view="library">See everything →</button>
-          </div>
-          <div class="starter-grid" id="starterGrid"></div>
-        </section>
-
-        <section class="home-section everyday-home">
-          <div class="section-heading">
-            <div><span class="eyebrow">EVERYDAY 100</span><h2>Start with English you already use every day.</h2><p>Hi. Please. Where is…? What time is it? I need…? Build the most useful everyday Spanish first, without dumping hundreds of words on you.</p></div>
-            <button type="button" class="primary-btn" data-view="game" data-everyday-open="learn">Learn the 100</button>
-          </div>
-          <div class="everyday-preview-status"><strong id="everydayKnownPreview">0 / 100 familiar</strong><small>Curated for day-to-day usefulness, not a strict corpus-frequency ranking.</small></div>
-          <div class="everyday-preview-grid" id="everydayPreview"></div>
-        </section>
-
-        <section class="home-section sentence-dna-home" id="sentenceDnaHome">
-          <div class="section-heading">
-            <div><span class="eyebrow">SENTENCE DNA LAB</span><h2>Build whole sentences from reusable frames.</h2><p>See what stays fixed, what changes, and how one structure can generate many useful sentences.</p></div>
-          </div>
-          <div class="sentence-dna-shell">
-            <div class="sentence-frame-list" id="sentenceFrameList" aria-label="Sentence DNA frames"></div>
-            <article class="sentence-dna-stage" id="sentenceDnaStage" aria-live="polite"></article>
-          </div>
-        </section>
-
-        <section class="home-section">
-          <div class="section-heading"><div><span class="eyebrow">EXPLORE BY CONNECTION</span><h2>Choose the kind of link you want.</h2></div></div>
-          <div class="family-grid" id="familyGrid"></div>
-        </section>
-
-        <section class="home-section meaning-home">
-          <div class="section-heading compact"><div><span class="eyebrow">MEANING LENSES</span><h2>What are you trying to say?</h2></div></div>
-          <div class="lens-row" id="homeLensRow">
-            <button class="lens-card" type="button" data-home-lens="WHO"><span>👤</span><strong>WHO</strong><small>people · identity · possession</small></button>
-            <button class="lens-card" type="button" data-home-lens="WHAT"><span>◆</span><strong>WHAT</strong><small>things · actions · descriptions</small></button>
-            <button class="lens-card" type="button" data-home-lens="WHERE"><span>⌖</span><strong>WHERE</strong><small>place · movement · direction</small></button>
-            <button class="lens-card" type="button" data-home-lens="WHY"><span>?</span><strong>WHY</strong><small>reason · cause · purpose</small></button>
-            <button class="lens-card" type="button" data-home-lens="WHEN"><span>◷</span><strong>WHEN</strong><small>time · tense · sequence</small></button>
+            <small class="translator-note">Translations can depend on context. LanguageDNA highlights reusable patterns only when there is a useful connection to teach.</small>
           </div>
         </section>
       </section>
@@ -312,6 +296,6 @@
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=14"></script>
+  <script src="app.js?v=15"></script>
 </body>
 </html>
