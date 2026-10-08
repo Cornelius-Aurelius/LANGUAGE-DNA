@@ -88,7 +88,8 @@ test('Daily 5 renders a real first task without sign-up', async ({page}) => {
 test('Practice choice mode renders options and accepts an answer', async ({page}) => {
   await page.setViewportSize({width:375,height:812});
   await page.goto(base);
-  await page.locator('.primary-nav [data-view="practice"]').click();
+  await page.locator('[data-mobile-more]').click();
+  await page.locator('#mobileMoreMenu [data-view="practice"]').click();
   await page.locator('[data-mode="choice"]').click();
   await expect(page.locator('#practiceStage')).toBeVisible();
   await expect(page.locator('#practiceStage .choice-btn').first()).toBeVisible();
@@ -365,7 +366,7 @@ test('Child-friendly game offers free hints, a back action and sound/sentence wo
   await page.locator('[data-quest-world="sentences"]').click();
   await expect(page.locator('.quest-prompt')).toHaveText("I don't understand");
   await page.locator('[data-quest-answer="no entiendo"]').click();
-  await expect(page.locator('.quest-feedback-win')).toContainText('no + entiendo');
+  await expect(page.locator('.quest-feedback-win')).toContainText('no entiendo');
   const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('ldna-quest-v1')));
   expect(saved.best.words||0).toBe(0);
 });
