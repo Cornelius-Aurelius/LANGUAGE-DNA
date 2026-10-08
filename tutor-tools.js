@@ -271,7 +271,7 @@
     const all=dailyData(),key=dateKey(),record=all[key]||{done:[],wrong:0,attempts:0};
     if(!Array.isArray(record.done))record.done=[];
     if(!record.startedAt){record.startedAt=Date.now();recordSignal('daily_start',{day:key})}
-    all[key]=record;saveDaily(all);return{all:all,key:key,record:record}
+    all[key]=record;saveDaily(all);if(window.LanguageDNAJourney&&typeof window.LanguageDNAJourney.refresh==='function')window.LanguageDNAJourney.refresh();return{all:all,key:key,record:record}
   }
   function dailyDone(){const r=dailyData()[dateKey()];return r&&Array.isArray(r.done)?r.done:[]}
   function incompleteDailyDays(){const all=dailyData(),today=dateKey();return Object.keys(all).filter(function(k){const r=all[k];return k!==today&&r&&r.startedAt&&!r.completedAt&&(r.done||[]).length<5}).length}
