@@ -775,6 +775,25 @@
   function reviewCalendar(days){
     const out=[];for(let i=0;i<days;i++){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+i);const start=d.getTime(),end=start+86400000,count=Object.values(state.reviews).filter(function(r){return r&&(i===0?r.due<end:r.due>=start&&r.due<end)}).length;out.push({label:i===0?'Today':d.toLocaleDateString(undefined,{weekday:'short'}),count:count})}return out
   }
+  const CAPABILITY_GROUPS=[
+    {icon:'👋',title:'Meet someone',scenarios:['Meeting someone'],desc:'Greet, introduce yourself and answer simple questions.'},
+    {icon:'☕',title:'Order food & drinks',scenarios:['At a café','At a restaurant'],desc:'Order, ask for water and handle payment.'},
+    {icon:'🧭',title:'Get around',scenarios:['Asking directions','At the airport','Bus or train','In a taxi'],desc:'Ask where things are and understand basic directions.'},
+    {icon:'🛍️',title:'Shop & pay',scenarios:['Shopping','At a supermarket'],desc:'Choose something, ask basic questions and pay.'},
+    {icon:'🏨',title:'Handle a hotel',scenarios:['At a hotel'],desc:'Check in, ask for help and understand simple hotel replies.'},
+    {icon:'🆘',title:'Ask for help',scenarios:['At a doctor','At a pharmacy','Emergency'],desc:'Say what you need and understand essential help language.'},
+    {icon:'📅',title:'Make simple plans',scenarios:['Making simple plans'],desc:'Say what you want to do and when.'},
+    {icon:'💼',title:'Use Spanish at work',scenarios:['At work'],desc:'Introduce yourself, ask for help and understand a simple task.'}
+  ];
+  function renderCapabilityProgress(tutorSummary){
+    const root=document.getElementById('dnaCapabilities');if(!root)return;
+    const ready=new Set(tutorSummary&&Array.isArray(tutorSummary.readyTitles)?tutorSummary.readyTitles:[]);
+    root.innerHTML=CAPABILITY_GROUPS.map(function(group){
+      const readyCount=group.scenarios.filter(function(name){return ready.has(name)}).length,done=readyCount>0,pct=Math.round(readyCount/group.scenarios.length*100);
+      return'<article class="dna-capability '+(done?'ready':'building')+'"><div class="dna-capability-icon">'+group.icon+'</div><div><small>'+(done?'READY TO USE':'BUILDING')+'</small><h3>'+escapeHtml(group.title)+'</h3><p>'+escapeHtml(group.desc)+'</p><div class="dna-capability-progress"><span style="width:'+pct+'%"></span></div></div></article>'
+    }).join('')
+  }
+
   function renderMeaningfulProgress(tutorSummary,strongPatterns,sentenceStrong,knownWords){
     const root=document.getElementById('dnaOutcomeHero');if(!root)return;
     const ready=tutorSummary&&Array.isArray(tutorSummary.readyTitles)?tutorSummary.readyTitles:[],action=nextLearningAction();
@@ -805,6 +824,7 @@
     if(situations)situations.textContent=tutorSummary?tutorSummary.scenariosReady:'—';
     if(dailyWeek)dailyWeek.textContent=tutorSummary?tutorSummary.dailyCompleted7:'—';
     renderMeaningfulProgress(tutorSummary,strongPatterns,sentenceStrong,tutorSummary?tutorSummary.knownWords:knownFallback);
+    renderCapabilityProgress(tutorSummary);
     document.getElementById('memoryHealth').innerHTML='<span class="eyebrow">MEMORY HEALTH</span><h3>'+review.due+(review.due===1?' review':' reviews')+' due</h3><p>'+(review.scheduled?'LanguageDNA is spacing '+review.scheduled+' practiced pattern'+(review.scheduled===1?'':'s')+'. '+(review.next?'Next future review '+formatDue(review.next.due)+'.':''):'Complete practice items to build your personal review schedule.')+'</p><div class="health-stat-row"><div class="health-stat"><strong>'+review.scheduled+'</strong><small>scheduled</small></div><div class="health-stat"><strong>'+review.strong+'</strong><small>14+ day intervals</small></div></div>';
     const weakSounds=pronunciationWeaknessSummary().slice(0,3);document.getElementById('pronunciationHealth').innerHTML='<span class="eyebrow">SPEAKING PROFILE</span><h3>'+(pron.average==null?'No scored attempts yet':pron.average+'% average match')+'</h3><p>'+(pron.attempts?'Across '+pron.attempts+' microphone attempt'+(pron.attempts===1?'':'s')+' on '+pron.patterns+' pattern'+(pron.patterns===1?'':'s')+'. Best match: '+pron.best+'%.':'Use Speak practice with the microphone to build a pronunciation profile.')+'</p>'+(weakSounds.length?'<div class="weak-sound-list"><small>Recurring focus</small>'+weakSounds.map(function(w){return'<span>'+escapeHtml(w.label)+' · '+w.average+'%</span>'}).join('')+'</div>':'')+'<div class="health-stat-row"><div class="health-stat"><strong>'+pron.attempts+'</strong><small>attempts</small></div><div class="health-stat"><strong>'+(pron.best==null?'—':pron.best+'%')+'</strong><small>best match</small></div></div>';
     document.getElementById('dnaMap').innerHTML=FAMILY_META.map(function(f){const list=patterns.filter(function(p){return patternFamilies(p).includes(f.key)}).sort(function(a,b){return progressFor(b.id)-progressFor(a.id)||a.rank-b.rank}).slice(0,6);return'<section class="dna-family"><h3>'+f.icon+' '+f.title+'</h3><div class="dna-nodes">'+list.map(function(p){const r=reviewRecord(p.id);return'<button type="button" class="dna-node" data-open="'+p.id+'"><strong>'+escapeHtml(p.title)+'</strong><small>'+progressFor(p.id)+'/5 skills'+(r&&r.due<=Date.now()?' · review due':'')+'</small></button>'}).join('')+'</div></section>'}).join('');
