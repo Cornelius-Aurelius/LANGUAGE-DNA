@@ -211,7 +211,7 @@
       {key:'hear',label:'Hear it',done:!!row.hear||!!saved.hear},
       {key:'practice',label:'Practise',done:!!row.see||!!row.write||!!row.speak},
       {key:'sentence',label:'Use it',done:!!row.use},
-      {key:'conversation',label:'Real life',done:!!saved.conversation},
+      {key:'conversation',label:'Real life',done:(p.type!=='writing'&&!p.tags.includes('sentence')&&!p.tags.includes('verbs')&&!p.tags.includes('questions'))?!!row.use:!!saved.conversation},
       {key:'review',label:'Review later',done:!!(review&&review.repetitions>=2)}
     ];
     const complete=stages.filter(function(s){return s.done}).length,next=stages.find(function(s){return!s.done})||null;
@@ -408,11 +408,11 @@
   }
   function renderPatternNext(){
     const root=document.getElementById('patternNextCard');if(!root)return;
-    const p=nextBestPattern(),teaching=patternTeachingSummary(p),status=learnerPatternStatus(p);
-    root.innerHTML='<div class="pattern-next-copy"><span class="eyebrow">RECOMMENDED NEXT</span><span class="pattern-kind">'+escapeHtml(libraryPatternType(p))+'</span><h2>'+escapeHtml(p.title)+'</h2><p>'+escapeHtml(teaching.meaning||teaching.heading)+'</p>'+
+    const action=nextLearningAction(),p=action.pattern,teaching=patternTeachingSummary(p),status=learnerPatternStatus(p);
+    root.innerHTML='<div class="pattern-next-copy"><span class="eyebrow">RECOMMENDED NEXT</span><span class="pattern-kind">'+escapeHtml(libraryPatternType(p))+'</span><h2>'+escapeHtml(p.title)+'</h2><p>'+escapeHtml(action.reason)+'</p>'+
       (teaching.example?'<div class="pattern-next-example"><small>EXAMPLE</small><strong>'+escapeHtml(teaching.example)+'</strong></div>':'')+
       '<small class="pattern-next-status">'+escapeHtml(status.label)+'</small></div>'+
-      '<div class="pattern-next-actions"><button type="button" class="primary-btn" data-open="'+p.id+'">Learn this pattern</button><button type="button" class="secondary-btn" data-practice="'+p.id+'">Practise now</button></div>'
+      '<div class="pattern-next-actions"><button type="button" class="primary-btn" data-next-learning>'+escapeHtml(action.button||'Continue')+'</button><button type="button" class="secondary-btn" data-open="'+p.id+'">See pattern</button></div>'
   }
   function renderLibrary(){
     const items=filteredPatterns();
@@ -664,16 +664,26 @@
   function reviewCalendar(days){
     const out=[];for(let i=0;i<days;i++){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+i);const start=d.getTime(),end=start+86400000,count=Object.values(state.reviews).filter(function(r){return r&&(i===0?r.due<end:r.due>=start&&r.due<end)}).length;out.push({label:i===0?'Today':d.toLocaleDateString(undefined,{weekday:'short'}),count:count})}return out
   }
-  function renderCommandCenter(){
-    const recommendation=document.getElementById('dnaRecommendation'),weekly=document.getElementById('weeklyProgress'),strength=document.getElementById('strengthProfile'),calendar=document.getElementById('reviewCalendar');if(!recommendation||!weekly||!strength||!calendar)return;
-    const review=reviewSummary(),stage=courseStage(),nextUnit=firstOpenCourseUnit(),days=recentActivityDays(7),family=familyStrength(),weak=family[family.length-1],strong=family[0],weakSounds=pronunciationWeaknessSummary().slice(0,3),totalCorrect=days.reduce(function(n,d){return n+d.count},0),max=Math.max(1,...days.map(function(d){return d.count+d.speech}));
-    if(review.due>0)recommendation.innerHTML='<span class="eyebrow">DO THIS NEXT</span><h3>'+review.due+' memory review'+(review.due===1?'':'s')+' due</h3><p>Retrieval is time-sensitive now. Clear due reviews before adding more new material.</p><div class="command-badges"><span>'+stage.current+' course stage</span><span>'+weak.title+' weakest family</span></div><button type="button" class="primary-btn" data-smart-review>Review now</button>';
-    else recommendation.innerHTML='<span class="eyebrow">DO THIS NEXT</span><h3>'+escapeHtml(nextUnit.unit.title)+'</h3><p>Continue your '+nextUnit.level.id+' path. This unit is the best unlocked course step based on your current progress.</p><div class="command-badges"><span>'+stage.completedUnits+'/'+stage.totalUnits+' units complete</span><span>'+weak.title+' weakest family</span></div><button type="button" class="primary-btn" data-unit-lesson="'+nextUnit.unit.id+'">Continue course</button>';
-    weekly.innerHTML='<span class="eyebrow">LAST 7 DAYS</span><h3>'+totalCorrect+' correct retrievals</h3><div class="weekly-bars">'+days.map(function(d){const value=d.count+d.speech,pct=Math.round(value/max*100);return'<div class="weekly-day"><div><span style="height:'+Math.max(4,pct)+'%"></span></div><small>'+escapeHtml(d.label)+'</small><b>'+value+'</b></div>'}).join('')+'</div>';
-    strength.innerHTML='<span class="eyebrow">STRENGTH PROFILE</span><h3>'+strong.icon+' '+escapeHtml(strong.title)+' leads</h3><p><strong>'+strong.score+'%</strong> built · weakest is <strong>'+escapeHtml(weak.title)+' '+weak.score+'%</strong>.</p>'+(weakSounds.length?'<div class="weak-sound-list"><small>SPEECH FOCUS</small>'+weakSounds.map(function(w){return'<span>'+escapeHtml(w.label)+' · '+w.average+'%</span>'}).join('')+'</div>':'<p class="muted-mini">Speech focus will appear after microphone practice.</p>');
-    const cal=reviewCalendar(7);calendar.innerHTML='<span class="eyebrow">REVIEW CALENDAR</span><h3>Next 7 days</h3><div class="review-calendar-row">'+cal.map(function(day){return'<div class="'+(day.count?'has-due':'')+'"><strong>'+day.count+'</strong><small>'+escapeHtml(day.label)+'</small></div>'}).join('')+'</div><p class="muted-mini">Course-stage estimate: <strong>'+stage.current+'</strong> · not an official CEFR assessment.</p>'
+  function renderMeaningfulProgress(tutorSummary,strongPatterns,sentenceStrong,knownWords){
+    const root=document.getElementById('dnaOutcomeHero');if(!root)return;
+    const ready=tutorSummary&&Array.isArray(tutorSummary.readyTitles)?tutorSummary.readyTitles:[],action=nextLearningAction();
+    const situationText=ready.length?ready.slice(0,2).join(' · '):'Your first real-life situation is being built';
+    root.innerHTML='<div class="dna-outcome-copy"><span class="eyebrow">WHAT YOU CAN DO NOW</span><h2>Your Spanish is becoming usable.</h2><p>'+escapeHtml(situationText)+'</p><div class="dna-outcome-grid">'+
+      '<article><strong>'+knownWords+'</strong><small>everyday words familiar</small></article>'+
+      '<article><strong>'+strongPatterns+'</strong><small>patterns you can use</small></article>'+
+      '<article><strong>'+sentenceStrong+'</strong><small>sentence frames strong</small></article>'+
+      '<article><strong>'+(tutorSummary?tutorSummary.scenariosReady:0)+'</strong><small>real-life situations ready</small></article>'+
+      '</div></div><div class="dna-outcome-next"><small>BEST NEXT STEP</small><strong>'+escapeHtml(action.label)+'</strong><p>'+escapeHtml(action.reason)+'</p><button type="button" class="primary-btn" data-next-learning>'+escapeHtml(action.button||'Continue learning')+'</button></div>'
   }
 
+  function renderCommandCenter(){
+    const recommendation=document.getElementById('dnaRecommendation'),weekly=document.getElementById('weeklyProgress'),strength=document.getElementById('strengthProfile'),calendar=document.getElementById('reviewCalendar');if(!recommendation||!weekly||!strength||!calendar)return;
+    const action=nextLearningAction(),days=recentActivityDays(7),family=familyStrength(),weak=family[family.length-1],strong=family[0],weakSounds=pronunciationWeaknessSummary().slice(0,2),totalCorrect=days.reduce(function(n,d){return n+d.count},0),max=Math.max(1,...days.map(function(d){return d.count+d.speech}));
+    recommendation.innerHTML='<span class="eyebrow">CONTINUE LEARNING</span><h3>'+escapeHtml(action.label)+'</h3><p>'+escapeHtml(action.reason)+'</p><button type="button" class="primary-btn" data-next-learning>'+escapeHtml(action.button||'Continue')+'</button>';
+    weekly.innerHTML='<span class="eyebrow">THIS WEEK</span><h3>'+totalCorrect+' successful practice answers</h3><div class="weekly-bars">'+days.map(function(d){const value=d.count+d.speech,pct=Math.round(value/max*100);return'<div class="weekly-day"><div><span style="height:'+Math.max(4,pct)+'%"></span></div><small>'+escapeHtml(d.label)+'</small><b>'+value+'</b></div>'}).join('')+'</div>';
+    strength.innerHTML='<span class="eyebrow">YOUR STRONGEST AREA</span><h3>'+strong.icon+' '+escapeHtml(strong.title)+'</h3><p>Keep building '+escapeHtml(weak.title.toLowerCase())+' next.</p>'+(weakSounds.length?'<div class="weak-sound-list"><small>SPEAKING FOCUS</small>'+weakSounds.map(function(w){return'<span>'+escapeHtml(w.label)+'</span>'}).join('')+'</div>':'');
+    const cal=reviewCalendar(7),dueTotal=cal.reduce(function(n,d){return n+d.count},0);calendar.innerHTML='<span class="eyebrow">COMING UP</span><h3>'+(dueTotal?dueTotal+' reviews over the next 7 days':'No reviews waiting')+'</h3><p class="muted-mini">LanguageDNA will bring patterns back when they are useful to remember — you do not need to manage the schedule.</p>'
+  }
   function renderDNA(){
     const totalSkills=patterns.length*SKILLS.length;let built=0;patterns.forEach(function(p){built+=progressFor(p.id)});const pct=Math.round(built/totalSkills*100),strongPatterns=patterns.filter(function(p){return isStrong(p.id)}).length;
     document.getElementById('dnaPercent').textContent=pct+'%';document.getElementById('dnaRing').style.background='conic-gradient(var(--green) '+(pct*3.6)+'deg, var(--surface-2) 0deg)';document.getElementById('skillSummary').innerHTML=SKILLS.map(function(s){const count=patterns.filter(function(p){return!!(state.skills[p.id]||{})[s.key]}).length;return'<article class="skill-stat"><span>'+s.icon+'</span><strong>'+count+'</strong><small>'+s.label+' links</small></article>'}).join('');
@@ -683,6 +693,7 @@
     if(wordsKnown)wordsKnown.textContent=tutorSummary?tutorSummary.knownWords:knownFallback;
     if(situations)situations.textContent=tutorSummary?tutorSummary.scenariosReady:'—';
     if(dailyWeek)dailyWeek.textContent=tutorSummary?tutorSummary.dailyCompleted7:'—';
+    renderMeaningfulProgress(tutorSummary,strongPatterns,sentenceStrong,tutorSummary?tutorSummary.knownWords:knownFallback);
     document.getElementById('memoryHealth').innerHTML='<span class="eyebrow">MEMORY HEALTH</span><h3>'+review.due+(review.due===1?' review':' reviews')+' due</h3><p>'+(review.scheduled?'LanguageDNA is spacing '+review.scheduled+' practiced pattern'+(review.scheduled===1?'':'s')+'. '+(review.next?'Next future review '+formatDue(review.next.due)+'.':''):'Complete practice items to build your personal review schedule.')+'</p><div class="health-stat-row"><div class="health-stat"><strong>'+review.scheduled+'</strong><small>scheduled</small></div><div class="health-stat"><strong>'+review.strong+'</strong><small>14+ day intervals</small></div></div>';
     const weakSounds=pronunciationWeaknessSummary().slice(0,3);document.getElementById('pronunciationHealth').innerHTML='<span class="eyebrow">SPEAKING PROFILE</span><h3>'+(pron.average==null?'No scored attempts yet':pron.average+'% average match')+'</h3><p>'+(pron.attempts?'Across '+pron.attempts+' microphone attempt'+(pron.attempts===1?'':'s')+' on '+pron.patterns+' pattern'+(pron.patterns===1?'':'s')+'. Best match: '+pron.best+'%.':'Use Speak practice with the microphone to build a pronunciation profile.')+'</p>'+(weakSounds.length?'<div class="weak-sound-list"><small>Recurring focus</small>'+weakSounds.map(function(w){return'<span>'+escapeHtml(w.label)+' · '+w.average+'%</span>'}).join('')+'</div>':'')+'<div class="health-stat-row"><div class="health-stat"><strong>'+pron.attempts+'</strong><small>attempts</small></div><div class="health-stat"><strong>'+(pron.best==null?'—':pron.best+'%')+'</strong><small>best match</small></div></div>';
     document.getElementById('dnaMap').innerHTML=FAMILY_META.map(function(f){const list=patterns.filter(function(p){return patternFamilies(p).includes(f.key)}).sort(function(a,b){return progressFor(b.id)-progressFor(a.id)||a.rank-b.rank}).slice(0,6);return'<section class="dna-family"><h3>'+f.icon+' '+f.title+'</h3><div class="dna-nodes">'+list.map(function(p){const r=reviewRecord(p.id);return'<button type="button" class="dna-node" data-open="'+p.id+'"><strong>'+escapeHtml(p.title)+'</strong><small>'+progressFor(p.id)+'/5 skills'+(r&&r.due<=Date.now()?' · review due':'')+'</small></button>'}).join('')+'</div></section>'}).join('');
