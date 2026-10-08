@@ -417,7 +417,7 @@
   }
   function renderPatternCard(p){
     const teaching=patternTeachingSummary(p),status=learnerPatternStatus(p),count=progressFor(p.id);
-    return'<article class="pattern-card learner-pattern-card">'+
+    return'<article class="pattern-card learner-pattern-card" data-pattern-type="'+escapeHtml(p.type)+'">'+
       '<div class="learner-pattern-top"><span class="pattern-kind">'+escapeHtml(libraryPatternType(p))+'</span><span class="pattern-status">'+escapeHtml(status.label)+'</span></div>'+
       '<h3>'+escapeHtml(p.title)+'</h3>'+
       '<p class="pattern-card-teaching">'+escapeHtml(teaching.meaning||teaching.heading)+'</p>'+
