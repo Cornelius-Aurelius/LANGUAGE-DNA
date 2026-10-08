@@ -128,3 +128,19 @@ The beginner path now behaves like one calm adaptive lesson rather than a menu o
 - **Spaced-review integration:** Daily 5 can perform a tiny review directly against the existing review scheduler instead of forcing the learner out into a separate lesson.
 
 The current production lexical data does not contain full sense-level Wiktextract/Kaikki labels, so v9 does not fabricate modern-sense or regional-usage metadata. Frequency evidence, existing Data Quality v2 validation and explicit false-friend safeguards are used where supported by the current repository data.
+
+
+## Simple Home v10
+
+The landing screen is deliberately much smaller and follows a new product rule: learners should not have to understand the app before they can start learning.
+
+- The first screen explains LanguageDNA in one sentence: **learn Spanish from English you already know**.
+- One dominant action starts the personalised five-minute lesson immediately, with no setup or level test.
+- One tiny English → Spanish example demonstrates the method before the learner has to read instructions.
+- “How it works” is reduced to three steps: start with English → spot the Spanish link → use it straight away.
+- Secondary actions are one tap away: Learn, Practice, 40-question Game, and Find a word.
+- The full translator remains available as a compact research tool lower on the home page.
+- Pattern previews, Sentence DNA, family browsers, meaning lenses and other advanced exploration no longer compete for attention on the landing screen; they remain available through the product navigation.
+- The visible “Tutor” navigation label is renamed **Learn** so the purpose is immediately clear to a beginner.
+
+The design goal is clarity and healthy engagement: immediate usefulness, visible progress and easy return paths without dark patterns or unnecessary setup.
