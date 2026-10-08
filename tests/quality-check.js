@@ -71,4 +71,6 @@ if(!index.includes('Free from start to finish.'))fail('Free learning guarantee m
 if(!index.includes('id="startBeginner"'))fail('First lesson entry was lost.');
 if(!index.includes('id="quickTranslator"'))fail('Translator entry was lost.');
 
+require('./cloud-sync-check.js');
+
 console.log('LanguageDNA quality checks passed:',{everyday:core.length,dictionaries:ids.length,productionRows:rows});
