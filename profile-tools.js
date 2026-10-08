@@ -10,7 +10,7 @@
   function dailyDone(){const all=safeParse(localStorage.getItem('ldna-daily5-v1')||'{}',{}),r=all[todayKey()];return!!(r&&r.completedAt)}
   function collectData(){
     const data={};
-    for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key&&key.indexOf('ldna-')===0)data[key]=localStorage.getItem(key)}
+    for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key&&key.indexOf('ldna-')===0&&key.indexOf('ldna-cloud-')!==0)data[key]=localStorage.getItem(key)}
     return{app:'LanguageDNA',schemaVersion:SCHEMA_VERSION,exportedAt:new Date().toISOString(),data:data}
   }
   function validateSnapshot(snapshot){
@@ -18,7 +18,7 @@
   }
   function restoreData(snapshot){
     if(!validateSnapshot(snapshot))throw new Error('This is not a valid LanguageDNA backup.');
-    const keys=Object.keys(snapshot.data).filter(function(k){return k.indexOf('ldna-')===0});
+    const keys=Object.keys(snapshot.data).filter(function(k){return k.indexOf('ldna-')===0&&k.indexOf('ldna-cloud-')!==0});
     if(!keys.length)throw new Error('No LanguageDNA progress was found in this backup.');
     keys.forEach(function(k){localStorage.setItem(k,String(snapshot.data[k]))});
     return keys.length
