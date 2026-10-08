@@ -387,8 +387,12 @@
     render:function(){renderHomeSummary();renderDaily();renderScenarios();renderTabs()},
     open:function(tab){state.tab=tab||'daily';renderTabs();if(state.tab==='daily'){ensureDailyRecord();renderDaily()}if(state.tab==='scenarios')renderScenarios();if(state.tab==='conversation')resetConversation(state.scenario)},
     summary:tutorSummary,
-    openPatternConversation:function(id){state.patternFocus=id||null;if(id)localStorage.setItem('ldna-tutor-pattern-focus-v1',JSON.stringify({id:id,at:Date.now()}));state.scenario=scenarioForPattern(id);state.tab='conversation';resetConversation(state.scenario);renderTabs()}
+    openPatternConversation:function(id){state.patternFocus=id||null;localStorage.removeItem('ldna-tutor-pattern-focus-v1');state.scenario=scenarioForPattern(id);state.tab='conversation';resetConversation(state.scenario);renderTabs()}
   };
 
-  renderHomeSummary();renderDaily();renderScenarios();renderTabs();
+  const pendingFocus=safeParse(localStorage.getItem('ldna-tutor-pattern-focus-v1')||'null',null);
+  if(pendingFocus&&pendingFocus.id){
+    state.patternFocus=pendingFocus.id;state.scenario=scenarioForPattern(pendingFocus.id);state.tab='conversation';
+    localStorage.removeItem('ldna-tutor-pattern-focus-v1');resetConversation(state.scenario);renderTabs()
+  }else{renderHomeSummary();renderDaily();renderScenarios();renderTabs()}
 })();
