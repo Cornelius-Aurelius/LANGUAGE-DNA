@@ -1543,3 +1543,12 @@ body.dark .translator-input-wrap,body.dark .pattern-search-simple{background:var
   main .view{animation:none}
   :is(.course-level-tab,.practice-mode-grid .mode-card,.scenario-card,.game-level-card):hover{transform:none}
 }
+
+
+/* The suggested next pattern shares the same clear surface language as the library. */
+.pattern-next-card{
+  border:2px solid #b4dec6;border-radius:22px;
+  background:linear-gradient(125deg,var(--ld-tint-mint),var(--surface) 83%);
+  box-shadow:0 5px 0 var(--ld-card-floor)
+}
+body.dark .pattern-next-card{border-color:#508276;background:linear-gradient(125deg,#254d42,var(--surface) 80%)}
