@@ -1110,7 +1110,7 @@
   };
   function loadLearningExtras(){
     const load=function(src,onload){const s=document.createElement('script');s.src=src;s.async=false;s.onload=onload||null;document.body.appendChild(s)};
-    const afterCore=function(){load('everyday-expanded-data.js?v=2',function(){load('everyday-game.js?v=5',function(){load('tutor-tools.js?v=7',function(){if(state.view==='dna')renderDNA();if(window.LanguageDNATutor)window.LanguageDNATutor.render()})})})};
+    const afterCore=function(){load('everyday-expanded-data.js?v=2',function(){load('everyday-game.js?v=5',function(){load('tutor-tools.js?v=8',function(){if(state.view==='dna')renderDNA();if(window.LanguageDNATutor)window.LanguageDNATutor.render()})})})};
     if(Array.isArray(window.LANGUAGE_DNA_EVERYDAY_100))afterCore();else load('everyday-data.js?v=1',afterCore)
   }
   initTranslator();populatePracticeSelect();renderFamilies();renderStarters();renderSentenceDNA();renderCourse();renderLibrary();renderReviewBar();renderSessionPanel();renderPractice();renderAllProgress();loadLearningExtras();
@@ -1118,6 +1118,6 @@
   if(launchPractice&&patterns.some(function(p){return p.id===launchPractice})){history.replaceState({},'',location.pathname);startPractice(launchPractice,recommendedMode(getPattern(launchPractice)))}
   else if(['home','course','library','practice','tutor','game','dna'].includes(launchView)){history.replaceState({},'',location.pathname);goView(launchView)}
 
-  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=18').catch(function(){});
+  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=19').catch(function(){});
 
 })();
