@@ -116,3 +116,38 @@ test('Offline app shell still opens after installation', async ({page}) => {
   await expect(page.locator('#startBeginner')).toBeVisible();
   await expect(page.locator('.home-pattern-card.sounds')).toBeVisible();
 });
+
+
+test('Original brand uses distinct friendly colours and tactile primary buttons', async ({page}) => {
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  const values = await page.evaluate(() => {
+    const selector = s => document.querySelector(s);
+    const css = el => getComputedStyle(selector(el));
+    return {
+      start: css('#startBeginner').backgroundColor,
+      explore: css('.simple-home-explore').backgroundColor,
+      primaryDepth: css('#startBeginner').boxShadow,
+      words: css('.home-pattern-card.words').backgroundImage,
+      sounds: css('.home-pattern-card.sounds').backgroundImage,
+      sentences: css('.home-pattern-card.sentences').backgroundImage,
+      patternVisible: css('.primary-nav [data-view="library"]').display !== 'none'
+    };
+  });
+  expect(values.start).not.toEqual(values.explore);
+  expect(values.primaryDepth).not.toEqual('none');
+  expect(new Set([values.words,values.sounds,values.sentences]).size).toBe(3);
+  expect(values.patternVisible).toBe(true);
+});
+
+test('Playful palette remains usable in dark mode at phone width', async ({page}) => {
+  await page.setViewportSize({width:320,height:720});
+  await page.goto(base);
+  await page.locator('#themeButton').click();
+  await expect(page.locator('body')).toHaveClass(/dark/);
+  await expect(page.locator('#startBeginner')).toBeVisible();
+  await expect(page.locator('.simple-home-explore')).toBeVisible();
+  await expect(page.locator('.home-pattern-card.sounds')).toBeVisible();
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+  expect(overflow).toBeLessThanOrEqual(2);
+});
