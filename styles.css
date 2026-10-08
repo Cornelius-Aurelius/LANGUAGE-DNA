@@ -1895,3 +1895,103 @@ body.dark .quest-eyebrow{color:#a6f3d1}
  .quest-world,.quest-answer,.quest-victory-icon,.quest-stars-earned span,.quest-play-progress span{animation:none!important;transition:none!important}
  .quest-world:hover,.quest-answer:hover{transform:none!important}
 }
+
+
+
+/* v21 — rewarding pattern discoveries and kid-friendly, progressive teaching */
+.simple-pattern-hero{padding-bottom:10px}
+.simple-pattern-hero h2{max-width:680px;font-size:clamp(27px,4.2vw,42px);font-weight:950;line-height:1.13;letter-spacing:-.05em}
+.pattern-original-name{margin:8px 0 0;font-size:12px;font-weight:700;color:var(--muted)}
+.pattern-teaching-card{padding:22px;border-radius:23px;border:2px solid #b8e5cf;background:linear-gradient(135deg,var(--ld-tint-mint),var(--surface) 85%)}
+.pattern-teaching-card .eyebrow{color:#16745c}
+.pattern-teaching-card .pattern-meaning{font-size:clamp(17px,2.5vw,21px);font-weight:680;line-height:1.55;color:var(--text);margin:8px 0 17px}
+.pattern-teaching-card .worked-example{border:2px solid #cce5d9;border-radius:19px;background:var(--surface);padding:17px}
+.pattern-teaching-card .worked-example small{font-size:10px;font-weight:950;letter-spacing:.1em}
+.pattern-teaching-card .worked-example strong{display:block;margin:8px 0 5px;font-size:clamp(21px,3.5vw,29px);line-height:1.25;letter-spacing:-.035em;overflow-wrap:anywhere}
+.pattern-teaching-card .worked-example p{font-size:14px;line-height:1.55;color:var(--muted)}
+.pattern-teaching-steps{margin:15px 0 5px}
+.pattern-teaching-steps h4{font-size:17px;font-weight:950;letter-spacing:-.02em;margin:0 0 12px}
+.pattern-teaching-steps ol{list-style:none;counter-reset:teaching;display:grid;gap:9px;padding:0;margin:0}
+.pattern-teaching-steps li{
+  display:flex;align-items:flex-start;gap:12px;min-height:51px;
+  padding:12px 14px;border:2px solid var(--ld-card-edge);border-radius:15px;
+  background:var(--surface);font-size:14px;font-weight:700;line-height:1.5
+}
+.pattern-teaching-steps li:before{
+  counter-increment:teaching;content:counter(teaching);
+  display:grid;place-items:center;flex:0 0 29px;
+  width:29px;height:29px;border-radius:10px;
+  background:#d8cfff;color:#593f9a;font-weight:950
+}
+.pattern-teaching-steps li:last-child{border-color:#a5d9bb;background:var(--ld-tint-mint)}
+.pattern-teaching-steps li:last-child:before{background:#b6ebc4;color:#235a38}
+.pattern-caution{background:var(--ld-tint-gold);border:1px solid #e9d39e;padding:12px 14px;border-radius:13px;font-size:12px;line-height:1.55}
+.pattern-mini-check{margin:15px 0 12px;padding:20px;border:2px solid #d4c8f1;border-radius:21px;background:linear-gradient(145deg,var(--ld-tint-lavender),var(--surface) 82%)}
+.pattern-mini-check h4{font-size:clamp(18px,3vw,23px);line-height:1.3;font-weight:950;letter-spacing:-.025em;margin:8px 0 14px}
+.pattern-mini-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.pattern-mini-choices button{
+  min-height:56px;padding:10px;border:2px solid #d4c8ee;
+  border-radius:15px;background:var(--surface);color:var(--text);
+  font-size:15px;font-weight:850;cursor:pointer;
+  box-shadow:0 4px 0 var(--ld-card-floor)
+}
+.pattern-mini-choices button:hover:not(:disabled){border-color:#ad97e3;background:var(--ld-tint-lavender);transform:translateY(-1px)}
+.pattern-mini-choices button.correct{background:#dbf5df;border-color:#79bd8b;color:#1e5b31}
+.pattern-mini-choices button.incorrect{background:#ffede6;border-color:#e2a591;color:#85432e}
+.pattern-mini-choices button:disabled{cursor:default}
+.pattern-mini-feedback{min-height:0;margin:12px 0 0;font-size:13px;font-weight:800;line-height:1.5}
+.pattern-mini-feedback:empty{display:none}
+.pattern-mini-feedback.is-correct{color:#236844}
+.pattern-mini-feedback.is-try{color:#7e568a}
+.pattern-easy-actions{margin:14px 0 18px}
+.pattern-easy-actions .primary-btn{min-height:52px;max-width:100%}
+.pattern-journey-details{border:2px solid var(--ld-card-edge);border-radius:19px;background:var(--surface);overflow:hidden;margin:14px 0 20px}
+.pattern-journey-details>summary{display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;min-height:72px;padding:13px 17px;list-style:none}
+.pattern-journey-details>summary::-webkit-details-marker{display:none}
+.pattern-journey-details>summary>span:first-child{display:grid;gap:5px}
+.pattern-journey-details>summary strong{font-size:15px;font-weight:900}
+.pattern-journey-details>summary>span:last-child{font-size:23px;color:var(--green)}
+.pattern-journey-details[open]>summary>span:last-child{transform:rotate(180deg)}
+.pattern-journey-details .pattern-journey-card{margin:0 12px 12px;box-shadow:none}
+.quest-reward-icon{font-size:34px;line-height:1;animation:quest-pop .25s ease-out}
+.quest-word-connection{display:block;font-size:clamp(18px,3vw,24px);font-weight:950;letter-spacing:-.03em;color:#1f5941}
+.quest-feedback-win{border-radius:18px;box-shadow:0 4px 0 #cce8d7}
+.quest-earned-badge{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 21px;border:2px solid #d8c5f5;border-radius:19px;
+  background:#f3edff;box-shadow:0 4px 0 #e1d7f3
+}
+.quest-earned-badge>span{font-size:35px}
+.quest-earned-badge>div{display:grid;gap:5px;text-align:left}
+.quest-earned-badge strong{font-weight:950;color:#573d98}
+.quest-earned-badge small{color:#685d85;font-size:12px}
+body.dark .pattern-teaching-card{border-color:#467e62}
+body.dark .pattern-teaching-steps li:last-child{background:#294e3f}
+body.dark .pattern-caution{background:#504432;color:#faf0d8;border-color:#7c684d}
+body.dark .pattern-mini-check{border-color:#63538d}
+body.dark .pattern-mini-choices button{background:#25434f;color:#f2f9f5;border-color:#5a5680}
+body.dark .pattern-mini-choices button.correct{background:#295944;color:#e5ffeb;border-color:#81c99d}
+body.dark .pattern-mini-choices button.incorrect{background:#5c413b;color:#ffebe5;border-color:#c28a77}
+body.dark .pattern-mini-feedback.is-correct{color:#b7f3d0}
+body.dark .pattern-mini-feedback.is-try{color:#ecd7ff}
+body.dark .quest-word-connection{color:#d9ffe3}
+body.dark .quest-earned-badge{background:#3a3456;border-color:#695e95;box-shadow:0 4px 0 #2b2944}
+body.dark .quest-earned-badge strong,body.dark .quest-earned-badge small{color:#f4ebff}
+@media(max-width:680px){
+  .simple-pattern-hero{padding-bottom:5px}
+  .simple-pattern-hero h2{font-size:clamp(25px,7vw,33px)}
+  .pattern-teaching-card{padding:14px;border-radius:18px}
+  .pattern-teaching-card .pattern-meaning{font-size:16px}
+  .pattern-teaching-card .worked-example{padding:13px}
+  .pattern-teaching-steps h4{font-size:16px}
+  .pattern-teaching-steps li{padding:10px;font-size:13px}
+  .pattern-mini-check{padding:13px;border-radius:17px}
+  .pattern-mini-choices{grid-template-columns:1fr;gap:9px}
+  .pattern-mini-choices button{min-height:50px;text-align:left;padding:10px 14px}
+  .pattern-easy-actions .primary-btn{width:100%}
+  .pattern-journey-details>summary{padding:13px;min-height:65px}
+  .quest-reward-icon{font-size:29px}
+  .quest-word-connection{font-size:19px}
+  .quest-earned-badge{padding:11px 15px}
+}
+@media(prefers-reduced-motion:reduce){.quest-reward-icon{animation:none!important}}
