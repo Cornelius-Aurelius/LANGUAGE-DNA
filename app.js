@@ -721,7 +721,7 @@
     const homeLens=e.target.closest('[data-home-lens]');if(homeLens){state.lens=homeLens.dataset.homeLens;state.family='all';goView('library');document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.toggle('active',x.dataset.lens===state.lens)});renderLibrary();return}
     const mode=e.target.closest('[data-mode]');if(mode){state.mode=mode.dataset.mode;document.querySelectorAll('.mode-card').forEach(function(x){x.classList.toggle('active',x===mode)});renderPractice();return}
     const reveal=e.target.closest('[data-reveal]');if(reveal){const p=getPattern(state.currentId);scheduleReview(state.currentId,1);logActivity('reveal',{pattern:p.id,mode:state.mode});if(state.session&&!state.session.mistakes.includes(p.id))state.session.mistakes.push(p.id);feedback(true,'Answer: '+reveal.dataset.reveal+' · This link will return soon for retrieval.');return}
-    const choice=e.target.closest('[data-choice]');if(choice){const ok=choice.dataset.choice==='true',p=getPattern(state.currentId);choice.classList.add(ok?'correct':'incorrect');if(ok){els.practiceStage.querySelectorAll('.choice-btn').forEach(function(b){b.disabled=true});feedback(true,'✓ Correct. Moving to the next question…');successForCurrent(4)}else{choice.disabled=true;recordIncorrect(p);feedback(false,'Not this one. Try the other option.')}return}
+    const choice=e.target.closest('[data-choice]');if(choice){const ok=choice.dataset.choice==='true',p=getPattern(state.currentId);choice.classList.add(ok?'correct':'incorrect');if(ok){els.practiceStage.querySelectorAll('.choice-btn').forEach(function(b){b.disabled=true});feedback(true,'✓ Correct. Moving to the next question…');successForCurrent(4)}else{choice.disabled=true;recordIncorrect(p);feedback(false,'Not this one. Open “Need help?” for a clue, then try again.')}return}
     const retrySession=e.target.closest('[data-session-retry]');if(retrySession&&state.session){const mistakes=Array.from(new Set(state.session.mistakes));startLessonSession('Mistake repair',mistakes.length?mistakes:[state.currentId],null);return}
     const courseReturn=e.target.closest('[data-course-return]');if(courseReturn){state.session=null;renderSessionPanel();goView('course');return}
     const pronounceWord=e.target.closest('[data-pronounce-word]');if(pronounceWord){startWordRecognition(pronounceWord.dataset.pronounceWord,state.currentId);return}
@@ -764,6 +764,6 @@
     })
   }
   initTranslator();populatePracticeSelect();renderFamilies();renderStarters();renderSentenceDNA();renderCourse();renderLibrary();renderReviewBar();renderSessionPanel();renderPractice();renderAllProgress();loadLearningExtras();
-  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=11').catch(function(){});
+  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=12').catch(function(){});
 
 })();
