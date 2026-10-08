@@ -761,7 +761,18 @@
     person:'persona',people:'gente',name:'nombre',family:'familia',mother:'madre',father:'padre',brother:'hermano',sister:'hermana',
     son:'hijo',daughter:'hija',husband:'esposo / marido',wife:'esposa / mujer',day:'día',week:'semana',month:'mes',year:'año',
     car:'coche / carro',train:'tren',bus:'autobús',ticket:'billete / boleto',street:'calle',city:'ciudad',country:'país',
-    room:'habitación',key:'llave',door:'puerta',table:'mesa',chair:'silla',book:'libro',phone:'teléfono',dog:'perro',cat:'gato'
+    room:'habitación',key:'llave',door:'puerta',table:'mesa',chair:'silla',book:'libro',phone:'teléfono',dog:'perro',cat:'gato',
+    computer:'ordenador / computadora','mobile phone':'móvil / celular',apartment:'piso / apartamento',juice:'zumo / jugo',potato:'patata / papa'
+  };
+  const COMMON_USAGE_NOTES={
+    car:'Coche is very common in Spain; carro or auto are common in many parts of Latin America.',
+    ticket:'Billete is common for many travel tickets in Spain; boleto is common in many parts of Latin America.',
+    computer:'Ordenador is common in Spain; computadora is common in much of Latin America.',
+    'mobile phone':'Móvil is common in Spain; celular is common in much of Latin America.',
+    apartment:'Piso is common in Spain; apartamento is widely understood across regions.',
+    juice:'Zumo is common in Spain; jugo is common in much of Latin America.',
+    potato:'Patata is common in Spain; papa is common in much of Latin America.',
+    wife:'Esposa is broadly neutral; mujer can also mean wife from context but also means woman.'
   };
   function splitTranslationVariants(value){return String(value||'').split('/').map(function(x){return x.trim()}).filter(Boolean)}
   function trustedCommonTranslation(query,source){
@@ -769,11 +780,11 @@
     if(source==='en'){
       const item=everyday.find(function(x){return normalize(x.english)===q});
       if(item)return{text:String(item.spanish),alternatives:[],source:'trusted',note:item.note||'',trustedLabel:'Everyday 100 checked match'};
-      if(COMMON_TRANSLATIONS[q])return{text:COMMON_TRANSLATIONS[q],alternatives:[],source:'trusted',note:'Common everyday vocabulary checked locally.',trustedLabel:'Checked common-word match'}
+      if(COMMON_TRANSLATIONS[q])return{text:COMMON_TRANSLATIONS[q],alternatives:[],source:'trusted',note:COMMON_USAGE_NOTES[q]||'Common everyday vocabulary checked locally.',trustedLabel:'Checked common-word match'}
     }else{
       for(let i=0;i<everyday.length;i++){const variants=splitTranslationVariants(everyday[i].spanish);if(variants.some(function(v){return normalize(v)===q}))return{text:String(everyday[i].english),alternatives:[],source:'trusted',note:everyday[i].note||'',trustedLabel:'Everyday 100 checked match'}}
       const entries=Object.entries(COMMON_TRANSLATIONS);
-      for(let i=0;i<entries.length;i++){const variants=splitTranslationVariants(entries[i][1]);if(variants.some(function(v){return normalize(v)===q}))return{text:entries[i][0],alternatives:[],source:'trusted',note:'Common everyday vocabulary checked locally.',trustedLabel:'Checked common-word match'}}
+      for(let i=0;i<entries.length;i++){const variants=splitTranslationVariants(entries[i][1]);if(variants.some(function(v){return normalize(v)===q}))return{text:entries[i][0],alternatives:[],source:'trusted',note:COMMON_USAGE_NOTES[entries[i][0]]||'Common everyday vocabulary checked locally.',trustedLabel:'Checked common-word match'}}
     }
     return null
   }
