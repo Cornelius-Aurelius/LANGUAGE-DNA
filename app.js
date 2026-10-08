@@ -317,8 +317,49 @@
   function skillDots(id){const row=state.skills[id]||{};return'<div class="skill-dots" aria-label="'+progressFor(id)+' of 5 skills built">'+SKILLS.map(function(s){return'<span class="skill-dot '+(row[s.key]?'on':'')+'" title="'+s.label+'">'+(row[s.key]?'✓':s.icon)+'</span>'}).join('')+'</div>'}
 
   function filteredPatterns(){const q=normalize(els.search?els.search.value:'');const type=els.type?els.type.value:'all';const level=els.level?els.level.value:'all';return patterns.filter(function(p){const searchable=normalize([p.title,p.rule,p.note||'',p.scoreLabel||'',p.tags.join(' '),p.lenses.join(' '),p.examples.flat().join(' ')].join(' '));return(!q||searchable.indexOf(q)>=0)&&(type==='all'||p.type===type)&&(level==='all'||p.importance===level)&&(!state.lens||p.lenses.includes(state.lens))&&(state.family==='all'||patternFamilies(p).includes(state.family))&&(state.quick==='all'||p.tags.includes(state.quick))})}
-  function renderPatternCard(p){const count=progressFor(p.id),intel=patternIntelligence(p);return'<article class="pattern-card"><div class="pattern-card-top"><span class="mini-badge '+p.type+'">'+typeLabel(p.type)+'</span><span class="starter-number">#'+p.rank+'</span></div><div class="intelligence-tags"><span>'+intel.level+'</span><span>'+intel.usefulness+' usefulness</span><span>'+escapeHtml(intel.confidence)+'</span></div><h3>'+escapeHtml(p.title)+'</h3><p class="rule">'+escapeHtml(p.rule)+'</p><p class="unlock">'+escapeHtml(p.scoreLabel||'Reusable Spanish link')+'</p><div class="lens-tags">'+p.lenses.map(function(x){return'<span class="lens-tag">'+x+'</span>'}).join('')+'</div>'+skillDots(p.id)+'<div class="mini-progress"><span style="width:'+(count/5*100)+'%"></span></div><div class="pattern-card-actions"><button class="card-btn" type="button" data-open="'+p.id+'">See link</button><button class="card-btn primary" type="button" data-practice="'+p.id+'">Practise</button></div></article>'}
-  function renderLibrary(){const items=filteredPatterns();if(els.summary)els.summary.textContent=items.length+' pattern'+(items.length===1?'':'s')+' shown · '+patterns.length+' total';if(els.empty)els.empty.hidden=items.length>0;if(els.grid)els.grid.innerHTML=items.map(renderPatternCard).join('')}
+  function libraryPatternType(p){
+    if(p.type==='sound'||p.tags.includes('pronunciation'))return'🔊 Sound pattern';
+    if(p.tags.includes('questions'))return'❓ Question pattern';
+    if(p.tags.includes('verbs'))return'⚡ Verb pattern';
+    if(p.tags.includes('sentence'))return'💬 Sentence pattern';
+    if(p.type==='visual'||p.tags.includes('cognates'))return'🔗 Word pattern';
+    return'✍ Structure pattern'
+  }
+  function learnerPatternStatus(p){
+    const count=progressFor(p.id);
+    if(count===0)return{label:'New pattern',pct:0};
+    if(count>=4)return{label:'✓ Strong',pct:Math.round(count/5*100)};
+    return{label:'Learning · '+count+' of 5 ways practised',pct:Math.round(count/5*100)}
+  }
+  function patternTeachingSummary(p){
+    return window.LanguageDNATeaching?window.LanguageDNATeaching.build(p):{heading:p.rule,meaning:p.rule,example:(p.examples[0]?p.examples[0][0]+' → '+p.examples[0][1]:'')}
+  }
+  function renderPatternCard(p){
+    const teaching=patternTeachingSummary(p),status=learnerPatternStatus(p),count=progressFor(p.id);
+    return'<article class="pattern-card learner-pattern-card">'+
+      '<div class="learner-pattern-top"><span class="pattern-kind">'+escapeHtml(libraryPatternType(p))+'</span><span class="pattern-status">'+escapeHtml(status.label)+'</span></div>'+
+      '<h3>'+escapeHtml(p.title)+'</h3>'+
+      '<p class="pattern-card-teaching">'+escapeHtml(teaching.heading)+'</p>'+
+      (teaching.example?'<div class="pattern-card-example"><small>EXAMPLE</small><strong>'+escapeHtml(teaching.example)+'</strong></div>':'')+
+      (count?'<div class="pattern-card-progress" aria-label="'+status.pct+' percent practised"><span style="width:'+status.pct+'%"></span></div>':'')+
+      '<div class="pattern-card-actions learner-actions"><button class="card-btn primary" type="button" data-open="'+p.id+'">Learn pattern</button><button class="card-btn" type="button" data-practice="'+p.id+'">Practise</button></div>'+
+    '</article>'
+  }
+  function renderPatternNext(){
+    const root=document.getElementById('patternNextCard');if(!root)return;
+    const p=nextBestPattern(),teaching=patternTeachingSummary(p),status=learnerPatternStatus(p);
+    root.innerHTML='<div class="pattern-next-copy"><span class="eyebrow">RECOMMENDED NEXT</span><span class="pattern-kind">'+escapeHtml(libraryPatternType(p))+'</span><h2>'+escapeHtml(p.title)+'</h2><p>'+escapeHtml(teaching.heading)+'</p>'+
+      (teaching.example?'<div class="pattern-next-example"><small>EXAMPLE</small><strong>'+escapeHtml(teaching.example)+'</strong></div>':'')+
+      '<small class="pattern-next-status">'+escapeHtml(status.label)+'</small></div>'+
+      '<div class="pattern-next-actions"><button type="button" class="primary-btn" data-open="'+p.id+'">Learn this pattern</button><button type="button" class="secondary-btn" data-practice="'+p.id+'">Practise now</button></div>'
+  }
+  function renderLibrary(){
+    const items=filteredPatterns();
+    if(els.summary)els.summary.textContent=items.length===patterns.length?patterns.length+' patterns to explore':items.length+' pattern'+(items.length===1?'':'s')+' found';
+    if(els.empty)els.empty.hidden=items.length>0;
+    if(els.grid)els.grid.innerHTML=items.map(renderPatternCard).join('');
+    renderPatternNext()
+  }
   function renderFamilies(){const familyGrid=document.getElementById('familyGrid');if(familyGrid)familyGrid.innerHTML=FAMILY_META.map(function(f){const count=patterns.filter(function(p){return patternFamilies(p).includes(f.key)}).length;return'<button type="button" class="family-card" data-family-jump="'+f.key+'"><span>'+f.icon+'</span><strong>'+f.title+'</strong><small>'+f.text+'</small><b>'+count+' patterns →</b></button>'}).join('');if(els.familyTabs){const tabs=[{key:'all',icon:'🧬',title:'All patterns'}].concat(FAMILY_META);els.familyTabs.innerHTML=tabs.map(function(f){return'<button type="button" class="family-tab '+(state.family===f.key?'active':'')+'" data-family="'+f.key+'">'+f.icon+' '+f.title+'</button>'}).join('')}}
   function renderStarters(){const grid=document.getElementById('starterGrid');if(!grid)return;const starter=patterns.slice().sort(function(a,b){return a.rank-b.rank}).slice(0,6);grid.innerHTML=starter.map(function(p,index){const count=progressFor(p.id);return'<button type="button" class="starter-card" data-open="'+p.id+'"><div class="starter-card-top"><span class="mini-badge '+p.type+'">'+typeLabel(p.type)+'</span><span class="starter-number">STEP '+(index+1)+'</span></div><h3>'+escapeHtml(p.title)+'</h3><p>'+escapeHtml(p.scoreLabel||p.rule)+'</p><div class="mini-progress"><span style="width:'+(count/5*100)+'%"></span></div></button>'}).join('')}
   function firstOpenCourseUnit(){
@@ -809,10 +850,10 @@
     const skillPractice=e.target.closest('[data-skill-practice]');if(skillPractice){startPractice(skillPractice.dataset.id,skillPractice.dataset.skillPractice);return}
   });
   els.dialog.querySelector('.dialog-close').addEventListener('click',function(){els.dialog.close()});els.dialog.addEventListener('click',function(e){if(e.target===els.dialog)els.dialog.close()});
-  [els.search,els.type,els.level].forEach(function(el){el.addEventListener(el===els.search?'input':'change',renderLibrary)});
-  document.getElementById('quickFilters').addEventListener('click',function(e){const b=e.target.closest('[data-quick]');if(!b)return;state.quick=b.dataset.quick;document.querySelectorAll('[data-quick]').forEach(function(x){x.classList.toggle('active',x===b)});renderLibrary()});
-  document.getElementById('clearLens').addEventListener('click',function(){state.lens=null;document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.remove('active')});renderLibrary()});
-  document.getElementById('resetFilters').addEventListener('click',function(){els.search.value='';els.type.value='all';els.level.value='all';state.quick='all';state.lens=null;state.family='all';document.querySelectorAll('[data-quick]').forEach(function(x){x.classList.toggle('active',x.dataset.quick==='all')});document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.remove('active')});renderFamilies();renderLibrary()});
+  [els.search,els.type,els.level].filter(Boolean).forEach(function(el){el.addEventListener(el===els.search?'input':'change',renderLibrary)});
+  const quickFilters=document.getElementById('quickFilters');if(quickFilters)quickFilters.addEventListener('click',function(e){const b=e.target.closest('[data-quick]');if(!b)return;state.quick=b.dataset.quick;state.lens=null;state.family='all';document.querySelectorAll('[data-quick]').forEach(function(x){x.classList.toggle('active',x===b)});renderLibrary()});
+  const clearLens=document.getElementById('clearLens');if(clearLens)clearLens.addEventListener('click',function(){state.lens=null;document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.remove('active')});renderLibrary()});
+  const resetFilters=document.getElementById('resetFilters');if(resetFilters)resetFilters.addEventListener('click',function(){if(els.search)els.search.value='';if(els.type)els.type.value='all';if(els.level)els.level.value='all';state.quick='all';state.lens=null;state.family='all';document.querySelectorAll('[data-quick]').forEach(function(x){x.classList.toggle('active',x.dataset.quick==='all')});document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.remove('active')});renderFamilies();renderLibrary()});
   document.getElementById('startBeginner').addEventListener('click',function(){goView('tutor');if(window.LanguageDNATutor)window.LanguageDNATutor.open('daily')});
   els.practiceSelect.addEventListener('change',function(){state.session=null;renderSessionPanel();state.currentId=els.practiceSelect.value;renderPractice();focusPracticeStage()});
   document.getElementById('nextBestButton').addEventListener('click',function(e){const p=getPattern(e.currentTarget.dataset.pattern||patterns[0].id);startPractice(p.id,recommendedMode(p))});
@@ -838,6 +879,6 @@
     if(Array.isArray(window.LANGUAGE_DNA_EVERYDAY_100))afterCore();else load('everyday-data.js?v=1',afterCore)
   }
   initTranslator();populatePracticeSelect();renderFamilies();renderStarters();renderSentenceDNA();renderCourse();renderLibrary();renderReviewBar();renderSessionPanel();renderPractice();renderAllProgress();loadLearningExtras();
-  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=14').catch(function(){});
+  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=15').catch(function(){});
 
 })();
