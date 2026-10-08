@@ -56,7 +56,7 @@
       return {best,active};
     } catch(_) {return {best:{},active:null};}
   }
-  let saved=read(),completed=null,clue=false,wrong=null,note='';
+  let saved=read(),completed=null,clue=false,wrong=null,listing=false;
   function write(){try{localStorage.setItem(STORAGE,JSON.stringify(saved));}catch(_){}renderProgress()}
   function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
   function world(id){return worlds.find(w=>w.id===id);}
@@ -117,7 +117,7 @@
   function render(){
     const root=document.getElementById('patternQuest');
     if(root){
-      root.innerHTML=completed?renderComplete():saved.active?renderQuestion():renderWorlds();
+      root.innerHTML=completed?renderComplete():(listing||!saved.active)?renderWorlds():renderQuestion();
     }
     renderProgress();
   }
@@ -125,11 +125,11 @@
     const nav=document.querySelector('.primary-nav [data-view="game"]');
     if(nav)nav.click();
     const section=document.getElementById('patternQuest');
-    if(section){render();section.scrollIntoView({block:'start',behavior:'auto'});}
+    if(section){listing=true;render();section.scrollIntoView({block:'start',behavior:'auto'});}
   }
   function selectWorld(id){
     if(!validId(id))return;
-    completed=null;clue=false;wrong=null;note='';
+    completed=null;clue=false;wrong=null;listing=false;
     if(!saved.active || saved.active.world!==id) saved.active={world:id,index:0,answered:false};
     write();render();
   }
@@ -167,7 +167,7 @@
     const response=e.target.closest('[data-quest-answer]');if(response){answer(response.dataset.questAnswer);return;}
     if(e.target.closest('[data-quest-clue]')){clue=true;render();return;}
     if(e.target.closest('[data-quest-next]')){advance();return;}
-    if(e.target.closest('[data-quest-back]')){completed=null;render();return;}
+    if(e.target.closest('[data-quest-back]')){completed=null;listing=true;render();return;}
     const audio=e.target.closest('[data-quest-listen]');if(audio){listen(audio.dataset.questListen);return;}
   });
   window.LanguageDNAQuest={
