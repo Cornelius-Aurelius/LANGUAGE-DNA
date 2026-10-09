@@ -2408,3 +2408,8 @@ body.dark .mascot-brand-mark{border-color:#658b83}
 
 .mascot-journey-avatar{flex:0 0 56px;display:block;width:56px;height:56px;border-radius:18px;object-fit:cover;border:2px solid #fbfcff;box-shadow:0 3px 0 rgba(22,91,78,.13)}
 @media(max-width:390px){.mascot-journey-avatar{width:48px;height:48px;flex-basis:48px}}
+
+/* The mini mascot stays visible in the one-screen adventure without adding a new row. */
+.quest-answer-flash.success{padding-left:58px;min-height:59px;text-align:left}
+.quest-flash-mascot{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:35px;height:35px;border-radius:12px;object-fit:cover;border:2px solid rgba(255,255,255,.9)}
+@media(max-width:390px){.quest-answer-flash.success{padding-left:49px}.quest-flash-mascot{left:8px;width:31px;height:31px}}
