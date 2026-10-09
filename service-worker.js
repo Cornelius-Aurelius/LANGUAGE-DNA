@@ -1,4 +1,4 @@
-const CACHE='bluxabi-v44';
+const CACHE='bluxabi-v45';
 const ASSETS=['./','./index.html','./styles.css?v=31','./app.js?v=34','./profile-tools.js?v=4','./learning-wins.js?v=4','./pattern-quest.js?v=10','./supabase-config.js?v=1','./cloud-sync.js?v=3','./app-icon.svg','./assets/mascot/xabi-hero.webp','./assets/mascot/xabi-face.webp','./assets/mascot/xabi-icon-192.png','./assets/mascot/xabi-icon-512.png','./everyday-data.js?v=1','./everyday-expanded-data.js?v=2','./tutor-tools.js?v=10','./everyday-game.js?v=6','./manifest.webmanifest','./pattern.html','./pattern.css?v=6','./pattern-data.js?v=5','./pattern-teaching.js?v=4','./pattern-page.js?v=4'];
 
 self.addEventListener('install',event=>{
