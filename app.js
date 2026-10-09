@@ -724,6 +724,43 @@
     const exampleHtml=example?'<p><b>Example:</b> '+escapeHtml(String(example[0]))+' → '+escapeHtml(String(example[1]))+'</p>':'',auto=recentWrongStreak(p.id)>=2;
     return '<div class="practice-help-wrap"><button type="button" class="practice-help-button" id="practiceHelpButton" aria-expanded="'+(auto?'true':'false')+'" aria-controls="practiceHelpPanel">'+(auto?'× Hide help':'? Need help?')+'</button><div class="practice-help-panel" id="practiceHelpPanel" '+(auto?'':'hidden')+'><strong>Hint</strong><p>'+escapeHtml(advice)+'</p>'+exampleHtml+'<small>Take your time. You can also skip the question and come back later.</small></div></div>'
   }
+  function plainAnswerReason(p){
+    if(p.id==='subject-drop')return '“Yo” means “I”. Say “yo hablo” or just “hablo” for “I speak”. “Yo habla” does not work: with yo, use hablo.';
+    if(p.id==='accent-overrides')return 'The little line above ó points to the stronger part: can–CIÓN. That is what an accent mark helps you hear.';
+    if(p.id==='stress-default')return 'Say ho–TEL. The second part is stronger. Spanish words ending in a letter like l usually sound stronger at the end.';
+    if(p.id==='vowels')return 'A vowel is one of these five letters: a, e, i, o, u. In Spanish, they usually make the sounds ah, eh, ee, oh, oo.';
+    if(p.id==='ir-a')return 'Ir means “to go”. Voy a means “I am going to”. Add an action word: voy a comer means “I am going to eat”.';
+    const teaching=window.LanguageDNATeaching&&window.LanguageDNATeaching.build(p);
+    return teaching&&(teaching.notice||teaching.meaning)||p.rule;
+  }
+  function showCorrectAnswer(p,q,mode){
+    const box=document.getElementById('practiceFeedback');if(!box)return;
+    let answer='';
+    if(mode==='tick'){
+      const rows=Array.from(els.practiceStage.querySelectorAll('.tick-item'));
+      const correct=rows.filter(function(row){return row.querySelector('[data-tick]').dataset.tick==='good'}).map(function(row){return row.querySelector('span').textContent});
+      const incorrect=rows.filter(function(row){return row.querySelector('[data-tick]').dataset.tick==='bad'}).map(function(row){return row.querySelector('span').textContent});
+      answer='<p><strong>Tick these:</strong> '+correct.map(escapeHtml).join(' and ')+'</p>'+
+        '<p><strong>Leave this unticked:</strong> '+incorrect.map(escapeHtml).join(', ')+'</p>';
+      rows.forEach(function(row){
+        const good=row.querySelector('[data-tick]').dataset.tick==='good';
+        row.classList.toggle('tick-example-correct',good);row.classList.toggle('tick-example-wrong',!good);
+        if(!row.querySelector('.tick-explanation')){
+          const note=document.createElement('small');note.className='tick-explanation';
+          note.textContent=good?'✓ This one works':'✗ Do not tick this one';
+          row.appendChild(note);
+        }
+      });
+    }else{
+      const answerText=mode==='hear'?q.english:q.answers[0];
+      answer='<p><strong>Correct answer:</strong> '+escapeHtml(answerText)+'</p>';
+      if(mode==='choice'||mode==='hear')els.practiceStage.querySelectorAll('.choice-btn[data-choice="true"]').forEach(function(btn){btn.classList.add('answer-revealed')});
+    }
+    box.hidden=false;box.className='feedback incorrect feedback-teaching';
+    box.innerHTML='<strong>Here is how to get it right:</strong>'+answer+
+      '<p><strong>Why:</strong> '+escapeHtml(plainAnswerReason(p))+'</p>'+
+      '<p>Take your time. Try it again to practise, then this will come back later for a check without help.</p>';
+  }
   function practiceRetryClue(p){
     if(p.id==='accent-overrides')return 'Look for the little accent mark over the vowel.';
     if(p.id==='stress-default')return 'Look at the last letter. Say the word slowly again.';
@@ -753,10 +790,10 @@
   }
   function bindPractice(p,q){
     const help=document.getElementById('practiceHelpButton');if(help)help.addEventListener('click',function(){const panel=document.getElementById('practiceHelpPanel'),open=panel&&panel.hidden;if(open)state.practiceHelped=true;if(panel)panel.hidden=!open;help.setAttribute('aria-expanded',open?'true':'false');help.textContent=open?'× Hide help':'? Need help?'});
-    const form=document.getElementById('writingForm');if(form)form.addEventListener('submit',function(e){e.preventDefault();const ans=normalize(document.getElementById('writingAnswer').value),ok=q.answers.some(function(a){return normalize(a)===ans});feedback(ok,ok?'✓ Correct. Moving to the next question…':'Almost. Try again — I’ll give you more help if you need it.');if(ok)successForCurrent(5);else handlePracticeMiss(p)});
+    const form=document.getElementById('writingForm');if(form)form.addEventListener('submit',function(e){e.preventDefault();const ans=normalize(document.getElementById('writingAnswer').value),ok=q.answers.some(function(a){return normalize(a)===ans});if(ok){feedback(true,'✓ That is right.');successForCurrent(5)}else{handlePracticeMiss(p);showCorrectAnswer(p,q,'write')}});
     const mic=document.getElementById('micButton');if(mic)mic.addEventListener('click',function(){startRecognition(p)});
     const selfSpeak=document.getElementById('selfCheckSpeak');if(selfSpeak)selfSpeak.addEventListener('click',function(){feedback(true,'Self-check saved. Moving on.');successForCurrent(3)});
-    const ticks=document.getElementById('checkTicks');if(ticks)ticks.addEventListener('click',function(){const boxes=Array.from(els.practiceStage.querySelectorAll('[data-tick]')),ok=boxes.every(function(b){return(b.dataset.tick==='good')===b.checked});feedback(ok,ok?'✓ Correct. Moving to the next question…':'Not quite. Check each option against the rule above.');if(ok)successForCurrent(4);else handlePracticeMiss(p)});
+    const ticks=document.getElementById('checkTicks');if(ticks)ticks.addEventListener('click',function(){const boxes=Array.from(els.practiceStage.querySelectorAll('[data-tick]')),ok=boxes.every(function(b){return(b.dataset.tick==='good')===b.checked});if(ok){feedback(true,'✓ Those are the right choices.');successForCurrent(4)}else{handlePracticeMiss(p);showCorrectAnswer(p,q,'tick')}});
     const skip=document.getElementById('skipPractice');if(skip)skip.addEventListener('click',skipPractice)
   }
   function skipPractice(){
@@ -1099,10 +1136,12 @@
         panel.querySelectorAll('[data-mini-answer]').forEach(function(btn){btn.disabled=true;btn.classList.toggle('correct',btn===tinyAnswer)});
         result.textContent='🌟 You got it! '+tinyAnswer.dataset.miniReason;
         result.className='pattern-mini-feedback is-correct';
-        markJourney(panel.dataset.miniPatternId,'understand');
+        if(panel.dataset.miniHelped!=='true')markJourney(panel.dataset.miniPatternId,'understand');
       }else{
         tinyAnswer.disabled=true;tinyAnswer.classList.add('incorrect');
-        result.textContent='Good try! Look at the example above, then try another answer.';
+        panel.dataset.miniHelped='true';
+        const right=panel.querySelector('[data-mini-correct="true"]');
+        result.textContent='The correct answer is '+(right?right.dataset.miniAnswer||right.textContent:'the choice shown in the lesson')+'. '+(right?right.dataset.miniReason:'')+' Read why, then try it once more.';
         result.className='pattern-mini-feedback is-try';
       }
       return;
@@ -1131,8 +1170,8 @@
     const lens=e.target.closest('[data-lens]');if(lens){state.lens=state.lens===lens.dataset.lens?null:lens.dataset.lens;document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.toggle('active',x.dataset.lens===state.lens)});renderLibrary();return}
     const homeLens=e.target.closest('[data-home-lens]');if(homeLens){state.lens=homeLens.dataset.homeLens;state.family='all';goView('library');document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.toggle('active',x.dataset.lens===state.lens)});renderLibrary();return}
     const mode=e.target.closest('[data-mode]');if(mode){state.mode=mode.dataset.mode;document.querySelectorAll('.mode-card').forEach(function(x){x.classList.toggle('active',x===mode)});renderPractice();focusPracticeStage();return}
-    const reveal=e.target.closest('[data-reveal]');if(reveal){const p=getPattern(state.currentId);scheduleReview(state.currentId,1);logActivity('reveal',{pattern:p.id,mode:state.mode,responseMs:responseTime()});if(state.session&&!state.session.mistakes.includes(p.id))state.session.mistakes.push(p.id);feedback(true,'Answer: '+reveal.dataset.reveal+' · This link will return soon for retrieval.');return}
-    const choice=e.target.closest('[data-choice]');if(choice){const ok=choice.dataset.choice==='true',p=getPattern(state.currentId);choice.classList.add(ok?'correct':'incorrect');if(ok){els.practiceStage.querySelectorAll('.choice-btn').forEach(function(b){b.disabled=true});feedback(true,'✓ Correct. Moving to the next question…');successForCurrent(4)}else{choice.disabled=true;const shifted=handlePracticeMiss(p);if(!shifted&&recentWrongStreak(p.id)<2)feedback(false,'Not yet. '+practiceRetryClue(p)+' Try again.')}return}
+    const reveal=e.target.closest('[data-reveal]');if(reveal){const p=getPattern(state.currentId);scheduleReview(state.currentId,1);logActivity('reveal',{pattern:p.id,mode:state.mode,responseMs:responseTime()});if(state.session&&!state.session.mistakes.includes(p.id))state.session.mistakes.push(p.id);state.practiceHelped=true;feedback(true,'Answer: '+reveal.dataset.reveal+' · This link will return soon for retrieval.');return}
+    const choice=e.target.closest('[data-choice]');if(choice){const ok=choice.dataset.choice==='true',p=getPattern(state.currentId);choice.classList.add(ok?'correct':'incorrect');if(ok){els.practiceStage.querySelectorAll('.choice-btn').forEach(function(b){b.disabled=true});feedback(true,'✓ Correct. Moving to the next question…');successForCurrent(4)}else{choice.disabled=true;const shifted=handlePracticeMiss(p);if(!shifted&&recentWrongStreak(p.id)<2)feedback(false,'Not yet. '+practiceRetryClue(p)+' Try again.');showCorrectAnswer(p,state.currentQuestion,state.mode)}return}
     const retrySession=e.target.closest('[data-session-retry]');if(retrySession&&state.session){const mistakes=Array.from(new Set(state.session.mistakes));startLessonSession('Mistake repair',mistakes.length?mistakes:[state.currentId],null);return}
     const courseReturn=e.target.closest('[data-course-return]');if(courseReturn){state.session=null;renderSessionPanel();goView('course');return}
     const pronounceWord=e.target.closest('[data-pronounce-word]');if(pronounceWord){startWordRecognition(pronounceWord.dataset.pronounceWord,state.currentId);return}
