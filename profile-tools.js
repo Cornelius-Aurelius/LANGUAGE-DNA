@@ -17,15 +17,15 @@
     return snapshot&&snapshot.app==='LanguageDNA'&&Number(snapshot.schemaVersion)>=1&&snapshot.data&&typeof snapshot.data==='object'
   }
   function restoreData(snapshot){
-    if(!validateSnapshot(snapshot))throw new Error('This is not a valid LanguageDNA backup.');
+    if(!validateSnapshot(snapshot))throw new Error('This is not a valid BluXabi backup.');
     const keys=Object.keys(snapshot.data).filter(function(k){return k.indexOf('ldna-')===0&&k.indexOf('ldna-cloud-')!==0});
-    if(!keys.length)throw new Error('No LanguageDNA progress was found in this backup.');
+    if(!keys.length)throw new Error('No BluXabi progress was found in this backup.');
     keys.forEach(function(k){localStorage.setItem(k,String(snapshot.data[k]))});
     return keys.length
   }
   function exportBackup(){
     const blob=new Blob([JSON.stringify(collectData(),null,2)],{type:'application/json'});
-    const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='LanguageDNA-progress-'+todayKey()+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1000);
+    const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='BluXabi-progress-'+todayKey()+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1000);
     status('Backup saved. Keep the file somewhere safe.')
   }
   function status(message){
@@ -33,11 +33,11 @@
   }
   function installHelp(){
     const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
-    return ios?'On iPhone/iPad: use Share → Add to Home Screen.':'You can install LanguageDNA from your browser menu when installation is available.'
+    return ios?'On iPhone/iPad: use Share → Add to Home Screen.':'You can install BluXabi from your browser menu when installation is available.'
   }
   async function installApp(){
     if(!deferredInstall){status(installHelp());return}
-    deferredInstall.prompt();const choice=await deferredInstall.userChoice;deferredInstall=null;render();status(choice&&choice.outcome==='accepted'?'LanguageDNA installation started.':'Installation cancelled — you can keep using the website normally.')
+    deferredInstall.prompt();const choice=await deferredInstall.userChoice;deferredInstall=null;render();status(choice&&choice.outcome==='accepted'?'BluXabi installation started.':'Installation cancelled — you can keep using the website normally.')
   }
   function render(){
     const root=document.getElementById('appProgressTools');if(!root)return;
@@ -56,8 +56,8 @@
     if(!file)return;const reader=new FileReader();
     reader.onload=function(){
       try{
-        const snapshot=JSON.parse(String(reader.result||''));if(!validateSnapshot(snapshot))throw new Error('This file is not a LanguageDNA backup.');
-        if(!window.confirm('Restore this LanguageDNA backup? Current saved progress with the same keys will be replaced.'))return;
+        const snapshot=JSON.parse(String(reader.result||''));if(!validateSnapshot(snapshot))throw new Error('This file is not a BluXabi backup.');
+        if(!window.confirm('Restore this BluXabi backup? Current saved progress with the same keys will be replaced.'))return;
         const count=restoreData(snapshot);status('Restored '+count+' saved progress items. Reloading…');setTimeout(function(){location.reload()},700)
       }catch(err){status(err&&err.message?err.message:'Could not restore that backup.')}
     };
@@ -65,7 +65,7 @@
   }
 
   window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstall=e;render()});
-  window.addEventListener('appinstalled',function(){deferredInstall=null;render();status('LanguageDNA is installed.')});
+  window.addEventListener('appinstalled',function(){deferredInstall=null;render();status('BluXabi is installed.')});
   document.addEventListener('visibilitychange',function(){if(!document.hidden)render()});
   window.addEventListener('storage',render);
   window.addEventListener('ldna-cloud-change',render);

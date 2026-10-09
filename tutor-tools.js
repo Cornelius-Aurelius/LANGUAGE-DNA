@@ -265,7 +265,7 @@
     return{canonical:canonical,score:score,missing:missing,unfamiliar:unfamiliarReplyWords(answer)}
   }
   function correctionMarkup(answer,canonical){const answerWords=normalize(answer).split(' ').filter(Boolean),parts=String(canonical||'').split(/([A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)/),canonicalWords=parts.filter(function(part){return/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+$/.test(part)});let changeIndex=canonicalWords.findIndex(function(word,i){return normalize(word)!==(answerWords[i]||'')});if(changeIndex<0)changeIndex=0;let wordIndex=0;return parts.map(function(part){if(!/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+$/.test(part))return escapeHtml(part);const html=escapeHtml(part),index=wordIndex++;return index===changeIndex?'<strong class="tutor-change">'+html+'</strong>':html}).join('')}
-  function coachLabel(who){return who==='tutor'?'Spanish coach':who==='coach'?'LanguageDNA coach':'You'}
+  function coachLabel(who){return who==='tutor'?'Spanish coach':who==='coach'?'BluXabi coach':'You'}
 
   function ensureDailyRecord(){
     const all=dailyData(),key=dateKey(),record=all[key]||{done:[],wrong:0,attempts:0};
@@ -364,7 +364,7 @@
     }
     if(step==='use'){
       const choices=dailyChoices(item,profile.choiceCount);
-      return '<span class="eyebrow">STEP 3 · USE IT</span><h2>'+escapeHtml(item.english)+'</h2><p>Pick the Spanish. Then LanguageDNA will show the same word in a real sentence.</p><div class="daily-choice-grid">'+choices.map(function(v){return'<button type="button" data-daily-use-choice="'+escapeHtml(v)+'">'+escapeHtml(v)+'</button>'}).join('')+'</div><div class="daily-example-line"><small>REAL USE</small><span>'+escapeHtml(item.exampleEn||item.english)+' → '+escapeHtml(item.exampleEs||item.spanish)+'</span></div>'
+      return '<span class="eyebrow">STEP 3 · USE IT</span><h2>'+escapeHtml(item.english)+'</h2><p>Pick the Spanish. Then BluXabi will show the same word in a real sentence.</p><div class="daily-choice-grid">'+choices.map(function(v){return'<button type="button" data-daily-use-choice="'+escapeHtml(v)+'">'+escapeHtml(v)+'</button>'}).join('')+'</div><div class="daily-example-line"><small>REAL USE</small><span>'+escapeHtml(item.exampleEn||item.english)+' → '+escapeHtml(item.exampleEs||item.spanish)+'</span></div>'
     }
     if(step==='speak'){
       const weak=plan.weak?plan.weak.id.replace(/-/g,' / '):'clear Spanish vowels';
@@ -454,7 +454,7 @@
   }
   function renderScenarios(){
     const root=document.getElementById('scenarioTutorPanel');if(!root)return;const turns=adaptiveProfile().conversationTurns;
-    root.innerHTML='<div class="scenario-heading"><div><span class="eyebrow">REAL-LIFE SPANISH</span><h2>Choose a situation.</h2><p>Start speaking immediately. LanguageDNA keeps the conversation short and adds more turns only when you are ready.</p></div></div><div class="scenario-grid">'+SCENARIOS.map(function(s){const r=scenarioReadiness(s);return'<article class="scenario-card"><div class="scenario-icon">'+s.icon+'</div><div><h3>'+escapeHtml(s.title)+'</h3><p>'+escapeHtml(s.aim)+'</p><small>'+(r.pct>=70?'You know enough to try this now.':'English help will be available.')+'</small><button type="button" class="primary-btn" data-scenario-start="'+s.id+'">Start</button></div></article>'}).join('')+'</div>'
+    root.innerHTML='<div class="scenario-heading"><div><span class="eyebrow">REAL-LIFE SPANISH</span><h2>Choose a situation.</h2><p>Start speaking immediately. BluXabi keeps the conversation short and adds more turns only when you are ready.</p></div></div><div class="scenario-grid">'+SCENARIOS.map(function(s){const r=scenarioReadiness(s);return'<article class="scenario-card"><div class="scenario-icon">'+s.icon+'</div><div><h3>'+escapeHtml(s.title)+'</h3><p>'+escapeHtml(s.aim)+'</p><small>'+(r.pct>=70?'You know enough to try this now.':'English help will be available.')+'</small><button type="button" class="primary-btn" data-scenario-start="'+s.id+'">Start</button></div></article>'}).join('')+'</div>'
   }
 
   function startSpeechCheck(text){

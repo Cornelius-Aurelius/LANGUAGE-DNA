@@ -3,6 +3,31 @@ const {test, expect} = require('@playwright/test');
 const base = 'http://127.0.0.1:4173/index.html';
 test.use({screenshot: 'only-on-failure', trace: 'retain-on-failure'});
 
+test('BluXabi branding appears throughout Home, dictionary and install metadata',async ({page})=>{
+  await page.goto(base);
+  await expect(page).toHaveTitle('BluXabi — Learn Spanish Through Patterns');
+  await expect(page.locator('.brand strong')).toHaveText('BluXabi');
+  await expect(page.locator('.mascot-home-greeting')).toContainText('MEET XABI');
+  const manifest=await page.evaluate(async()=>{
+    const link=document.querySelector('link[rel="manifest"]');
+    return await(await fetch(link.href)).json();
+  });
+  expect(manifest.short_name).toBe('BluXabi');
+  expect(manifest.name).toContain('BluXabi');
+  await page.goto(base.replace('index.html','pattern.html')+'?pattern=tion-cion');
+  await expect(page).toHaveTitle(/BluXabi/);
+  await expect(page.locator('.back-link')).toContainText('BluXabi');
+});
+
+test('BluXabi rebrand keeps existing locally saved progress intact',async ({page})=>{
+  await page.goto(base);
+  await page.evaluate(()=>localStorage.setItem('ldna-rebrand-safety-test','previous learning remains here'));
+  await page.reload();
+  await expect(page.locator('.brand strong')).toHaveText('BluXabi');
+  expect(await page.evaluate(()=>localStorage.getItem('ldna-rebrand-safety-test'))).toBe('previous learning remains here');
+});
+
+
 test('Xabi is recognisable on the homepage and in adventure feedback',async ({page})=>{
   await page.setViewportSize({width:375,height:812});
   await page.goto(base);
