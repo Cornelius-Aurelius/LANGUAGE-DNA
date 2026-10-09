@@ -679,7 +679,10 @@
       if(target==='spanish'&&other.practice&&other.practice.answers)add(other.practice.answers[0]);
       else if(target==='english'&&other.examples&&other.examples[0])add(other.examples[0][0])
     });
-    return seededShuffle([correct].concat(pool.slice(0,7)),p.rank*17+q.variant*7+(target==='english'?3:1)).slice(0,4)
+    const seed=p.rank*17+q.variant*7+(target==='english'?3:1);
+    const distractors=seededShuffle(pool,seed+13).slice(0,3);
+    // Keep the right answer in every question; only shuffle after choosing distractors.
+    return seededShuffle([correct].concat(distractors),seed)
   }
   function renderChoiceButtons(options,correct){
     return'<div class="choice-grid four-choice">'+options.map(function(v){return'<button class="choice-btn" type="button" data-choice="'+(normalize(v)===normalize(correct)?'true':'false')+'">'+escapeHtml(v)+'</button>'}).join('')+'</div>'
