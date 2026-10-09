@@ -69,5 +69,6 @@ assert.match(appSource,/Say “hotel” slowly: ho–tel\. Which part sounds str
 assert.match(appSource,/Say “canción” slowly\. Which part sounds stronger/);
 assert.match(appSource,/if\(target==='spanish'&&p.id==='accent-overrides'\)return \['can','ción'\]/);
 assert.match(appSource,/function practiceRetryClue\(p\)/);
+assert.match(appSource,/const example=\(p.examples\|\|\[\]\).find/,'Help uses a different example from the current question');
 
 console.log('LanguageDNA plain-language regression checks passed.');
