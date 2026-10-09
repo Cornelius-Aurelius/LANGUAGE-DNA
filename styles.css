@@ -2352,3 +2352,14 @@ body.dark .pattern-more-examples{border-color:var(--ld-card-edge)}
 @media(prefers-reduced-motion:reduce){
   .quest-answer-flash{animation:none}
 }
+
+/* Beginner learning: explain each missed answer in words, not only colours. */
+.feedback-teaching{line-height:1.55;padding:16px 18px;font-size:15px}
+.feedback-teaching>strong{display:block;font-size:17px;margin-bottom:8px}
+.feedback-teaching p{margin:8px 0}
+.feedback-teaching p:last-child{margin-bottom:0}
+.tick-item.tick-example-correct{border-color:#80aa85}
+.tick-item.tick-example-wrong{border-color:#c58a7d}
+.tick-item .tick-explanation{margin-left:auto;font-size:12px;line-height:1.35;font-weight:800;white-space:normal}
+.choice-btn.answer-revealed{border:2px solid #478762;outline:0}
+@media(max-width:520px){.tick-item{flex-wrap:wrap}.tick-item .tick-explanation{width:100%;margin-left:30px}.feedback-teaching{font-size:14px}}
