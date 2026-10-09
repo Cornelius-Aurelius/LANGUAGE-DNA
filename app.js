@@ -698,8 +698,11 @@
     return false
   }
 
-  function practiceHintHtml(p){
-    const example=(p.examples&&p.examples[0])||null;
+  function practiceHintHtml(p,q){
+    // Use a different example so opening a hint does not reveal today's answer.
+    const example=(p.examples||[]).find(function(pair){
+      return normalize(String(pair[0]||''))!==normalize(q.prompt) && !q.answers.some(function(answer){return normalize(String(pair[1]||''))===normalize(answer)});
+    })||null;
     let advice='Look at the example above. What changes in the Spanish?';
     if(state.mode==='write')advice='Read the English words. Look at the example above, then try writing the Spanish.';
     else if(state.mode==='hear')advice='Play the Spanish again. Listen for the word or phrase you learned.';
@@ -730,7 +733,7 @@
     if(state.session&&state.session.completed){renderSessionSummary();return}
     const p=getPattern(state.currentId),q=practiceQuestion(p);state.currentQuestion=q;els.practiceSelect.value=p.id;const ex=p.examples[0]||['',q.answers[0]];
     const taught=window.LanguageDNATeaching&&window.LanguageDNATeaching.build(p);
-    let body='<div class="practice-simple-head"><h2>'+escapeHtml(taught&&taught.heading||p.title)+'</h2><p>'+escapeHtml(taught&&taught.meaning||p.rule)+'</p></div>'+practiceTaskHtml(p,q)+practiceHintHtml(p);
+    let body='<div class="practice-simple-head"><h2>'+escapeHtml(taught&&taught.heading||p.title)+'</h2><p>'+escapeHtml(taught&&taught.meaning||p.rule)+'</p></div>'+practiceTaskHtml(p,q)+practiceHintHtml(p,q);
     if(state.mode==='write')body+='<form class="answer-form" id="writingForm"><input id="writingAnswer" autocomplete="off" placeholder="Type your Spanish answer…" aria-label="Your Spanish answer"><button class="primary-btn" type="submit">Check answer</button></form><div class="practice-actions"><button class="secondary-btn" type="button" data-reveal="'+escapeHtml(q.answers[0])+'">Show answer</button><button class="secondary-btn" type="button" data-speak="'+escapeHtml(q.answers[0])+'">🔊 Hear it</button></div>';
     else if(state.mode==='speak'){const target=speakTargetForPattern(p);body+='<div class="pronunciation-coach simplified"><div class="reading-guide" aria-label="Stress clue">'+stressCueHtml(target)+'</div><p class="speech-tip">'+escapeHtml(pronunciationTip(target))+'</p><div class="practice-actions"><button class="mic-btn" type="button" id="micButton">🎙 Start speaking</button><button class="secondary-btn" type="button" data-speak="'+escapeHtml(target)+'">🔊 Hear it</button><button class="secondary-btn" type="button" data-speak-slow="'+escapeHtml(target)+'">🐢 Hear slowly</button><button class="secondary-btn" type="button" id="selfCheckSpeak">I said it aloud ✓</button></div><div class="pronunciation-result empty" id="pronunciationResult">Try it once. You’ll get one clear suggestion about what to focus on next.</div></div>'}
     else if(state.mode==='hear'){const correct=q.english,opts=choiceOptions(p,q,'english');body+='<button class="big-listen" type="button" data-speak="'+escapeHtml(q.spanish)+'">🔊 Play Spanish</button>'+renderChoiceButtons(opts,correct)}
