@@ -1136,19 +1136,19 @@
     patternInfo:function(id){const p=getPattern(id),teaching=patternTeachingSummary(p);return{id:p.id,title:p.title,type:p.type,tags:p.tags.slice(),example:teaching.example||'',meaning:teaching.meaning||teaching.heading||p.rule}},
     completePatternConversation:function(id){if(id){markJourney(id,'conversation');logActivity('pattern_conversation',{pattern:id});renderAllProgress()}},
     getReviewSnapshot:function(){
-      const p=duePatterns()[0]||nextBestPattern(),answer=String((p.practice.answers&&p.practice.answers[0])||'').trim();
+      const p=duePatterns()[0];if(!p)return null;const answer=String((p.practice.answers&&p.practice.answers[0])||'').trim();
       const distractors=patterns.filter(function(x){return x.id!==p.id&&x.practice&&x.practice.answers&&x.practice.answers[0]}).sort(function(a,b){return Math.abs(a.rank-p.rank)-Math.abs(b.rank-p.rank)}).map(function(x){return String(x.practice.answers[0])}).filter(function(v,i,arr){return normalize(v)!==normalize(answer)&&arr.findIndex(function(x){return normalize(x)===normalize(v)})===i}).slice(0,3);
       const choices=[answer].concat(distractors),shift=p.rank%choices.length;
       return{id:p.id,title:p.title,prompt:p.practice.prompt,answer:answer,choices:choices.slice(shift).concat(choices.slice(0,shift))}
     },
     completeReview:function(id,quality){
-      const p=getPattern(id);if(!p)return false;scheduleReview(id,quality==null?4:quality);markSkill(id,'write',true);logActivity('daily_review',{pattern:id,quality:quality==null?4:quality});return true
+      const p=getPattern(id);if(!p)return false;scheduleReview(id,quality==null?4:quality);logActivity('daily_review',{pattern:id,quality:quality==null?4:quality});return true
     },
     trackEvent:function(type,data){logActivity(type,data||{})}
   };
   function loadLearningExtras(){
     const load=function(src,onload){const s=document.createElement('script');s.src=src;s.async=false;s.onload=onload||null;document.body.appendChild(s)};
-    const afterCore=function(){load('everyday-expanded-data.js?v=2',function(){load('everyday-game.js?v=5',function(){load('tutor-tools.js?v=8',function(){if(state.view==='dna')renderDNA();if(window.LanguageDNATutor)window.LanguageDNATutor.render()})})})};
+    const afterCore=function(){load('everyday-expanded-data.js?v=2',function(){load('everyday-game.js?v=5',function(){load('tutor-tools.js?v=9',function(){if(state.view==='dna')renderDNA();if(window.LanguageDNATutor)window.LanguageDNATutor.render()})})})};
     if(Array.isArray(window.LANGUAGE_DNA_EVERYDAY_100))afterCore();else load('everyday-data.js?v=1',afterCore)
   }
   initTranslator();populatePracticeSelect();renderFamilies();renderStarters();renderSentenceDNA();renderCourse();renderLibrary();renderReviewBar();renderSessionPanel();renderPractice();renderAllProgress();loadLearningExtras();

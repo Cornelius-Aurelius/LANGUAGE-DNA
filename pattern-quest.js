@@ -42,6 +42,19 @@
       ]
     }
   ];
+  const replayRows={
+    words:[['education','educación','tion-cion'],['invitation','invitación','tion-cion'],['possibility','posibilidad','ity-idad'],['communication','comunicación','tion-cion'],['curiosity','curiosidad','ity-idad']],
+    sounds:[['historia','I'],['humano','U'],['hora','O'],['hacer','A'],['héroe','E']],
+    sentences:[['I do not eat','no como'],['I do not live','no vivo'],['I do not work','no trabajo'],['I do not need','no necesito'],['I do not drink','no bebo']]
+  };
+  const replays={};
+  worlds.forEach(w=>{replays[w.id]=replayRows[w.id].map(row=>({en:row[0],answer:row[1],pattern:row[2]||w.pattern,
+    choices:w.id==='sounds'?['A','E','I','O','U'].filter(x=>x!==row[1]).slice(0,3).concat(row[1]):replayRows[w.id].map(x=>x[1]).filter(x=>x!==row[1]).slice(0,3).concat(row[1]),
+    why:w.id==='sounds'?'The H is silent: '+row[0]+' begins with the '+row[1]+' sound.':w.id==='sentences'?'Put no before the verb: '+row[1]+'.':row[0]+' → '+row[1]+'. Here '+(row[2]==='tion-cion'?'-tion becomes -ción.':'-ity becomes -idad.')
+  }))});
+  const EVIDENCE='ldna-quest-evidence-v1';
+  function evidence(){try{return JSON.parse(localStorage.getItem(EVIDENCE)||'{}')||{}}catch(_){return {}}}
+  function recordEvidence(a){const data=evidence();data[a.world]={completedAt:Date.now(),independent:a.independent||0,total:5,replay:Boolean(a.variant)};try{localStorage.setItem(EVIDENCE,JSON.stringify(data))}catch(_){}}
   const badges={words:'🌱 Word Detective',sounds:'🎧 Sound Scout',sentences:'🚀 Sentence Builder'};
   const validId = id => worlds.some(w => w.id === id);
   const unlocked = data => worlds.filter(w => data.best && data.best[w.id] === 5).length >= 2;
@@ -55,7 +68,7 @@
   }
   function playWorld(id){
     if(id==='mystery')return Object.assign({},mystery,{questions:mysteryQuestions()});
-    return world(id);
+    const w=world(id);return saved.active&&saved.active.world===id&&saved.active.variant?Object.assign({},w,{questions:replays[id]}):w;
   }
   function read() {
     try {
@@ -66,7 +79,7 @@
       let active=null;
       const a=d.active;
       if (a && (validId(a.world)||(a.world==='mystery'&&unlocked({best}))) && Number.isInteger(a.index) && a.index>=0 && a.index<5)
-        active={world:a.world,index:a.index,answered:Boolean(a.answered),seed:Number.isInteger(a.seed)?a.seed:0};
+        active={world:a.world,index:a.index,answered:Boolean(a.answered),seed:Number.isInteger(a.seed)?a.seed:0,variant:Boolean(a.variant),helped:Boolean(a.helped),independent:Math.max(0,Math.min(5,Number(a.independent)||0))};
       return {best,active,mysteryWins:Math.min(999,Math.max(0,Number.parseInt(d.mysteryWins,10)||0))};
     } catch(_) {return {best:{},active:null,mysteryWins:0};}
   }
@@ -115,7 +128,7 @@
   function stars(){return worlds.reduce((sum,w)=>sum+(saved.best[w.id]||0),0);}
   function renderProgress(){
     const box=document.getElementById('questProgressSummary');
-    if(box)box.innerHTML='<div class="quest-mini-progress"><span aria-hidden="true">⭐</span><div><strong>'+stars()+' of 15 adventure stars</strong><small>From completed worlds.'+(saved.mysteryWins?' 🏅 Mystery Explorer earned!':' Master two worlds to unlock Mystery Island.')+' Your rewards stay with you.</small></div><button type="button" class="secondary-btn" data-quest-open>Play a quest →</button></div>';
+    if(box)box.innerHTML='<div class="quest-mini-progress"><span aria-hidden="true">⭐</span><div><strong>'+stars()+' of 15 adventure stars</strong><small>From completed worlds.'+(saved.mysteryWins?' 🏅 Mystery Explorer earned!':' Complete two worlds to unlock Mystery Island.')+' Your rewards stay with you.</small></div><button type="button" class="secondary-btn" data-quest-open>Play a quest →</button></div>';
     const sticker=document.getElementById('questBadgeCount');
     if(sticker)sticker.textContent=String(worlds.filter(w=>saved.best[w.id]===5).length+(saved.mysteryWins?1:0));
     const badge=document.getElementById('questStarTotal');
@@ -132,7 +145,7 @@
         '<button type="button" class="quest-learn-link" data-open="'+esc(w.pattern)+'">💡 Learn the pattern first <span aria-hidden="true">↗</span></button></div>'
     }).join('');
     return '<div class="quest-intro"><span class="quest-eyebrow">YOUR SPANISH ADVENTURE</span><h2>Where will you explore?</h2>'+
-      '<p>Learn a secret. Play five quick questions. Unlock a mystery with the patterns you master.</p>'+
+      '<p>Learn a secret. Play five quick questions. Unlock a mystery with the patterns you practise.</p>'+
       '<div class="quest-total" aria-label="'+stars()+' of 15 stars collected"><span aria-hidden="true">⭐</span><strong>'+stars()+' / 15 stars</strong><small>No timers. No lost lives.</small></div></div>'+
       '<div class="quest-map" aria-label="Adventure learning map"><div class="quest-map-trail" aria-hidden="true"></div><div class="quest-world-grid">'+nodes+'</div>'+
       '<div class="quest-map-mystery '+(ready?'unlocked':'locked')+'"><span class="quest-mystery-icon" aria-hidden="true">'+(ready?'🏝️':'🔒')+'</span><div class="quest-mystery-copy"><span class="quest-world-kicker">BONUS DISCOVERY</span><strong>Mystery Island</strong>'+
@@ -159,7 +172,7 @@
       '<div class="quest-builder-tools"><button type="button" class="secondary-btn" data-quest-undo '+(placed.length?'':'disabled')+'>↶ Undo</button><button type="button" class="primary-btn" data-quest-check-tiles '+(placed.length?'':'disabled')+'>Check my sentence ✓</button></div></div>';
     return '<div class="quest-play quest-play-'+w.type+'">'+
       (p.answered?'<div class="quest-answer-flash success" role="status" aria-live="polite"><strong>✓ Correct! ⭐ '+esc(connection)+'</strong><small>'+esc(q.why)+'</small><em>'+(pace==='auto'?'Next question soon…':'Take your time. Press Next when ready.')+'</em></div>':
-       wrong?'<div class="quest-answer-flash retry" role="status" aria-live="polite">↶ Not quite — have another try!</div>':'')+
+       wrong?'<div class="quest-answer-flash retry" role="status" aria-live="polite">↶ Not quite — '+esc(q.why)+' Try again.</div>':'')+
       '<div class="quest-play-header">'+
       '<button type="button" class="quest-back" data-quest-back aria-label="Back to adventures">← Adventures</button>'+
       '<div class="quest-play-header-controls"><button type="button" class="quest-pace-button" data-quest-pacing aria-pressed="'+(pace==='manual')+'" aria-label="Automatic next question '+(pace==='auto'?'on':'off')+'">'+(pace==='auto'?'⏱ Auto next':'✋ My pace')+'</button><span class="quest-count">'+(p.index===4?'🌟 FINAL DISCOVERY':'QUESTION '+(p.index+1)+' OF 5')+'</span></div>'+
@@ -192,7 +205,7 @@
       '<div class="quest-earned-badge"><span aria-hidden="true">🏅</span><div><strong>'+(mysteryDone?'🗝️ Mystery Explorer':esc(badges[w.id]))+'</strong><small>'+(newBadge?'New badge unlocked!':'Badge already yours. Great replay!')+'</small></div></div>'+
       '<div class="quest-victory-actions"><button type="button" class="primary-btn" data-quest-back>Pick another adventure →</button>'+
       (!mysteryDone?'<button type="button" class="secondary-btn" data-open="'+esc(w.pattern)+'">Explore this pattern</button>':'<button type="button" class="secondary-btn" data-view="library">Explore more patterns</button>')+'</div>'+
-      '<small>You can stop here and be proud. Your rewards stay saved on this device.</small></section>';
+      '<p class="quest-evidence">Completion reward: five stars. '+((evidence()[completed]||{}).independent||0)+' / 5 answers without hints or retries this round. This is practice evidence, not a mastery certificate.</p><small>You can stop here and be proud. Your rewards stay saved on this device.</small></section>';
   }
   function render(){
     const root=document.getElementById('patternQuest');
@@ -218,20 +231,22 @@
     if(!validId(id))return;
     cancelAutoAdvance();
     completed=null;newBadge=false;clue=false;wrong=null;listing=false;tilesMode=false;placed=[];listenFirst=false;
-    if(!saved.active || saved.active.world!==id) saved.active={world:id,index:0,answered:false,seed:Math.floor(Math.random()*2147483647)};
+    if(!saved.active || saved.active.world!==id) saved.active={world:id,index:0,answered:false,seed:Math.floor(Math.random()*2147483647),variant:Boolean(saved.best[id]),independent:0,helped:false};
     write();render();positionGameAtTop();focusQuestion();
   }
   function answer(value){
     const a=saved.active;
     if(!a||a.answered)return;
     const q=playWorld(a.world).questions[a.index];
-    if(value!==q.answer){wrong=value;clue=false;render();focusRetry();return;}
+    if(value!==q.answer){a.helped=true;wrong=value;clue=false;write();render();focusRetry();return;}
+    if(!a.helped)a.independent=(a.independent||0)+1;
     a.answered=true;wrong=null;clue=false;write();render();
   }
   function advance(){
     cancelAutoAdvance();
     const a=saved.active;if(!a||!a.answered)return;
     if(a.index===4){
+      recordEvidence(a);
       completed=a.world;
       if(a.world==='mystery'){
         newBadge=!saved.mysteryWins;
@@ -241,7 +256,7 @@
         saved.best[a.world]=5;
       }
       saved.active=null;
-    }else{a.index++;a.answered=false;}
+    }else{a.index++;a.answered=false;a.helped=false;}
     clue=false;wrong=null;tilesMode=false;placed=[];listenFirst=false;write();render();positionGameAtTop();if(saved.active)focusQuestion();
   }
   function listen(wordText) {
@@ -284,12 +299,12 @@
     if(e.target.closest('[data-quest-check-tiles]')&&saved.active&&!saved.active.answered){
       const q=playWorld(saved.active.world).questions[saved.active.index],deck=tileDeck(q);
       if(placed.map(i=>deck[i]).join(' ')===q.answer){answer(q.answer);}
-      else {placed=[];wrong='tiles';clue=true;render();}
+      else {saved.active.helped=true;write();placed=[];wrong='tiles';clue=true;render();}
       return;
     }
     if(e.target.closest('[data-quest-listen-mode]')){listenFirst=!listenFirst;render();return;}
     const response=e.target.closest('[data-quest-answer]');if(response){answer(response.dataset.questAnswer);return;}
-    if(e.target.closest('[data-quest-clue]')){clue=true;render();return;}
+    if(e.target.closest('[data-quest-clue]')){clue=true;if(saved.active){saved.active.helped=true;write()}render();return;}
     if(e.target.closest('[data-quest-next]')){advance();return;}
     if(e.target.closest('[data-quest-back]')){cancelAutoAdvance();completed=null;listing=true;tilesMode=false;placed=[];listenFirst=false;render();positionGameAtTop();return;}
     const audio=e.target.closest('[data-quest-listen]');if(audio){listen(audio.dataset.questListen);return;}
