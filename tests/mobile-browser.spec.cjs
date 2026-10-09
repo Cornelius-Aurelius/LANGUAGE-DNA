@@ -3,13 +3,15 @@ const {test, expect} = require('@playwright/test');
 const base = 'http://127.0.0.1:4173/index.html';
 test.use({screenshot: 'only-on-failure', trace: 'retain-on-failure'});
 
-test('Mascot art is visible on Home and the adventure uses the same face',async ({page})=>{
+test('Xabi is recognisable on the homepage and in adventure feedback',async ({page})=>{
   await page.setViewportSize({width:375,height:812});
   await page.goto(base);
   const hero=page.locator('.mascot-home-art');
   await expect(hero).toBeVisible();
-  await expect(page.locator('.mascot-home-greeting')).toContainText('YOUR LEARNING BUDDY');
+  await expect(page.locator('.mascot-home-greeting')).toContainText('MEET XABI');
   await expect(page.locator('.mascot-brand-mark img')).toBeVisible();
+  await expect(hero).toHaveAttribute('alt',/Xabi/);
+  await expect(hero).toHaveAttribute('src',/xabi-hero\.webp/);
   await expect.poll(async()=>hero.evaluate(img=>img.complete&&img.naturalWidth>0)).toBe(true);
   await expect.poll(async()=>page.locator('.mascot-brand-mark img').evaluate(img=>img.complete&&img.naturalWidth>0)).toBe(true);
   await page.locator('.home-play-button').click();
@@ -21,7 +23,17 @@ test('Mascot art is visible on Home and the adventure uses the same face',async 
   await expect(page.locator('.quest-answer-flash.success')).toContainText('Correct!');
 });
 
-test('Returning learner sees mascot next to the daily learning path',async ({page})=>{
+test('Xabi is the installable app icon and original artwork loads',async ({page})=>{
+  await page.goto(base);
+  const manifest=await page.evaluate(async()=>{const url=document.querySelector('link[rel="manifest"]').href;return await(await fetch(url)).json()});
+  expect(manifest.icons.map(i=>i.src)).toContain('assets/mascot/xabi-icon-192.png');
+  expect(manifest.icons.map(i=>i.src)).toContain('assets/mascot/xabi-icon-512.png');
+  const icon=page.locator('link[rel="icon"]');
+  await expect(icon).toHaveAttribute('href','assets/mascot/xabi-icon-192.png');
+  await expect.poll(async()=>page.evaluate(async()=>{const r=await fetch('assets/mascot/xabi-icon-192.png');return r.ok&&r.headers.get('content-type')?.includes('image')})).toBe(true);
+});
+
+test('Returning learner meets Xabi next to the daily learning path',async ({page})=>{
   await page.goto(base);
   await page.evaluate(()=>{const d=new Date(),today=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');localStorage.setItem('ldna-daily5-v1',JSON.stringify({[today]:{done:['review'],startedAt:Date.now()}}));});
   await page.reload();

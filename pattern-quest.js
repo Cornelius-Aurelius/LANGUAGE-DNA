@@ -176,7 +176,7 @@
       '<div class="quest-tiles">'+deck.map((word,i)=>'<button type="button" data-quest-tile="'+i+'" '+(placed.includes(i)?'disabled':'')+'>'+esc(word)+'</button>').join('')+'</div>'+
       '<div class="quest-builder-tools"><button type="button" class="secondary-btn" data-quest-undo '+(placed.length?'':'disabled')+'>↶ Undo</button><button type="button" class="primary-btn" data-quest-check-tiles '+(placed.length?'':'disabled')+'>Check my sentence ✓</button></div></div>';
     return '<div class="quest-play quest-play-'+w.type+'">'+
-      (p.answered?'<div class="quest-answer-flash success" role="status" aria-live="polite"><img class="quest-flash-mascot" src="assets/mascot/learning-buddy-face.webp" alt="" width="35" height="35"><strong>✓ Correct! ⭐ '+esc(connection)+'</strong><small>'+esc(q.why)+'</small><em>'+(pace==='auto'?'Next question soon…':'Take your time. Press Next when ready.')+'</em></div>':
+      (p.answered?'<div class="quest-answer-flash success" role="status" aria-live="polite"><img class="quest-flash-mascot" src="assets/mascot/xabi-face.webp" alt="" width="35" height="35"><strong>✓ Correct! ⭐ '+esc(connection)+'</strong><small>'+esc(q.why)+'</small><em>'+(pace==='auto'?'Next question soon…':'Take your time. Press Next when ready.')+'</em></div>':
        wrong?'<div class="quest-answer-flash retry" role="status" aria-live="polite"><strong>Here is the right answer: '+esc(q.answer)+'</strong><small>'+esc(q.why)+'</small><em>Try choosing it once more. We will practise it again later.</em></div>':'')+
       '<div class="quest-play-header">'+
       '<button type="button" class="quest-back" data-quest-back aria-label="Back to adventures">← Adventures</button>'+
@@ -192,7 +192,7 @@
       '</div>'+
       (buildAvailable&&!p.answered?'<div class="quest-mode-switch"><button type="button" data-quest-build-mode aria-pressed="'+tilesMode+'">'+(tilesMode?'Choose an answer instead':'🧩 Build it with word tiles')+'</button></div>':'')+
       (tilesMode&&buildAvailable&&!p.answered?tileBuilder:choices)+
-      (p.answered?'<div class="quest-feedback quest-feedback-win" aria-hidden="'+(pace==='auto'?'true':'false')+'"><div class="quest-friend"><span class="quest-friend-face" aria-hidden="true"><img src="assets/mascot/learning-buddy-face.webp" width="58" height="58" alt="" decoding="async"></span><span class="quest-friend-speech">Your buddy says: Great discovery!</span></div><span class="quest-reward-icon" aria-hidden="true">🌟</span><strong>Star earned! Brilliant discovery.</strong><span class="quest-word-connection">'+esc(connection)+'</span><span>'+esc(q.why)+'</span></div>'+
+      (p.answered?'<div class="quest-feedback quest-feedback-win" aria-hidden="'+(pace==='auto'?'true':'false')+'"><div class="quest-friend"><span class="quest-friend-face" aria-hidden="true"><img src="assets/mascot/xabi-face.webp" width="58" height="58" alt="" decoding="async"></span><span class="quest-friend-speech">Xabi says: Great discovery!</span></div><span class="quest-reward-icon" aria-hidden="true">🌟</span><strong>Star earned! Brilliant discovery.</strong><span class="quest-word-connection">'+esc(connection)+'</span><span>'+esc(q.why)+'</span></div>'+
         '<div class="quest-bottom-actions"><button type="button" class="secondary-btn" data-quest-next>'+(p.index===4?'See my stars now →':'Next now →')+'</button></div>':
        '<div class="quest-hint-actions"><button type="button" class="secondary-btn" data-quest-clue>💡 Give me a clue</button>'+
          '<button type="button" class="quest-pattern-link" data-open="'+esc(q.pattern)+'">Learn this pattern ↗</button></div>'+
@@ -203,7 +203,7 @@
     const w=completed==='mystery'?mystery:world(completed);
     if(!w)return renderWorlds();
     const mysteryDone=w.id==='mystery';
-    return '<section class="quest-victory" role="status"><div class="quest-friend quest-friend-victory"><span class="quest-friend-face" aria-hidden="true"><img src="assets/mascot/learning-buddy-face.webp" width="58" height="58" alt="" decoding="async"></span><span class="quest-friend-speech">Your buddy says: Look how much you learned!</span></div><span class="quest-victory-icon" aria-hidden="true">'+(mysteryDone?'🗝️':'🏆')+'</span>'+
+    return '<section class="quest-victory" role="status"><div class="quest-friend quest-friend-victory"><span class="quest-friend-face" aria-hidden="true"><img src="assets/mascot/xabi-face.webp" width="58" height="58" alt="" decoding="async"></span><span class="quest-friend-speech">Xabi says: Look how much you learned!</span></div><span class="quest-victory-icon" aria-hidden="true">'+(mysteryDone?'🗝️':'🏆')+'</span>'+
       '<span class="quest-eyebrow">'+(mysteryDone?'MYSTERY SOLVED':'ADVENTURE COMPLETE')+'</span><h2>'+ (mysteryDone?'You cracked the mystery!':'Hooray! Five stars!')+'</h2>'+
       '<p>'+ (mysteryDone?'You remembered and mixed two Spanish patterns. That is real progress!':'You unlocked the secret of <strong>'+esc(w.label)+'</strong>. Every English–Spanish link makes the next one easier to spot.')+'</p>'+
       '<div class="quest-victory-stars" aria-label="Five stars earned">⭐⭐⭐⭐⭐</div>'+
