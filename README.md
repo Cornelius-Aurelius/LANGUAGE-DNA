@@ -1,6 +1,6 @@
-# LanguageDNA — English → Spanish Pattern Learning
+# BluXabi — English → Spanish Pattern Learning
 
-LanguageDNA teaches Spanish through reusable links between English and Spanish rather than isolated vocabulary lists.
+BluXabi teaches Spanish through reusable links between English and Spanish rather than isolated vocabulary lists.
 
 ## Current experience
 
