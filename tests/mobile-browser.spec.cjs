@@ -88,14 +88,29 @@ test('Xabi is recognisable on the homepage and in adventure feedback',async ({pa
   await expect(page.locator('.quest-answer-flash.success')).toContainText('Correct!');
 });
 
+test('Xabi header logo uses clean portrait artwork without the old thick green stripe',async ({page})=>{
+  for(const width of [320,375,1280]){
+    await page.setViewportSize({width,height:800});
+    await page.goto(base);
+    const mark=page.locator('.mascot-brand-mark');
+    const logo=mark.locator('img');
+    await expect(mark).toBeVisible();
+    await expect(logo).toHaveAttribute('src','assets/mascot/xabi-logo.webp');
+    await expect.poll(()=>logo.evaluate(img=>img.complete&&img.naturalWidth>0)).toBe(true);
+    const style=await mark.evaluate(el=>({shadow:getComputedStyle(el).boxShadow,border:getComputedStyle(el).borderTopWidth}));
+    expect(style.shadow).not.toContain('0px 4px 0px');
+    expect(parseFloat(style.border)).toBeLessThanOrEqual(1);
+  }
+});
+
 test('Xabi is the installable app icon and original artwork loads',async ({page})=>{
   await page.goto(base);
   const manifest=await page.evaluate(async()=>{const url=document.querySelector('link[rel="manifest"]').href;return await(await fetch(url)).json()});
-  expect(manifest.icons.map(i=>i.src)).toContain('assets/mascot/xabi-icon-192.png');
-  expect(manifest.icons.map(i=>i.src)).toContain('assets/mascot/xabi-icon-512.png');
+  expect(manifest.icons.map(i=>i.src)).toContain('assets/mascot/xabi-icon-192-v2.png');
+  expect(manifest.icons.map(i=>i.src)).toContain('assets/mascot/xabi-icon-512-v2.png');
   const icon=page.locator('link[rel="icon"]');
-  await expect(icon).toHaveAttribute('href','assets/mascot/xabi-icon-192.png');
-  await expect.poll(async()=>page.evaluate(async()=>{const r=await fetch('assets/mascot/xabi-icon-192.png');return r.ok&&r.headers.get('content-type')?.includes('image')})).toBe(true);
+  await expect(icon).toHaveAttribute('href','assets/mascot/xabi-icon-192-v2.png');
+  await expect.poll(async()=>page.evaluate(async()=>{const r=await fetch('assets/mascot/xabi-icon-192-v2.png');return r.ok&&r.headers.get('content-type')?.includes('image')})).toBe(true);
 });
 
 test('Returning learner meets Xabi next to the daily learning path',async ({page})=>{
