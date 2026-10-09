@@ -407,7 +407,7 @@ test('Difficult -IR pattern is explained as three friendly actions before option
   await expect(page.locator('.pattern-journey-details')).not.toHaveAttribute('open','');
   await expect(page.locator('.pattern-mini-check')).toContainText('we live');
   await page.locator('[data-mini-answer="viven"]').click();
-  await expect(page.locator('.pattern-mini-feedback')).toContainText('Good try');
+  await expect(page.locator('.pattern-mini-feedback')).toContainText('The correct answer is vivimos');
   await page.locator('[data-mini-answer="vivimos"]').click();
   await expect(page.locator('.pattern-mini-feedback')).toContainText('You got it');
   await page.locator('.pattern-journey-details summary').click();
@@ -467,7 +467,7 @@ test('Sentence Space lets children build, undo and check Spanish with word tiles
   await page.locator('[data-quest-tile="0"]').click();
   await page.locator('[data-quest-tile="2"]').click(); // wrong order
   await page.locator('[data-quest-check-tiles]').click();
-  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Here is the right answer: información');
+  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Here is the right answer: no entiendo');
   await page.locator('[data-quest-tile="2"]').click();
   await page.locator('[data-quest-tile="0"]').click();
   await page.locator('[data-quest-check-tiles]').click();
@@ -561,7 +561,7 @@ test('Automatic movement is optional; wrong answers still wait for a retry',asyn
   await page.locator('[data-quest-pacing]').click();
   await expect(page.locator('[data-quest-pacing]')).toHaveAttribute('aria-pressed','false');
   await page.locator('[data-quest-answer="nación"]').click();
-  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Here is the right answer: no entiendo');
+  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Here is the right answer: información');
   await expect(page.locator('.quest-prompt')).toHaveText('information');
   await page.waitForTimeout(1450);
   await expect(page.locator('.quest-prompt')).toHaveText('information');
