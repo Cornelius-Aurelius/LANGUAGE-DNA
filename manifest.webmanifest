@@ -19,13 +19,13 @@
   ],
   "icons": [
     {
-      "src": "assets/mascot/xabi-icon-192.png",
+      "src": "assets/mascot/xabi-icon-192-v2.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "assets/mascot/xabi-icon-512.png",
+      "src": "assets/mascot/xabi-icon-512-v2.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -38,7 +38,7 @@
       "url": "./index.html?view=practice",
       "icons": [
         {
-          "src": "assets/mascot/xabi-icon-192.png",
+          "src": "assets/mascot/xabi-icon-192-v2.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -50,7 +50,7 @@
       "url": "./index.html?view=library",
       "icons": [
         {
-          "src": "assets/mascot/xabi-icon-192.png",
+          "src": "assets/mascot/xabi-icon-192-v2.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -62,7 +62,7 @@
       "url": "./index.html?view=game",
       "icons": [
         {
-          "src": "assets/mascot/xabi-icon-192.png",
+          "src": "assets/mascot/xabi-icon-192-v2.png",
           "sizes": "192x192",
           "type": "image/png"
         }
