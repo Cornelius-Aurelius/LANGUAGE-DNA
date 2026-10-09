@@ -177,7 +177,7 @@
       '<div class="quest-builder-tools"><button type="button" class="secondary-btn" data-quest-undo '+(placed.length?'':'disabled')+'>↶ Undo</button><button type="button" class="primary-btn" data-quest-check-tiles '+(placed.length?'':'disabled')+'>Check my sentence ✓</button></div></div>';
     return '<div class="quest-play quest-play-'+w.type+'">'+
       (p.answered?'<div class="quest-answer-flash success" role="status" aria-live="polite"><strong>✓ Correct! ⭐ '+esc(connection)+'</strong><small>'+esc(q.why)+'</small><em>'+(pace==='auto'?'Next question soon…':'Take your time. Press Next when ready.')+'</em></div>':
-       wrong?'<div class="quest-answer-flash retry" role="status" aria-live="polite">↶ Not yet. '+esc(retryHint(q,kind))+' Try again.</div>':'')+
+       wrong?'<div class="quest-answer-flash retry" role="status" aria-live="polite"><strong>Here is the right answer: '+esc(q.answer)+'</strong><small>'+esc(q.why)+'</small><em>Try choosing it once more. We will practise it again later.</em></div>':'')+
       '<div class="quest-play-header">'+
       '<button type="button" class="quest-back" data-quest-back aria-label="Back to adventures">← Adventures</button>'+
       '<div class="quest-play-header-controls"><button type="button" class="quest-pace-button" data-quest-pacing aria-pressed="'+(pace==='manual')+'" aria-label="Automatic next question '+(pace==='auto'?'on':'off')+'">'+(pace==='auto'?'⏱ Auto next':'✋ My pace')+'</button><span class="quest-count">'+(p.index===4?'🌟 FINAL DISCOVERY':'QUESTION '+(p.index+1)+' OF 5')+'</span></div>'+

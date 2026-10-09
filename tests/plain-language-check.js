@@ -45,8 +45,8 @@ assert.match(questRoot.innerHTML,/How do you say this word in Spanish/);
 click('[data-quest-answer]',{questAnswer:'nación'});
 const retry = questRoot.innerHTML.match(/<div class="quest-answer-flash retry"[^>]*>(.*?)<\/div>/);
 assert.ok(retry,'Wrong attempts should show a helpful message');
-assert.match(retry[1],/Look for a Spanish word ending in -ción/);
-assert.doesNotMatch(retry[1],/información|information → información/,'Do not reveal the answer after a wrong attempt');
+assert.match(retry[1],/Here is the right answer: información/);
+assert.match(retry[1],/information → información/,'Explain why the answer is right on the first mistake');
 assert.equal(context.window.LanguageDNAQuest.progress().active.helped,true);
 click('[data-quest-answer]',{questAnswer:'información'});
 assert.match(questRoot.innerHTML,/information → información/,'Explain the correct answer only after success');
@@ -61,7 +61,7 @@ vm.runInNewContext(teachingSource,context,{filename:'pattern-teaching.js'});
 const stress=context.window.LanguageDNATeaching.build({id:'stress-default'});
 const accent=context.window.LanguageDNATeaching.build({id:'accent-overrides'});
 assert.match(stress.heading,/sounds stronger/);
-assert.match(accent.meaning,/little line above a Spanish vowel/);
+assert.match(accent.meaning,/little line above the o/);
 assert.match(stress.check.question,/doctor/,'Test a new example, not the one just explained');
 assert.match(accent.check.question,/mamá/,'Test a new example, not canción');
 
@@ -71,5 +71,13 @@ assert.match(appSource,/if\(target==='spanish'&&p.id==='accent-overrides'\)retur
 assert.match(appSource,/function practiceRetryClue\(p\)/);
 assert.match(appSource,/return seededShuffle\(\[correct\]\.concat\(distractors\),seed\)/,'Multiple choice must always include the correct answer');
 assert.match(appSource,/const example=\(p.examples\|\|\[\]\).find/,'Help uses a different example from the current question');
+const vowels=context.window.LanguageDNATeaching.build({id:'vowels'});
+const going=context.window.LanguageDNATeaching.build({id:'ir-a'});
+assert.match(vowels.meaning,/A vowel is a letter/);
+assert.match(going.meaning,/Ir is the Spanish word for “to go”/);
+assert.match(appSource,/function showCorrectAnswer\(p,q,mode\)/);
+assert.match(appSource,/function plainAnswerReason\(p\)/);
+assert.match(appSource,/if\(!assisted\)/,'Answers learned with help must not earn independent mastery');
+assert.doesNotMatch(appSource,/This pattern is ready to be recalled before you learn something new/);
 
 console.log('LanguageDNA plain-language regression checks passed.');

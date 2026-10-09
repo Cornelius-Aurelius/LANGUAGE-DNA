@@ -323,7 +323,7 @@ test('Word Garden teaches a real English-Spanish pattern and rewards completion'
   await expect(page.locator('.quest-prompt')).toHaveText('information');
   // Wrong answers teach a clue and do not remove a life or advance unfairly.
   await page.locator('[data-quest-answer="nación"]').click();
-  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Not yet');
+  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Here is the right answer: información');
   await expect(page.locator('.quest-prompt')).toHaveText('information');
   await page.locator('[data-quest-answer="información"]').click();
   await expect(page.locator('.quest-answer-flash.success')).toContainText('information → información');
@@ -407,7 +407,7 @@ test('Difficult -IR pattern is explained as three friendly actions before option
   await expect(page.locator('.pattern-journey-details')).not.toHaveAttribute('open','');
   await expect(page.locator('.pattern-mini-check')).toContainText('we live');
   await page.locator('[data-mini-answer="viven"]').click();
-  await expect(page.locator('.pattern-mini-feedback')).toContainText('Good try');
+  await expect(page.locator('.pattern-mini-feedback')).toContainText('The correct answer is vivimos');
   await page.locator('[data-mini-answer="vivimos"]').click();
   await expect(page.locator('.pattern-mini-feedback')).toContainText('You got it');
   await page.locator('.pattern-journey-details summary').click();
@@ -467,7 +467,7 @@ test('Sentence Space lets children build, undo and check Spanish with word tiles
   await page.locator('[data-quest-tile="0"]').click();
   await page.locator('[data-quest-tile="2"]').click(); // wrong order
   await page.locator('[data-quest-check-tiles]').click();
-  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Not yet');
+  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Here is the right answer: no entiendo');
   await page.locator('[data-quest-tile="2"]').click();
   await page.locator('[data-quest-tile="0"]').click();
   await page.locator('[data-quest-check-tiles]').click();
@@ -561,7 +561,7 @@ test('Automatic movement is optional; wrong answers still wait for a retry',asyn
   await page.locator('[data-quest-pacing]').click();
   await expect(page.locator('[data-quest-pacing]')).toHaveAttribute('aria-pressed','false');
   await page.locator('[data-quest-answer="nación"]').click();
-  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Not yet');
+  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Here is the right answer: información');
   await expect(page.locator('.quest-prompt')).toHaveText('information');
   await page.waitForTimeout(1450);
   await expect(page.locator('.quest-prompt')).toHaveText('information');
@@ -681,6 +681,44 @@ test('Beginners enter Practice with simple multiple choice instead of typing',as
   await expect(page.locator('#writingAnswer')).toHaveCount(0);
 });
 
+test('Wrong tick answers teach exactly what to tick and why',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base+'?practice=subject-drop');
+  await page.locator('[data-mode="tick"]').click();
+  const boxes=page.locator('#practiceStage [data-tick]');
+  await expect(boxes).toHaveCount(3);
+  for(let i=0;i<3;i++)await boxes.nth(i).check();
+  await page.locator('#checkTicks').click();
+  const explanation=page.locator('#practiceFeedback.feedback-teaching');
+  await expect(explanation).toContainText('Tick these:');
+  await expect(explanation).toContainText('(Yo) hablo');
+  await expect(explanation).toContainText('(Nosotros) comemos');
+  await expect(explanation).toContainText('Leave this unticked:');
+  await expect(explanation).toContainText('yo habla');
+  await expect(explanation).toContainText('with yo, use hablo');
+  await expect(page.locator('.tick-explanation')).toHaveCount(3);
+  await boxes.nth(1).uncheck();
+  await page.locator('#checkTicks').click();
+  await expect.poll(async()=>page.evaluate(()=>JSON.parse(localStorage.getItem('ldna-reviews-v1')||'{}')['subject-drop']?.lastQuality)).toBe(2);
+  const credited=await page.evaluate(()=>JSON.parse(localStorage.getItem('ldna-skills-v3')||'{}')['subject-drop']?.see||false);
+  expect(credited).toBe(false);
+});
+
+test('Beginners see everyday descriptions for vowels, accents and going to',async ({page})=>{
+  await page.goto(base);
+  await page.locator('.primary-nav [data-view="library"]').click();
+  await page.locator('#searchInput').fill('accent');
+  await page.locator('#patternGrid [data-open="accent-overrides"]').click();
+  await expect(page.locator('#dialogTitle')).toContainText('little line');
+  await expect(page.locator('.pattern-meaning')).toContainText('stress');
+  await expect(page.locator('.worked-example')).toContainText('canción means song');
+  await page.locator('#patternDialog .dialog-close').click();
+  await page.locator('#searchInput').fill('going to do');
+  await page.locator('#patternGrid [data-open="ir-a"]').click();
+  await expect(page.locator('.pattern-meaning')).toContainText('Ir is the Spanish word for');
+  await expect(page.locator('.worked-example')).toContainText('Voy a comer');
+});
+
 test('Practice help teaches with another example instead of revealing this answer',async ({page})=>{
   await page.setViewportSize({width:375,height:812});
   await page.goto(base+'?practice=tion-cion');
@@ -768,8 +806,8 @@ test('v25 replay keeps stars and separates assisted completion from independent 
   await page.reload();await page.locator('.primary-nav [data-view="game"]').click();await page.locator('[data-quest-world="words"]').click();
   await expect(page.locator('.quest-prompt')).toHaveText('education');
   await page.locator('[data-quest-answer="invitación"]').click();
-  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Look for a Spanish word ending in -ción');
-  await expect(page.locator('.quest-answer-flash.retry')).not.toContainText('educación');
+  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Here is the right answer: educación');
+  await expect(page.locator('.quest-answer-flash.retry')).toContainText('education → educación');
   await page.reload();await page.locator('.primary-nav [data-view="game"]').click();
   for(const answer of ['educación','invitación','posibilidad','comunicación','curiosidad']){await page.locator('[data-quest-answer="'+answer+'"]').click();await page.locator('[data-quest-next]').click()}
   await expect(page.locator('.quest-evidence')).toContainText('4 / 5');

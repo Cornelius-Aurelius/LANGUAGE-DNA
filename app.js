@@ -7,15 +7,15 @@
     {id:'ous-oso', rank:3, type:'visual', importance:'high', power:90, tags:['cognates'], lenses:['WHAT','WHO'], title:'-ous → -oso / -osa', rule:'Many English adjectives ending -ous map to Spanish -oso/-osa.', examples:[['famous','famoso'],['curious','curioso'],['nervous','nervioso']], practice:{prompt:'famous (masculine)', answers:['famoso'], hearing:['famous','famoso'], wrong:'famouso'}, scoreLabel:'Fast adjective recognition'},
     {id:'ly-mente', rank:4, type:'visual', importance:'high', power:89, tags:['cognates'], lenses:['WHAT'], title:'-ly → -mente', rule:'Many adverbs are formed with -mente, often from the feminine adjective form.', examples:[['rapidly','rápidamente'],['normally','normalmente'],['exactly','exactamente']], practice:{prompt:'normally', answers:['normalmente'], hearing:['normally','normalmente'], wrong:'normalmenteo'}, scoreLabel:'Productive adverb pattern'},
     {id:'h-silent', rank:5, type:'sound', importance:'essential', power:97, tags:['pronunciation'], lenses:['WHAT','WHO'], title:'H is silent', rule:'In standard Spanish, the letter h is not pronounced.', examples:[['hola','OH-la'],['hotel','oh-TEL'],['ahora','a-O-ra']], practice:{prompt:'Which word begins with a silent letter?', answers:['hola'], hearing:['hello','hola'], wrong:'jola'}, scoreLabel:'Immediate pronunciation win'},
-    {id:'vowels', rank:6, type:'sound', importance:'essential', power:99, tags:['pronunciation'], lenses:['WHAT','WHO','WHERE','WHY','WHEN'], title:'5 stable vowels', rule:'Spanish vowels are relatively stable: a, e, i, o, u keep consistent core sounds.', examples:[['casa','a ≈ ah'],['mesa','e ≈ eh'],['vino','i ≈ ee']], practice:{prompt:'Which Spanish vowel usually sounds closest to “ee”?', answers:['i'], hearing:['vino','wine'], wrong:'e'}, scoreLabel:'Foundation for every spoken word'},
-    {id:'stress-default', rank:7, type:'sound', importance:'essential', power:95, tags:['pronunciation'], lenses:['WHAT','WHO','WHERE','WHY','WHEN'], title:'Default stress rule', rule:'Words ending in a vowel, n or s usually stress the next-to-last syllable; most others stress the last.', examples:[['casa','CA-sa'],['hablan','HA-blan'],['hotel','ho-TEL']], practice:{prompt:'Say “hotel” slowly: ho–tel. Which part sounds stronger: the first or the last?', answers:['last','final'], hearing:['hotel','hotel'], wrong:'first'}, scoreLabel:'Predict pronunciation before hearing'},
-    {id:'accent-overrides', rank:8, type:'sound', importance:'essential', power:94, tags:['pronunciation'], lenses:['WHAT','WHO','WHERE','WHY','WHEN'], title:'Accent mark = stress signal', rule:'A written accent normally marks the stressed syllable when it departs from the default stress pattern.', examples:[['teléfono','LÉ'],['canción','CIÓN'],['rápido','RÁ']], practice:{prompt:'Say “canción” slowly. Which part sounds stronger: “can” or “ción”?', answers:['ción','cion'], hearing:['canción','song'], wrong:'can'}, scoreLabel:'Read stress visually'},
-    {id:'subject-drop', rank:9, type:'writing', importance:'essential', power:99, tags:['verbs','sentence'], lenses:['WHO'], title:'Spanish often drops the subject', rule:'Verb endings often show who is acting, so yo/tú/él etc. can be omitted when context is clear.', examples:[['I speak','(Yo) hablo'],['We eat','(Nosotros) comemos'],['They live','(Ellos) viven']], practice:{prompt:'I speak', answers:['hablo','yo hablo'], hearing:['hablo','I speak'], wrong:'yo habla'}, scoreLabel:'Core sentence compression'},
+    {id:'vowels', rank:6, type:'sound', importance:'essential', power:99, tags:['pronunciation'], lenses:['WHAT','WHO','WHERE','WHY','WHEN'], title:'Five Spanish vowel sounds', rule:'Vowels are the letters a, e, i, o and u. In Spanish they usually sound like ah, eh, ee, oh and oo.', examples:[['casa','a ≈ ah'],['mesa','e ≈ eh'],['vino','i ≈ ee']], practice:{prompt:'Which Spanish vowel usually sounds closest to “ee”?', answers:['i'], hearing:['vino','wine'], wrong:'e'}, scoreLabel:'Learn the five easy vowel sounds'},
+    {id:'stress-default', rank:7, type:'sound', importance:'essential', power:95, tags:['pronunciation'], lenses:['WHAT','WHO','WHERE','WHY','WHEN'], title:'Which part of the word sounds stronger?', rule:'Say each word slowly. One part sounds a little stronger: CA-sa or ho-TEL. The last letter can help you guess which part.', examples:[['casa','CA-sa'],['hablan','HA-blan'],['hotel','ho-TEL']], practice:{prompt:'Say “hotel” slowly: ho–tel. Which part sounds stronger: the first or the last?', answers:['last','final'], hearing:['hotel','hotel'], wrong:'first'}, scoreLabel:'Hear which part of a word sounds stronger'},
+    {id:'accent-overrides', rank:8, type:'sound', importance:'essential', power:94, tags:['pronunciation'], lenses:['WHAT','WHO','WHERE','WHY','WHEN'], title:'The little line above a letter', rule:'An accent mark is the little line over á, é, í, ó or ú. It tells you which part of a word sounds stronger. Say can–CIÓN.', examples:[['teléfono','te–LÉ–fo–no'],['canción','can–CIÓN'],['rápido','RÁ–pi–do']], practice:{prompt:'Say “canción” slowly. Which part sounds stronger: “can” or “ción”?', answers:['ción','cion'], hearing:['canción','song'], wrong:'can'}, scoreLabel:'Use the little accent mark as a clue'},
+    {id:'subject-drop', rank:9, type:'writing', importance:'essential', power:99, tags:['verbs','sentence'], lenses:['WHO'], title:'Spanish can say “I” or “we” with fewer words', rule:'In Spanish the action word often tells you who is doing it. Hablo means “I speak”, even without yo.', examples:[['I speak','(Yo) hablo'],['We eat','(Nosotros) comemos'],['They live','(Ellos) viven']], practice:{prompt:'I speak', answers:['hablo','yo hablo'], hearing:['hablo','I speak'], wrong:'yo habla'}, scoreLabel:'Say more with fewer words'},
     {id:'no-before-verb', rank:10, type:'writing', importance:'essential', power:97, tags:['sentence','verbs'], lenses:['WHAT'], title:'no + verb', rule:'To make a basic negative sentence, place no directly before the conjugated verb.', examples:[['I understand','entiendo'],['I do not understand','no entiendo'],['We do not know','no sabemos']], practice:{prompt:'I do not understand', answers:['no entiendo'], hearing:['no entiendo','I do not understand'], wrong:'entiendo no'}, scoreLabel:'Instant negatives'},
     {id:'question-words', rank:11, type:'writing', importance:'essential', power:99, tags:['questions','sentence'], lenses:['WHO','WHAT','WHERE','WHY','WHEN'], title:'5 question anchors', rule:'Quién, qué, dónde, por qué and cuándo map directly onto WHO, WHAT, WHERE, WHY and WHEN.', examples:[['Who?','¿Quién?'],['Where?','¿Dónde?'],['When?','¿Cuándo?']], practice:{prompt:'Where?', answers:['dónde','¿dónde?','donde'], hearing:['¿dónde?','where?'], wrong:'¿quién?'}, scoreLabel:'Unlocks information-seeking'},
     {id:'hay', rank:12, type:'writing', importance:'essential', power:96, tags:['sentence'], lenses:['WHAT','WHERE'], title:'hay = there is / there are', rule:'Use hay for existence: “there is” and “there are” use the same word.', examples:[['There is a problem','Hay un problema'],['There are two cafés','Hay dos cafés'],['Is there water?','¿Hay agua?']], practice:{prompt:'There is a problem', answers:['hay un problema'], hearing:['hay un problema','there is a problem'], wrong:'está un problema'}, scoreLabel:'High-frequency location/existence frame'},
     {id:'estar-location', rank:13, type:'writing', importance:'essential', power:95, tags:['sentence','verbs'], lenses:['WHERE'], title:'estar for location', rule:'Use estar to say where a person or thing is located.', examples:[['I am here','Estoy aquí'],['Madrid is in Spain','Madrid está en España'],['Where are you?','¿Dónde estás?']], practice:{prompt:'I am here', answers:['estoy aquí','estoy aqui'], hearing:['estoy aquí','I am here'], wrong:'soy aquí'}, scoreLabel:'Core WHERE pattern'},
-    {id:'ir-a', rank:14, type:'writing', importance:'essential', power:97, tags:['verbs','sentence'], lenses:['WHAT','WHERE','WHEN'], title:'ir a + infinitive', rule:'Use ir + a + infinitive for “going to do” and ir + a + place for movement toward a place.', examples:[['I am going to eat','Voy a comer'],['We are going to study','Vamos a estudiar'],['I go to Madrid','Voy a Madrid']], practice:{prompt:'I am going to eat', answers:['voy a comer'], hearing:['voy a comer','I am going to eat'], wrong:'voy comer'}, scoreLabel:'Future + movement in one frame'},
+    {id:'ir-a', rank:14, type:'writing', importance:'essential', power:97, tags:['verbs','sentence'], lenses:['WHAT','WHERE','WHEN'], title:'Say what you are going to do', rule:'Ir means “to go”. Voy a means “I am going to”. Add an action, like comer (eat): voy a comer = I am going to eat.', examples:[['I am going to eat','Voy a comer'],['We are going to study','Vamos a estudiar'],['I go to Madrid','Voy a Madrid']], practice:{prompt:'I am going to eat', answers:['voy a comer'], hearing:['voy a comer','I am going to eat'], wrong:'voy comer'}, scoreLabel:'Say what you are going to do next'},
     {id:'tener-que', rank:15, type:'writing', importance:'essential', power:96, tags:['verbs','sentence'], lenses:['WHAT','WHY'], title:'tener que + infinitive', rule:'Use tener que + infinitive to express “have to / must do”.', examples:[['I have to work','Tengo que trabajar'],['We have to go','Tenemos que ir'],['Do you have to study?','¿Tienes que estudiar?']], practice:{prompt:'I have to work', answers:['tengo que trabajar'], hearing:['tengo que trabajar','I have to work'], wrong:'tengo trabajar'}, scoreLabel:'Everyday obligation frame'},
     {id:'porque', rank:16, type:'writing', importance:'essential', power:97, tags:['questions','sentence'], lenses:['WHY'], title:'por qué ↔ porque', rule:'Por qué asks “why?”; porque gives “because”.', examples:[['Why?','¿Por qué?'],['Because I am tired','Porque estoy cansado'],['Why are you here?','¿Por qué estás aquí?']], practice:{prompt:'Because I am tired', answers:['porque estoy cansado','porque estoy cansada'], hearing:['porque estoy cansado','because I am tired'], wrong:'por qué estoy cansado'}, scoreLabel:'Core reason pattern'},
     {id:'para-purpose', rank:17, type:'writing', importance:'essential', power:94, tags:['sentence'], lenses:['WHY','WHAT'], title:'para + infinitive = in order to', rule:'Use para + infinitive to express purpose: “in order to do”.', examples:[['to learn','para aprender'],['I study to improve','Estudio para mejorar'],['for eating','para comer']], practice:{prompt:'I study to improve', answers:['estudio para mejorar'], hearing:['estudio para mejorar','I study to improve'], wrong:'estudio por mejorar'}, scoreLabel:'Simple purpose builder'},
@@ -180,7 +180,7 @@
     session:null,
     courseLevel:localStorage.getItem('ldna-course-level')||'A1',
     sentenceFrame:SENTENCE_DNA[0].id,sentenceExample:0,questionStartedAt:0,currentQuestion:null,
-    theme:localStorage.getItem('ldna-theme')||'light',scaffoldReturn:null
+    theme:localStorage.getItem('ldna-theme')||'light',scaffoldReturn:null,practiceHelped:false
   };
   const legacyMastered=new Set(safeParse(localStorage.getItem('ldna-mastered')||'[]',[]));
   legacyMastered.forEach(function(id){if(!state.skills[id])state.skills[id]={see:true,hear:true,write:true,speak:true,use:true}});
@@ -249,7 +249,7 @@
   }
   function nextLearningAction(){
     const p=nextBestPattern(),review=reviewRecord(p.id),step=patternNextStep(p);
-    if(review&&review.due<=Date.now())return{kind:'review',pattern:p,label:'Review '+p.title,button:'Review now',reason:'This pattern is ready to be recalled before you learn something new.'};
+    if(review&&review.due<=Date.now())return{kind:'review',pattern:p,label:'Review '+p.title,button:'Review now',reason:'Let’s see what you remember from last time. You can ask for help.'};
     return Object.assign({pattern:p},step)
   }
   function startPatternConversation(id){
@@ -522,7 +522,7 @@
   }
   function populatePracticeSelect(){els.practiceSelect.innerHTML=patterns.slice().sort(function(a,b){return a.rank-b.rank}).map(function(p){return'<option value="'+p.id+'">#'+p.rank+' · '+escapeHtml(p.title)+'</option>'}).join('');els.practiceSelect.value=state.currentId}
   function startPractice(id,mode){
-    state.session=null;state.currentId=id;state.mode=mode||state.mode||'choice';els.practiceSelect.value=id;
+    state.practiceHelped=false;state.session=null;state.currentId=id;state.mode=mode||state.mode||'choice';els.practiceSelect.value=id;
     document.querySelectorAll('.mode-card').forEach(function(b){b.classList.toggle('active',b.dataset.mode===state.mode)});
     if(els.dialog.open)els.dialog.close();renderSessionPanel();goView('practice')
   }
@@ -574,7 +574,8 @@
   }
   function startLessonSession(title,patternIds,unitId){
     const target=adaptiveSessionLength(),items=buildLessonItems(patternIds,target);
-    state.session={title:title||'Adaptive lesson',unitId:unitId||null,items:items,index:0,correct:0,skipped:0,mistakes:[],improved:[],startedAt:Date.now(),completed:false,plannedLength:target};
+    state.practiceHelped=false;
+    state.session={title:title||'Adaptive lesson',unitId:unitId||null,items:items,index:0,correct:0,assisted:0,skipped:0,mistakes:[],improved:[],startedAt:Date.now(),completed:false,plannedLength:target};
     loadSessionItem();goView('practice')
   }
   function loadSessionItem(){
@@ -588,9 +589,9 @@
     const panel=document.getElementById('lessonSessionPanel');if(!panel)return;
     const s=state.session;if(!s){panel.hidden=true;panel.innerHTML='';return}
     panel.hidden=false;
-    if(s.completed){panel.innerHTML='<div><span class="eyebrow">LESSON COMPLETE</span><strong>'+escapeHtml(s.title)+'</strong><small>'+s.correct+'/'+s.items.length+' correct · '+s.skipped+' skipped</small></div><div class="session-progress"><span style="width:100%"></span></div>';return}
+    if(s.completed){panel.innerHTML='<div><span class="eyebrow">LESSON COMPLETE</span><strong>'+escapeHtml(s.title)+'</strong><small>'+s.correct+'/'+s.items.length+' without help · '+(s.assisted||0)+' learned with help · '+s.skipped+' skipped</small></div><div class="session-progress"><span style="width:100%"></span></div>';return}
     const q=Math.min(s.index+1,s.items.length),pct=Math.round(s.index/s.items.length*100);
-    panel.innerHTML='<div class="lesson-session-head"><div><span class="eyebrow">ADAPTIVE LESSON</span><strong>'+escapeHtml(s.title)+'</strong><small>Question '+q+' of '+s.items.length+' · '+s.correct+' correct · lesson length chosen for you</small></div><span class="review-pill">'+escapeHtml(state.mode.toUpperCase())+'</span></div><div class="session-progress"><span style="width:'+pct+'%"></span></div>'
+    panel.innerHTML='<div class="lesson-session-head"><div><span class="eyebrow">ADAPTIVE LESSON</span><strong>'+escapeHtml(s.title)+'</strong><small>Question '+q+' of '+s.items.length+' · '+s.correct+' without help · lesson length chosen for you</small></div><span class="review-pill">'+escapeHtml(state.mode.toUpperCase())+'</span></div><div class="session-progress"><span style="width:'+pct+'%"></span></div>'
   }
   function finishSession(){
     if(!state.session)return;state.session.completed=true;state.session.finishedAt=Date.now();logActivity('session',{unitId:state.session.unitId,title:state.session.title,correct:state.session.correct,total:state.session.items.length,skipped:state.session.skipped});
@@ -599,7 +600,7 @@
   function renderSessionSummary(){
     const s=state.session;if(!s||!s.completed)return;
     const accuracy=Math.round(s.correct/s.items.length*100),uniqueImproved=Array.from(new Set(s.improved)),mistakes=Array.from(new Set(s.mistakes));
-    els.practiceStage.innerHTML='<div class="session-summary"><span class="eyebrow">SESSION SUMMARY</span><h2>'+accuracy+'% correct</h2><p>You completed '+s.items.length+' questions. Strong answers will come back later; anything difficult will return sooner.</p><div class="session-summary-grid"><article><strong>'+s.correct+'</strong><small>correct</small></article><article><strong>'+uniqueImproved.length+'</strong><small>patterns strengthened</small></article><article><strong>'+mistakes.length+'</strong><small>patterns to revisit</small></article></div>'+(mistakes.length?'<div class="session-mistakes"><small>REVISIT</small>'+mistakes.slice(0,5).map(function(id){return'<span>'+escapeHtml(getPattern(id).title)+'</span>'}).join('')+'</div>':'<div class="session-win">✓ No persistent mistakes recorded in this session.</div>')+'<div class="session-summary-actions">'+(mistakes.length?'<button type="button" class="primary-btn" data-session-retry>Repair mistakes</button>':'')+'<button type="button" class="secondary-btn" data-course-return>Back to course</button><button type="button" class="secondary-btn" data-smart-review>Smart practice</button></div></div>'
+    els.practiceStage.innerHTML='<div class="session-summary"><span class="eyebrow">SESSION SUMMARY</span><h2>'+accuracy+'% without help</h2><p>You worked through '+s.items.length+' questions. '+(s.assisted||0)+' needed help — those will return soon so you can try them on your own.</p><div class="session-summary-grid"><article><strong>'+s.correct+'</strong><small>correct</small></article><article><strong>'+uniqueImproved.length+'</strong><small>patterns strengthened</small></article><article><strong>'+mistakes.length+'</strong><small>patterns to revisit</small></article></div>'+(mistakes.length?'<div class="session-mistakes"><small>REVISIT</small>'+mistakes.slice(0,5).map(function(id){return'<span>'+escapeHtml(getPattern(id).title)+'</span>'}).join('')+'</div>':'<div class="session-win">✓ No persistent mistakes recorded in this session.</div>')+'<div class="session-summary-actions">'+(mistakes.length?'<button type="button" class="primary-btn" data-session-retry>Repair mistakes</button>':'')+'<button type="button" class="secondary-btn" data-course-return>Back to course</button><button type="button" class="secondary-btn" data-smart-review>Smart practice</button></div></div>'
   }
   function nextPracticeQuestion(currentId){
     const due=duePatterns().filter(function(p){return p.id!==currentId});if(due.length)return due[0];
@@ -607,28 +608,32 @@
     return ordered.find(function(p){return p.id!==currentId})||getPattern(currentId)
   }
   function recordIncorrect(p){
+    state.practiceHelped=true;
     const ms=responseTime();scheduleReview(p.id,2);logActivity('answer',{pattern:p.id,mode:state.mode,correct:false,responseMs:ms});state.questionStartedAt=Date.now();
     if(state.session&&!state.session.completed&&!state.session.mistakes.includes(p.id))state.session.mistakes.push(p.id);
     return recentWrongStreak(p.id)
   }
   function successForCurrent(quality){
     const completedId=state.currentId,completedMode=state.mode,skill=practiceSkillForMode(completedMode);
-    scheduleReview(completedId,quality==null?4:quality);
-    if(!state.skills[completedId])state.skills[completedId]={};state.skills[completedId][skill]=true;persistSkills();
-    logActivity('answer',{pattern:completedId,mode:completedMode,correct:true,quality:quality==null?4:quality,responseMs:responseTime()});
+    const assisted=Boolean(state.practiceHelped),savedQuality=assisted?2:(quality==null?4:quality);
+    scheduleReview(completedId,savedQuality);
+    if(!assisted){if(!state.skills[completedId])state.skills[completedId]={};state.skills[completedId][skill]=true;persistSkills();}
+    logActivity('answer',{pattern:completedId,mode:completedMode,correct:true,assisted:assisted,quality:savedQuality,responseMs:responseTime()});
     if(state.scaffoldReturn&&state.scaffoldReturn.patternId===completedId&&completedMode==='choice'){
       const back=state.scaffoldReturn;state.scaffoldReturn=null;state.currentId=back.patternId;state.mode=back.mode;els.practiceSelect.value=back.patternId;
       document.querySelectorAll('.mode-card').forEach(function(b){b.classList.toggle('active',b.dataset.mode===back.mode)});
       toast('✓ Got it. Now try the original question once more.');renderAllProgress();renderPractice();return
     }
     if(state.session&&!state.session.completed){
-      state.session.correct+=1;state.session.improved.push(completedId);state.session.index+=1;
+      if(assisted)state.session.assisted=(state.session.assisted||0)+1;
+      else{state.session.correct+=1;state.session.improved.push(completedId);}
+      state.practiceHelped=false;state.session.index+=1;
       if(state.session.index>=state.session.items.length){toast('✓ Lesson complete.');finishSession();return}
       const item=state.session.items[state.session.index];state.currentId=item.patternId;state.mode=item.mode;els.practiceSelect.value=state.currentId;
       document.querySelectorAll('.mode-card').forEach(function(b){b.classList.toggle('active',b.dataset.mode===state.mode)});
       toast('✓ Correct — next question.');renderAllProgress();renderSessionPanel();return
     }
-    const next=nextPracticeQuestion(completedId);state.currentId=next.id;els.practiceSelect.value=next.id;toast('✓ Correct — next question.');renderAllProgress()
+    state.practiceHelped=false;const next=nextPracticeQuestion(completedId);state.currentId=next.id;els.practiceSelect.value=next.id;toast('✓ Correct — next question.');renderAllProgress()
   }
 
   function recentWrongStreak(id){
@@ -690,6 +695,7 @@
   function openPracticeHelp(){
     const panel=document.getElementById('practiceHelpPanel'),help=document.getElementById('practiceHelpButton');
     if(panel)panel.hidden=false;if(help){help.setAttribute('aria-expanded','true');help.textContent='× Hide help'}
+    state.practiceHelped=true;
   }
   function handlePracticeMiss(p){
     const streak=recordIncorrect(p);
@@ -717,6 +723,43 @@
     if(p.id==='vowels')advice='Spanish vowels usually keep a clear, steady sound. For example, “a” in casa sounds close to “ah”. Tick only the examples that correctly describe a Spanish vowel sound.';
     const exampleHtml=example?'<p><b>Example:</b> '+escapeHtml(String(example[0]))+' → '+escapeHtml(String(example[1]))+'</p>':'',auto=recentWrongStreak(p.id)>=2;
     return '<div class="practice-help-wrap"><button type="button" class="practice-help-button" id="practiceHelpButton" aria-expanded="'+(auto?'true':'false')+'" aria-controls="practiceHelpPanel">'+(auto?'× Hide help':'? Need help?')+'</button><div class="practice-help-panel" id="practiceHelpPanel" '+(auto?'':'hidden')+'><strong>Hint</strong><p>'+escapeHtml(advice)+'</p>'+exampleHtml+'<small>Take your time. You can also skip the question and come back later.</small></div></div>'
+  }
+  function plainAnswerReason(p){
+    if(p.id==='subject-drop')return '“Yo” means “I”. Say “yo hablo” or just “hablo” for “I speak”. “Yo habla” does not work: with yo, use hablo.';
+    if(p.id==='accent-overrides')return 'The little line above ó points to the stronger part: can–CIÓN. That is what an accent mark helps you hear.';
+    if(p.id==='stress-default')return 'Say ho–TEL. The second part is stronger. Spanish words ending in a letter like l usually sound stronger at the end.';
+    if(p.id==='vowels')return 'A vowel is one of these five letters: a, e, i, o, u. In Spanish, they usually make the sounds ah, eh, ee, oh, oo.';
+    if(p.id==='ir-a')return 'Ir means “to go”. Voy a means “I am going to”. Add an action word: voy a comer means “I am going to eat”.';
+    const teaching=window.LanguageDNATeaching&&window.LanguageDNATeaching.build(p);
+    return teaching&&(teaching.notice||teaching.meaning)||p.rule;
+  }
+  function showCorrectAnswer(p,q,mode){
+    const box=document.getElementById('practiceFeedback');if(!box)return;
+    let answer='';
+    if(mode==='tick'){
+      const rows=Array.from(els.practiceStage.querySelectorAll('.tick-item'));
+      const correct=rows.filter(function(row){return row.querySelector('[data-tick]').dataset.tick==='good'}).map(function(row){return row.querySelector('span').textContent});
+      const incorrect=rows.filter(function(row){return row.querySelector('[data-tick]').dataset.tick==='bad'}).map(function(row){return row.querySelector('span').textContent});
+      answer='<p><strong>Tick these:</strong> '+correct.map(escapeHtml).join(' and ')+'</p>'+
+        '<p><strong>Leave this unticked:</strong> '+incorrect.map(escapeHtml).join(', ')+'</p>';
+      rows.forEach(function(row){
+        const good=row.querySelector('[data-tick]').dataset.tick==='good';
+        row.classList.toggle('tick-example-correct',good);row.classList.toggle('tick-example-wrong',!good);
+        if(!row.querySelector('.tick-explanation')){
+          const note=document.createElement('small');note.className='tick-explanation';
+          note.textContent=good?'✓ This one works':'✗ Do not tick this one';
+          row.appendChild(note);
+        }
+      });
+    }else{
+      const answerText=mode==='hear'?q.english:q.answers[0];
+      answer='<p><strong>Correct answer:</strong> '+escapeHtml(answerText)+'</p>';
+      if(mode==='choice'||mode==='hear')els.practiceStage.querySelectorAll('.choice-btn[data-choice="true"]').forEach(function(btn){btn.classList.add('answer-revealed')});
+    }
+    box.hidden=false;box.className='feedback incorrect feedback-teaching';
+    box.innerHTML='<strong>Here is how to get it right:</strong>'+answer+
+      '<p><strong>Why:</strong> '+escapeHtml(plainAnswerReason(p))+'</p>'+
+      '<p>Take your time. Try it again to practise, then this will come back later for a check without help.</p>';
   }
   function practiceRetryClue(p){
     if(p.id==='accent-overrides')return 'Look for the little accent mark over the vowel.';
@@ -746,14 +789,15 @@
     els.practiceStage.innerHTML=body;state.questionStartedAt=Date.now();bindPractice(p,q)
   }
   function bindPractice(p,q){
-    const help=document.getElementById('practiceHelpButton');if(help)help.addEventListener('click',function(){const panel=document.getElementById('practiceHelpPanel'),open=panel&&panel.hidden;if(panel)panel.hidden=!open;help.setAttribute('aria-expanded',open?'true':'false');help.textContent=open?'× Hide help':'? Need help?'});
-    const form=document.getElementById('writingForm');if(form)form.addEventListener('submit',function(e){e.preventDefault();const ans=normalize(document.getElementById('writingAnswer').value),ok=q.answers.some(function(a){return normalize(a)===ans});feedback(ok,ok?'✓ Correct. Moving to the next question…':'Almost. Try again — I’ll give you more help if you need it.');if(ok)successForCurrent(5);else handlePracticeMiss(p)});
+    const help=document.getElementById('practiceHelpButton');if(help)help.addEventListener('click',function(){const panel=document.getElementById('practiceHelpPanel'),open=panel&&panel.hidden;if(open)state.practiceHelped=true;if(panel)panel.hidden=!open;help.setAttribute('aria-expanded',open?'true':'false');help.textContent=open?'× Hide help':'? Need help?'});
+    const form=document.getElementById('writingForm');if(form)form.addEventListener('submit',function(e){e.preventDefault();const ans=normalize(document.getElementById('writingAnswer').value),ok=q.answers.some(function(a){return normalize(a)===ans});if(ok){feedback(true,'✓ That is right.');successForCurrent(5)}else{handlePracticeMiss(p);showCorrectAnswer(p,q,'write')}});
     const mic=document.getElementById('micButton');if(mic)mic.addEventListener('click',function(){startRecognition(p)});
     const selfSpeak=document.getElementById('selfCheckSpeak');if(selfSpeak)selfSpeak.addEventListener('click',function(){feedback(true,'Self-check saved. Moving on.');successForCurrent(3)});
-    const ticks=document.getElementById('checkTicks');if(ticks)ticks.addEventListener('click',function(){const boxes=Array.from(els.practiceStage.querySelectorAll('[data-tick]')),ok=boxes.every(function(b){return(b.dataset.tick==='good')===b.checked});feedback(ok,ok?'✓ Correct. Moving to the next question…':'Not quite. Check each option against the rule above.');if(ok)successForCurrent(4);else handlePracticeMiss(p)});
+    const ticks=document.getElementById('checkTicks');if(ticks)ticks.addEventListener('click',function(){const boxes=Array.from(els.practiceStage.querySelectorAll('[data-tick]')),ok=boxes.every(function(b){return(b.dataset.tick==='good')===b.checked});if(ok){feedback(true,'✓ Those are the right choices.');successForCurrent(4)}else{handlePracticeMiss(p);showCorrectAnswer(p,q,'tick')}});
     const skip=document.getElementById('skipPractice');if(skip)skip.addEventListener('click',skipPractice)
   }
   function skipPractice(){
+    state.practiceHelped=false;
     if(state.session&&!state.session.completed){state.session.skipped+=1;state.session.index+=1;if(state.session.index>=state.session.items.length){finishSession();return}const item=state.session.items[state.session.index];state.currentId=item.patternId;state.mode=item.mode;els.practiceSelect.value=state.currentId;toast('Skipped — no penalty.');renderSessionPanel();renderPractice();return}
     const p=nextBestPattern();if(p.id===state.currentId){const ordered=patterns.slice().sort(function(a,b){return a.rank-b.rank}),i=ordered.findIndex(function(x){return x.id===state.currentId});state.currentId=ordered[(i+1)%ordered.length].id}else state.currentId=p.id;els.practiceSelect.value=state.currentId;toast('Skipped — no penalty. Here is another useful link.');renderPractice()
   }
@@ -1092,10 +1136,12 @@
         panel.querySelectorAll('[data-mini-answer]').forEach(function(btn){btn.disabled=true;btn.classList.toggle('correct',btn===tinyAnswer)});
         result.textContent='🌟 You got it! '+tinyAnswer.dataset.miniReason;
         result.className='pattern-mini-feedback is-correct';
-        markJourney(panel.dataset.miniPatternId,'understand');
+        if(panel.dataset.miniHelped!=='true')markJourney(panel.dataset.miniPatternId,'understand');
       }else{
         tinyAnswer.disabled=true;tinyAnswer.classList.add('incorrect');
-        result.textContent='Good try! Look at the example above, then try another answer.';
+        panel.dataset.miniHelped='true';
+        const right=panel.querySelector('[data-mini-correct="true"]');
+        result.textContent='The correct answer is '+(right?right.dataset.miniAnswer||right.textContent:'the choice shown in the lesson')+'. '+(right?right.dataset.miniReason:'')+' Read why, then try it once more.';
         result.className='pattern-mini-feedback is-try';
       }
       return;
@@ -1124,8 +1170,8 @@
     const lens=e.target.closest('[data-lens]');if(lens){state.lens=state.lens===lens.dataset.lens?null:lens.dataset.lens;document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.toggle('active',x.dataset.lens===state.lens)});renderLibrary();return}
     const homeLens=e.target.closest('[data-home-lens]');if(homeLens){state.lens=homeLens.dataset.homeLens;state.family='all';goView('library');document.querySelectorAll('[data-lens]').forEach(function(x){x.classList.toggle('active',x.dataset.lens===state.lens)});renderLibrary();return}
     const mode=e.target.closest('[data-mode]');if(mode){state.mode=mode.dataset.mode;document.querySelectorAll('.mode-card').forEach(function(x){x.classList.toggle('active',x===mode)});renderPractice();focusPracticeStage();return}
-    const reveal=e.target.closest('[data-reveal]');if(reveal){const p=getPattern(state.currentId);scheduleReview(state.currentId,1);logActivity('reveal',{pattern:p.id,mode:state.mode,responseMs:responseTime()});if(state.session&&!state.session.mistakes.includes(p.id))state.session.mistakes.push(p.id);feedback(true,'Answer: '+reveal.dataset.reveal+' · This link will return soon for retrieval.');return}
-    const choice=e.target.closest('[data-choice]');if(choice){const ok=choice.dataset.choice==='true',p=getPattern(state.currentId);choice.classList.add(ok?'correct':'incorrect');if(ok){els.practiceStage.querySelectorAll('.choice-btn').forEach(function(b){b.disabled=true});feedback(true,'✓ Correct. Moving to the next question…');successForCurrent(4)}else{choice.disabled=true;const shifted=handlePracticeMiss(p);if(!shifted&&recentWrongStreak(p.id)<2)feedback(false,'Not yet. '+practiceRetryClue(p)+' Try again.')}return}
+    const reveal=e.target.closest('[data-reveal]');if(reveal){const p=getPattern(state.currentId);scheduleReview(state.currentId,1);logActivity('reveal',{pattern:p.id,mode:state.mode,responseMs:responseTime()});if(state.session&&!state.session.mistakes.includes(p.id))state.session.mistakes.push(p.id);state.practiceHelped=true;feedback(true,'Answer: '+reveal.dataset.reveal+' · This link will return soon for retrieval.');return}
+    const choice=e.target.closest('[data-choice]');if(choice){const ok=choice.dataset.choice==='true',p=getPattern(state.currentId);choice.classList.add(ok?'correct':'incorrect');if(ok){els.practiceStage.querySelectorAll('.choice-btn').forEach(function(b){b.disabled=true});feedback(true,'✓ Correct. Moving to the next question…');successForCurrent(4)}else{choice.disabled=true;const shifted=handlePracticeMiss(p);if(!shifted&&recentWrongStreak(p.id)<2)feedback(false,'Not yet. '+practiceRetryClue(p)+' Try again.');showCorrectAnswer(p,state.currentQuestion,state.mode)}return}
     const retrySession=e.target.closest('[data-session-retry]');if(retrySession&&state.session){const mistakes=Array.from(new Set(state.session.mistakes));startLessonSession('Mistake repair',mistakes.length?mistakes:[state.currentId],null);return}
     const courseReturn=e.target.closest('[data-course-return]');if(courseReturn){state.session=null;renderSessionPanel();goView('course');return}
     const pronounceWord=e.target.closest('[data-pronounce-word]');if(pronounceWord){startWordRecognition(pronounceWord.dataset.pronounceWord,state.currentId);return}
@@ -1175,6 +1221,6 @@
   if(launchPractice&&patterns.some(function(p){return p.id===launchPractice})){history.replaceState({},'',location.pathname);startPractice(launchPractice,recommendedMode(getPattern(launchPractice)))}
   else if(['home','course','library','practice','tutor','game','dna'].includes(launchView)){history.replaceState({},'',location.pathname);goView(launchView)}
 
-  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=25').catch(function(){});
+  if('serviceWorker'in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('./service-worker.js?v=26').catch(function(){});
 
 })();
