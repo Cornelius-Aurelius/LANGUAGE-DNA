@@ -2366,8 +2366,8 @@ body.dark .pattern-more-examples{border-color:var(--ld-card-edge)}
 
 
 /* LanguageDNA mascot: lightweight original hybrid character, used consistently from Home to adventures. */
-.mascot-brand-mark{padding:0;overflow:hidden;border:2px solid #cde5dc;background:#fff}
-.mascot-brand-mark img{display:block;width:100%;height:100%;object-fit:cover;border-radius:12px}
+.mascot-brand-mark{padding:0;overflow:hidden;border:1px solid #d3e9e6;background:#eefbf9;border-radius:15px;box-shadow:0 2px 8px rgba(13,91,82,.12);flex:0 0 auto}
+.mascot-brand-mark img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;border-radius:inherit}
 .mascot-showcase{min-width:0;width:100%;display:flex;flex-direction:column;gap:11px;align-items:stretch}
 .mascot-home-intro{display:grid;grid-template-columns:minmax(110px,44%) minmax(0,1fr);align-items:center;gap:6px;min-height:238px;overflow:hidden;background:linear-gradient(112deg,#fef8e8,#e8f8ff);border:2px solid rgba(255,255,255,.75);border-radius:23px;box-shadow:0 5px 0 rgba(17,94,88,.09)}
 .mascot-home-art{display:block;align-self:stretch;width:100%;height:262px;object-fit:cover;object-position:center top;border-radius:21px 0 0 21px}
@@ -2388,7 +2388,7 @@ body.dark .mascot-home-intro{background:linear-gradient(112deg,#254a4c,#253f5c);
 body.dark .mascot-home-greeting span{color:#a9f2d7}
 body.dark .mascot-home-greeting strong{color:#f6f9fc}
 body.dark .mascot-home-greeting small{color:#d4e5e9}
-body.dark .mascot-brand-mark{border-color:#658b83}
+body.dark .mascot-brand-mark{border-color:#658b83;background:#213c3e;box-shadow:0 2px 8px rgba(0,0,0,.23)}
 @media(max-width:760px){
   .mascot-home-intro{min-height:210px}
   .mascot-home-art{height:235px}
