@@ -44,7 +44,7 @@
     metadata(key, JSON.stringify(copy));
   }
   function replaceLocal(copy) {
-    if (!validSnapshot(copy)) throw new Error('Invalid LanguageDNA cloud backup.');
+    if (!validSnapshot(copy)) throw new Error('Invalid BluXabi cloud backup.');
     saveSafetyCopy('before-cloud-restore', snapshot());
     suppressTracking = true;
     try {
