@@ -25,8 +25,8 @@
       const show=p.started||p.days>0;
       home.hidden=!show;
       if(show){
-        const next=p.todayDone?'Discover one more useful connection, or stop for today.':'Your five-minute lesson is ready whenever you are.';
-        home.innerHTML='<div class="home-journey-copy"><img class="mascot-journey-avatar" src="assets/mascot/learning-buddy-face.webp" alt="" width="56" height="56" loading="lazy" decoding="async"><div><strong>'+(p.todayDone?'Five small wins today!':p.todaySteps+' / 5 small wins')+'</strong><small>'+next+'</small></div></div>'+
+        const next=p.todayDone?'Xabi says: Great work! Discover one more connection, or stop for today.':'Xabi is here for your next five-minute lesson whenever you are.';
+        home.innerHTML='<div class="home-journey-copy"><img class="mascot-journey-avatar" src="assets/mascot/xabi-face.webp" alt="" width="56" height="56" loading="lazy" decoding="async"><div><strong>'+(p.todayDone?'Five small wins today!':p.todaySteps+' / 5 small wins')+'</strong><small>'+next+'</small></div></div>'+
           '<button type="button" class="secondary-btn" data-view="'+(p.todayDone?'library':'tutor')+'" '+(p.todayDone?'':'data-tutor-open="daily"')+'>'+(p.todayDone?'Explore patterns':'Continue Daily 5')+' →</button>';
       }
     }
