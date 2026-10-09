@@ -2405,3 +2405,6 @@ body.dark .mascot-brand-mark{border-color:#658b83}
   .feedback-teaching{padding-left:59px}
   .feedback-teaching:before{left:9px;width:33px;height:33px}
 }
+
+.mascot-journey-avatar{flex:0 0 56px;display:block;width:56px;height:56px;border-radius:18px;object-fit:cover;border:2px solid #fbfcff;box-shadow:0 3px 0 rgba(22,91,78,.13)}
+@media(max-width:390px){.mascot-journey-avatar{width:48px;height:48px;flex-basis:48px}}
