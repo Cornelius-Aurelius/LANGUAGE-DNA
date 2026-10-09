@@ -2113,7 +2113,7 @@ body.dark .quest-tiles button{background:#483c66;border-color:#806aa6;color:#f4e
 }
 
 
-/* Nova: original small star companion, not a borrowed brand mascot. */
+/* Xabi: LanguageDNA original hybrid learning mascot. */
 .quest-friend{display:flex;align-items:center;gap:12px;margin:0 0 12px;max-width:100%}
 .quest-friend-face{position:relative;display:grid;place-items:center;flex:0 0 58px;width:58px;height:58px;
   border:3px solid #e3ae51;border-radius:22px 23px 19px 24px;
@@ -2383,7 +2383,7 @@ body.dark .pattern-more-examples{border-color:var(--ld-card-edge)}
 .quest-friend-face{padding:0!important;overflow:hidden;background:#fff!important;box-shadow:0 4px 0 #a5cfc4!important}
 .quest-friend-face img{width:100%;height:100%;display:block;object-fit:cover;object-position:center;border-radius:inherit}
 .feedback-teaching{position:relative;padding-left:72px}
-.feedback-teaching:before{content:"";position:absolute;left:13px;top:15px;width:42px;height:42px;border:2px solid #fff;border-radius:15px;background:#fff url("assets/mascot/learning-buddy-face.webp") center/cover no-repeat;box-shadow:0 2px 0 rgba(31,80,75,.11)}
+.feedback-teaching:before{content:"";position:absolute;left:13px;top:15px;width:42px;height:42px;border:2px solid #fff;border-radius:15px;background:#fff url("assets/mascot/xabi-face.webp") center/cover no-repeat;box-shadow:0 2px 0 rgba(31,80,75,.11)}
 body.dark .mascot-home-intro{background:linear-gradient(112deg,#254a4c,#253f5c);border-color:#427b75}
 body.dark .mascot-home-greeting span{color:#a9f2d7}
 body.dark .mascot-home-greeting strong{color:#f6f9fc}
@@ -2413,3 +2413,11 @@ body.dark .mascot-brand-mark{border-color:#658b83}
 .quest-answer-flash.success{padding-left:58px;min-height:59px;text-align:left}
 .quest-flash-mascot{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:35px;height:35px;border-radius:12px;object-fit:cover;border:2px solid rgba(255,255,255,.9)}
 @media(max-width:390px){.quest-answer-flash.success{padding-left:49px}.quest-flash-mascot{left:8px;width:31px;height:31px}}
+
+/* Xabi: consistent character treatment for playful lessons and achievements. */
+.mascot-home-art{object-fit:contain;object-position:center bottom;filter:drop-shadow(0 4px 5px rgba(16,65,85,.12))}
+.mascot-brand-mark img,.mascot-journey-avatar,.quest-friend-face img,.quest-flash-mascot{object-position:center center}
+.xabi-summary-heading{display:flex;align-items:center;gap:12px;margin:0 0 14px}
+.xabi-summary-heading img{width:68px;height:68px;object-fit:cover;border-radius:20px;border:2px solid #bceadd;background:#fff}
+.xabi-summary-heading .eyebrow{font-size:12px;letter-spacing:.075em}
+@media(max-width:390px){.xabi-summary-heading img{width:56px;height:56px}}
