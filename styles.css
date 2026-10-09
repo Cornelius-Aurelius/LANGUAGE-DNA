@@ -2421,3 +2421,86 @@ body.dark .mascot-brand-mark{border-color:#658b83}
 .xabi-summary-heading img{width:68px;height:68px;object-fit:cover;border-radius:20px;border:2px solid #bceadd;background:#fff}
 .xabi-summary-heading .eyebrow{font-size:12px;letter-spacing:.075em}
 @media(max-width:390px){.xabi-summary-heading img{width:56px;height:56px}}
+
+
+/* Xabi's evidence-based English–Spanish cognate discovery on the home page. */
+.xabi-word-fact{
+  margin:0 0 30px;padding:clamp(17px,2.6vw,28px);border:2px solid #c8e5db;
+  border-radius:26px;background:linear-gradient(130deg,#fffdf4,#f2fbff 75%);
+  box-shadow:0 5px 0 rgba(26,102,91,.09);color:#1b4650;min-width:0;
+}
+.xabi-word-fact-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(160px,230px);align-items:center;gap:24px}
+.xabi-word-fact-title{display:flex;align-items:center;gap:13px;min-width:0}
+.xabi-word-fact-title img{width:64px;height:64px;flex:0 0 64px;object-fit:cover;border:2px solid #fff;border-radius:21px;background:#fff;box-shadow:0 3px 0 #c9e3db}
+.xabi-word-fact-kicker{display:block;color:#0c7164;font-size:11px;letter-spacing:.085em;font-weight:950;margin-bottom:5px}
+.xabi-word-fact-title h2{font-size:clamp(23px,3.2vw,34px);line-height:1.14;letter-spacing:-.035em;margin:0;color:#214653}
+.xabi-word-fact-copy>p{margin:13px 0 0;color:#395d65;line-height:1.55;font-weight:600;font-size:clamp(14px,1.55vw,16px)}
+.xabi-word-fact-copy>p strong{color:#0f655b;font-weight:950}
+.xabi-word-fact-number{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;padding:17px 12px;background:#e3f5eb;border:2px solid #c4e4d5;border-radius:22px;text-align:center}
+.xabi-word-fact-number strong{font-size:clamp(37px,4.4vw,58px);line-height:1;letter-spacing:-.065em;color:#166c5f;font-weight:950;white-space:nowrap}
+.xabi-word-fact-number strong span{font-size:.57em;vertical-align:top}
+.xabi-word-fact-number small{font-size:13px;line-height:1.35;color:#275f57;font-weight:850;margin-top:6px}
+.xabi-word-fact-prompt{font-size:15px;color:#254d5a;margin:0 0 11px;line-height:1.5}
+.xabi-word-fact-prompt strong{color:#096f64}
+.xabi-word-fact-discovery{margin-top:22px}
+.xabi-word-fact-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.xabi-word-reveal{min-width:0;background:#fff;border:2px solid #d7e9e8;border-radius:18px;overflow:hidden;transition:border-color .16s ease,box-shadow .16s ease}
+.xabi-word-reveal[open]{border-color:#78cbbb;box-shadow:0 3px 0 #cde8e3}
+.xabi-word-reveal summary{display:flex;flex-direction:column;align-items:flex-start;gap:5px;cursor:pointer;padding:14px 15px;list-style:none;min-height:108px}
+.xabi-word-reveal summary::-webkit-details-marker{display:none}
+.xabi-word-reveal summary:focus-visible{outline:3px solid #146e79;outline-offset:-4px;border-radius:16px}
+.xabi-word-reveal-lang{font-size:10px;font-weight:900;letter-spacing:.09em;color:#386879}
+.xabi-word-reveal summary>strong,.xabi-word-reveal-answer>strong{font-size:clamp(22px,2.8vw,30px);line-height:1.15;letter-spacing:-.035em;overflow-wrap:anywhere}
+.xabi-word-reveal summary>strong{color:#243f66}
+.xabi-word-reveal-hint{font-size:12px;font-weight:800;color:#187968;margin-top:auto}
+.xabi-word-reveal-open,.xabi-word-reveal[open] .xabi-word-reveal-closed{display:none}
+.xabi-word-reveal[open] .xabi-word-reveal-open{display:inline}
+.xabi-word-reveal-answer{display:grid;gap:6px;background:#e9faf3;border-top:2px dashed #c5e5da;padding:13px 15px 16px}
+.xabi-word-reveal-answer strong{color:#176454}
+.xabi-word-reveal-answer small{font-size:12px;line-height:1.45;color:#375d57}
+.xabi-word-fact-bottom{display:flex;flex-wrap:wrap;align-items:center;gap:13px 20px;margin-top:17px}
+.xabi-word-fact-cta{white-space:normal;line-height:1.4;text-align:center;font-weight:900}
+.xabi-word-fact-note{flex:1 1 255px;min-width:0;color:#49686d;font-size:11px;line-height:1.5}
+.xabi-word-fact-note a{color:#145e75;text-decoration:underline;text-underline-offset:2px}
+.xabi-word-fact-note a:focus-visible{outline:3px solid #116f80;outline-offset:3px;border-radius:2px}
+body.dark .xabi-word-fact{background:linear-gradient(135deg,#203a40,#233a50);border-color:#4e7770;color:#e8f7f9}
+body.dark .xabi-word-fact-title h2{color:#f3fffc}
+body.dark .xabi-word-fact-kicker{color:#a3eace}
+body.dark .xabi-word-fact-copy>p,body.dark .xabi-word-fact-prompt{color:#d9ebec}
+body.dark .xabi-word-fact-copy>p strong,body.dark .xabi-word-fact-prompt strong{color:#9de6d3}
+body.dark .xabi-word-fact-number{background:#234e49;border-color:#477e70}
+body.dark .xabi-word-fact-number strong,body.dark .xabi-word-fact-number small{color:#baf4d8}
+body.dark .xabi-word-reveal{background:#203c47;border-color:#426b75}
+body.dark .xabi-word-reveal[open]{border-color:#75beaa}
+body.dark .xabi-word-reveal-lang{color:#bddfe2}
+body.dark .xabi-word-reveal summary>strong{color:#eff7ff}
+body.dark .xabi-word-reveal-hint{color:#a3e6d3}
+body.dark .xabi-word-reveal-answer{background:#245047;border-color:#507e74}
+body.dark .xabi-word-reveal-answer strong{color:#c1f3d2}
+body.dark .xabi-word-reveal-answer small{color:#e3f1e9}
+body.dark .xabi-word-fact-note{color:#c5d8dd}
+body.dark .xabi-word-fact-note a{color:#a2dafb}
+@media(max-width:670px){
+  .xabi-word-fact{padding:17px 15px;border-radius:22px;margin-bottom:25px}
+  .xabi-word-fact-top{grid-template-columns:minmax(0,1fr);gap:14px}
+  .xabi-word-fact-title{gap:10px}
+  .xabi-word-fact-title img{width:52px;height:52px;flex-basis:52px;border-radius:17px}
+  .xabi-word-fact-title h2{font-size:clamp(21px,5.6vw,28px)}
+  .xabi-word-fact-number{flex-direction:row;gap:12px;justify-content:space-evenly;padding:11px 12px}
+  .xabi-word-fact-number strong{font-size:clamp(35px,9vw,47px)}
+  .xabi-word-fact-number small{text-align:left;margin:0}
+  .xabi-word-fact-tiles{grid-template-columns:1fr;gap:9px}
+  .xabi-word-reveal summary{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 8px;padding:10px 14px}
+  .xabi-word-reveal summary .xabi-word-reveal-lang{grid-column:1/-1}
+  .xabi-word-reveal summary>strong{font-size:23px}
+  .xabi-word-reveal-hint{align-self:center;text-align:right;font-size:11px}
+  .xabi-word-reveal-answer{padding:11px 14px}
+  .xabi-word-reveal-answer strong{font-size:25px}
+  .xabi-word-fact-discovery{margin-top:15px}
+  .xabi-word-fact-bottom{margin-top:15px}
+  .xabi-word-fact-cta{width:100%}
+}
+@media(max-width:345px){
+  .xabi-word-fact-number strong{font-size:34px}
+  .xabi-word-fact-number small{font-size:11px}
+}
