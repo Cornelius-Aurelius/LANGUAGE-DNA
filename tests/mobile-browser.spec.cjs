@@ -28,6 +28,46 @@ test('BluXabi rebrand keeps existing locally saved progress intact',async ({page
 });
 
 
+test('Xabi turns the research-backed cognate fact into a mini Spanish discovery lesson',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  const fact=page.locator('.xabi-word-fact');
+  await expect(fact).toBeVisible();
+  await expect(fact).toContainText('over 20,000 English–Spanish cognates');
+  await expect(fact.locator('a[href*="frontiersin.org"]')).toBeVisible();
+  const words=fact.locator('.xabi-word-reveal');
+  await expect(words).toHaveCount(3);
+  const animal=words.nth(0);
+  await expect(animal.locator('.xabi-word-reveal-answer')).toBeHidden();
+  await animal.locator('summary').click();
+  await expect(animal.locator('.xabi-word-reveal-answer [lang="es"]')).toHaveText('animal');
+  await animal.locator('summary').click();
+  await expect(animal.locator('.xabi-word-reveal-answer')).toBeHidden();
+  await words.nth(1).locator('summary').click();
+  await expect(words.nth(1).locator('.xabi-word-reveal-answer [lang="es"]')).toHaveText('nación');
+  await words.nth(2).locator('summary').click();
+  await expect(words.nth(2).locator('.xabi-word-reveal-answer [lang="es"]')).toHaveText('posible');
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
+  expect(overflow).toBeLessThanOrEqual(2);
+  await fact.locator('.xabi-word-fact-cta').click();
+  await expect(page).toHaveURL(/pattern\.html\?id=tion-cion/);
+  await expect(page.locator('#wordSearch')).toBeVisible();
+});
+
+test('Xabi fun fact is accessible with keyboard and readable in dark mode',async ({page})=>{
+  await page.goto(base);
+  const word=page.locator('.xabi-word-reveal').first();
+  await word.locator('summary').focus();
+  await page.keyboard.press('Enter');
+  await expect(word).toHaveAttribute('open','');
+  await page.keyboard.press('Enter');
+  await expect(word).not.toHaveAttribute('open','');
+  await page.locator('#themeButton').click();
+  await expect(page.locator('body')).toHaveClass(/dark/);
+  await expect(page.locator('.xabi-word-fact')).toBeVisible();
+  await expect(page.locator('.xabi-word-fact-number')).toContainText('20,000');
+});
+
 test('Xabi is recognisable on the homepage and in adventure feedback',async ({page})=>{
   await page.setViewportSize({width:375,height:812});
   await page.goto(base);
