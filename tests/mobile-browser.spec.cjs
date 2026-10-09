@@ -684,6 +684,7 @@ test('Beginners enter Practice with simple multiple choice instead of typing',as
 test('Practice help teaches with another example instead of revealing this answer',async ({page})=>{
   await page.setViewportSize({width:375,height:812});
   await page.goto(base+'?practice=tion-cion');
+  await page.locator('[data-mode="choice"]').click();
   const answer=await page.locator('.choice-btn[data-choice="true"]').innerText();
   await page.locator('#practiceHelpButton').click();
   await expect(page.locator('#practiceHelpPanel')).toBeVisible();
