@@ -15,15 +15,15 @@ test('Mascot art is visible on Home and the adventure uses the same face',async 
   await page.locator('.home-play-button').click();
   await page.locator('[data-quest-world="words"]').click();
   await page.locator('[data-quest-answer="información"]').click();
-  const face=page.locator('.quest-friend-face img');
+  const face=page.locator('.quest-answer-flash.success .quest-flash-mascot');
   await expect(face).toBeVisible();
   await expect.poll(async()=>face.evaluate(img=>img.complete&&img.naturalWidth>0)).toBe(true);
-  await expect(page.locator('.quest-friend-speech')).toContainText('Your buddy says:');
+  await expect(page.locator('.quest-answer-flash.success')).toContainText('Correct!');
 });
 
 test('Returning learner sees mascot next to the daily learning path',async ({page})=>{
   await page.goto(base);
-  await page.evaluate(()=>localStorage.setItem('ldna-daily5-v1',JSON.stringify({'2020-01-01':{done:['review'],startedAt:Date.now()}})));
+  await page.evaluate(()=>{const d=new Date(),today=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');localStorage.setItem('ldna-daily5-v1',JSON.stringify({[today]:{done:['review'],startedAt:Date.now()}}));});
   await page.reload();
   await expect(page.locator('#homeLearningJourney')).toBeVisible();
   await expect(page.locator('.mascot-journey-avatar')).toBeVisible();
