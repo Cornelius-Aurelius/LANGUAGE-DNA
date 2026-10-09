@@ -22,11 +22,11 @@
       sub:'Discover the quiet H in Spanish.', pattern:'h-silent',
       secret:'In standard Spanish the letter H is silent. So hola begins with the sound of O, not an English H.',
       questions:[
-        {en:'hola',answer:'O',choices:['H','A','O','J'],pattern:'h-silent',why:'hola starts with the O sound because H is silent.'},
-        {en:'hablar',answer:'A',choices:['A','H','E','J'],pattern:'h-silent',why:'hablar begins with the A sound. H stays silent.'},
-        {en:'hotel',answer:'O',choices:['H','J','A','O'],pattern:'h-silent',why:'hotel begins with the O sound in Spanish.'},
-        {en:'hermano',answer:'E',choices:['A','E','H','J'],pattern:'h-silent',why:'hermano begins with the E sound, not an H sound.'},
-        {en:'hilo',answer:'I',choices:['H','J','I','E'],pattern:'h-silent',why:'hilo starts with the I sound. Another silent H!'}
+        {en:'hola',answer:'O',choices:['A','E','I','O'],pattern:'h-silent',why:'hola starts with the O sound because H is silent.'},
+        {en:'hablar',answer:'A',choices:['E','I','O','A'],pattern:'h-silent',why:'hablar begins with the A sound. H stays silent.'},
+        {en:'hotel',answer:'O',choices:['A','E','I','O'],pattern:'h-silent',why:'hotel begins with the O sound in Spanish.'},
+        {en:'hermano',answer:'E',choices:['A','I','O','E'],pattern:'h-silent',why:'hermano begins with the E sound, not an H sound.'},
+        {en:'hilo',answer:'I',choices:['A','E','O','I'],pattern:'h-silent',why:'hilo starts with the I sound. Another silent H!'}
       ]
     },
     {
@@ -86,7 +86,7 @@
   let saved=read(),completed=null,clue=false,wrong=null,listing=false,newBadge=false,tilesMode=false,placed=[],listenFirst=false;
   let autoAdvanceTimer=null;
   const PACE_KEY='ldna-quest-pacing-v1';
-  let pace=localStorage.getItem(PACE_KEY)==='manual'?'manual':'auto';
+  let pace=localStorage.getItem(PACE_KEY)==='auto'?'auto':'manual';
   function orderedChoices(q,p){
     const shuffled=q.choices.slice();
     let seed=((p.seed||0)^(Math.imul(p.index+1,2654435761)))>>>0;
@@ -120,7 +120,7 @@
       if(saved.active&&saved.active.world===id&&saved.active.index===index&&saved.active.answered&&!listing&&document.querySelector('[data-view-panel="game"].active')){
         advance();
       }
-    },3000); // Readable pace by default; users may turn off automatic movement.
+    },8000); // Automatic movement is optional; beginners choose when to continue.
   }
   function write(){try{localStorage.setItem(STORAGE,JSON.stringify(saved));}catch(_){}renderProgress()}
   function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
@@ -159,6 +159,11 @@
     const distractor=['quiero','hablo','sé','tengo','entiendo'].find(x=>!pieces.includes(x))||'hablo';
     return [pieces[pieces.length-1],distractor,pieces[0]];
   }
+  function retryHint(q,kind){
+    if(kind==='sounds')return 'In Spanish, H is quiet. Listen again. Which vowel sound do you hear first?';
+    if(kind==='sentences')return 'Find the Spanish words for the action. Put no just before the action word.';
+    return q.pattern==='ity-idad'?'Look for a Spanish word ending in -idad. Does the beginning look like the English word?':'Look for a Spanish word ending in -ción. Does the beginning look like the English word?';
+  }
   function renderQuestion(){
     const p=saved.active,w=playWorld(p.world),q=w.questions[p.index];
     if(!q)return renderWorlds();
@@ -172,26 +177,26 @@
       '<div class="quest-builder-tools"><button type="button" class="secondary-btn" data-quest-undo '+(placed.length?'':'disabled')+'>↶ Undo</button><button type="button" class="primary-btn" data-quest-check-tiles '+(placed.length?'':'disabled')+'>Check my sentence ✓</button></div></div>';
     return '<div class="quest-play quest-play-'+w.type+'">'+
       (p.answered?'<div class="quest-answer-flash success" role="status" aria-live="polite"><strong>✓ Correct! ⭐ '+esc(connection)+'</strong><small>'+esc(q.why)+'</small><em>'+(pace==='auto'?'Next question soon…':'Take your time. Press Next when ready.')+'</em></div>':
-       wrong?'<div class="quest-answer-flash retry" role="status" aria-live="polite">↶ Not quite — '+esc(q.why)+' Try again.</div>':'')+
+       wrong?'<div class="quest-answer-flash retry" role="status" aria-live="polite">↶ Not yet. '+esc(retryHint(q,kind))+' Try again.</div>':'')+
       '<div class="quest-play-header">'+
       '<button type="button" class="quest-back" data-quest-back aria-label="Back to adventures">← Adventures</button>'+
       '<div class="quest-play-header-controls"><button type="button" class="quest-pace-button" data-quest-pacing aria-pressed="'+(pace==='manual')+'" aria-label="Automatic next question '+(pace==='auto'?'on':'off')+'">'+(pace==='auto'?'⏱ Auto next':'✋ My pace')+'</button><span class="quest-count">'+(p.index===4?'🌟 FINAL DISCOVERY':'QUESTION '+(p.index+1)+' OF 5')+'</span></div>'+
       '</div><div class="quest-stars-earned" aria-label="'+progress+' of 5 stars in this quest">'+Array.from({length:5},(_,i)=>'<span aria-hidden="true">'+(i<progress?'⭐':'☆')+'</span>').join('')+'</div>'+
       '<div class="quest-play-progress" role="progressbar" aria-label="Adventure progress" aria-valuemin="0" aria-valuemax="5" aria-valuenow="'+progress+'"><span style="width:'+(progress*20)+'%"></span></div>'+
       '<div class="quest-question"><span class="quest-eyebrow">'+(w.id==='mystery'?'MYSTERY MIX':kind==='words'?'WORD DETECTIVE':kind==='sounds'?'SOUND DETECTIVE':'SENTENCE BUILDER')+'</span>'+
-      '<h3 tabindex="-1" id="questQuestionTitle">'+(kind==='words'?'Which Spanish word means…':kind==='sounds'?'What sound starts this Spanish word?':'How do you say…')+'</h3>'+
+      '<h3 tabindex="-1" id="questQuestionTitle">'+(kind==='words'?'How do you say this word in Spanish?':kind==='sounds'?'Which vowel sound do you hear first?':'How do you say this in Spanish?')+'</h3>'+
       '<div class="quest-prompt">'+(heard?'🔊 Listen, then choose':esc(q.en))+'</div>'+
       (kind==='sounds'?'<div class="quest-listen-tools"><button type="button" class="quest-listen secondary-btn" data-quest-listen="'+esc(q.en)+'">🔊 Hear the Spanish</button>'+
          (!p.answered?'<button type="button" class="quest-listen-mode" data-quest-listen-mode>'+(heard?'👀 Show the word':'🎧 Listen without reading')+'</button>':'')+'</div>':'')+
-      (kind==='sentences'?'<p class="quest-subprompt">Tip: put <strong>no</strong> before the action word.</p>':'')+
+      (kind==='sounds'?'<p class="quest-subprompt">Listen to the word. Choose the letter for the first vowel sound. The H is quiet in Spanish.</p>':kind==='sentences'?'<p class="quest-subprompt">Put <strong>no</strong> before the action word.</p>':'')+
       '</div>'+
       (buildAvailable&&!p.answered?'<div class="quest-mode-switch"><button type="button" data-quest-build-mode aria-pressed="'+tilesMode+'">'+(tilesMode?'Choose an answer instead':'🧩 Build it with word tiles')+'</button></div>':'')+
       (tilesMode&&buildAvailable&&!p.answered?tileBuilder:choices)+
       (p.answered?'<div class="quest-feedback quest-feedback-win" aria-hidden="'+(pace==='auto'?'true':'false')+'"><div class="quest-friend"><span class="quest-friend-face" aria-hidden="true">✦<span class="quest-friend-eyes">••</span></span><span class="quest-friend-speech">Nova says: Great discovery!</span></div><span class="quest-reward-icon" aria-hidden="true">🌟</span><strong>Star earned! Brilliant discovery.</strong><span class="quest-word-connection">'+esc(connection)+'</span><span>'+esc(q.why)+'</span></div>'+
         '<div class="quest-bottom-actions"><button type="button" class="secondary-btn" data-quest-next>'+(p.index===4?'See my stars now →':'Next now →')+'</button></div>':
-       '<div class="quest-hint-actions"><button type="button" class="secondary-btn" data-quest-clue>💡 Show the secret</button>'+
+       '<div class="quest-hint-actions"><button type="button" class="secondary-btn" data-quest-clue>💡 Give me a clue</button>'+
          '<button type="button" class="quest-pattern-link" data-open="'+esc(q.pattern)+'">Learn this pattern ↗</button></div>'+
-         (clue||wrong?'<div class="quest-feedback" role="status"><strong>'+(wrong?'Nice try! Try another answer.':'Here is the secret:')+'</strong>'+(clue?'<span>'+(wrong==='tiles'?'Remember: no goes before the verb. ':'')+esc(kind==='sounds'?worlds[1].secret:kind==='sentences'?worlds[2].secret:worlds[0].secret)+'</span>':'')+'</div>':'')+
+         (clue&&!wrong?'<div class="quest-feedback" role="status"><strong>Here is a clue:</strong><span>'+esc(retryHint(q,kind))+'</span></div>':'')+
          '<p class="quest-no-pressure">No hurry and no penalty for trying again.</p>')+'</div>';
   }
   function renderComplete(){
