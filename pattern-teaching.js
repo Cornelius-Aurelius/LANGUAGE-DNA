@@ -52,20 +52,22 @@
       why:'This stops English spelling habits from making Spanish words harder than they are.'
     },
     'stress-default':{
-      heading:'You can often predict which syllable is stressed',
-      meaning:'If a Spanish word ends in a vowel, n or s, the stress is usually on the next-to-last syllable. Most other endings usually stress the last syllable.',
+      heading:'Which part of a word sounds stronger?',
+      meaning:'Words have little sound parts. We say one part more strongly. This is called stress. If a Spanish word ends in a, e, i, o, u, n or s, the part before the last is usually stronger. For most other endings, the last part is stronger.',
       example:'hotel = hotel',
-      notice:'Hotel ends in l, so the final syllable is stressed: ho-TEL.',
+      notice:'Say ho–TEL. TEL sounds stronger. Hotel ends in l, so the last part is stronger.',
       audio:'hotel',
-      why:'This lets you make a good pronunciation guess before hearing the word.'
+      why:'Knowing the last letter gives you a clue about how to say a new Spanish word.',
+      check:{question:'Say “doctor”: doc–tor. Which part sounds stronger?',choices:['doc (first part)','tor (last part)'],answer:'tor (last part)',why:'Doctor ends in r, so the last part sounds stronger: doc–TOR.'}
     },
     'accent-overrides':{
-      heading:'An accent mark shows you where the stress goes',
-      meaning:'A written accent such as á, é, í, ó or ú tells you which vowel belongs to the stressed syllable.',
+      heading:'An accent mark shows which part sounds stronger',
+      meaning:'An accent mark is the little line above a Spanish vowel, like á, é, í, ó or ú. It tells you which part of the word to say more strongly.',
       example:'song = canción',
-      notice:'The accent on ó tells you to stress the end: can-CIÓN.',
+      notice:'Say can–CIÓN. CIÓN sounds stronger. The little mark above ó is your clue.',
       audio:'canción',
-      why:'The accent mark is a pronunciation clue, not decoration.'
+      why:'You can use the accent mark to help say words you have not heard yet.',
+      check:{question:'Look at “mamá”. Which part sounds stronger?',choices:['ma (first part)','má (last part)'],answer:'má (last part)',why:'The mark above á shows that the last part sounds stronger: ma–MÁ.'}
     },
     'g-j-sounds':{
       heading:'G changes sound, while j keeps the strong breathy sound',
@@ -133,13 +135,13 @@
     },
     'no-before-verb':{
       heading:'Make a Spanish sentence negative with one little word',
-      meaning:'To make a simple Spanish sentence negative, put no immediately before the conjugated verb.',
+      meaning:'To say you do not do something in Spanish, put no just before the action word.',
       example:'I understand → entiendo · I do not understand → no entiendo',
       notice:'Spanish does not need an extra helper word like English “do”.',
       audio:'no entiendo',
       why:'One small word lets you turn many positive sentences into negatives.',
       steps:['Start with entiendo (I understand).','Put no right before the action: no entiendo.','Now say: No entiendo (I do not understand).'],
-      check:{question:'How do you say “I do not understand”?',choices:['entiendo no','no entiendo','no entiendo yo no'],answer:'no entiendo',why:'no + entiendo = no entiendo. The word no comes before the verb.'}
+      check:{question:'How do you say “I do not understand”?',choices:['entiendo no','no entiendo','no entiendo yo no'],answer:'no entiendo',why:'Put no before entiendo. Together, no entiendo means “I do not understand”.'}
     },
     'question-words':{
       heading:'Five question words unlock everyday conversations',
