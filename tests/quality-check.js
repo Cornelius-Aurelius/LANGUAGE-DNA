@@ -50,6 +50,13 @@ ids.forEach(id=>{
 if(rows!==8264)fail('Expected 8,264 production rows, found '+rows);
 
 const app=read('app.js'),index=read('index.html'),sw=read('service-worker.js'),manifest=JSON.parse(read('manifest.webmanifest'));
+if(manifest.name!=='BluXabi — Learn Spanish Through Patterns'||manifest.short_name!=='BluXabi')fail('BluXabi must be the installable app name.');
+if(!index.includes('<strong>BluXabi</strong>')||!index.includes('BluXabi — Learn Spanish Through Patterns'))fail('BluXabi homepage name or title missing.');
+if(!index.includes('MEET XABI'))fail('Xabi mascot identity must remain unchanged.');
+if(!read('pattern.html').includes('Back to BluXabi')||!read('pattern-page.js').includes('BluXabi Pattern Dictionary'))fail('Dictionary pages must use BluXabi.');
+if(!read('profile-tools.js').includes("app:'LanguageDNA'")||!read('cloud-sync.js').includes("app: 'LanguageDNA'"))fail('Legacy learner progress format must be preserved during branding.');
+if(!read('profile-tools.js').includes('BluXabi-progress-'))fail('Backups must use new filename branding.');
+
 mascotArtwork.forEach(file=>{const b=fs.readFileSync(file);if(b.length<1000||b.toString('ascii',0,4)!=='RIFF'||!sw.includes("'./"+file+"'"))fail('Mascot art not locally available and cached: '+file)});
 if(!index.includes('mascot-showcase')||!index.includes('mascot-home-art')||!index.includes('mascot-brand-mark'))fail('The mascot must appear on Home and in the header.');
 if(!read('pattern-quest.js').includes('xabi-face.webp')||!read('learning-wins.js').includes('mascot-journey-avatar'))fail('Mascot missing from learning feedback or daily journey.');
@@ -62,11 +69,11 @@ if(!app.includes('rankLiveTranslations'))fail('Live translation ranking guard mi
 if(!app.includes('PRONUNCIATION_ADVICE'))fail('Actionable pronunciation advice missing.');
 if(!app.includes('four-choice'))fail('Four-choice practice rendering missing.');
 if(!app.includes('recentWrongStreak'))fail('Practice scaffolding guard missing.');
-if(!index.includes('profile-tools.js?v=3'))fail('Profile tools are not loaded.');
+if(!index.includes('profile-tools.js?v=4'))fail('Profile tools are not loaded.');
 if(!manifest.icons||!manifest.icons.length)fail('PWA manifest icon missing.');
-if(!sw.includes("'./profile-tools.js?v=3'")||!sw.includes("'./app-icon.svg'"))fail('PWA support assets missing from offline cache.');
-if(!index.includes('styles.css?v=31')||!index.includes('app.js?v=33'))fail('Index asset versions are not aligned.');
-if(!sw.includes("./styles.css?v=31")||!sw.includes("./app.js?v=33"))fail('Service worker asset versions are not aligned.');
+if(!sw.includes("'./profile-tools.js?v=4'")||!sw.includes("'./app-icon.svg'"))fail('PWA support assets missing from offline cache.');
+if(!index.includes('styles.css?v=31')||!index.includes('app.js?v=34'))fail('Index asset versions are not aligned.');
+if(!sw.includes("./styles.css?v=31")||!sw.includes("./app.js?v=34"))fail('Service worker asset versions are not aligned.');
 
 if(!index.includes('data-view="library"><span>⌕</span><b>Patterns</b>'))fail('Patterns must be a direct, visible mobile navigation item.');
 if(!index.includes('class="home-patterns"')||!index.includes('class="home-pattern-card words"')||!index.includes('class="home-pattern-card sounds"')||!index.includes('class="home-pattern-card sentences"'))fail('Pattern discovery cards are missing from Home.');
@@ -74,12 +81,12 @@ if(!index.includes('data-open="tion-cion"')||!index.includes('data-open="h-silen
 if(!index.includes('class="home-how-disclosure"'))fail('Progressive disclosure for learning explanation is missing.');
 if(!index.includes('class="nav-item" type="button" data-view="game"')||!index.includes('data-view="practice"><span>◎</span><strong>Practice</strong>'))fail('Play must be directly visible on mobile, Practice accessible from More.');
 if(!app.includes("['course','practice','dna'].includes(name)"))fail('Mobile More active state is misaligned with navigation.');
-if(!sw.includes("languagedna-v43")||!sw.includes("'./pattern.css?v=6'"))fail('Offline cache does not contain updated branded assets.');
+if(!sw.includes("bluxabi-v44")||!sw.includes("'./pattern.css?v=6'"))fail('Offline cache does not contain updated branded assets.');
 if(!index.includes('Free from start to finish.'))fail('Free learning guarantee must stay visible.');
 if(!index.includes('id="startBeginner"'))fail('First lesson entry was lost.');
 if(!index.includes('id="quickTranslator"'))fail('Translator entry was lost.');
 
-if(!index.includes('cloud-sync.js?v=2')||!sw.includes("'./cloud-sync.js?v=2'"))fail('Cloud sync safety patch not cache-versioned.');
+if(!index.includes('cloud-sync.js?v=3')||!sw.includes("'./cloud-sync.js?v=3'"))fail('Cloud sync safety patch not cache-versioned.');
 
 const css=read('styles.css'),dictionaryCss=read('pattern.css');
 if(!css.includes('LanguageDNA Playful Discovery')||!css.includes('--ld-lime:#c1f264')||!css.includes('.simple-home-explore'))fail('Playful original brand tokens or pattern CTA missing.');
@@ -98,9 +105,9 @@ for(const family of ['course-progress-hero','practice-stage','daily-hero','scena
 if(!read('pattern.css').includes('v18.1 full-site finish'))fail('Dictionary design continuity missing.');
 if(!read('pattern.html').includes('pattern.css?v=6'))fail('Pattern page stylesheet must be versioned.');
 
-if(!app.includes("service-worker.js?v=28"))fail('Updated PWA registration is missing.');
+if(!app.includes("service-worker.js?v=29"))fail('Updated PWA registration is missing.');
 const tutor=read('tutor-tools.js');
-if(!app.includes('tutor-tools.js?v=9')||!sw.includes("'./tutor-tools.js?v=9'"))fail('Daily 5 engine not correctly versioned.');
+if(!app.includes('tutor-tools.js?v=10')||!sw.includes("'./tutor-tools.js?v=10'"))fail('Daily 5 engine not correctly versioned.');
 if(!index.includes('learning-wins.js?v=4')||!sw.includes("'./learning-wins.js?v=4'"))fail('Learning milestones must load offline.');
 if(!index.includes('id="homeLearningJourney"')||!index.includes('id="journeyMilestones"'))fail('Optional Home continuation and milestone dashboard missing.');
 if(!tutor.includes('record.focusRank')||!tutor.includes('data-daily-help')||!tutor.includes('data-tutor-speak-slow')||!tutor.includes('daily-celebration'))fail('New first-five improvements are missing.');
@@ -153,4 +160,4 @@ if(!index.includes('pattern-quest.js?v=10')||!sw.includes("'./pattern-quest.js?v
 require('./plain-language-check.js');
 require('./cloud-sync-check.js');
 
-console.log('LanguageDNA quality checks passed:',{everyday:core.length,dictionaries:ids.length,productionRows:rows});
+console.log('BluXabi quality checks passed:',{everyday:core.length,dictionaries:ids.length,productionRows:rows});
