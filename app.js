@@ -180,7 +180,7 @@
     session:null,
     courseLevel:localStorage.getItem('ldna-course-level')||'A1',
     sentenceFrame:SENTENCE_DNA[0].id,sentenceExample:0,questionStartedAt:0,currentQuestion:null,
-    theme:localStorage.getItem('ldna-theme')||'light',scaffoldReturn:null
+    theme:localStorage.getItem('ldna-theme')||'light',scaffoldReturn:null,practiceHelped:false
   };
   const legacyMastered=new Set(safeParse(localStorage.getItem('ldna-mastered')||'[]',[]));
   legacyMastered.forEach(function(id){if(!state.skills[id])state.skills[id]={see:true,hear:true,write:true,speak:true,use:true}});
@@ -522,7 +522,7 @@
   }
   function populatePracticeSelect(){els.practiceSelect.innerHTML=patterns.slice().sort(function(a,b){return a.rank-b.rank}).map(function(p){return'<option value="'+p.id+'">#'+p.rank+' · '+escapeHtml(p.title)+'</option>'}).join('');els.practiceSelect.value=state.currentId}
   function startPractice(id,mode){
-    state.session=null;state.currentId=id;state.mode=mode||state.mode||'choice';els.practiceSelect.value=id;
+    state.practiceHelped=false;state.session=null;state.currentId=id;state.mode=mode||state.mode||'choice';els.practiceSelect.value=id;
     document.querySelectorAll('.mode-card').forEach(function(b){b.classList.toggle('active',b.dataset.mode===state.mode)});
     if(els.dialog.open)els.dialog.close();renderSessionPanel();goView('practice')
   }
@@ -574,7 +574,8 @@
   }
   function startLessonSession(title,patternIds,unitId){
     const target=adaptiveSessionLength(),items=buildLessonItems(patternIds,target);
-    state.session={title:title||'Adaptive lesson',unitId:unitId||null,items:items,index:0,correct:0,skipped:0,mistakes:[],improved:[],startedAt:Date.now(),completed:false,plannedLength:target};
+    state.practiceHelped=false;
+    state.session={title:title||'Adaptive lesson',unitId:unitId||null,items:items,index:0,correct:0,assisted:0,skipped:0,mistakes:[],improved:[],startedAt:Date.now(),completed:false,plannedLength:target};
     loadSessionItem();goView('practice')
   }
   function loadSessionItem(){
@@ -588,9 +589,9 @@
     const panel=document.getElementById('lessonSessionPanel');if(!panel)return;
     const s=state.session;if(!s){panel.hidden=true;panel.innerHTML='';return}
     panel.hidden=false;
-    if(s.completed){panel.innerHTML='<div><span class="eyebrow">LESSON COMPLETE</span><strong>'+escapeHtml(s.title)+'</strong><small>'+s.correct+'/'+s.items.length+' correct · '+s.skipped+' skipped</small></div><div class="session-progress"><span style="width:100%"></span></div>';return}
+    if(s.completed){panel.innerHTML='<div><span class="eyebrow">LESSON COMPLETE</span><strong>'+escapeHtml(s.title)+'</strong><small>'+s.correct+'/'+s.items.length+' without help · '+(s.assisted||0)+' learned with help · '+s.skipped+' skipped</small></div><div class="session-progress"><span style="width:100%"></span></div>';return}
     const q=Math.min(s.index+1,s.items.length),pct=Math.round(s.index/s.items.length*100);
-    panel.innerHTML='<div class="lesson-session-head"><div><span class="eyebrow">ADAPTIVE LESSON</span><strong>'+escapeHtml(s.title)+'</strong><small>Question '+q+' of '+s.items.length+' · '+s.correct+' correct · lesson length chosen for you</small></div><span class="review-pill">'+escapeHtml(state.mode.toUpperCase())+'</span></div><div class="session-progress"><span style="width:'+pct+'%"></span></div>'
+    panel.innerHTML='<div class="lesson-session-head"><div><span class="eyebrow">ADAPTIVE LESSON</span><strong>'+escapeHtml(s.title)+'</strong><small>Question '+q+' of '+s.items.length+' · '+s.correct+' without help · lesson length chosen for you</small></div><span class="review-pill">'+escapeHtml(state.mode.toUpperCase())+'</span></div><div class="session-progress"><span style="width:'+pct+'%"></span></div>'
   }
   function finishSession(){
     if(!state.session)return;state.session.completed=true;state.session.finishedAt=Date.now();logActivity('session',{unitId:state.session.unitId,title:state.session.title,correct:state.session.correct,total:state.session.items.length,skipped:state.session.skipped});
@@ -599,7 +600,7 @@
   function renderSessionSummary(){
     const s=state.session;if(!s||!s.completed)return;
     const accuracy=Math.round(s.correct/s.items.length*100),uniqueImproved=Array.from(new Set(s.improved)),mistakes=Array.from(new Set(s.mistakes));
-    els.practiceStage.innerHTML='<div class="session-summary"><span class="eyebrow">SESSION SUMMARY</span><h2>'+accuracy+'% correct</h2><p>You completed '+s.items.length+' questions. Strong answers will come back later; anything difficult will return sooner.</p><div class="session-summary-grid"><article><strong>'+s.correct+'</strong><small>correct</small></article><article><strong>'+uniqueImproved.length+'</strong><small>patterns strengthened</small></article><article><strong>'+mistakes.length+'</strong><small>patterns to revisit</small></article></div>'+(mistakes.length?'<div class="session-mistakes"><small>REVISIT</small>'+mistakes.slice(0,5).map(function(id){return'<span>'+escapeHtml(getPattern(id).title)+'</span>'}).join('')+'</div>':'<div class="session-win">✓ No persistent mistakes recorded in this session.</div>')+'<div class="session-summary-actions">'+(mistakes.length?'<button type="button" class="primary-btn" data-session-retry>Repair mistakes</button>':'')+'<button type="button" class="secondary-btn" data-course-return>Back to course</button><button type="button" class="secondary-btn" data-smart-review>Smart practice</button></div></div>'
+    els.practiceStage.innerHTML='<div class="session-summary"><span class="eyebrow">SESSION SUMMARY</span><h2>'+accuracy+'% without help</h2><p>You worked through '+s.items.length+' questions. '+(s.assisted||0)+' needed help — those will return soon so you can try them on your own.</p><div class="session-summary-grid"><article><strong>'+s.correct+'</strong><small>correct</small></article><article><strong>'+uniqueImproved.length+'</strong><small>patterns strengthened</small></article><article><strong>'+mistakes.length+'</strong><small>patterns to revisit</small></article></div>'+(mistakes.length?'<div class="session-mistakes"><small>REVISIT</small>'+mistakes.slice(0,5).map(function(id){return'<span>'+escapeHtml(getPattern(id).title)+'</span>'}).join('')+'</div>':'<div class="session-win">✓ No persistent mistakes recorded in this session.</div>')+'<div class="session-summary-actions">'+(mistakes.length?'<button type="button" class="primary-btn" data-session-retry>Repair mistakes</button>':'')+'<button type="button" class="secondary-btn" data-course-return>Back to course</button><button type="button" class="secondary-btn" data-smart-review>Smart practice</button></div></div>'
   }
   function nextPracticeQuestion(currentId){
     const due=duePatterns().filter(function(p){return p.id!==currentId});if(due.length)return due[0];
@@ -607,28 +608,32 @@
     return ordered.find(function(p){return p.id!==currentId})||getPattern(currentId)
   }
   function recordIncorrect(p){
+    state.practiceHelped=true;
     const ms=responseTime();scheduleReview(p.id,2);logActivity('answer',{pattern:p.id,mode:state.mode,correct:false,responseMs:ms});state.questionStartedAt=Date.now();
     if(state.session&&!state.session.completed&&!state.session.mistakes.includes(p.id))state.session.mistakes.push(p.id);
     return recentWrongStreak(p.id)
   }
   function successForCurrent(quality){
     const completedId=state.currentId,completedMode=state.mode,skill=practiceSkillForMode(completedMode);
-    scheduleReview(completedId,quality==null?4:quality);
-    if(!state.skills[completedId])state.skills[completedId]={};state.skills[completedId][skill]=true;persistSkills();
-    logActivity('answer',{pattern:completedId,mode:completedMode,correct:true,quality:quality==null?4:quality,responseMs:responseTime()});
+    const assisted=Boolean(state.practiceHelped),savedQuality=assisted?2:(quality==null?4:quality);
+    scheduleReview(completedId,savedQuality);
+    if(!assisted){if(!state.skills[completedId])state.skills[completedId]={};state.skills[completedId][skill]=true;persistSkills();}
+    logActivity('answer',{pattern:completedId,mode:completedMode,correct:true,assisted:assisted,quality:savedQuality,responseMs:responseTime()});
     if(state.scaffoldReturn&&state.scaffoldReturn.patternId===completedId&&completedMode==='choice'){
       const back=state.scaffoldReturn;state.scaffoldReturn=null;state.currentId=back.patternId;state.mode=back.mode;els.practiceSelect.value=back.patternId;
       document.querySelectorAll('.mode-card').forEach(function(b){b.classList.toggle('active',b.dataset.mode===back.mode)});
       toast('✓ Got it. Now try the original question once more.');renderAllProgress();renderPractice();return
     }
     if(state.session&&!state.session.completed){
-      state.session.correct+=1;state.session.improved.push(completedId);state.session.index+=1;
+      if(assisted)state.session.assisted=(state.session.assisted||0)+1;
+      else{state.session.correct+=1;state.session.improved.push(completedId);}
+      state.practiceHelped=false;state.session.index+=1;
       if(state.session.index>=state.session.items.length){toast('✓ Lesson complete.');finishSession();return}
       const item=state.session.items[state.session.index];state.currentId=item.patternId;state.mode=item.mode;els.practiceSelect.value=state.currentId;
       document.querySelectorAll('.mode-card').forEach(function(b){b.classList.toggle('active',b.dataset.mode===state.mode)});
       toast('✓ Correct — next question.');renderAllProgress();renderSessionPanel();return
     }
-    const next=nextPracticeQuestion(completedId);state.currentId=next.id;els.practiceSelect.value=next.id;toast('✓ Correct — next question.');renderAllProgress()
+    state.practiceHelped=false;const next=nextPracticeQuestion(completedId);state.currentId=next.id;els.practiceSelect.value=next.id;toast('✓ Correct — next question.');renderAllProgress()
   }
 
   function recentWrongStreak(id){
@@ -690,6 +695,7 @@
   function openPracticeHelp(){
     const panel=document.getElementById('practiceHelpPanel'),help=document.getElementById('practiceHelpButton');
     if(panel)panel.hidden=false;if(help){help.setAttribute('aria-expanded','true');help.textContent='× Hide help'}
+    state.practiceHelped=true;
   }
   function handlePracticeMiss(p){
     const streak=recordIncorrect(p);
@@ -746,7 +752,7 @@
     els.practiceStage.innerHTML=body;state.questionStartedAt=Date.now();bindPractice(p,q)
   }
   function bindPractice(p,q){
-    const help=document.getElementById('practiceHelpButton');if(help)help.addEventListener('click',function(){const panel=document.getElementById('practiceHelpPanel'),open=panel&&panel.hidden;if(panel)panel.hidden=!open;help.setAttribute('aria-expanded',open?'true':'false');help.textContent=open?'× Hide help':'? Need help?'});
+    const help=document.getElementById('practiceHelpButton');if(help)help.addEventListener('click',function(){const panel=document.getElementById('practiceHelpPanel'),open=panel&&panel.hidden;if(open)state.practiceHelped=true;if(panel)panel.hidden=!open;help.setAttribute('aria-expanded',open?'true':'false');help.textContent=open?'× Hide help':'? Need help?'});
     const form=document.getElementById('writingForm');if(form)form.addEventListener('submit',function(e){e.preventDefault();const ans=normalize(document.getElementById('writingAnswer').value),ok=q.answers.some(function(a){return normalize(a)===ans});feedback(ok,ok?'✓ Correct. Moving to the next question…':'Almost. Try again — I’ll give you more help if you need it.');if(ok)successForCurrent(5);else handlePracticeMiss(p)});
     const mic=document.getElementById('micButton');if(mic)mic.addEventListener('click',function(){startRecognition(p)});
     const selfSpeak=document.getElementById('selfCheckSpeak');if(selfSpeak)selfSpeak.addEventListener('click',function(){feedback(true,'Self-check saved. Moving on.');successForCurrent(3)});
@@ -754,6 +760,7 @@
     const skip=document.getElementById('skipPractice');if(skip)skip.addEventListener('click',skipPractice)
   }
   function skipPractice(){
+    state.practiceHelped=false;
     if(state.session&&!state.session.completed){state.session.skipped+=1;state.session.index+=1;if(state.session.index>=state.session.items.length){finishSession();return}const item=state.session.items[state.session.index];state.currentId=item.patternId;state.mode=item.mode;els.practiceSelect.value=state.currentId;toast('Skipped — no penalty.');renderSessionPanel();renderPractice();return}
     const p=nextBestPattern();if(p.id===state.currentId){const ordered=patterns.slice().sort(function(a,b){return a.rank-b.rank}),i=ordered.findIndex(function(x){return x.id===state.currentId});state.currentId=ordered[(i+1)%ordered.length].id}else state.currentId=p.id;els.practiceSelect.value=state.currentId;toast('Skipped — no penalty. Here is another useful link.');renderPractice()
   }
