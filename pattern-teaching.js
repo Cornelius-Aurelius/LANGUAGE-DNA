@@ -36,12 +36,12 @@
       caution:'This works for regular -ir verbs in the present tense; not every verb is regular.'
     },
     'vowels':{
-      heading:'Spanish vowels keep a clear sound',
-      meaning:'In Spanish, each vowel usually keeps one clear, steady sound. The letter a is usually close to the “a” in father — an “ah” sound.',
-      example:'House = casa',
-      notice:'Casa sounds roughly like KAH-sah. Both a letters use the same clear “ah” sound.',
+      heading:'Meet the five Spanish vowel letters',
+      meaning:'A vowel is a letter we use to make a voice sound. The five vowel letters are a, e, i, o and u. In Spanish, each usually has a simple sound: a = ah, e = eh, i = ee, o = oh and u = oo.',
+      example:'casa means house',
+      notice:'Say CA–sa. Hear the “ah” sound twice? Both a letters in casa sound alike. Tap Hear to listen.',
       audio:'casa',
-      why:'Once you know the five vowel sounds, reading new Spanish words becomes much easier.'
+      why:'You can use these same five sounds when you meet a new Spanish word.'
     },
     'h-silent':{
       heading:'The Spanish H is silent',
@@ -61,12 +61,12 @@
       check:{question:'Say “doctor”: doc–tor. Which part sounds stronger?',choices:['doc (first part)','tor (last part)'],answer:'tor (last part)',why:'Doctor ends in r, so the last part sounds stronger: doc–TOR.'}
     },
     'accent-overrides':{
-      heading:'An accent mark shows which part sounds stronger',
-      meaning:'An accent mark is the little line above a Spanish vowel, like á, é, í, ó or ú. It tells you which part of the word to say more strongly.',
-      example:'song = canción',
-      notice:'Say can–CIÓN. CIÓN sounds stronger. The little mark above ó is your clue.',
+      heading:'What does the little line above a letter mean?',
+      meaning:'Look at ó in canción. See the little line above the o? That is called an accent mark. It shows which part of the word to say a little stronger. The stronger part is called “stress”. You do not need to memorise that name yet.',
+      example:'canción means song',
+      notice:'Break canción into two parts: can and ción. Say can–CIÓN. Make CIÓN a little stronger. The line above ó points to that part.',
       audio:'canción',
-      why:'You can use the accent mark to help say words you have not heard yet.',
+      why:'The little line is a helpful sign for how to say the word. Try mamá: ma–MÁ. The last part is stronger.',
       check:{question:'Look at “mamá”. Which part sounds stronger?',choices:['ma (first part)','má (last part)'],answer:'má (last part)',why:'The mark above á shows that the last part sounds stronger: ma–MÁ.'}
     },
     'g-j-sounds':{
@@ -176,12 +176,14 @@
       why:'It gives you a reusable frame for places, travel and directions.'
     },
     'ir-a':{
-      heading:'Ir a + verb means “going to do something”',
-      meaning:'Use a form of ir, then a, then an infinitive to talk about a near-future action.',
+      heading:'Say what you are going to do',
+      meaning:'Ir is the Spanish word for “to go”. To say “I am going to…”, Spanish uses voy a. Voy means “I go” and a means “to”. Add an action word such as comer (eat): voy a comer = I am going to eat.',
       example:'I am going to eat → Voy a comer',
-      notice:'Voy changes with the person; comer stays in the infinitive.',
+      notice:'Say it in three pieces: voy (I go) + a (to) + comer (eat). Together, voy a comer means “I am going to eat”. For “we”, say vamos a comer.',
       audio:'Voy a comer',
-      why:'This gives you an easy future sentence without learning a new tense first.'
+      why:'You can use voy a with more action words: voy a estudiar = I am going to study.',
+      steps:['Ir means to go. When you say “I go”, use voy.','Add a after voy: voy a = I am going to…','Add what you will do: comer (eat) → voy a comer (I am going to eat).'],
+      check:{question:'How do you say “I am going to study”?',choices:['voy a estudiar','voy estudiar','estudiar voy'],answer:'voy a estudiar',why:'Start with voy a (I am going to), then add estudiar (study): voy a estudiar.'}
     },
     'tener-que':{
       heading:'Tener que + verb means “have to do something”',
