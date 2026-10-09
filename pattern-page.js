@@ -60,7 +60,7 @@ if(teaching&&els.teaching){
     (teaching.why?'<p class="why"><b>Why this matters:</b> '+escapeHtml(teaching.why)+'</p>':'')+
     (teaching.caution?'<p class="caution">'+escapeHtml(teaching.caution)+'</p>':'')
 }
-document.title=pattern.title+' — LanguageDNA Pattern Dictionary';
+document.title=pattern.title+' — BluXabi Pattern Dictionary';
 els.search.value=query;
 els.search.addEventListener('input',()=>{query=els.search.value.trim();letter='ALL';page=1;syncUrl(true);render()});
 els.alphabet.addEventListener('click',e=>{const b=e.target.closest('[data-letter]');if(!b||b.disabled)return;letter=b.dataset.letter;query='';els.search.value='';page=1;syncUrl(false);render();document.querySelector('.dictionary-table-wrap').scrollIntoView({behavior:'smooth',block:'start'})});
