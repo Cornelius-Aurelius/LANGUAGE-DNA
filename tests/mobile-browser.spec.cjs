@@ -3,6 +3,33 @@ const {test, expect} = require('@playwright/test');
 const base = 'http://127.0.0.1:4173/index.html';
 test.use({screenshot: 'only-on-failure', trace: 'retain-on-failure'});
 
+test('Mascot art is visible on Home and the adventure uses the same face',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base);
+  const hero=page.locator('.mascot-home-art');
+  await expect(hero).toBeVisible();
+  await expect(page.locator('.mascot-home-greeting')).toContainText('YOUR LEARNING BUDDY');
+  await expect(page.locator('.mascot-brand-mark img')).toBeVisible();
+  await expect.poll(async()=>hero.evaluate(img=>img.complete&&img.naturalWidth>0)).toBe(true);
+  await expect.poll(async()=>page.locator('.mascot-brand-mark img').evaluate(img=>img.complete&&img.naturalWidth>0)).toBe(true);
+  await page.locator('.home-play-button').click();
+  await page.locator('[data-quest-world="words"]').click();
+  await page.locator('[data-quest-answer="información"]').click();
+  const face=page.locator('.quest-answer-flash.success .quest-flash-mascot');
+  await expect(face).toBeVisible();
+  await expect.poll(async()=>face.evaluate(img=>img.complete&&img.naturalWidth>0)).toBe(true);
+  await expect(page.locator('.quest-answer-flash.success')).toContainText('Correct!');
+});
+
+test('Returning learner sees mascot next to the daily learning path',async ({page})=>{
+  await page.goto(base);
+  await page.evaluate(()=>{const d=new Date(),today=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');localStorage.setItem('ldna-daily5-v1',JSON.stringify({[today]:{done:['review'],startedAt:Date.now()}}));});
+  await page.reload();
+  await expect(page.locator('#homeLearningJourney')).toBeVisible();
+  await expect(page.locator('.mascot-journey-avatar')).toBeVisible();
+  await expect.poll(async()=>page.locator('.mascot-journey-avatar').evaluate(img=>img.complete&&img.naturalWidth>0)).toBe(true);
+});
+
 for (const size of [
   {width:320,height:720},
   {width:375,height:812},

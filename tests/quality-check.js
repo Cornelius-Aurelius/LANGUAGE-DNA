@@ -1,4 +1,5 @@
 const fs=require('fs');
+const mascotArtwork=['assets/mascot/learning-buddy.webp','assets/mascot/learning-buddy-face.webp'];
 const vm=require('vm');
 
 function fail(message){throw new Error(message)}
@@ -49,6 +50,9 @@ ids.forEach(id=>{
 if(rows!==8264)fail('Expected 8,264 production rows, found '+rows);
 
 const app=read('app.js'),index=read('index.html'),sw=read('service-worker.js'),manifest=JSON.parse(read('manifest.webmanifest'));
+mascotArtwork.forEach(file=>{const b=fs.readFileSync(file);if(b.length<1000||b.toString('ascii',0,4)!=='RIFF'||!sw.includes("'./"+file+"'"))fail('Mascot art not locally available and cached: '+file)});
+if(!index.includes('mascot-showcase')||!index.includes('mascot-home-art')||!index.includes('mascot-brand-mark'))fail('The mascot must appear on Home and in the header.');
+if(!read('pattern-quest.js').includes('learning-buddy-face.webp')||!read('learning-wins.js').includes('mascot-journey-avatar'))fail('Mascot missing from learning feedback or daily journey.');
 if(!app.includes("man:'hombre'"))fail('Trusted man → hombre regression guard missing.');
 if(!app.includes('rankLiveTranslations'))fail('Live translation ranking guard missing.');
 if(!app.includes('PRONUNCIATION_ADVICE'))fail('Actionable pronunciation advice missing.');
@@ -57,8 +61,8 @@ if(!app.includes('recentWrongStreak'))fail('Practice scaffolding guard missing.'
 if(!index.includes('profile-tools.js?v=3'))fail('Profile tools are not loaded.');
 if(!manifest.icons||!manifest.icons.length)fail('PWA manifest icon missing.');
 if(!sw.includes("'./profile-tools.js?v=3'")||!sw.includes("'./app-icon.svg'"))fail('PWA support assets missing from offline cache.');
-if(!index.includes('styles.css?v=29')||!index.includes('app.js?v=32'))fail('Index asset versions are not aligned.');
-if(!sw.includes("./styles.css?v=29")||!sw.includes("./app.js?v=32"))fail('Service worker asset versions are not aligned.');
+if(!index.includes('styles.css?v=30')||!index.includes('app.js?v=32'))fail('Index asset versions are not aligned.');
+if(!sw.includes("./styles.css?v=30")||!sw.includes("./app.js?v=32"))fail('Service worker asset versions are not aligned.');
 
 if(!index.includes('data-view="library"><span>⌕</span><b>Patterns</b>'))fail('Patterns must be a direct, visible mobile navigation item.');
 if(!index.includes('class="home-patterns"')||!index.includes('class="home-pattern-card words"')||!index.includes('class="home-pattern-card sounds"')||!index.includes('class="home-pattern-card sentences"'))fail('Pattern discovery cards are missing from Home.');
@@ -66,7 +70,7 @@ if(!index.includes('data-open="tion-cion"')||!index.includes('data-open="h-silen
 if(!index.includes('class="home-how-disclosure"'))fail('Progressive disclosure for learning explanation is missing.');
 if(!index.includes('class="nav-item" type="button" data-view="game"')||!index.includes('data-view="practice"><span>◎</span><strong>Practice</strong>'))fail('Play must be directly visible on mobile, Practice accessible from More.');
 if(!app.includes("['course','practice','dna'].includes(name)"))fail('Mobile More active state is misaligned with navigation.');
-if(!sw.includes("languagedna-v41")||!sw.includes("'./pattern.css?v=6'"))fail('Offline cache does not contain updated branded assets.');
+if(!sw.includes("languagedna-v42")||!sw.includes("'./pattern.css?v=6'"))fail('Offline cache does not contain updated branded assets.');
 if(!index.includes('Free from start to finish.'))fail('Free learning guarantee must stay visible.');
 if(!index.includes('id="startBeginner"'))fail('First lesson entry was lost.');
 if(!index.includes('id="quickTranslator"'))fail('Translator entry was lost.');
@@ -77,7 +81,7 @@ const css=read('styles.css'),dictionaryCss=read('pattern.css');
 if(!css.includes('LanguageDNA Playful Discovery')||!css.includes('--ld-lime:#c1f264')||!css.includes('.simple-home-explore'))fail('Playful original brand tokens or pattern CTA missing.');
 if(!css.includes('.home-pattern-card.words')||!css.includes('.home-pattern-card.sounds')||!css.includes('.home-pattern-card.sentences'))fail('Pattern families lost individual colour coding.');
 if(!dictionaryCss.includes('Playful Discovery design continuity'))fail('Dictionary branding was not updated.');
-if(!index.includes('styles.css?v=29')||!sw.includes("'./styles.css?v=29'")||!sw.includes("'./pattern.css?v=6'"))fail('Branding assets must be PWA cache-versioned.');
+if(!index.includes('styles.css?v=30')||!sw.includes("'./styles.css?v=30'")||!sw.includes("'./pattern.css?v=6'"))fail('Branding assets must be PWA cache-versioned.');
 if(!manifest.theme_color||manifest.theme_color!=='#0b826d')fail('New PWA theme colour missing.');
 
 if(!app.includes('data-pattern-type=')||!read('styles.css').includes('.learner-pattern-card[data-pattern-type="visual"]'))fail('Semantic pattern family colour coding missing.');
@@ -90,17 +94,17 @@ for(const family of ['course-progress-hero','practice-stage','daily-hero','scena
 if(!read('pattern.css').includes('v18.1 full-site finish'))fail('Dictionary design continuity missing.');
 if(!read('pattern.html').includes('pattern.css?v=6'))fail('Pattern page stylesheet must be versioned.');
 
-if(!app.includes("service-worker.js?v=26"))fail('Updated PWA registration is missing.');
+if(!app.includes("service-worker.js?v=27"))fail('Updated PWA registration is missing.');
 const tutor=read('tutor-tools.js');
 if(!app.includes('tutor-tools.js?v=9')||!sw.includes("'./tutor-tools.js?v=9'"))fail('Daily 5 engine not correctly versioned.');
-if(!index.includes('learning-wins.js?v=2')||!sw.includes("'./learning-wins.js?v=2'"))fail('Learning milestones must load offline.');
+if(!index.includes('learning-wins.js?v=3')||!sw.includes("'./learning-wins.js?v=3'"))fail('Learning milestones must load offline.');
 if(!index.includes('id="homeLearningJourney"')||!index.includes('id="journeyMilestones"'))fail('Optional Home continuation and milestone dashboard missing.');
 if(!tutor.includes('record.focusRank')||!tutor.includes('data-daily-help')||!tutor.includes('data-tutor-speak-slow')||!tutor.includes('daily-celebration'))fail('New first-five improvements are missing.');
 if(!read('styles.css').includes('v19 — Five Small Wins'))fail('v19 learner experience styles not loaded.');
 
 const quest=read('pattern-quest.js');
 if(!index.includes('class="simple-home-actions home-two-paths"')||!index.includes('class="primary-btn home-play-button"')||!index.includes('id="patternQuest"'))fail('Home must offer Discover / Play and quest entry.');
-if(!index.includes('id="questProgressSummary"')||!index.includes('pattern-quest.js?v=8')||!sw.includes("'./pattern-quest.js?v=8'"))fail('Quest stars and offline game assets missing.');
+if(!index.includes('id="questProgressSummary"')||!index.includes('pattern-quest.js?v=9')||!sw.includes("'./pattern-quest.js?v=9'"))fail('Quest stars and offline game assets missing.');
 for(const family of ['Word Garden','Sound Safari','Sentence Space','tion-cion','ity-idad','h-silent','no-before-verb'])if(!quest.includes(family))fail('Quest learning family missing: '+family);
 if(!quest.includes('No timers. No lost lives.')||!quest.includes('No hurry and no penalty'))fail('No-pressure game guard missing.');
 if(!read('styles.css').includes('v20 — Two simple paths'))fail('New kid-friendly interface style missing.');
@@ -112,7 +116,7 @@ for(const id of ['regular-ar','regular-er','regular-ir']){
 if(!app.includes('pattern-mini-check')||!app.includes('pattern-journey-details')||!app.includes('data-mini-answer'))fail('Tiny check and optional progress disclosure missing.');
 if(!teach.includes('check:{question:')||!teach.includes('steps:['))fail('Pattern teaching is missing small-step examples and retrieval checks.');
 if(!game.includes('quest-earned-badge')||!game.includes('quest-word-connection')||!game.includes('badges={'))fail('Learning-focused quest celebrations or badges missing.');
-if(!index.includes('pattern-teaching.js?v=4')||!index.includes('pattern-quest.js?v=8')||!sw.includes("'./pattern-teaching.js?v=4'")||!sw.includes("'./pattern-quest.js?v=8'"))fail('Updated learning/game scripts must be offline-cached.');
+if(!index.includes('pattern-teaching.js?v=4')||!index.includes('pattern-quest.js?v=9')||!sw.includes("'./pattern-teaching.js?v=4'")||!sw.includes("'./pattern-quest.js?v=9'"))fail('Updated learning/game scripts must be offline-cached.');
 if(!read('styles.css').includes('v21 — rewarding pattern discoveries'))fail('v21 design styles not present.');
 
 
@@ -120,8 +124,8 @@ const mapGame=read('pattern-quest.js');
 if(!mapGame.includes('quest-map-stop')||!mapGame.includes('quest-mystery-button')||!mapGame.includes("mysteryWins"))fail('Adventure map or unlockable mystery missing.');
 if(!mapGame.includes('data-quest-tile')||!mapGame.includes('data-quest-check-tiles'))fail('Real sentence tile builder missing.');
 if(!mapGame.includes('data-quest-listen-mode')||!mapGame.includes('listenFirst'))fail('Listen-first mission missing.');
-if(!mapGame.includes('quest-friend-face')||!mapGame.includes('Nova says'))fail('Original celebrating friend missing.');
-if(!index.includes('pattern-quest.js?v=8')||!sw.includes("'./pattern-quest.js?v=8'"))fail('Adventure script not versioned offline.');
+if(!mapGame.includes('quest-friend-face')||!mapGame.includes('Your buddy says'))fail('Original celebrating friend missing.');
+if(!index.includes('pattern-quest.js?v=9')||!sw.includes("'./pattern-quest.js?v=9'"))fail('Adventure script not versioned offline.');
 if(!read('styles.css').includes('v22 — Pattern Quest Adventure Map'))fail('Adventure map styling missing.');
 
 
@@ -130,7 +134,7 @@ for(const guard of ['queueAutoAdvance','cancelAutoAdvance','quest-focused','ques
   if(!streamlinedQuest.includes(guard))fail('v23 fast play control missing: '+guard);
 }
 if(!compactCSS.includes('v23 — One-screen Pattern Quest')||!compactCSS.includes('.quest-focused .quest-choices')||!compactCSS.includes('.quest-answer-flash.retry'))fail('Compact answer layout / feedback styling missing.');
-if(!index.includes('pattern-quest.js?v=8')||!sw.includes("'./pattern-quest.js?v=8'")||!sw.includes("'./styles.css?v=29'"))fail('Mobile auto-play cache assets must be updated for offline use.');
+if(!index.includes('pattern-quest.js?v=9')||!sw.includes("'./pattern-quest.js?v=9'")||!sw.includes("'./styles.css?v=30'"))fail('Mobile auto-play cache assets must be updated for offline use.');
 
 
 const beginnerQuest=read('pattern-quest.js'),beginnerCSS=read('styles.css');
@@ -140,7 +144,7 @@ if(app.includes("markJourney(p.id,'understand');markJourney(p.id,'examples')"))f
 if(!app.includes("markJourney(panel.dataset.miniPatternId,'understand')")||!app.includes("data-pattern-examples"))fail('Pattern progress requires explicit evidence and example exploration.');
 if(!beginnerQuest.includes('orderedChoices(q,p)')||!beginnerQuest.includes('data-quest-pacing')||!beginnerQuest.includes('focusQuestion()'))fail('Beginner game shuffle, pace and focus guards missing.');
 if(!beginnerCSS.includes('v24 — Beginner-first clarity')||!beginnerCSS.includes('quest-pace-button'))fail('Beginner visual rules missing.');
-if(!index.includes('pattern-quest.js?v=8')||!sw.includes("'./pattern-quest.js?v=8'")||!sw.includes("'./styles.css?v=29'"))fail('v24 mobile and offline assets must be versioned.');
+if(!index.includes('pattern-quest.js?v=9')||!sw.includes("'./pattern-quest.js?v=9'")||!sw.includes("'./styles.css?v=30'"))fail('v24 mobile and offline assets must be versioned.');
 
 require('./plain-language-check.js');
 require('./cloud-sync-check.js');

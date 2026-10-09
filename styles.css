@@ -2363,3 +2363,53 @@ body.dark .pattern-more-examples{border-color:var(--ld-card-edge)}
 .tick-item .tick-explanation{margin-left:auto;font-size:12px;line-height:1.35;font-weight:800;white-space:normal}
 .choice-btn.answer-revealed{border:2px solid #478762;outline:0}
 @media(max-width:520px){.tick-item{flex-wrap:wrap}.tick-item .tick-explanation{width:100%;margin-left:30px}.feedback-teaching{font-size:14px}}
+
+
+/* LanguageDNA mascot: lightweight original hybrid character, used consistently from Home to adventures. */
+.mascot-brand-mark{padding:0;overflow:hidden;border:2px solid #cde5dc;background:#fff}
+.mascot-brand-mark img{display:block;width:100%;height:100%;object-fit:cover;border-radius:12px}
+.mascot-showcase{min-width:0;width:100%;display:flex;flex-direction:column;gap:11px;align-items:stretch}
+.mascot-home-intro{display:grid;grid-template-columns:minmax(110px,44%) minmax(0,1fr);align-items:center;gap:6px;min-height:238px;overflow:hidden;background:linear-gradient(112deg,#fef8e8,#e8f8ff);border:2px solid rgba(255,255,255,.75);border-radius:23px;box-shadow:0 5px 0 rgba(17,94,88,.09)}
+.mascot-home-art{display:block;align-self:stretch;width:100%;height:262px;object-fit:cover;object-position:center top;border-radius:21px 0 0 21px}
+.mascot-home-greeting{display:grid;align-content:center;gap:8px;padding:15px 12px 15px 2px;text-align:left}
+.mascot-home-greeting span{font-size:10px;font-weight:950;letter-spacing:.09em;color:#0b776b}
+.mascot-home-greeting strong{font-size:clamp(20px,2.4vw,29px);line-height:1.08;letter-spacing:-.04em;color:#1c4b51}
+.mascot-home-greeting small{font-size:13px;line-height:1.5;font-weight:650;color:#426470}
+.mascot-showcase .simple-dna-example{position:relative;width:100%;max-width:100%;margin:2px 0 0;transform:none;box-shadow:0 4px 0 rgba(78,137,134,.13)}
+.mascot-showcase .simple-dna-example:before{top:-13px;right:12px}
+.mascot-showcase .example-words{max-width:100%}
+.mascot-showcase .example-words>div{min-width:0}
+.mascot-showcase .example-words span,.mascot-showcase .example-words strong{overflow-wrap:anywhere}
+.quest-friend-face{padding:0!important;overflow:hidden;background:#fff!important;box-shadow:0 4px 0 #a5cfc4!important}
+.quest-friend-face img{width:100%;height:100%;display:block;object-fit:cover;object-position:center;border-radius:inherit}
+.feedback-teaching{position:relative;padding-left:72px}
+.feedback-teaching:before{content:"";position:absolute;left:13px;top:15px;width:42px;height:42px;border:2px solid #fff;border-radius:15px;background:#fff url("assets/mascot/learning-buddy-face.webp") center/cover no-repeat;box-shadow:0 2px 0 rgba(31,80,75,.11)}
+body.dark .mascot-home-intro{background:linear-gradient(112deg,#254a4c,#253f5c);border-color:#427b75}
+body.dark .mascot-home-greeting span{color:#a9f2d7}
+body.dark .mascot-home-greeting strong{color:#f6f9fc}
+body.dark .mascot-home-greeting small{color:#d4e5e9}
+body.dark .mascot-brand-mark{border-color:#658b83}
+@media(max-width:760px){
+  .mascot-home-intro{min-height:210px}
+  .mascot-home-art{height:235px}
+  .mascot-home-greeting{padding:12px 10px 12px 2px}
+  .mascot-home-greeting strong{font-size:22px}
+  .mascot-showcase .simple-dna-example{padding:13px 11px;gap:7px}
+}
+@media(max-width:390px){
+  .mascot-home-intro{grid-template-columns:minmax(95px,40%) minmax(0,1fr);min-height:190px}
+  .mascot-home-art{height:216px}
+  .mascot-home-greeting small{font-size:12px}
+  .mascot-home-greeting strong{font-size:19px}
+  .mascot-showcase .example-words strong,.mascot-showcase .example-words span{font-size:clamp(13px,4vw,18px)}
+  .feedback-teaching{padding-left:59px}
+  .feedback-teaching:before{left:9px;width:33px;height:33px}
+}
+
+.mascot-journey-avatar{flex:0 0 56px;display:block;width:56px;height:56px;border-radius:18px;object-fit:cover;border:2px solid #fbfcff;box-shadow:0 3px 0 rgba(22,91,78,.13)}
+@media(max-width:390px){.mascot-journey-avatar{width:48px;height:48px;flex-basis:48px}}
+
+/* The mini mascot stays visible in the one-screen adventure without adding a new row. */
+.quest-answer-flash.success{padding-left:58px;min-height:59px;text-align:left}
+.quest-flash-mascot{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:35px;height:35px;border-radius:12px;object-fit:cover;border:2px solid rgba(255,255,255,.9)}
+@media(max-width:390px){.quest-answer-flash.success{padding-left:49px}.quest-flash-mascot{left:8px;width:31px;height:31px}}

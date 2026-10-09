@@ -26,7 +26,7 @@
       home.hidden=!show;
       if(show){
         const next=p.todayDone?'Discover one more useful connection, or stop for today.':'Your five-minute lesson is ready whenever you are.';
-        home.innerHTML='<div class="home-journey-copy"><span class="home-journey-star" aria-hidden="true">✦</span><div><strong>'+(p.todayDone?'Five small wins today!':p.todaySteps+' / 5 small wins')+'</strong><small>'+next+'</small></div></div>'+
+        home.innerHTML='<div class="home-journey-copy"><img class="mascot-journey-avatar" src="assets/mascot/learning-buddy-face.webp" alt="" width="56" height="56" loading="lazy" decoding="async"><div><strong>'+(p.todayDone?'Five small wins today!':p.todaySteps+' / 5 small wins')+'</strong><small>'+next+'</small></div></div>'+
           '<button type="button" class="secondary-btn" data-view="'+(p.todayDone?'library':'tutor')+'" '+(p.todayDone?'':'data-tutor-open="daily"')+'>'+(p.todayDone?'Explore patterns':'Continue Daily 5')+' →</button>';
       }
     }
