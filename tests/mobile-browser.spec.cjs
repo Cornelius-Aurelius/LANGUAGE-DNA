@@ -706,12 +706,15 @@ test('Wrong tick answers teach exactly what to tick and why',async ({page})=>{
 
 test('Beginners see everyday descriptions for vowels, accents and going to',async ({page})=>{
   await page.goto(base);
-  await page.locator('[data-open="accent-overrides"]').first().evaluate(button=>button.click());
+  await page.locator('.primary-nav [data-view="library"]').click();
+  await page.locator('#searchInput').fill('accent');
+  await page.locator('#patternGrid [data-open="accent-overrides"]').click();
   await expect(page.locator('#dialogTitle')).toContainText('little line');
   await expect(page.locator('.pattern-meaning')).toContainText('stress');
   await expect(page.locator('.worked-example')).toContainText('canción means song');
-  await page.locator('.dialog-close').first().click();
-  await page.locator('[data-open="ir-a"]').first().evaluate(button=>button.click());
+  await page.locator('#patternDialog .dialog-close').click();
+  await page.locator('#searchInput').fill('going to do');
+  await page.locator('#patternGrid [data-open="ir-a"]').click();
   await expect(page.locator('.pattern-meaning')).toContainText('Ir is the Spanish word for');
   await expect(page.locator('.worked-example')).toContainText('Voy a comer');
 });
