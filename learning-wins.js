@@ -19,6 +19,8 @@
   ];
   function render(){
     const p=progress(), home=document.getElementById('homeLearningJourney'), list=document.getElementById('journeyMilestones'), status=document.getElementById('journeyWinsStatus');
+    const start=document.getElementById('startBeginner');
+    if(start)start.textContent=p.todayDone?'Revisit today’s lesson →':p.started?'Continue your lesson →':p.days?'Start today’s lesson →':'Start your first lesson →';
     if(home){
       const show=p.started||p.days>0;
       home.hidden=!show;

@@ -79,8 +79,9 @@ test('Daily 5 renders a real first task without sign-up', async ({page}) => {
   await page.locator('#startBeginner').click();
   await expect(page.locator('#dailyTutorPanel')).toBeVisible();
   await expect(page.locator('#dailyTutorPanel .daily-focus-card')).toBeVisible();
-  await expect(page.locator('#dailyTutorPanel [data-daily-review-choice]').first()).toBeVisible();
-  const choice=page.locator('#dailyTutorPanel [data-daily-review-choice]').first();
+  await expect(page.locator('#dailyTutorPanel .daily-focus-card')).toContainText('UNDERSTAND');
+  await expect(page.locator('#dailyTutorPanel [data-daily-review-choice]')).toHaveCount(0);
+  const choice=page.locator('#dailyTutorPanel [data-daily-help]');
   await choice.click();
   await expect(page.locator('#dailyTutorPanel')).toBeVisible();
 });
@@ -729,4 +730,31 @@ test('Readable navigation and game choices at 320px in light and dark modes',asy
     expect(m.overflow,theme+' no page overflow').toBeLessThanOrEqual(2);
     if(theme==='light')await page.locator('#themeButton').click();
   }
+});
+
+test('v25 delayed review uses earlier material and records help honestly',async ({page})=>{
+  await page.goto(base);
+  await page.evaluate(()=>localStorage.setItem('ldna-daily5-v1',JSON.stringify({'2020-01-01':{focusRank:'1',done:['review','link','use','speak','real-life'],completedAt:Date.now()-2*86400000}})));
+  await page.reload();await page.locator('#startBeginner').click();
+  const panel=page.locator('#dailyTutorPanel');
+  await expect(panel.locator('[data-daily-review-choice]').first()).toBeVisible();
+  const target=await page.evaluate(()=>Object.values(JSON.parse(localStorage.getItem('ldna-daily5-v1'))).find(r=>r.startedAt).reviewTarget);
+  expect(target.day).toBe('2020-01-01');
+  await panel.locator('[data-daily-help]').click();
+  await expect(panel.locator('.daily-carry')).toContainText(target.answer);
+  const earlier=await page.evaluate(()=>JSON.parse(localStorage.getItem('ldna-daily5-v1'))['2020-01-01']);
+  expect(earlier.recallIndependent).toBe(false);expect(earlier.recallChecks).toBe(1);
+});
+
+test('v25 replay keeps stars and separates assisted completion from independent answers',async ({page})=>{
+  await page.goto(base);
+  await page.evaluate(()=>{localStorage.setItem('ldna-quest-v1',JSON.stringify({best:{words:5}}));localStorage.setItem('ldna-quest-pacing-v1','manual')});
+  await page.reload();await page.locator('.primary-nav [data-view="game"]').click();await page.locator('[data-quest-world="words"]').click();
+  await expect(page.locator('.quest-prompt')).toHaveText('education');
+  await page.locator('[data-quest-answer="invitación"]').click();
+  await expect(page.locator('.quest-answer-flash.retry')).toContainText('education → educación');
+  await page.reload();await page.locator('.primary-nav [data-view="game"]').click();
+  for(const answer of ['educación','invitación','posibilidad','comunicación','curiosidad']){await page.locator('[data-quest-answer="'+answer+'"]').click();await page.locator('[data-quest-next]').click()}
+  await expect(page.locator('.quest-evidence')).toContainText('4 / 5');
+  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('ldna-quest-v1')));expect(saved.best.words).toBe(5);
 });

@@ -238,3 +238,10 @@ This release prioritises reliability, clarity and mobile comfort over adding mor
 - **Cloud-ready profile:** window.LanguageDNAProfile exposes a versioned snapshot/restore contract. Secure sign-in and automatic cross-device sync still require an authenticated backend; no secrets or fake account system are embedded in GitHub Pages.
 
 Quality checks: `node tests/quality-check.js`
+
+
+## Guided learning v25
+
+Home recommends a first lesson and resumes it on return. Daily 5 introduces new material before testing, reuses its example in a final phrase task, explains mistakes, and offers delayed recognition checks. Adventure replays have 15 additional questions; completion stars and unassisted answers are recorded separately without removing earlier rewards.
+
+See [LEARNING_VALIDATION_V25.md](LEARNING_VALIDATION_V25.md) for the release scope, evidence limitations and pending real-learner study.
