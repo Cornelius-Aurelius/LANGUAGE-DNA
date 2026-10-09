@@ -142,6 +142,7 @@ if(!beginnerQuest.includes('orderedChoices(q,p)')||!beginnerQuest.includes('data
 if(!beginnerCSS.includes('v24 — Beginner-first clarity')||!beginnerCSS.includes('quest-pace-button'))fail('Beginner visual rules missing.');
 if(!index.includes('pattern-quest.js?v=7')||!sw.includes("'./pattern-quest.js?v=7'")||!sw.includes("'./styles.css?v=28'"))fail('v24 mobile and offline assets must be versioned.');
 
+require('./plain-language-check.js');
 require('./cloud-sync-check.js');
 
 console.log('LanguageDNA quality checks passed:',{everyday:core.length,dictionaries:ids.length,productionRows:rows});
