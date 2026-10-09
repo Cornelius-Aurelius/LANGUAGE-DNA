@@ -192,7 +192,7 @@
       '</div>'+
       (buildAvailable&&!p.answered?'<div class="quest-mode-switch"><button type="button" data-quest-build-mode aria-pressed="'+tilesMode+'">'+(tilesMode?'Choose an answer instead':'🧩 Build it with word tiles')+'</button></div>':'')+
       (tilesMode&&buildAvailable&&!p.answered?tileBuilder:choices)+
-      (p.answered?'<div class="quest-feedback quest-feedback-win" aria-hidden="'+(pace==='auto'?'true':'false')+'"><div class="quest-friend"><span class="quest-friend-face" aria-hidden="true">✦<span class="quest-friend-eyes">••</span></span><span class="quest-friend-speech">Nova says: Great discovery!</span></div><span class="quest-reward-icon" aria-hidden="true">🌟</span><strong>Star earned! Brilliant discovery.</strong><span class="quest-word-connection">'+esc(connection)+'</span><span>'+esc(q.why)+'</span></div>'+
+      (p.answered?'<div class="quest-feedback quest-feedback-win" aria-hidden="'+(pace==='auto'?'true':'false')+'"><div class="quest-friend"><span class="quest-friend-face" aria-hidden="true"><img src="assets/mascot/learning-buddy-face.webp" width="58" height="58" alt="" decoding="async"></span><span class="quest-friend-speech">Your buddy says: Great discovery!</span></div><span class="quest-reward-icon" aria-hidden="true">🌟</span><strong>Star earned! Brilliant discovery.</strong><span class="quest-word-connection">'+esc(connection)+'</span><span>'+esc(q.why)+'</span></div>'+
         '<div class="quest-bottom-actions"><button type="button" class="secondary-btn" data-quest-next>'+(p.index===4?'See my stars now →':'Next now →')+'</button></div>':
        '<div class="quest-hint-actions"><button type="button" class="secondary-btn" data-quest-clue>💡 Give me a clue</button>'+
          '<button type="button" class="quest-pattern-link" data-open="'+esc(q.pattern)+'">Learn this pattern ↗</button></div>'+
@@ -203,7 +203,7 @@
     const w=completed==='mystery'?mystery:world(completed);
     if(!w)return renderWorlds();
     const mysteryDone=w.id==='mystery';
-    return '<section class="quest-victory" role="status"><div class="quest-friend quest-friend-victory"><span class="quest-friend-face" aria-hidden="true">✦<span class="quest-friend-eyes">••</span></span><span class="quest-friend-speech">Nova says: Look how much you learned!</span></div><span class="quest-victory-icon" aria-hidden="true">'+(mysteryDone?'🗝️':'🏆')+'</span>'+
+    return '<section class="quest-victory" role="status"><div class="quest-friend quest-friend-victory"><span class="quest-friend-face" aria-hidden="true"><img src="assets/mascot/learning-buddy-face.webp" width="58" height="58" alt="" decoding="async"></span><span class="quest-friend-speech">Your buddy says: Look how much you learned!</span></div><span class="quest-victory-icon" aria-hidden="true">'+(mysteryDone?'🗝️':'🏆')+'</span>'+
       '<span class="quest-eyebrow">'+(mysteryDone?'MYSTERY SOLVED':'ADVENTURE COMPLETE')+'</span><h2>'+ (mysteryDone?'You cracked the mystery!':'Hooray! Five stars!')+'</h2>'+
       '<p>'+ (mysteryDone?'You remembered and mixed two Spanish patterns. That is real progress!':'You unlocked the secret of <strong>'+esc(w.label)+'</strong>. Every English–Spanish link makes the next one easier to spot.')+'</p>'+
       '<div class="quest-victory-stars" aria-label="Five stars earned">⭐⭐⭐⭐⭐</div>'+
