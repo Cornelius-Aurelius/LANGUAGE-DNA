@@ -681,6 +681,15 @@ test('Beginners enter Practice with simple multiple choice instead of typing',as
   await expect(page.locator('#writingAnswer')).toHaveCount(0);
 });
 
+test('Practice help teaches with another example instead of revealing this answer',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base+'?practice=tion-cion');
+  const answer=await page.locator('.choice-btn[data-choice="true"]').innerText();
+  await page.locator('#practiceHelpButton').click();
+  await expect(page.locator('#practiceHelpPanel')).toBeVisible();
+  await expect(page.locator('#practiceHelpPanel')).not.toContainText(answer);
+});
+
 test('Manual pacing is the beginner default and preserves the whole explanation',async ({page})=>{
   await page.setViewportSize({width:375,height:812});
   await page.goto(base);
@@ -758,7 +767,8 @@ test('v25 replay keeps stars and separates assisted completion from independent 
   await page.reload();await page.locator('.primary-nav [data-view="game"]').click();await page.locator('[data-quest-world="words"]').click();
   await expect(page.locator('.quest-prompt')).toHaveText('education');
   await page.locator('[data-quest-answer="invitación"]').click();
-  await expect(page.locator('.quest-answer-flash.retry')).toContainText('education → educación');
+  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Look for a Spanish word ending in -ción');
+  await expect(page.locator('.quest-answer-flash.retry')).not.toContainText('educación');
   await page.reload();await page.locator('.primary-nav [data-view="game"]').click();
   for(const answer of ['educación','invitación','posibilidad','comunicación','curiosidad']){await page.locator('[data-quest-answer="'+answer+'"]').click();await page.locator('[data-quest-next]').click()}
   await expect(page.locator('.quest-evidence')).toContainText('4 / 5');
