@@ -323,20 +323,23 @@ test('Word Garden teaches a real English-Spanish pattern and rewards completion'
   await expect(page.locator('.quest-prompt')).toHaveText('information');
   // Wrong answers teach a clue and do not remove a life or advance unfairly.
   await page.locator('[data-quest-answer="nación"]').click();
-  await expect(page.locator('.quest-feedback')).toContainText('Nice try');
+  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Not yet');
   await expect(page.locator('.quest-prompt')).toHaveText('information');
   await page.locator('[data-quest-answer="información"]').click();
   await expect(page.locator('.quest-answer-flash.success')).toContainText('information → información');
   await page.reload();
   await page.locator('.primary-nav [data-view="game"]').click();
-  await expect(page.locator('.quest-prompt')).toHaveText('nation',{timeout:5000});
+  await expect(page.locator('.quest-prompt')).toHaveText('information');
+  await page.locator('[data-quest-next]').click();
+  await expect(page.locator('.quest-prompt')).toHaveText('nation');
   const correct=['nación','actividad','celebración','universidad'];
   const nextPrompts=['activity','celebration','university'];
   for(let i=0;i<correct.length;i++){
     await page.locator('[data-quest-answer="'+correct[i]+'"]').click();
     await expect(page.locator('.quest-answer-flash.success')).toBeVisible();
-    if(i<nextPrompts.length)await expect(page.locator('.quest-prompt')).toHaveText(nextPrompts[i],{timeout:5000});
-    else await expect(page.locator('.quest-victory')).toBeVisible({timeout:5000});
+    await page.locator('[data-quest-next]').click();
+    if(i<nextPrompts.length)await expect(page.locator('.quest-prompt')).toHaveText(nextPrompts[i]);
+    else await expect(page.locator('.quest-victory')).toBeVisible();
   }
   await expect(page.locator('.quest-victory')).toBeVisible();
   await expect(page.locator('.quest-victory-stars')).toContainText('⭐⭐⭐⭐⭐');
@@ -358,7 +361,7 @@ test('Child-friendly game offers free hints, a back action and sound/sentence wo
   await expect(page.locator('.quest-question h3')).toContainText('sound');
   await expect(page.locator('[data-quest-listen]')).toBeVisible();
   await page.locator('[data-quest-clue]').click();
-  await expect(page.locator('.quest-feedback')).toContainText('H is silent');
+  await expect(page.locator('.quest-feedback')).toContainText('H is quiet');
   await page.locator('[data-quest-back]').click();
   await expect(page.locator('.quest-world')).toHaveCount(3);
   await expect(page.locator('[data-quest-world="sounds"]')).toContainText('Keep playing');
@@ -464,7 +467,7 @@ test('Sentence Space lets children build, undo and check Spanish with word tiles
   await page.locator('[data-quest-tile="0"]').click();
   await page.locator('[data-quest-tile="2"]').click(); // wrong order
   await page.locator('[data-quest-check-tiles]').click();
-  await expect(page.locator('.quest-feedback')).toContainText('Nice try');
+  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Not yet');
   await page.locator('[data-quest-tile="2"]').click();
   await page.locator('[data-quest-tile="0"]').click();
   await page.locator('[data-quest-check-tiles]').click();
@@ -503,8 +506,9 @@ test('Mystery Island unlocks after two mastered worlds and awards an honest repl
   for(let i=0;i<correct.length;i++){
     await page.locator('[data-quest-answer="'+correct[i]+'"]').click();
     await expect(page.locator('.quest-answer-flash.success')).toBeVisible();
-    if(i<following.length)await expect(page.locator('.quest-prompt')).toHaveText(following[i],{timeout:5000});
-    else await expect(page.locator('.quest-victory')).toBeVisible({timeout:5000});
+    await page.locator('[data-quest-next]').click();
+    if(i<following.length)await expect(page.locator('.quest-prompt')).toHaveText(following[i]);
+    else await expect(page.locator('.quest-victory')).toBeVisible();
   }
   await expect(page.locator('.quest-victory')).toContainText('cracked the mystery');
   await expect(page.locator('.quest-earned-badge')).toContainText('Mystery Explorer');
@@ -548,19 +552,22 @@ for(const size of [{width:320,height:720},{width:375,height:812},{width:430,heig
   });
 }
 
-test('Right answer auto-advances, wrong answer stays until retry',async ({page})=>{
+test('Automatic movement is optional; wrong answers still wait for a retry',async ({page})=>{
   await page.setViewportSize({width:375,height:812});
   await page.goto(base);
   await page.locator('.home-play-button').click();
   await page.locator('[data-quest-world="words"]').click();
+  await expect(page.locator('[data-quest-pacing]')).toHaveAttribute('aria-pressed','true');
+  await page.locator('[data-quest-pacing]').click();
+  await expect(page.locator('[data-quest-pacing]')).toHaveAttribute('aria-pressed','false');
   await page.locator('[data-quest-answer="nación"]').click();
-  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Not quite');
+  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Not yet');
   await expect(page.locator('.quest-prompt')).toHaveText('information');
   await page.waitForTimeout(1450);
   await expect(page.locator('.quest-prompt')).toHaveText('information');
   await page.locator('[data-quest-answer="información"]').click();
   await expect(page.locator('.quest-answer-flash.success')).toContainText('information → información');
-  await expect(page.locator('.quest-prompt')).toHaveText('nation',{timeout:4500});
+  await expect(page.locator('.quest-prompt')).toHaveText('nation',{timeout:12000});
   await expect(page.locator('.quest-answer-flash.success')).toHaveCount(0);
   const after=await page.evaluate(()=>({
     scroll:scrollY,
@@ -674,12 +681,21 @@ test('Beginners enter Practice with simple multiple choice instead of typing',as
   await expect(page.locator('#writingAnswer')).toHaveCount(0);
 });
 
-test('Manual pacing preserves full explanation and does not advance on its own',async ({page})=>{
+test('Practice help teaches with another example instead of revealing this answer',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base+'?practice=tion-cion');
+  await page.locator('[data-mode="choice"]').click();
+  const answer=await page.locator('.choice-btn[data-choice="true"]').innerText();
+  await page.locator('#practiceHelpButton').click();
+  await expect(page.locator('#practiceHelpPanel')).toBeVisible();
+  await expect(page.locator('#practiceHelpPanel')).not.toContainText(answer);
+});
+
+test('Manual pacing is the beginner default and preserves the whole explanation',async ({page})=>{
   await page.setViewportSize({width:375,height:812});
   await page.goto(base);
   await page.locator('.home-play-button').click();
   await page.locator('[data-quest-world="words"]').click();
-  await page.locator('[data-quest-pacing]').click();
   await expect(page.locator('[data-quest-pacing]')).toHaveAttribute('aria-pressed','true');
   await page.locator('[data-quest-answer="información"]').click();
   await expect(page.locator('.quest-feedback-win')).toBeVisible();
@@ -752,7 +768,8 @@ test('v25 replay keeps stars and separates assisted completion from independent 
   await page.reload();await page.locator('.primary-nav [data-view="game"]').click();await page.locator('[data-quest-world="words"]').click();
   await expect(page.locator('.quest-prompt')).toHaveText('education');
   await page.locator('[data-quest-answer="invitación"]').click();
-  await expect(page.locator('.quest-answer-flash.retry')).toContainText('education → educación');
+  await expect(page.locator('.quest-answer-flash.retry')).toContainText('Look for a Spanish word ending in -ción');
+  await expect(page.locator('.quest-answer-flash.retry')).not.toContainText('educación');
   await page.reload();await page.locator('.primary-nav [data-view="game"]').click();
   for(const answer of ['educación','invitación','posibilidad','comunicación','curiosidad']){await page.locator('[data-quest-answer="'+answer+'"]').click();await page.locator('[data-quest-next]').click()}
   await expect(page.locator('.quest-evidence')).toContainText('4 / 5');
