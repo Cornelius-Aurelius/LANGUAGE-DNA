@@ -2504,3 +2504,12 @@ body.dark .xabi-word-fact-note a{color:#a2dafb}
   .xabi-word-fact-number strong{font-size:34px}
   .xabi-word-fact-number small{font-size:11px}
 }
+
+
+/* Quiet creator credit: link back without distracting from the lesson. */
+.bluxabi-creator-credit{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:.32em;margin:0 22px;padding:15px 10px 23px;border-top:1px solid var(--border);font-size:12px;font-weight:500;line-height:1.6;text-align:center;color:var(--muted)}
+.bluxabi-creator-credit a{color:var(--green-dark);font-weight:750;text-decoration:none;text-underline-offset:3px}
+.bluxabi-creator-credit a:hover{text-decoration:underline}
+.bluxabi-creator-credit a:focus-visible{outline:3px solid #a15cfa;outline-offset:3px;border-radius:3px}
+body.dark .bluxabi-creator-credit a{color:#a9e9d4}
+@media(max-width:680px){.bluxabi-creator-credit{margin:0 14px;padding:15px 6px 23px;font-size:11px}}

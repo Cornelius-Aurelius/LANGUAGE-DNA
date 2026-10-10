@@ -3,6 +3,38 @@ const {test, expect} = require('@playwright/test');
 const base = 'http://127.0.0.1:4173/index.html';
 test.use({screenshot: 'only-on-failure', trace: 'retain-on-failure'});
 
+test('Subtle creator link appears below the learning content on mobile and desktop',async ({page})=>{
+  for(const width of [320,375,1280]){
+    await page.setViewportSize({width,height:820});
+    await page.goto(base);
+    const footer=page.locator('.bluxabi-creator-credit');
+    await expect(footer).toBeVisible();
+    await expect(footer).toContainText('Created by Cornelius Aurelius');
+    await expect(footer.locator('a')).toHaveAttribute('href','https://corneliusaurelius.com/');
+    const details=await footer.evaluate(el=>{
+      const main=document.querySelector('main');
+      const a=el.querySelector('a');
+      return {belowMain:!!(main.compareDocumentPosition(el)&Node.DOCUMENT_POSITION_FOLLOWING),size:parseFloat(getComputedStyle(el).fontSize),linkText:a.textContent.trim()};
+    });
+    expect(details.belowMain).toBe(true);
+    expect(details.size).toBeLessThanOrEqual(12);
+    expect(details.linkText).toBe('Cornelius Aurelius');
+    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
+    expect(overflow).toBeLessThanOrEqual(2);
+  }
+});
+
+test('Pattern dictionary also links back to the creator site',async ({page})=>{
+  await page.setViewportSize({width:375,height:812});
+  await page.goto(base.replace('index.html','pattern.html')+'?id=tion-cion');
+  const footer=page.locator('.bluxabi-creator-credit');
+  await expect(footer).toBeVisible();
+  await expect(footer.locator('a')).toHaveText('Cornelius Aurelius');
+  await expect(footer.locator('a')).toHaveAttribute('href','https://corneliusaurelius.com/');
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
+  expect(overflow).toBeLessThanOrEqual(2);
+});
+
 test('BluXabi branding appears throughout Home, dictionary and install metadata',async ({page})=>{
   await page.goto(base);
   await expect(page).toHaveTitle('BluXabi — Learn Spanish Through Patterns');

@@ -134,3 +134,11 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #ec93
  .letter-button,.page-button{min-width:42px}
  .pattern-heading{box-shadow:0 4px 0 #d8ebe4}
 }
+
+
+/* BluXabi creator credit, deliberately secondary to language learning. */
+.bluxabi-creator-credit{width:min(1040px,calc(100% - 28px));margin:0 auto;padding:16px 10px 26px;border-top:1px solid var(--border);display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:.32em;color:var(--muted);font-size:12px;line-height:1.6;text-align:center}
+.bluxabi-creator-credit a{color:var(--green);font-weight:750;text-decoration:none;text-underline-offset:3px}
+.bluxabi-creator-credit a:hover{text-decoration:underline}
+.bluxabi-creator-credit a:focus-visible{outline:3px solid #a15cfa;outline-offset:3px;border-radius:3px}
+@media(max-width:640px){.bluxabi-creator-credit{font-size:11px;padding-bottom:24px}}
